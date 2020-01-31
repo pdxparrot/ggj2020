@@ -1,7 +1,6 @@
-#pragma warning disable 0618    // disable obsolete warning for now
-
 using System;
 
+using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data;
 using pdxpartyparrot.Game.Level;
@@ -9,7 +8,6 @@ using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Networking;
 
 namespace pdxpartyparrot.Game
 {
@@ -154,10 +152,15 @@ namespace pdxpartyparrot.Game
 
         protected virtual void InitializeObjectPools()
         {
+            PooledObject pooledObject = GameData.FloatingTextPrefab.GetComponent<PooledObject>();
+            ObjectPoolManager.Instance.InitializePoolAsync(GameStateManager.Instance.GameUIManager.DefaultFloatingTextPoolName, pooledObject, GameData.FloatingTextPoolSize);
         }
 
         protected virtual void DestroyObjectPools()
         {
+            if(ObjectPoolManager.HasInstance) {
+                ObjectPoolManager.Instance.DestroyPool(GameStateManager.Instance.GameUIManager.DefaultFloatingTextPoolName);
+            }
         }
 
         public virtual void StartGameServer()

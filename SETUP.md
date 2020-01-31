@@ -225,6 +225,8 @@
 ## Engine Managers
 
 * Managers go in Data/Prefabs/Managers
+* LoadingManager
+  * Create an empty Prefab and add the LoadingManager component to it
 * ActorManager
   * Create an empty Prefab and add the ActorManager component to it
 * AudioManager
@@ -290,43 +292,40 @@
     * Set the UI layer to UI
 * ViewerManager
   * Create an empty Prefab and add the ViewerManager component to it
+* Connect all of the managers to the LoadingManager prefab
 
 ## GameManager
 
+* Create a new GameData script that overrides the Game GameData
 * Create a new GameManager script that overrides the Game GameManager
   * Implement the required interface
 * Add a connection to the project GameManager in the project LoadingManager
   * Override CreateManagers() in the loading manager to create the GameManager prefab
-* Create a new GameData script that overrides the Game GameData
 * Create an empty Prefab and add the GameManager component to it
 * Create a GameData in Data/Data and attach it to the manager
-  * Set the Viewer Layer to Viewer
-  * Set the World Layer to World
-  * Configure the Players section as desired
-
-## Player
-
-* Create a new NetworkPlayer script that overrides the Game NetworkPlayer
-  * Implement the required interface
-  * This component should require a NetworkAnimation component
-* Create a new Player script that overrides one of the Game Players
-  * Implement the required interface
-  * This component should require the NetworkPlayer component
+  * Configure as necessary
+* Attach the manager to the LoadingManager prefab
 
 ### PlayerBehavior
 
-* Create a new PlayerBehavior script that overrides one of the Game PlayerBehaviors
+* Create a new PlayerBehaviorData script that overrides one of the Game PlayerBehaviorData
+* Create a new PlayerBehavior script that overrides one of the Game PlayerBehavior
   * Implement the required interface
-* Create a new PlayerBehaviorData script that overrides one of the Game PlayerBehaviorDatas
 
 ### PlayerInput
 
-* Create a new PlayerInput script that overrides one of the Game PlayerInputs
-  * Implement the required interface
 * Create a new PlayerInputData script that overrides the Game PlayerInputData
+* Create a new PlayerInput script that overrides one of the Game PlayerInput
+  * Implement the required interface
+
+## Player
+
+* Create a new Player script that overrides one of the Game Players
+  * Implement the required interface
 
 ### PlayerControls
 
+* **TODO:** This is outdated now
 * Create Data/Input/PlayerControls.inputactions
   * Generate C# Class
     * File: Assets/Scripts/{project}/Input/PlayerControls.cs
@@ -342,28 +341,31 @@
 ### Player Prefab
 
 * Create an empty Prefab and add the Player component to it
-  * Layer: Player
   * This will require a collider to be added first
-  * Check the Local Player Authority box in the Network Identity
-  * Attach the empty animator controller to the Animator
-    * This will stop potential animator error spam
-  * Attach the Animator to the Network Animator
+  * Layer: Player
+  * Setup networking if using it
+    * Check the Local Player Authority box in the Network Identity
+    * Attach the empty animator controller to the Animator
+      * This will stop potential animator error spam
+    * Attach the Animator to the Network Animator
   * Attach the NetworkPlayer to the Network Player on the Player component
 * Add a new empty GameObject under the Player prefab (Model)
   * Attach this to the Model on the Player component
   * The actual model for the player should go under this container
 * Add a new empty GameObject under the Player prefab (Behavior) and add the PlayerBehavior component to it
-  * Attach the Player to the Owner on the PlayerBehavior component
-  * Attach the Player Behavior to the Behavior of the Player component
-  * Add one of the Player Movement components to the Behavior (or another empty GameObject under the player) and attach it to the Movement of the PlayerBehavior
-    * Attach the Player Behavior to the Player Movement component
+  * Attach the Player Behavior to the Actor Components of the Player component
+* Add a new empty GameObject under the Player prefab (Movement) and add one of the PlayerMovement components to it
+  * Attach the Player Movement to the Actor Components of the Player component
     * Attach the Rigidbody on the Player to the Movement Rigidbody
   * **TODO:** Animator on the Player Behavior ???
-* Add a new empty GameObject under the Player Prefab (Input) and add the PlayerInput component to it
+* Add a new empty GameObject under the Player Prefab (Input) and add the project PlayerInput component to it
+  * Attach the Player Input to the Player component
+  * Attach the DefaultInputActions asset to the Unity PlayerInput
+    * Default Map should be set to Player
+    * Change Behavior to Invoke Unity Events
+    * Hook up any events as necessary
   * Attach the Player to the Owner on the PlayerInput component
-  * Add an InputSystem PlayerInput and a PlayerInputHelper as well
-    * Hook up the required events
-* Create a PlayerInputData in Data/Data and attach it to the PlayerInput component
+  * Create a PlayerInputData in Data/Data and attach it to the PlayerInput component
 
 ### Player / Game Viewer
 

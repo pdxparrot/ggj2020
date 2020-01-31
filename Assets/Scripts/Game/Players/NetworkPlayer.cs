@@ -19,7 +19,7 @@ namespace pdxpartyparrot.Game.Players
 #if USE_NETWORKING
     [RequireComponent(typeof(NetworkAnimator))]
 #endif
-    public abstract class NetworkPlayer : NetworkActor
+    public class NetworkPlayer : NetworkActor
     {
         public IPlayer Player => (IPlayer)Actor;
 

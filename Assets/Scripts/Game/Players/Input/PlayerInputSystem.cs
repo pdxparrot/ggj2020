@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.Game.Players.Input
 {
-    public abstract class PlayerInputSystem<T> : PlayerInput where T: class, IInputActionCollection, new()
+    public abstract class PlayerInputSystem : PlayerInput
     {
         [SerializeField]
         [ReadOnly]
@@ -31,11 +31,17 @@ namespace pdxpartyparrot.Game.Players.Input
             set => _pollLook = value;
         }
 
+        [SerializeField]
         [CanBeNull]
-        protected abstract InputAction MoveAction { get; }
+        private InputAction _moveAction;
 
+        protected InputAction MoveAction => _moveAction;
+
+        [SerializeField]
         [CanBeNull]
-        protected abstract InputAction LookAction { get; }
+        private InputAction _lookAction;
+
+        protected InputAction LookAction => _lookAction;
 
         private PlayerInputHelper _inputHelper;
 
@@ -71,21 +77,21 @@ namespace pdxpartyparrot.Game.Players.Input
 
         protected virtual void DoPollMove()
         {
-            if(null == MoveAction) {
+            if(null == _moveAction) {
                 return;
             }
 
-            Vector2 axes = MoveAction.ReadValue<Vector2>();
+            Vector2 axes = _moveAction.ReadValue<Vector2>();
             OnMove(new Vector3(axes.x, axes.y, 0.0f));
         }
 
         protected virtual void DoPollLook()
         {
-            if(null == LookAction) {
+            if(null == _lookAction) {
                 return;
             }
 
-            Vector2 axes = LookAction.ReadValue<Vector2>();
+            Vector2 axes = _lookAction.ReadValue<Vector2>();
             OnLook(new Vector3(axes.x, axes.y, 0.0f));
         }
 

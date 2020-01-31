@@ -1,5 +1,7 @@
 ﻿using System;
 
+using pdxpartyparrot.Game.UI;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.Game.Data
@@ -31,5 +33,21 @@ namespace pdxpartyparrot.Game.Data
         private bool _gamepadsArePlayers;
 
         public bool GamepadsArePlayers => _gamepadsArePlayers;
+
+        [Space(10)]
+
+#region Floating Text
+        [Header("Floating text")]
+
+        [SerializeField]
+        private FloatingText _floatingTextPrefab;
+
+        public FloatingText FloatingTextPrefab => _floatingTextPrefab;
+
+        [SerializeField]
+        private int _floatingTextPoolSize = 10;
+
+        public int FloatingTextPoolSize => _floatingTextPoolSize;
+#endregion
     }
 }

@@ -58,7 +58,7 @@ namespace pdxpartyparrot.Game.Players.Input
         public Vector3 LastLook => _moveBuffer.Tail;
 #endregion
 
-        protected virtual bool InputEnabled => !PartyParrotManager.Instance.IsPaused && Player.IsLocalActor;
+        protected virtual bool InputEnabled => !PartyParrotManager.Instance.IsPaused && Player.IsLocalActor  && GameStateManager.Instance.GameManager.IsGameReady && !GameStateManager.Instance.GameManager.IsGameOver;
 
         protected bool EnableMouseLook { get; private set; } = !Application.isEditor;
 

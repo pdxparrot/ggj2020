@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.Game.Players.Input
 {
-    public abstract class ThirdPersonPlayerInput<T> : PlayerInputSystem<T> where T: class, IInputActionCollection, new()
+    public abstract class ThirdPersonPlayerInput : PlayerInputSystem
     {
         protected override void DoPollMove()
         {

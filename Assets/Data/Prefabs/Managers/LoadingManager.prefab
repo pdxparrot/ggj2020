@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8918269728173216639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4003189445841698889}
+  - component: {fileID: 872556072708481655}
+  m_Layer: 0
+  m_Name: LoadingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4003189445841698889
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8918269728173216639}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &872556072708481655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8918269728173216639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908428f3b772f6140868c76860dfa09d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainCamera: {fileID: 0}
+  _loadingScreen: {fileID: 0}
+  _engineManagerPrefab: {fileID: 7859537818103492732, guid: 33a420e2634803a4aa67337e4f375c6f,
+    type: 3}
+  _debugMenuManagerPrefab: {fileID: 2549473243540584331, guid: 6b33edd4dd213f44189c5bc809c169f8,
+    type: 3}
+  _timeManagerPrefab: {fileID: 5125437895610304798, guid: 212e8526a90863548826a3770747f8c8,
+    type: 3}
+  _saveGameManagerPrefab: {fileID: 6786668228367986805, guid: c472d5171368b6e45b595f201df3e5c2,
+    type: 3}
+  _uiManagerPrefab: {fileID: 9018767609534920187, guid: 4ae3d0a6d5c39874b8264837abbf8c3c,
+    type: 3}
+  _localizationManagerPrefab: {fileID: 5178783699147357846, guid: 385eb1d26973dd744b940f2a4b4354a5,
+    type: 3}
+  _audioManagerPrefab: {fileID: 5894412980083790711, guid: ed060beca0958694b88cb3abab1c5b4e,
+    type: 3}
+  _viewerManagerPrefab: {fileID: 3026707366518263171, guid: 658a830fb5e5dc142a6f20cc20ed58e4,
+    type: 3}
+  _inputManagerPrefab: {fileID: 3442728196010050848, guid: 24374ff451d1887489ba0e6f76fc5b9a,
+    type: 3}
+  _networkManagerPrefab: {fileID: 8399354088545248531, guid: 669d869560431cb4286357a8551e8b2e,
+    type: 3}
+  _sceneManagerPrefab: {fileID: -252411362228009431, guid: a9e5ea61b225a294387c4775cf02bfb7,
+    type: 3}
+  _objectPoolManagerPrefab: {fileID: 171555900457489567, guid: 86fffef812c9ee24cb461913262ef301,
+    type: 3}
+  _spawnManagerPrefab: {fileID: 8981755975710251870, guid: 0eedd90d58a767e40aba077608a4af87,
+    type: 3}
+  _actorManagerPrefab: {fileID: 5459707676608673274, guid: 47e4568b287c7994ca0a791521e3b4ca,
+    type: 3}
+  _effectsManagerPrefab: {fileID: 6994490057444370837, guid: ec0dc4e5e347f454d942c7e6da71b6cf,
+    type: 3}
+  _gameStateManagerPrefab: {fileID: 8408363489445905878, guid: 9b1497c0babefe749ba424e2ddead9a9,
+    type: 3}
+  _dialogManagerPrefab: {fileID: 3471837725652524993, guid: 27fced109ea45ca4daf4e79a9c85348e,
+    type: 3}
+  _cinematicsManagerPrefab: {fileID: 2723262738765994680, guid: 82592a8be15e30a47884d34a0b6672f8,
+    type: 3}
+  _gameManagerPrefab: {fileID: 2738081097701832698, guid: c33699285f5f11c42a931fd833757542,
+    type: 3}

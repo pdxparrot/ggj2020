@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.Game.Players.Input
 {
-    public abstract class SideScollerPlayerInput<T> : PlayerInputSystem<T> where T: class, IInputActionCollection, new()
+    public abstract class SideScollerPlayerInput : PlayerInputSystem
     {
         protected override void DoPollMove()
         {
