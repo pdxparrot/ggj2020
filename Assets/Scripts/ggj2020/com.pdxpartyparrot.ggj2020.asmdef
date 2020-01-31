@@ -1,0 +1,15 @@
+{
+    "name": "com.pdxpartyparrot.ggj2020",
+    "references": [
+        "GUID:fe0bb659fae0e264eaa51520aad0fd00",
+        "GUID:ab0c8fd20ec14fc46b4288ceed800e31"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
