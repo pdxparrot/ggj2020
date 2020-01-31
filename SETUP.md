@@ -148,12 +148,15 @@
 
 ## Set Script Execution Order
 
+* Unity EventSystem
 * TextMeshPro
 * InputSystem PlayerInput
 * pdxpartyparrot.{project}.Loading.LoadingManager
 * pdxpartyparrot.Core.Time.TimeManager
 * pdxpartyparrot.Game.State.GameStateManager
+* Cinemachine PixelPerfect
 * Default Time
+* Cinemachine Brain
 * pdxpartyparrot.Core.Debug.DebugMenuManager
   * This must be run last
 
