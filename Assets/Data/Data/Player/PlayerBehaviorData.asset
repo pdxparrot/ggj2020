@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actorLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
   _mass: 45
   _drag: 0
   _angularDrag: 0

@@ -411,7 +411,7 @@
 
 # Splash Scene Setup
 
-* Create and save a new scene (Scenes/splash.unity)
+* Create and save a new scene (Assets/Scenes/splash.unity)
   * The only object in the scene should be the Main Camera
 * Setup the camera in the scene
   * Set the Tag to Untagged
