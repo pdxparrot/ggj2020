@@ -1,0 +1,19 @@
+<UXML xmlns="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <VisualElement class="container-column">
+        <VisualElement>
+            <Label text="Editor Settings" class="label-header" />
+            <uie:EnumField label="Behavior Mode" name="enum-behavior-mode" />
+        </VisualElement>
+        <VisualElement class="container-column">
+            <Label text="Player Settings" class="label-header" />
+            <TextField label="Product Name" name="text-product-name" value="Product Name" />
+            <TextField label="Version" name="text-product-version" value="Version" />
+        </VisualElement>
+        <VisualElement class="container-column">
+            <Label text="Features" class="label-header" />
+            <Toggle label="Spine" name="toggle-feature-spine" />
+            <Toggle label="DOTween" name="toggle-feature-dotween" />
+            <Toggle label="Networking" name="toggle-feature-networking" />
+        </VisualElement>
+    </VisualElement>
+</UXML>

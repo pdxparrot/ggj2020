@@ -16,6 +16,7 @@
 * Add Keijiro Kino
   * TODO: This currently isn't possible until 2019.3 is out (the installation process has completely changed)
   * Add "jp.keijiro.kino.post-processing": "https://github.com/keijiro/kino.git#upm" to package manifest.json dependencies
+    * This has changed to a scoped registry? will have to investigate how to actually do this
 * Need to create InputSystem settings asset
 * Need to import TextMesh Pro Essentials
 * Use Mirror for networking
@@ -34,79 +35,77 @@
 
 # Pre-Setup
 
-* Copy Engine Assets/Scripts/Core/ contents
+* Copy Engine Assets/Scripts/Core/Editor/Window/, Assets/Scripts/Core/Editor/Project/, Assets/Scripts/Core/Editor/Util.cs, and Assets/Scripts/Core/Editor/ScriptingDefineSymbols.cs
+  * TODO: simplify this
   * Remove .meta files
 * Copy Engine Assets/Editor contents
   * Remove .meta files
+* Open and close the project once for the build process to setup
+  * TODO: this shouldn't be necessary...
 * Open the new Unity Project and the project should automatically initialize
   * Say No to enabling the new Input System backend (initializing will set this up instead)
+* Copy the rest of the Assets/Scripts/Core contents
+  * Remove .meta files
 * Create ASMDEFs
   * Assets/Scripts/Core/com.pdxpartyparrot.Core.asmdef
-    * References: Unity.InputSystem, com.unity.cinemachine, com.unity.multiplayer-hlapi.Runtime, Unity.Postprocessing.Runtime, Unity.TextMeshPro, Kino.Postprocessing
-      * Create and a reference to a spine-unity ASMDEF if necessary
-  * Assets/Scripts/Core/Editor/com.pdxpartyparrot.Core.Editor
+    * References: Unity.InputSystem, com.unity.cinemachine, Unity.Postprocessing.Runtime, Unity.TextMeshPro TODO: , Kino.Postprocessing (whenever we can bring that back)
+    * Reference com.unity.multiplayer-hlapi.Runtime if using networking
+  * Assets/Scripts/Core/Editor/com.pdxpartyparrot.Core.Editor.asmdef
     * Editor platform only
     * References: com.pdxpartyparrot.Core.asmdef, Unity.TextMeshPro
 * Clean up TODOs as necessary
 * Remove any FormerlySerializedAs attributes
-* Project might need to be reloaded once to initialize the first time
 
 # Project Setup
 
 * Graphics Settings
   * Set the Render Pipeline Asset if desired (https://github.com/Unity-Technologies/ScriptableRenderPipeline)
     * This will require creating the asset first, which itself may be configured as desired
-* Player Settings
-  * Set any desired Splash Images/Logos
-  * Color Space: Linear (or Gamma if targeting old mobile/console platforms)
-    * Fix up any Grahics API issues that this might cause (generally this means disabling Auto Graphics APIs on certain platforms)
-  * Enable Static and Dynamic Batching
-
-TODO: start here
-
+* Input System Package
+  * Create the Input System Settings asset if not already done
+    * Process events in Fixed Update
 * Tags and Layers
-  * Add a PostProcessing layer if it doesn't already exist
-  * Add a NoPhysics layer
-  * Add a Vfx layer
-  * Add a Viewer layer
-  * Add a Player layer
-  * Add an NPC layer
-  * Add a World layer
-  * Add a Weather layer
+  * Add the following layers if they don't exist:
+    * PostProcessing
+    * NoPhysics
+    * Vfx
+    * Viewer
+    * Player
+    * NPC
+    * World
+    * Weather
 * Physics Settings
   * Only enable the minimum necessary collisions
     * **TODO:** water?
     * Vfx -> Vfx
     * Viewer -> Weather, World
-    * Player -> Weather, World, NPC
-    * NPC -> Weather, World
+    * Player -> Weather, World, NPC (and Player if that's the desired behavior)
+    * NPC -> Weather, World (and NPC if that's the desired behavior)
     * World -> Weather
 * Physics 2D Settings
   * Only enable the minimum necessary collisions
     * **TODO:** water?
     * Vfx -> Vfx
     * Viewer -> Weather, World
-    * Player -> Weather, World, NPC
-    * NPC -> Weather, World
+    * Player -> Weather, World, NPC (and Player if that's the desired behavior)
+    * NPC -> Weather, World (and NPC if that's the desired behavior)
     * World -> Weather
+* Player Settings
+  * Set any desired Splash Images/Logos
+  * Color Space: Linear (or Gamma if targeting old mobile/console platforms)
+    * Fix up any Grahics API issues that this might cause (generally this means disabling Auto Graphics APIs on certain platforms)
+  * Enable Static and Dynamic Batching if they aren't already
+  * Verify that the Bundle Identifer is set correctly
 * TextMesh Pro
   * Import TMP Essentials if not already done
   * Optionally import TMP Examples & Extras if desired
-
-TODO: done here
-
-* Create Input System Settings
-  * Project Settings -> Input System Package -> Create settings asset
-* Import TextMesh Pro Essentials
-  * Project Settings -> TextMesh Pro -> Import TMP Essentials
 
 # Packages
 
 * Add release packages
   * Asset Bundle Browser
-  * Core RP Library
 * Add preview packages
-  * Android Logcat
+  * Android Logcat (optional)
   * HD/Lightweight Render Pipeline (optional - whichever best fits the project)
   * Burst/Entities (if using ECS)
 
@@ -115,10 +114,11 @@ TODO: done here
 * DOTween (not Pro)
   * Make sure to run the setup
   * Make sure to create ASMDEF
+  * Make sure to enable DOTween in the PDX Party Parrot Project Settings
 * If using Spine, download the latest Spine-Unity package (currently 3.8+) and import it
   * Assets/Spine* must be added to the .gitignore to prevent committing this
     * TODO: this should already be done in the common .gitignore
-  * The ASMDEF will need to be added to be force added to source control
+  * The ASMDEF will need to be force added to source control
     * If the ASMDEF does not exist, your version is too old!
 
 # Engine Source

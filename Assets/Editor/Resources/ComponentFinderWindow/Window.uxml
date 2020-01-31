@@ -1,0 +1,6 @@
+<UXML xmlns="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <VisualElement class="container-column">
+        <VisualElement name="container-component-type"></VisualElement>
+        <VisualElement name="container-selected-prefabs"></VisualElement>
+    </VisualElement>
+</UXML>

@@ -13,14 +13,14 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PostProcessing
+  - NoPhysics
+  - Vfx
+  - Viewer
+  - Player
+  - NPC
+  - World
+  - Weather
   - 
   - 
   - 
