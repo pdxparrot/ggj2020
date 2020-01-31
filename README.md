@@ -1,4 +1,4 @@
-# PDX Party Parrot Engine
+# PDX Party Parrot Global Game Jam 2020
 
 ## Scene Tester
 
