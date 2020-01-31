@@ -452,7 +452,7 @@
   * Leave the Audio Listener attached to the camera for audio to work
   * Add the UICameraAspectRatio component to the camera
 * Setup Lighting
-  * Remove the Skybox Material if there is one
+  * Remove the Skybox Material
   * Environment Lighting Source: Color
   * Disable Realtime Global Illumination
   * Disable Baked Global Illumination
