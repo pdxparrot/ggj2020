@@ -83,3 +83,5 @@ MonoBehaviour:
     type: 3}
   _gameManagerPrefab: {fileID: 2738081097701832698, guid: c33699285f5f11c42a931fd833757542,
     type: 3}
+  _playerManagerPrefab: {fileID: 4082448821984862703, guid: 2889f67ed32548a4a9873a83a18a42f5,
+    type: 3}

@@ -320,6 +320,7 @@
 
 ## Player
 
+* Create a new PlayerData script that overrides the Game PlayerData
 * Create a new Player script that overrides one of the Game Players
   * Implement the required interface
 
@@ -403,9 +404,10 @@
   * Create the PlayerManager prefab in the overloaded CreateManagers() in the project LoadingManager
 * Create an empty Prefab and add the PlayerManager component to it
 * Attach the Player prefab to the Player Prefab on the PlayerManager
+* Create a PlayerData in Data/Data and attach it to the PlayerManager component
 * Create a PlayerBehaviorData in Data/Data and attach it to the PlayerManager component
   * Set the Actor Layer to Player
-  * Set the Collision Check Layer Mask to Worl
+* Attach the manager to the LoadingManager prefab
 
 # Splash Scene Setup
 

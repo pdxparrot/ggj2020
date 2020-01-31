@@ -9,6 +9,7 @@ using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.Game.Data.Characters;
+using pdxpartyparrot.Game.Data.Players;
 using pdxpartyparrot.Game.State;
 
 using UnityEngine;
@@ -42,6 +43,11 @@ namespace pdxpartyparrot.Game.Players
 
         public bool DebugInput => _debugInput;
 #endregion
+
+        [SerializeField]
+        private PlayerData _playerData;
+
+        public PlayerData PlayerData => _playerData;
 
         // TODO: what if we have different types of players?
         [SerializeField]

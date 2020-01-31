@@ -2,12 +2,11 @@
 
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Camera;
-using pdxpartyparrot.Game.Camera;
 using pdxpartyparrot.Game.Data;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ssj2019.Camera
+namespace pdxpartyparrot.Game.Camera
 {
     [RequireComponent(typeof(CinemachineFramingTransposer))]
     [RequireComponent(typeof(CinemachinePOV))]

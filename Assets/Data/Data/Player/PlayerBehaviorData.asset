@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0500c79affe4e889c22e3b405789712, type: 3}
+  m_Name: PlayerBehaviorData
+  m_EditorClassIdentifier: 
+  _actorLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _mass: 45
+  _drag: 0
+  _angularDrag: 0
+  _isKinematic: 0
+  _animateModel: 0
+  _moveSpeed: 30
+  _runThreshold: 0.75
+  _fallSpeedAdjustment: 200
+  _terminalVelocity: 50
+  _allowAirControl: 1
+  _moveXAxisParam: InputX
+  _moveZAxisParam: InputZ
+  _fallingParam: Falling
+  _actionBufferSize: 1
+  _actionBufferTimeoutMs: 500
+  _alignMovementWithViewer: 0
