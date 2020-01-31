@@ -29,13 +29,13 @@ namespace pdxpartyparrot.Game.UI
     {
 #region UI / Menus
         [SerializeField]
-        private PlayerUI _playerUIPrefab;
+        private GameUI _gameUIPrefab;
 
         [CanBeNull]
-        private PlayerUI _playerUI;
+        private GameUI _gameUI;
 
         [CanBeNull]
-        public PlayerUI PlayerUI => _playerUI;
+        public GameUI GameUI => _gameUI;
 
         [SerializeField]
         private Menu.Menu _pauseMenuPrefab;
@@ -98,18 +98,18 @@ namespace pdxpartyparrot.Game.UI
         {
             Debug.Log("Initializing player UI...");
 
-            _playerUI = InstantiateUIPrefab(_playerUIPrefab);
-            if(null != _playerUI) {
-                _playerUI.Initialize(camera);
+            _gameUI = InstantiateUIPrefab(_gameUIPrefab);
+            if(null != _gameUI) {
+                _gameUI.Initialize(camera);
             }
         }
 
         public void Shutdown()
         {
-            if(null != _playerUI) {
-                Destroy(_playerUI.gameObject);
+            if(null != _gameUI) {
+                Destroy(_gameUI.gameObject);
             }
-            _playerUI = null;
+            _gameUI = null;
 
             if(null != _pauseMenu) {
                 Destroy(_pauseMenu.gameObject);
