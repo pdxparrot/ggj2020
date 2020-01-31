@@ -281,6 +281,7 @@
 * SpawnManager
   * Create an empty Prefab and add the SpawnManager component to it
   * Create a SpawnData in Data/Data and attach it to the manager
+    * Add a player spawn tag
 * TimeManager
   * Create an empty Prefab and add the TimeManager component to it
 * UIManager
@@ -464,15 +465,22 @@
 * Add a new LoadingScreen object to the scene with the LoadingScreen component
   * Layer: UI
   * Add a new Canvas object below the LoadingScreen and attach it to the LoadingScreen
+    * Render Mode: Screen Space - Overlay
     * UI Scale Mode: Scale With Screen Size
     * Reference Resolution: 1280x720
     * Match Width Or Height: 0.5
     * Remove the Graphic Raycaster
     * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
 * Add a Panel under the Canvas
+  * Clear the Source Image
+  * Color: (0, 0, 0, 255)
   * Disable Raycast Target
+* Add an Image (Title) under the Canvas
+  * Stretch the Rect Transform
   * Color: (255, 0, 255, 255)
-* Add a TextMeshPro - Text (Name) under the Panel
+  * Disable Raycast Target
+  * Eventually this can be replaced with the actual title screen
+* Add a Text - TextMeshPro (Name) under the Panel
   * Text: "Placeholder"
   * Center the text
   * Disable Raycast Target
@@ -495,7 +503,7 @@
   * Fill Origin: Left
   * Fill Amount: 0.25
 * Attach the images to the ProgressBar component
-* Add a TextMeshPro - Text (Status) under the Progress Bar
+* Add a Text - TextMeshPro (Status) under the Progress Bar
   * Pos Y: -75
   * Size: (750, 50)
   * Text: "Loading..."
@@ -505,10 +513,9 @@
 
 ## Loader Setup
 
-* Add an empty GameObject (Loader) and add the project LoadingManager component to it
+* Add the LoadingManager prefab to the scene
 * Attach the Main Camera
 * Attach the LoadingScreen to the Loader
-* Attach the Manager prefabs to the Loader
 
 # Main Menu Setup
 

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 719ae4318af8771408f8e7c1e306afa0, type: 3}
   m_Name: SpawnData
   m_EditorClassIdentifier: 
-  _playerSpawnPointTags: []
+  _playerSpawnPointTags:
+  - player
   _types: []
