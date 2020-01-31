@@ -133,7 +133,7 @@
   * Remove .meta files
 * Create ASMDEF
   * Scripts/Game/com.pdxpartyparrot.Game.asmdef
-    * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, Unity.TextMeshPro
+    * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, com.unity.cinemachine, Unity.TextMeshPro
     * Reference com.unity.multiplayer-hlapi.Runtime if using networking
   * Scripts/Game/Editor/com.pdxpartyparrot.Game.Editor
     * Editor platform only
@@ -369,31 +369,18 @@
 
 ### Player / Game Viewer
 
-
-
-
-* Cinemachine Viewer
-  * Add CinemachineBrain to Camera
-  * Create a new layer for each potential viewer
-  * **TODO:** Need to make sure we put each viewer on its own layer
-  * Set the Virtual Camera Body to Transposer
-  * Set the Virtual Camera Aim to Composer
-
-
-
-
-* **TODO:** OLD
-* Create a new Player/GameViewer script that overrides one of the Core/Game Viewers and implements the IPlayerViewer interface
-  * Implement the required interface
+* Create a new Player/GameViewer script that overrides one of the Core Game Viewers and implements the IPlayerViewer interface
 * Create an empty Prefab and add the project Viewer script to it
   * Layer: Viewer
+  * Configure any additional settings as required
   * Add a camera under the prefab (Camera)
     * Clear Flags: Solid Color (or Skybox for a skybox)
     * Background: Opaque Black (or Default for a skybox)
     * Remove the Audio Listener
+    * Add CinemachineBrain to Camera
     * Add a Post Process Layer component to the Camera object
       * Set the Layer to PostProcessing
-      * Uncheck Directly to Camera Target
+      * Make sure Directly to Camera Target is unchecked
   * Attach the Camera to the Viewer component
   * Add another camera under the prefab (UI Camera)
     * Clear Flags: Solid Color
@@ -403,7 +390,10 @@
   * Attach the UI Camera to the Viewer component
   * Add an empty GameObject under the prefab (PostProcessingVolume) and add a Post Process Volume to it
   * Attach the Post Process Volume to the Viewer component
-  * **Create the Post Process Layer (one per-viewer, Viewer{N}_PostProcess)**
+  * Create the Post Process Layer (one per-viewer, Viewer{N}_PostProcess)
+  * **TODO:** wtf is this stuff:
+    * Create a new layer for each potential viewer
+    * **TODO:** Need to make sure we put each viewer on its own layer
 
 ## PlayerManager
 

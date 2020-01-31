@@ -9,6 +9,8 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Core.Camera
 {
+    [RequireComponent(typeof(CinemachineVirtualCamera))]
+    [RequireComponent(typeof(CinemachineImpulseListener))]
     public class CinemachineViewer : Viewer
     {
         private enum Mode 
