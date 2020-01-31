@@ -126,9 +126,11 @@
 ## Game Scripts
 
 * Copy Game Scripts
+  * Remove .meta files
 * Create ASMDEF
   * Scripts/Game/com.pdxpartyparrot.Game.asmdef
-    * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, com.unity.multiplayer-hlapi.Runtime, Unity.TextMeshPro
+    * References: com.pdxpartyparrot.Core.asmdef, Unity.InputSystem, Unity.TextMeshPro
+    * Reference com.unity.multiplayer-hlapi.Runtime if using networking
   * Scripts/Game/Editor/com.pdxpartyparrot.Game.Editor
     * Editor platform only
     * References: com.pdxpartyparrot.Game.asmdef

@@ -12,7 +12,6 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Core.Actors.Components
 {
-    // TODO: rename ActorBehaviorComponent
     public abstract class ActorBehaviorComponent : ActorComponent
     {
         [SerializeField]
