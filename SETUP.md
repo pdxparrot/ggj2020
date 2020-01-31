@@ -21,6 +21,10 @@
 * Need to import TextMesh Pro Essentials
 * Use Mirror for networking
 * Add features for ENABLE_VR and ENABLE_GVR and ENABLE_SERVER_SPECTATOR and USE_NAVMESH
+* Create Data/Animation/empty.controller Animation Controller in project setup
+* Create Data/Audio/main.mixer Mixer in project setup
+* Add button-click.mp3 and button-hover.mp3 to the common GitHub and download them to Data/Audio/UI
+* Create the EventSystem prefab at project setup ?
 
 # Project Creation
 
@@ -181,6 +185,16 @@
   * Create a new Snapshot and name it to Paused
     * Set the Lowpass filter to 350Hz
 * Copy button-click.mp3 and button-hover.mp3 to Data/Audio/UI
+* Data/Prefabs/Input/EventSystem.prefab
+  * Create using default EventSystem that gets added automatically when adding a UI object
+  * Replace Standalone Input Module with InputSystemUIInputModule
+  * Add EventSystemHelper script to this
+  * Copy the DefaultInputActions asset to Assets/Data/Input (can rename if desired)
+    * Replace the EventSystem InputActions with this copy
+
+## Server Spectator
+
+* TODO: This is all wrong now
 * Create Data/Input/ServerSpectator.inputactions
   * Generate C# Class
     * File: Assets/Scripts/Game/Input/ServerSpectatorControls.cs
@@ -207,11 +221,6 @@
   * Add ENABLE_SERVER_SPECTATOR to the Scripting Define Symbols
 * **TODO:** ServerSpectator prefab and viewer
   * These would attach to the GameStateManager
-* Data/Prefabs/Input/EventSystem.prefab
-  * Create using default EventSystem that gets added automatically when adding a UI object
-  * Replace Standalone Input Module with InputSystemUIInputModule
-  * Add EventSystemHelper script to this
-  * If desired, copy and replace the DefaultInputActions asset for modification
 
 ## Manager Prefabs Setup
 
