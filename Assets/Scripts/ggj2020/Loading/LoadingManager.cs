@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ggj2019.Loading
+namespace pdxpartyparrot.ggj2020.Loading
 {
     public sealed class LoadingManager : LoadingManager<LoadingManager>
     {

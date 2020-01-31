@@ -30,6 +30,8 @@ namespace pdxpartyparrot.Game
 
         bool IsGameOver { get; }
 
+        bool TransitionToHighScores { get; }
+
         void Initialize();
 
         void Shutdown();
@@ -89,6 +91,16 @@ namespace pdxpartyparrot.Game
             private set => _isGameOver = value;
         }
 
+        [SerializeField]
+        [ReadOnly]
+        private bool _transitionToHighScores;
+
+        public bool TransitionToHighScores
+        {
+            get => _transitionToHighScores;
+            set => _transitionToHighScores = value;
+        }
+
 #region Unity Lifecycle
         protected virtual void Awake()
         {
@@ -109,6 +121,7 @@ namespace pdxpartyparrot.Game
         {
             IsGameOver = false;
             IsGameReady = false;
+            TransitionToHighScores = false;
 
             InitializeObjectPools();
         }

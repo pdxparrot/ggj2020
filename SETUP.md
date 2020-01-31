@@ -14,7 +14,7 @@
   * HD/Lightweight Render Pipeline (optional - whichever best fits the project)
   * Burst/Entities/DOTs stuff (if using ECS)
 * Add Keijiro Kino
-  * TODO: This currently isn't possible until 2019.3 is out (the installation process has completely changed)
+  * **TODO:** This currently isn't possible until 2019.3 is out (the installation process has completely changed)
   * Add "jp.keijiro.kino.post-processing": "https://github.com/keijiro/kino.git#upm" to package manifest.json dependencies
     * This has changed to a scoped registry? will have to investigate how to actually do this
 * Need to create InputSystem settings asset
@@ -40,19 +40,19 @@
 # Pre-Setup
 
 * Copy Engine Assets/Scripts/Core/Editor/Window/, Assets/Scripts/Core/Editor/Project/, Assets/Scripts/Core/Editor/Util.cs, and Assets/Scripts/Core/Editor/ScriptingDefineSymbols.cs
-  * TODO: simplify this
+  * **TODO:** simplify this
   * Remove .meta files
 * Copy Engine Assets/Editor contents
   * Remove .meta files
 * Open and close the project once for the build process to setup
-  * TODO: this shouldn't be necessary...
+  * **TODO:** this shouldn't be necessary...
 * Open the new Unity Project and the project should automatically initialize
   * Say No to enabling the new Input System backend (initializing will set this up instead)
 * Copy the rest of the Assets/Scripts/Core contents
   * Remove .meta files
 * Create ASMDEFs
   * Assets/Scripts/Core/com.pdxpartyparrot.Core.asmdef
-    * References: Unity.InputSystem, com.unity.cinemachine, Unity.Postprocessing.Runtime, Unity.TextMeshPro TODO: , Kino.Postprocessing (whenever we can bring that back)
+    * References: Unity.InputSystem, com.unity.cinemachine, Unity.Postprocessing.Runtime, Unity.TextMeshPro **TODO:** Kino.Postprocessing (whenever we can bring that back)
     * Reference com.unity.multiplayer-hlapi.Runtime if using networking
   * Assets/Scripts/Core/Editor/com.pdxpartyparrot.Core.Editor.asmdef
     * Editor platform only
@@ -121,7 +121,7 @@
   * Make sure to enable DOTween in the PDX Party Parrot Project Settings
 * If using Spine, download the latest Spine-Unity package (currently 3.8+) and import it
   * Assets/Spine* must be added to the .gitignore to prevent committing this
-    * TODO: this should already be done in the common .gitignore
+    * **TODO:** this should already be done in the common .gitignore
   * The ASMDEF will need to be force added to source control
     * If the ASMDEF does not exist, your version is too old!
 
@@ -194,7 +194,7 @@
 
 ## Server Spectator
 
-* TODO: This is all wrong now
+* **TODO:** This is all wrong now
 * Create Data/Input/ServerSpectator.inputactions
   * Generate C# Class
     * File: Assets/Scripts/Game/Input/ServerSpectatorControls.cs
@@ -222,7 +222,7 @@
 * **TODO:** ServerSpectator prefab and viewer
   * These would attach to the GameStateManager
 
-## Manager Prefabs Setup
+## Engine Managers
 
 * Managers go in Data/Prefabs/Managers
 * ActorManager
@@ -232,30 +232,33 @@
   * Create an AudioData in Data/Data and attach it to the manager
     * Attach the main mixer to the data
     * Ensure all of the Parameters look correct
-  * Add 4 Audio Sources to the prefab
+  * Add 5 Audio Sources to the manager prefab
+    * Ensure Spatial Blend is set to 0 (2D)
     * Disable Play on Awake
   * Attach each audio source to an audio source on the AudioManager component
+* CinematicsManager
+  * Create an empty Prefab and add the CinematicsManager component to it
+  * Create a CinematicsData in Data/Data and attach it to the manager
 * DebugMenuManager
   * Create an empty Prefab and add the DebugMenuManager component to it
+* DialogueManager
+  * Create an empty Prefab and add the DialogueManager component to it
+  * Create a DialogueData in Data/Data and attach it to the manager
 * EffectsManager
   * Create an empty Prefab and add the EffectsManager component to it
 * EngineManager
   * Create an empty Prefab and add the PartyParrotManager component to it
-  * Create a UIData in Data/Data and attach it to the manager
-    * Attach a TMP_Font Asset to the Default font
-      * LiberationSans SDF is currently the default TMP font
+  * Create an EngineData in Data/Data and attach it to the manager
   * Attach the frictionless physics materials
-  * Set the UI layer to UI
 * GameStateManager
   * Create an empty Prefab and add the GameStateManager component to it
   * Create an empty Prefab in Data/Prefabs/State and add the MainMenuState component to it
-    * Set the Scene Name to main_menu
+    * Set the Initial Scene Name to main_menu
     * Set the MainMenuState as the Main Menu State Prefab in the GameStateManager
   * Create an empty Prefab in Data/Prefabs/State and add the NetworkConnectState component to it
     * Set the NetworkConnectState as the Network Connect State Prefab in the GameStateManager
   * Create an empty Prefab in Data/Prefabs/State and add the SceneTester component to it
-    * **TODO:** This actually needs to be overriden so it can do stuff like allocate viewers
-    * Check Make Scene Active
+    * **TODO:** This actually needs to be overriden so it can do stuff like allocate viewers (or is there a way we can make it so this isn't true?)
     * Set the SceneTester as the Scene Tester Prefab in the GameStateManager
 * InputManager
   * Create an empty Prefab and add the InputManager component to it
@@ -270,7 +273,7 @@
   * Create an empty Prefab and add the ObjectPoolManager component to it
 * SaveGameManager
   * Create an empty Prefab and add the SaveGameManager component to it
-  * Set the Save File Name
+  * Set the Save File Name to {project}
 * SceneManager
   * Create an empty Prefab and add the SceneManager component to it
 * SpawnManager
@@ -280,6 +283,11 @@
   * Create an empty Prefab and add the TimeManager component to it
 * UIManager
   * Create an empty Prefab and add the UIManager component to it
+  * Create a UIData in Data/Data and attach it to the manager
+    * Attach a TMP_Font Asset to the Default font
+      * LiberationSans SDF is currently the default TMP font
+    * **TODO:** create and attach default button effect triggers
+    * Set the UI layer to UI
 * ViewerManager
   * Create an empty Prefab and add the ViewerManager component to it
 

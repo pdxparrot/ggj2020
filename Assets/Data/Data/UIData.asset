@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94531f62e82e7d14394fa59140465167, type: 3}
+  m_Name: UIData
+  m_EditorClassIdentifier: 
+  _uiLayer:
+    serializedVersion: 2
+    m_Bits: 32
+  _defaultFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  _defaultButtonClickEffectPrefab: {fileID: 4455200316131754114, guid: 620dfd235f44acb429f09735ac7c325c,
+    type: 3}
+  _defaultButtonHoverEffectPrefab: {fileID: 4455200316131754114, guid: ce96723c387acb54da8790ff9bd02f00,
+    type: 3}

@@ -2,19 +2,23 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Input;
+using pdxpartyparrot.Game.Menu;
 using pdxpartyparrot.Game.UI;
 
 using UnityEngine;
 
 namespace pdxpartyparrot.Game.State
 {
-    public abstract class MainMenuState : GameState
+    public class MainMenuState : GameState
     {
         [SerializeField]
         private Menu.Menu _menuPrefab;
 
         [CanBeNull]
         protected Menu.Menu Menu { get; private set; }
+
+        [CanBeNull]
+        protected MainMenu MainMenu => (MainMenu)Menu.MainPanel;
 
         [SerializeField]
         private TitleScreen _titleScreenPrefab;
@@ -32,6 +36,11 @@ namespace pdxpartyparrot.Game.State
             Menu.Initialize();
 
             TitleScreen = GameStateManager.Instance.GameUIManager.InstantiateUIPrefab(_titleScreenPrefab);
+
+            if(GameStateManager.Instance.GameManager.TransitionToHighScores && null != MainMenu) {
+                TitleScreen.FinishLoading();
+                MainMenu.ShowHighScores();
+            }
         }
 
         protected override void DoExit()

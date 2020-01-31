@@ -20,6 +20,8 @@ namespace pdxpartyparrot.Core
         [SerializeField]
         private EngineData _data;
 
+// TODO: a lot of this junk should move to the data object
+
         [Space(10)]
 
 #region VR Config

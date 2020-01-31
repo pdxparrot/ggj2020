@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0603b9deb19e7d47ac2456a8a7133ec, type: 3}
+  m_Name: AudioData
+  m_EditorClassIdentifier: 
+  _mixer: {fileID: 24100000, guid: 33f0ec8a222bc5a43b33bab0a7756600, type: 2}
+  _musicMixerGroupName: Music
+  _sfxMixerGroupName: SFX
+  _ambientMixerGroupName: Ambient
+  _masterVolumeParameter: MasterVolume
+  _musicVolumeParameter: MusicVolume
+  _sfxVolumeParameter: SFXVolume
+  _ambientVolumeParameter: AmbientVolume
+  _unpausedSnapshotName: Unpaused
+  _pausedSnapshotName: Paused
+  _snapshots: []
+  _updateCrossfadeUpdateMs: 50
+  _updateMusicTransitionMs: 100
