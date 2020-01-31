@@ -424,11 +424,12 @@
   * Disable MSAA
   * Leave the Audio Listener attached to the camera for audio to work
   * Add the UICameraAspectRatio component to the camera
-* Remove the Skybox Material
-* Environment Lighting Source: Color
-* Disable Realtime Global Illumination
-* Disable Baked Global Illumination
-* Disable Auto Generate lighting
+* Setup Lighting
+  * Remove the Skybox Material
+  * Environment Lighting Source: Color
+  * Disable Realtime Global Illumination
+  * Disable Baked Global Illumination
+  * Disable Auto Generate lighting
 * Add the scene to the Build Settings and ensure that it is Scene 0
 * Add a new GameObject to the scene (SplashScreen) and add the SplashScreen component to it
 * Attach the camera to the Camera field of the SplashScreen component
@@ -441,7 +442,6 @@
 * Create and save a new scene (Scenes/main.unity)
   * The only object in the scene should be the Main Camera
 * Setup the camera in the scene
-  * Set the Tag to Untagged
   * Clear Flags: Solid Color
   * Background: Opaque Black
   * Culling Mask: Nothing
@@ -451,12 +451,13 @@
   * Disable MSAA
   * Leave the Audio Listener attached to the camera for audio to work
   * Add the UICameraAspectRatio component to the camera
-* Remove the Skybox Material
-* Environment Lighting Source: Color
-* Disable Realtime Global Illumination
-* Disable Baked Global Illumination
-* Disable Auto Generate lighting
-* Add the scene to the Build Settings
+* Setup Lighting
+  * Remove the Skybox Material if there is one
+  * Environment Lighting Source: Color
+  * Disable Realtime Global Illumination
+  * Disable Baked Global Illumination
+  * Disable Auto Generate lighting
+  * Add the scene to the Build Settings
 
 ## Loading Screen Setup
 
