@@ -443,6 +443,7 @@
 * Create and save a new scene (Scenes/main.unity)
   * The only object in the scene should be the Main Camera
 * Setup the camera in the scene
+  * Set the Tag to Untagged
   * Clear Flags: Solid Color
   * Background: Opaque Black
   * Culling Mask: Nothing
@@ -458,18 +459,19 @@
   * Disable Realtime Global Illumination
   * Disable Baked Global Illumination
   * Disable Auto Generate lighting
-  * Add the scene to the Build Settings
+* Add the scene to the Build Settings
 
 ## Loading Screen Setup
 
 * Add a new LoadingScreen object to the scene with the LoadingScreen component
   * Layer: UI
-  * Add a new Canvas object below the LoadingScreen and attach it to the LoadingScreen
+  * Add a new Canvas object below the LoadingScreen
     * Render Mode: Screen Space - Overlay
     * UI Scale Mode: Scale With Screen Size
     * Reference Resolution: 1280x720
     * Match Width Or Height: 0.5
     * Remove the Graphic Raycaster
+    * Set the Canvas on the LoadingScreen object
     * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
 * Add a Panel under the Canvas
   * Clear the Source Image
@@ -525,47 +527,122 @@
 * Create a MainMenu Prefab in Prefabs/Menus and add the Game Menu component to it
   * Layer: UI
   * Add a Canvas under the prefab
+    * Render Mode: Screen Space - Overlay
     * UI Scale Mode: Scale With Screen Size
     * Reference Resolution: 1280x720
     * Match Width Or Height: 0.5
     * Set the Canvas on the Menu object
+    * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
   * Add a Panel under the Canvas (Main)
-    * Remove the Image
-    * Add a Vertical Layout Group
-      * Spacing: 10
-      * Alignment: Middle Center
-      * Child Controls Width / Height
-      * No Child Force Expand
+    * Remove the Image component
     * Add the MainMenu script to the panel
       * Set Owner to the Menu object
       * Set the Main Panel on the Menu object to the Main panel
-  * Add a Button (TextMeshPro) under the Main panel (Start)
-    * Normal Color: (255, 0, 255, 255)
-    * Highlight Color: (0, 255, 0, 255)
-    * Add an On Click handler that calls the MainMenu OnStart method
-    * Add a Button Helper to the button
-    * Add a Layout Element to the Button
-      * Preferred Width: 200
-      * Preferred Height: 50
-      * Text: "Start"
-      * Center the text
-      * Disable Raycast Target
+    * Add an empty GameObject under the Panel (Container)
+      * Add a Vertical Layout Group
+        * Spacing: 10
+        * Alignment: Middle Center
+        * Child Controls Width / Height
+        * No Child Force Expand
+      * Add a UIObject component to the container
+        * Id: main_menu_buttons
+      * Add a Button - TextMeshPro (Start) under the container
+        * Normal Color: (255, 0, 255, 255)
+        * Highlight Color: (0, 255, 0, 255)
+        * Add an On Click handler that calls the MainMenu OnStart method
+        * Add a Button Helper to the button
+        * Add a Layout Element to the Button
+          * Preferred Width: 200
+          * Preferred Height: 50
+        * Text: "Start"
+          * Center the text
+          * Disable Raycast Target
     * Set the Main Menu Initial Selection to the Start Button
-  * **TODO:** Multiplayer
-  * **TODO:** Character Select
-  * Duplicate the Start Button (High Scores)
+  * **TODO:** Multiplayer if networking
+  * Duplicate the Start Button (High Scores) if desired
     * Set the On Click handler to the MainMenu OnHighScores method
     * Set the Text to "High Scores"
-    * **TODO:** Setup the High Scores panel
+    * Add a Panel (High Scores) under the Canvas
+      * Remove the Image component
+      * Add the High Scores Menu component to the panel
+        * Set Owner to the Menu object
+        * Set the High Scores Panel on the Menu object to the Main panel
+        * Add an empty GameObject under the Panel (Container)
+          * Add a Vertical Layout Group
+            * Spacing: 0
+            * Alignment: Upper Center
+            * Child Controls Width / Height
+            * No Child Force Expand
+      * **TODO**: finish this
   * Duplicate the Start Button (Credits)
     * Set the On Click handler to the MainMenu OnCredits method
     * Set the Text to "Credits"
-    * **TODO:** Setup the Credis panel
+    * Add a Panel (Credits) under the Canvas
+      * Remove the Image component
+      * Add the Credits Menu component to the panel
+        * Set Owner to the Menu object
+        * Set the Credits Panel on the Menu object to the Main panel
+        * Add an empty GameObject under the Panel (Container)
+          * Add a Vertical Layout Group
+            * Spacing: 0
+            * Alignment: Upper Center
+            * Child Controls Width / Height
+            * No Child Force Expand
+          * Add a Text - Text Mesh Pro under the container
+            * Text: "Credits"
+              * Center the text
+              * Disable Raycast Target
+          * Add a Scroll View under the container
+            * Remove the Image
+            * Uncheck Horizontal
+            * Movement Type: Clamped
+            * Remove the Scroll Bars
+          * Add a LayoutElement to the Scroll View
+            * Flexible Width: 1
+            * Flexible Height: 1
+          * Add a Scroll Rect Auto Scroll to the Scroll View
+          * Add a Text - TextMeshPro under the Scroll View Content
+            * Top Center the text
+            * Disable Raycast Target
+            * Attach the text to the Credis Menu component
+          * Duplicate the Start Button (Back)
+            * Set the On Click handler to the CredisMenu OnBack method
+            * Set the Text to "Back"
+            * Set the Back button as the Initial Selection of the Credits Menu
+            *  Create a CreditsData in Data/Data and attach it to the Credits Menu
   * Duplicate the Start Button (Quit)
     * Set the On Click handler to the MainMenu OnQuitGame method
     * Set the Text to "Quit"
   * Attach the Start button to the Initial Selection on the Main Menu
   * Attach the MainMenu prefab to the MainMenuState Menu Prefab
+
+ ## Title Screen
+
+* Create a TitleScreen prefab in Prefabs/UI and add the TitleScreen Component to it
+  * Layer: UI
+  * Add a new Canvas object below the TitleScreen
+    * Render Mode: Screen Space - Overlay
+    * UI Scale Mode: Scale With Screen Size
+    * Reference Resolution: 1280x720
+    * Match Width Or Height: 0.5
+    * Remove the Graphic Raycaster
+    * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
+  * Add a Panel under the Canvas
+    * Disable Raycast Target
+    * Color: (255, 0, 0, 255)
+  * Add a TextMeshPro - Text (Title)
+    * Pos Y: 256
+    * Text: "Placeholder"
+    * Center the text
+    * Disable Raycast Target
+    * Attach the Title to the TitleScreen Component
+  * Optionally add a TextMeshPro - Text (SubTitle)
+    * Pos Y: 128
+    * Text: "Placeholder"
+    * Center the text
+    * Disable Raycast Target
+    * Attach the SubTitle to the TitleScreen Component
+* Attach the TitleScreen prefab to the MainMenuState prefab
 
 ## Main Menu Scene Setup
 
@@ -581,27 +658,15 @@
   * Disable HDR
   * Disable MSAA
   * Remove the Audio Listener
-* Remove the Skybox Material
-* Environment Lighting Source: Color
-* **TODO:** Setup Lighting
+  * Add the UICameraAspectRatio component to the camera
+* Setup Lighting
+  * Remove the Skybox Material
+  * Environment Lighting Source: Color
+  * Disable Realtime Global Illumination
+  * Disable Baked Global Illumination
+  * Disable Auto Generate lighting
 * Add the scene to the Build Settings
-* Add a new TitleScreen object to the scene
-  * Layer: UI
-  * Add a new Canvas object below the TitleScreen
-    * UI Scale Mode: Scale With Screen Size
-    * Reference Resolution: 1280x720
-    * Match Width Or Height: 0.5
-    * Remove the Graphic Raycaster
-    * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
-  * Add a Panel under the Canvas
-    * Disable Raycast Target
-    * Color: (255, 0, 0, 255)
-  * Add a TextMeshPro - Text (Status)
-    * Pos Y: 256
-    * Text: "Placeholder"
-    * Center the text
-    * Disable Raycast Target
-  * The scene should now load when the main scene is run as long as the name of the scene matches what was set in the MainMenuState prefab
+* The scene should now load when the main scene is run as long as the name of the scene matches what was set in the MainMenuState prefab
 
 # Game States
 
@@ -620,12 +685,7 @@
 * **TODO:** More GameStates
 * **TODO:** Player UI
 * **TODO:** Pause / Pause Menu
-* **TODO:** Create the PlayerManager script/prefab
-  * This must be a prefab due to the abstract base class
-* **TODO:** Create the Player script/prefab
-* **TODO:** How to controls
 * **TODO:** Creating Data
-* **TODO:** Credits
 
 # Game Scene Notes
 
