@@ -43,8 +43,6 @@ namespace pdxpartyparrot.Game.Players.Input
 
         protected InputAction LookAction => _lookAction;
 
-        private PlayerInputHelper _inputHelper;
-
 #region Unity Lifecycle
         protected override void Update()
         {
