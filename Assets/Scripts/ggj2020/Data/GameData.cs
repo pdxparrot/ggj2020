@@ -1,8 +1,8 @@
 ﻿using System;
 
+using pdxpartyparrot.ggj2020.Actors;
 using pdxpartyparrot.ggj2020.Camera;
-using pdxpartyparrot.ggj2020.Data.NPCs;
-using pdxpartyparrot.ggj2020.NPCs;
+using pdxpartyparrot.ggj2020.Data.Actors;
 using pdxpartyparrot.ggj2020.State;
 
 using UnityEngine;

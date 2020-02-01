@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3148615342094747881}
   - component: {fileID: 66832366764214611}
   - component: {fileID: 4788878110304660387}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Right Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 5484873690973487389}
   - component: {fileID: 2701986255840837380}
   - component: {fileID: 3079978568795332819}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 23155145297198345}
   - component: {fileID: 5473908097856630613}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ExitBayEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595235354339922509}
   - component: {fileID: 1621312617529529064}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Right Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5038788137277300353}
   - component: {fileID: 5256200678216653756}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Right Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1007790043787347429}
   - component: {fileID: 7058271576401251284}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: EnterBayEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 8137175040184156636}
   - component: {fileID: 3027978552484031162}
   - component: {fileID: 4636136512167309487}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Right Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,7 +460,7 @@ GameObject:
   - component: {fileID: 7691978165857373918}
   - component: {fileID: 6261019448351625329}
   - component: {fileID: 561397126231776815}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Left Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 523565659984739980}
   - component: {fileID: 5656403375802558436}
   - component: {fileID: 7406809952347720675}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Left Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,7 +641,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 616312301613751121}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -680,7 +680,7 @@ GameObject:
   - component: {fileID: 9219748788429474695}
   - component: {fileID: 6977189552765521521}
   - component: {fileID: 1276619284794111675}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -770,7 +770,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5314353140478429763}
   - component: {fileID: 1847414346860346256}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Left Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -813,7 +813,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3359889470192928266}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Repair Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -849,7 +849,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2934535648955232908}
   - component: {fileID: 2537623628645822170}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -893,10 +893,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5928489026279979436}
   - component: {fileID: -6035783699288100202}
-  - component: {fileID: -136328128236837239}
-  - component: {fileID: -7809036562214234396}
-  - component: {fileID: 2540462785277114774}
-  m_Layer: 0
+  - component: {fileID: 4029602140413457491}
+  - component: {fileID: 8341995787778522481}
+  m_Layer: 13
   m_Name: RepairableRobot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -935,29 +934,7 @@ CapsuleCollider:
   m_Height: 15
   m_Direction: 1
   m_Center: {x: 0, y: 7.5, z: 0}
---- !u!195 &-136328128236837239
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8737774189802463822}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!54 &-7809036562214234396
+--- !u!54 &4029602140413457491
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -968,12 +945,12 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2540462785277114774
+--- !u!114 &8341995787778522481
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -993,14 +970,12 @@ MonoBehaviour:
   _isMoving: 0
   _facingDirection: {x: 1, y: 0, z: 0}
   _manualAnimator: {fileID: 0}
-  _pathPending: 0
-  _hasPath: 0
-  _pathStatus: 0
-  _isPathStale: 0
-  _lastStuckCheckPosition: {x: 0, y: 0, z: 0}
-  _stuckCheckCount: 0
-  _debugTextTarget: {fileID: 0}
-  _debugTextQueue: {fileID: 0}
+  _headRepairPoint: {fileID: 2537623628645822170}
+  _leftArmRepairPoint: {fileID: 7035176483485470965}
+  _rightArmRepairPoint: {fileID: 1621312617529529064}
+  _leftLegRepairPoint: {fileID: 1847414346860346256}
+  _rightLegRepairPoint: {fileID: 5256200678216653756}
+  _chargeLevel: 0
   _enterRepairBayEffectTrigger: {fileID: 7058271576401251284}
   _exitRepairBayEffectTrigger: {fileID: 5473908097856630613}
 --- !u!1 &8837569177533938115
@@ -1013,7 +988,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4382180677456534510}
   - component: {fileID: 7035176483485470965}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Left Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}

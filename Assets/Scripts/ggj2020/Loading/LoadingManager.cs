@@ -1,5 +1,4 @@
 ﻿using pdxpartyparrot.Game.Loading;
-using pdxpartyparrot.ggj2020.NPCs;
 using pdxpartyparrot.ggj2020.Players;
 using pdxpartyparrot.ggj2020.UI;
 
@@ -21,9 +20,6 @@ namespace pdxpartyparrot.ggj2020.Loading
         private PlayerManager _playerManagerPrefab;
 
         [SerializeField]
-        private NPCManager _npcManagerPrefab;
-
-        [SerializeField]
         private GameUIManager _gameUiManagerPrefab;
 #endregion
 
@@ -33,7 +29,6 @@ namespace pdxpartyparrot.ggj2020.Loading
 
             GameManager.CreateFromPrefab(_gameManagerPrefab, ManagersContainer);
             PlayerManager.CreateFromPrefab(_playerManagerPrefab, ManagersContainer);
-            NPCManager.CreateFromPrefab(_npcManagerPrefab, ManagersContainer);
             GameUIManager.CreateFromPrefab(_gameUiManagerPrefab, ManagersContainer);
         }
     }

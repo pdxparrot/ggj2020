@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ggj2020.NPCs
+namespace pdxpartyparrot.ggj2020.Actors
 {
     public class RepairPoint : MonoBehaviour
     {

@@ -2,7 +2,7 @@
 
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Game.Level;
-using pdxpartyparrot.ggj2020.NPCs;
+using pdxpartyparrot.ggj2020.Actors;
 
 using UnityEngine;
 

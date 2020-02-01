@@ -1,25 +1,32 @@
-﻿using pdxpartyparrot.Core.Effects;
+﻿using pdxpartyparrot.Core.Actors;
+using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Util;
-using pdxpartyparrot.Game.Characters.NPCs;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ggj2020.NPCs
+namespace pdxpartyparrot.ggj2020.Actors
 {
-    public class RepairableRobot : NPC25D
+    public class RepairableRobot : Actor3D
     {
+        public override bool IsLocalActor => true;
+
         [Space(10)]
 
         [Header("Repair Points")]
 
+        [SerializeField]
         private RepairPoint _headRepairPoint;
 
+        [SerializeField]
         private RepairPoint _leftArmRepairPoint;
 
+        [SerializeField]
         private RepairPoint _rightArmRepairPoint;
 
+        [SerializeField]
         private RepairPoint _leftLegRepairPoint;
 
+        [SerializeField]
         private RepairPoint _rightLegRepairPoint;
 
         // TODO: this should be split into a factor per-player
@@ -28,6 +35,8 @@ namespace pdxpartyparrot.ggj2020.NPCs
         private float _chargeLevel;
 
         [Space(10)]
+
+        [Header("Effects")]
 
         [SerializeField]
         private EffectTrigger _enterRepairBayEffectTrigger;
