@@ -5,6 +5,7 @@ using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Game;
 using pdxpartyparrot.ggj2020.Camera;
 using pdxpartyparrot.ggj2020.Data;
+using pdxpartyparrot.ggj2020.Level;
 
 using UnityEngine;
 
@@ -13,6 +14,9 @@ namespace pdxpartyparrot.ggj2020
     public sealed class GameManager : GameManager<GameManager>
     {
         public GameData GameGameData => (GameData)GameData;
+
+        // TODO: this should be a base class
+        public RepairBayLevel GameLevelHelper => (RepairBayLevel)LevelHelper;
 
         // only valid on the client
         public GameViewer Viewer { get; private set; }

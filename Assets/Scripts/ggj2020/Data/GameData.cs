@@ -30,5 +30,12 @@ namespace pdxpartyparrot.ggj2020.Data
 
         public GameViewer ViewerPrefab => _viewerPrefab;
 #endregion
+
+        [Space(10)]
+
+        [SerializeField]
+        private int _repairTime = 30;
+
+        public int RepairTime => _repairTime;
     }
 }

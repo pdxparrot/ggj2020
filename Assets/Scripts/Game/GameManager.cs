@@ -1,5 +1,7 @@
 using System;
 
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.ObjectPool;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data;
@@ -65,8 +67,10 @@ namespace pdxpartyparrot.Game
 
         [SerializeField]
         [ReadOnly]
+        [CanBeNull]
         private LevelHelper _levelHelper;
 
+        [CanBeNull]
         public LevelHelper LevelHelper => _levelHelper;
 
         [SerializeField]
