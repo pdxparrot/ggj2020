@@ -17,3 +17,9 @@ MonoBehaviour:
   _types:
   - _tag: player
     _spawnMethod: 0
+  - _tag: repairable_robot
+    _spawnMethod: 0
+  - _tag: player_fighter
+    _spawnMethod: 0
+  - _tag: npc_fighter
+    _spawnMethod: 0
