@@ -22,6 +22,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "UseLadder",
+                    "type": "Button",
+                    "id": "5374f8ad-b844-4271-b1cf-3ef6b79bdb50",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "ContextCancel",
                     "type": "Button",
                     "id": "2a9d4931-228b-4eb1-88d0-90f1fe548273",
@@ -163,7 +171,7 @@
                 {
                     "name": "",
                     "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -207,11 +215,33 @@
                 {
                     "name": "",
                     "id": "2ef43c8a-7c55-449e-9c6d-4d4ef65389d0",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "ContextCancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "af3c1a90-60bc-404d-a4f5-1317aee92847",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "UseLadder",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "76698f11-4cbc-4cfe-b13d-903b49b93449",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "UseLadder",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

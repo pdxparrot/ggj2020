@@ -66,6 +66,9 @@ namespace pdxpartyparrot.Core.Camera
         [ReadOnly]
         private Vector3 _defaultCameraPosition;
 
+        // this is meaningless for 3D
+        public virtual float ViewportSize => _camera.orthographicSize;
+
 #region Unity Lifecycle
         protected virtual void Awake()
         {

@@ -36,6 +36,8 @@ namespace pdxpartyparrot.Core.Camera
         [CanBeNull]
         protected CinemachineImpulseListener ImpulseListener => _impulseListener;
 
+        public override float ViewportSize => _virtualCamera == null ? 0 : _virtualCamera.m_Lens.OrthographicSize;
+
 #region Unity Lifecycle
         protected override void Awake()
         {

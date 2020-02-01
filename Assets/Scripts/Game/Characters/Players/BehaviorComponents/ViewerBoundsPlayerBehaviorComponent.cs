@@ -1,6 +1,5 @@
 ﻿using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data.Characters.BehaviorComponents;
-using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 
@@ -31,7 +30,9 @@ namespace pdxpartyparrot.Game.Characters.Players.BehaviorComponents
         {
             base.Initialize(behavior);
 
-            float viewportSize = GameStateManager.Instance.GameManager.GameData.ViewportSize;
+            // TODO: this isn't responsive to viewport changes or the viewport moving
+
+            float viewportSize = PlayerBehavior.Player.Viewer.ViewportSize;
             float aspectRatio = Screen.width / (float)Screen.height;
 
             _viewportSize = new Vector2(viewportSize * aspectRatio, viewportSize);

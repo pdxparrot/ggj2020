@@ -23,7 +23,43 @@ namespace pdxpartyparrot.ggj2020.Players
         }
 #endregion
 
+        private void DoUseLadder()
+        {
+            if(GamePlayer.GamePlayerBehavior.IsOnLadder) {
+                GamePlayer.GamePlayerBehavior.IsOnLadder = false;
+            } else if(GamePlayer.GamePlayerBehavior.CanUseLadder) {
+                GamePlayer.GamePlayerBehavior.IsOnLadder = true;
+            }
+        }
+
 #region Actions
+        protected override void DoMove(InputAction.CallbackContext context)
+        {
+            Vector2 axes = context.ReadValue<Vector2>();
+
+            if(GamePlayer.GamePlayerBehavior.IsOnLadder) {
+                OnMove(new Vector3(0.0f, axes.y, 0.0f));
+                return;
+            }
+
+            base.DoMove(context);
+        }
+
+        public void OnUseLadder(InputAction.CallbackContext context)
+        {
+            if(!IsInputAllowed(context)) {
+                return;
+            }
+
+            if(Core.Input.InputManager.Instance.EnableDebug) {
+                Debug.Log($"Use ladder: {context.action.phase}");
+            }
+
+            if(context.performed) {
+                DoUseLadder();
+            }
+        }
+
         public void OnInteractAction(InputAction.CallbackContext context)
         {
             if(!IsInputAllowed(context)) {
