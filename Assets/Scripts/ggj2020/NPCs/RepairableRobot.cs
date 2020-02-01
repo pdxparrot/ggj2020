@@ -9,6 +9,20 @@ namespace pdxpartyparrot.ggj2020.NPCs
     {
         [Space(10)]
 
+        [Header("Repair Points")]
+
+        private RepairPoint _headRepairPoint;
+
+        private RepairPoint _leftArmRepairPoint;
+
+        private RepairPoint _rightArmRepairPoint;
+
+        private RepairPoint _leftLegRepairPoint;
+
+        private RepairPoint _rightLegRepairPoint;
+
+        [Space(10)]
+
         [SerializeField]
         private EffectTrigger _enterRepairBayEffectTrigger;
 
@@ -17,6 +31,8 @@ namespace pdxpartyparrot.ggj2020.NPCs
 
         public void EnterRepairBay()
         {
+            // TODO: figure out what the current repair states are and set them up
+
             _enterRepairBayEffectTrigger.Trigger();
         }
 
