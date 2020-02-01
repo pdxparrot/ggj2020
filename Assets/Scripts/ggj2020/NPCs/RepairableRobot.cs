@@ -1,4 +1,5 @@
 ﻿using pdxpartyparrot.Core.Effects;
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Characters.NPCs;
 
 using UnityEngine;
@@ -20,6 +21,11 @@ namespace pdxpartyparrot.ggj2020.NPCs
         private RepairPoint _leftLegRepairPoint;
 
         private RepairPoint _rightLegRepairPoint;
+
+        // TODO: this should be split into a factor per-player
+        [SerializeField]
+        [ReadOnly]
+        private float _chargeLevel;
 
         [Space(10)]
 
