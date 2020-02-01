@@ -2,6 +2,7 @@
 
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Game.Level;
+using pdxpartyparrot.ggj2020.NPCs;
 
 using UnityEngine;
 
@@ -18,6 +19,8 @@ namespace pdxpartyparrot.ggj2020.Level
 
         public float TimeRemaining => (int)_timer.SecondsRemaining;
 
+        private RepairableRobot _repairableRobot;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -29,6 +32,8 @@ namespace pdxpartyparrot.ggj2020.Level
 
         protected override void OnDestroy()
         {
+            Destroy(_repairableRobot);
+
             if(TimeManager.HasInstance) {
                 TimeManager.Instance.RemoveTimer(_timer);
                 _timer = null;
@@ -39,6 +44,14 @@ namespace pdxpartyparrot.ggj2020.Level
 #endregion
 
 #region Events
+        protected override void GameStartServerEventHandler(object sender, EventArgs args)
+        {
+            base.GameStartServerEventHandler(sender, args);
+
+            _repairableRobot = Instantiate(GameManager.Instance.GameGameData.RepairableRobotPrefab, transform);
+            _repairableRobot.gameObject.SetActive(false);
+        }
+
         protected override void GameStartClientEventHandler(object sender, EventArgs args)
         {
             base.GameStartClientEventHandler(sender, args);
@@ -48,13 +61,16 @@ namespace pdxpartyparrot.ggj2020.Level
 
         protected override void GameReadyEventHandler(object sender, EventArgs args)
         {
-            // TODO: animate in the first robot
+            _repairableRobot.gameObject.SetActive(true);
+            _repairableRobot.EnterRepairBay();
 
             _timer.Start(GameManager.Instance.GameGameData.RepairTime);
         }
 
         private void OnRepairTimeUp(object sender, EventArgs args)
         {
+            _repairableRobot.ExitRepairBay();
+
             // TODO: advance to the next robot
 
             // TODO: when does the game end?

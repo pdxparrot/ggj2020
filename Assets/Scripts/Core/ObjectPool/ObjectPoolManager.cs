@@ -149,7 +149,7 @@ namespace pdxpartyparrot.Core.ObjectPool
                     Network.NetworkManager.Instance.DeSpawnNetworkObject(pooledObject.GetComponent<NetworkBehaviour>());
                 }
 
-                // NOTE: de-activate and then repart to avoid hierarchy rebuild
+                // NOTE: de-activate and then reparent to avoid hierarchy rebuild
                 pooledObject.gameObject.SetActive(false);
                 pooledObject.transform.SetParent(_container.transform);
 

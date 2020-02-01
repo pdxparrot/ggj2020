@@ -21,3 +21,8 @@ MonoBehaviour:
     type: 3}
   _viewerPrefab: {fileID: 7844274745324330263, guid: 731743b7565ee334183712ed2264030b,
     type: 3}
+  _repairTime: 30
+  _repairableRobotPrefab: {fileID: 2540462785277114774, guid: 49171845f4ba5b94a8d0a6c3f0fb31ef,
+    type: 3}
+  _repairableRobotData: {fileID: 11400000, guid: c0cd17ff7e9e9154da1760e60726b368,
+    type: 2}

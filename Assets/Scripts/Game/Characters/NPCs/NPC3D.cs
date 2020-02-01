@@ -26,6 +26,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 #endregion
 
 #region Behavior
+        [CanBeNull]
         public NPCBehavior NPCBehavior => (NPCBehavior)Behavior;
 #endregion
 
@@ -123,7 +124,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
             // TODO: this works great except that
             // the player can abuse the NPC re-accelerating
             // by pausing and unpausing the game
-            if(!NPCBehavior.CanMove) {
+            if(null != NPCBehavior && !NPCBehavior.CanMove) {
                 Stop(false, false);
             }
         }

@@ -1,6 +1,8 @@
 ﻿using System;
 
 using pdxpartyparrot.ggj2020.Camera;
+using pdxpartyparrot.ggj2020.Data.NPCs;
+using pdxpartyparrot.ggj2020.NPCs;
 using pdxpartyparrot.ggj2020.State;
 
 using UnityEngine;
@@ -37,5 +39,17 @@ namespace pdxpartyparrot.ggj2020.Data
         private int _repairTime = 30;
 
         public int RepairTime => _repairTime;
+
+        [Space(10)]
+
+        [SerializeField]
+        private RepairableRobot _repairableRobotPrefab;
+
+        public RepairableRobot RepairableRobotPrefab => _repairableRobotPrefab;
+
+        [SerializeField]
+        private RepairableRobotData _repairableRobotData;
+
+        public RepairableRobotData RepairableRobotData => _repairableRobotData;
     }
 }
