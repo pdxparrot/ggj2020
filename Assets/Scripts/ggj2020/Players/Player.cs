@@ -4,6 +4,7 @@ using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.ggj2020.Camera;
 
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ggj2020.Players
@@ -15,6 +16,9 @@ namespace pdxpartyparrot.ggj2020.Players
         public PlayerBehavior GamePlayerBehavior => (PlayerBehavior)PlayerBehavior;
 
         private GameViewer PlayerGameViewer => (GameViewer)Viewer;
+
+        [SerializeField]
+        private MechanicModel _mechanicModel;
 
         private SpawnPoint _spawnpoint;
 
@@ -41,6 +45,8 @@ namespace pdxpartyparrot.ggj2020.Players
             }
 
             PlayerViewer = GameManager.Instance.Viewer;
+
+            _mechanicModel.InitializeBehavior(Behavior, NetworkPlayer.ControllerId);
 
             return true;
         }
