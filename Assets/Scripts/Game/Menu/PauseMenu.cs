@@ -29,6 +29,11 @@ namespace pdxpartyparrot.Game.Menu
             Owner.PushPanel(_settingsMenu);
         }
 
+        public void OnResume()
+        {
+            OnBack();
+        }
+
         public override void OnBack()
         {
             PartyParrotManager.Instance.TogglePause();

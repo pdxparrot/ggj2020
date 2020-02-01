@@ -15,7 +15,9 @@ namespace pdxpartyparrot.ggj2020.UI
 #region Unity Lifecycle
         private void Update()
         {
-            _timerText.text = $"{GameManager.Instance.GameLevelHelper.TimeRemaining}";
+            if(GameManager.HasInstance && null != GameManager.Instance.GameLevelHelper) {
+                _timerText.text = $"{GameManager.Instance.GameLevelHelper.TimeRemaining}";
+            }
         }
 #endregion
     }

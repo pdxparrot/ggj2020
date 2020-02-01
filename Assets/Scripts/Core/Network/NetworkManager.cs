@@ -511,21 +511,21 @@ namespace pdxpartyparrot.Core.Network
 #region Server Callbacks
         public override void OnStartHost()
         {
-            CallbackLog("OnStartHost");
+            CallbackLog("OnStartHost()");
 
             base.OnStartHost();
         }
 
         public override void OnStopHost()
         {
-            CallbackLog("OnStopHost");
+            CallbackLog("OnStopHost()");
 
             base.OnStopHost();
         }
 
         public override void OnStartServer()
         {
-            CallbackLog("OnStartServer");
+            CallbackLog("OnStartServer()");
 
             base.OnStartServer();
 
@@ -534,7 +534,7 @@ namespace pdxpartyparrot.Core.Network
 
         public override void OnStopServer()
         {
-            CallbackLog("OnStopServer");
+            CallbackLog("OnStopServer()");
 
             ServerStopEvent?.Invoke(this, EventArgs.Empty);
 

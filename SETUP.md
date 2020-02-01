@@ -541,6 +541,7 @@
       * Set Owner to the Menu object
       * Set the Main Panel on the Menu object to the Main panel
     * Add an empty GameObject under the Panel (Container)
+      * Stretch the container
       * Add a Vertical Layout Group
         * Spacing: 10
         * Alignment: Middle Center
@@ -570,6 +571,7 @@
         * Set Owner to the Menu object
         * Set the High Scores Panel on the Menu object to the Main panel
         * Add an empty GameObject under the Panel (Container)
+          * Stretch the container
           * Add a Vertical Layout Group
             * Spacing: 0
             * Alignment: Upper Center
@@ -585,6 +587,7 @@
         * Set Owner to the Menu object
         * Set the Credits Panel on the Menu object to the Main panel
         * Add an empty GameObject under the Panel (Container)
+          * Stretch the container
           * Add a Vertical Layout Group
             * Spacing: 0
             * Alignment: Upper Center
@@ -606,7 +609,7 @@
           * Add a Text - TextMeshPro under the Scroll View Content
             * Top Center the text
             * Disable Raycast Target
-            * Attach the text to the Credis Menu component
+            * Attach the text to the Credits Menu component
           * Duplicate the Start Button (Back)
             * Set the On Click handler to the CredisMenu OnBack method
             * Set the Text to "Back"
@@ -616,7 +619,7 @@
     * Set the On Click handler to the MainMenu OnQuitGame method
     * Set the Text to "Quit"
   * Attach the Start button to the Initial Selection on the Main Menu
-  * Attach the MainMenu prefab to the MainMenuState Menu Prefab
+* Attach the MainMenu prefab to the MainMenuState Menu Prefab
 
  ## Title Screen
 
@@ -692,8 +695,74 @@
 
 ## Pause Menu
 
-* **TODO:** do this
-* Attach to the GameUIManager
+* Create a PauseMenu Prefab in Prefabs/Menus and add the Game Menu component to it
+  * Layer: UI
+  * Add a Canvas under the prefab
+    * Render Mode: Screen Space - Overlay
+    * UI Scale Mode: Scale With Screen Size
+    * Reference Resolution: 1280x720
+    * Match Width Or Height: 0.5
+    * Set the Canvas on the Menu object
+    * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
+  * Add a Panel under the Canvas (Main)
+    * Remove the Image component
+    * Add the PauseMenu script to the panel
+      * Set Owner to the Menu object
+      * Set the Main Panel on the Menu object to the Main panel
+    * Add an empty GameObject under the Panel (Container)
+      * Stretch the container
+      * Add a Vertical Layout Group
+        * Spacing: 10
+        * Alignment: Middle Center
+        * Child Controls Width / Height
+        * No Child Force Expand
+      * Add a Text - TextMeshPro (Pause) under the container
+        * Text: "Pause"
+        * Center the text
+        * Disable Raycast Target
+      * Add a Button - TextMeshPro (Settings) under the container
+        * Normal Color: (255, 0, 255, 255)
+        * Highlight Color: (0, 255, 0, 255)
+        * Add an On Click handler that calls the PauseMenu OnSettings method
+        * Add a Button Helper to the button
+        * Add a Layout Element to the Button
+          * Preferred Width: 200
+          * Preferred Height: 50
+        * Text: "Settings"
+          * Center the text
+          * Disable Raycast Target
+        * Add a Panel (Settings) under the Canvas
+          * Remove the Image component
+          * Add the Settings Menu component to the panel
+            * Set Owner to the Menu object
+            * Set the Settings Panel on the Settings Menu
+            * Add an empty GameObject under the Panel (Container)
+              * Stretch the container
+              * **TODO:** do an actual settings menu
+              * Add a Vertical Layout Group
+                * Spacing: 0
+                * Alignment: Upper Center
+                * Child Controls Width / Height
+                * No Child Force Expand
+              * Add a Text - Text Mesh Pro under the container
+                * Text: "Settings"
+                  * Center the text
+                  * Disable Raycast Target
+              * Duplicate the Settings Button (Back)
+                * Set the On Click handler to the SettingsMenu OnBack method
+                * Set the Text to "Back"
+                * Set the Back button as the Initial Selection of the Settings Menu
+      * Duplicate the Settings Button (Resume)
+        * Set the On Click handler to the PauseMenu OnResume method
+        * Set the Text to "Resume"
+      * Duplicate the Settings Button (Main Menu)
+        * Set the On Click handler to the PauseMenu OnExitMainMenu method
+        * Set the Text to "Main Menu"
+      * Duplicate the Settings Button (Quit)
+        * Set the On Click handler to the PauseMenu OnQuitGame method
+        * Set the Text to "Quit"
+    * Set the Main Menu Initial Selection to the Settings Button
+* Attach the PauseMenu prefab to the GameUIManager Prefab
 
 # Game States
 

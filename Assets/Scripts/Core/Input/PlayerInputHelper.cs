@@ -34,15 +34,6 @@ namespace pdxpartyparrot.Core.Input
         }
 #endregion
 
-        public void EnableControls(bool enable)
-        {
-            if(enable) {
-                _playerInput.actions.Enable();
-            } else {
-                _playerInput.actions.Disable();
-            }
-        }
-
         public void Rumble(RumbleConfig config)
         {
             if(!InputManager.Instance.EnableVibration || _isRumbling) {

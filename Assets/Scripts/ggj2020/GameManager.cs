@@ -1,5 +1,7 @@
 ﻿using System;
 
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Game;
@@ -16,6 +18,7 @@ namespace pdxpartyparrot.ggj2020
         public GameData GameGameData => (GameData)GameData;
 
         // TODO: this should be a base class
+        [CanBeNull]
         public RepairBayLevel GameLevelHelper => (RepairBayLevel)LevelHelper;
 
         // only valid on the client

@@ -146,14 +146,24 @@ namespace pdxpartyparrot.Game.Players
             return spawnPoint.ReSpawn((Actor)player);
         }
 
+        // TODO: despawning is never touching the NetworkManager, which is probably wrong
+        // but there's no way to despawn a single player for a connection, it's all or nothing
+        // so... not sure what to do here
+
         // TODO: figure out how to work this in when players disconnect
-        public void DespawnPlayer(IPlayer player)
+        public void DespawnPlayer(IPlayer player, bool remove=true)
         {
             Assert.IsTrue(NetworkManager.Instance.IsServerActive());
 
             Debug.Log($"Despawning player {player.Id}");
 
-            _players.Remove(player);
+#if !USE_NETWORKING
+            Destroy(player.GameObject);
+#endif
+
+            if(remove) {
+                _players.Remove(player);
+            }
         }
 
         // TODO: figure out how to even do this
@@ -165,9 +175,9 @@ namespace pdxpartyparrot.Game.Players
 
             Assert.IsTrue(NetworkManager.Instance.IsServerActive());
 
-            Debug.Log($"Despawning {Players.Count} players...");
-
-            // TODO: how?
+            foreach(IPlayer player in _players) {
+                DespawnPlayer(player, false);
+            }
 
             _players.Clear();
         }

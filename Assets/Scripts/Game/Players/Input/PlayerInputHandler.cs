@@ -1,5 +1,3 @@
-using System;
-
 using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Collections;
@@ -81,32 +79,11 @@ namespace pdxpartyparrot.Game.Players.Input
 
             _moveBuffer = new CircularBuffer<Vector3>(PlayerInputData.InputBufferSize);
             _lookBuffer = new CircularBuffer<Vector3>(PlayerInputData.InputBufferSize);
-
-            GameStateManager.Instance.GameManager.GameOverEvent += GameOverEventHandler;
-            PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
         }
 
         protected virtual void OnDestroy()
         {
-            if(GameStateManager.HasInstance && null != GameStateManager.Instance.GameManager) {
-                GameStateManager.Instance.GameManager.GameOverEvent -= GameOverEventHandler;
-            }
-
-            if(PartyParrotManager.HasInstance) {
-                PartyParrotManager.Instance.PauseEvent -= PauseEventHandler;
-            }
-
             DestroyDebugMenu();
-        }
-
-        protected virtual void OnEnable()
-        {
-            EnableControls(true);
-        }
-
-        protected virtual void OnDisable()
-        {
-            EnableControls(false);
         }
 
         protected virtual void Update()
@@ -148,11 +125,6 @@ namespace pdxpartyparrot.Game.Players.Input
             return true;
         }
 
-        private void EnableControls(bool enable)
-        {
-            _inputHelper.EnableControls(enable);
-        }
-
         private void UpdateBuffers()
         {
             if(_moveBuffer.Count > 0 && MoveBufferExpired) {
@@ -180,28 +152,6 @@ namespace pdxpartyparrot.Game.Players.Input
         {
             _lookBuffer.Add(axes);
             _lastLookBufferTimestampMs = TimeManager.Instance.CurrentUnixMs;
-        }
-#endregion
-
-#region Event Handlers
-        private void PauseEventHandler(object sender, EventArgs args)
-        {
-            if(PartyParrotManager.Instance.IsPaused) {
-                if(GameStateManager.Instance.PlayerManager.DebugInput) {
-                    Debug.Log("Disabling player controls");
-                }
-                EnableControls(false);
-            } else {
-                if(GameStateManager.Instance.PlayerManager.DebugInput) {
-                    Debug.Log("Enabling player controls");
-                }
-                EnableControls(true);
-            }
-        }
-
-        private void GameOverEventHandler(object sender, EventArgs args)
-        {
-            EnableControls(false);
         }
 #endregion
 
