@@ -75,6 +75,7 @@ namespace pdxpartyparrot.Core.Network
         public NetworkDiscovery Discovery { get; private set; }
 #else
         [SerializeField]
+        [ReadOnly]
         private GameObject m_PlayerPrefab;
 
         public GameObject playerPrefab
@@ -473,9 +474,9 @@ namespace pdxpartyparrot.Core.Network
         public void ServerChangeScene(string sceneName)
 #endif
         {
+#if USE_NETWORKING
             Debug.Log($"[NetworkManager]: Server changing to scene '{sceneName}'...");
 
-#if USE_NETWORKING
             NetworkServer.SetAllClientsNotReady();
             networkSceneName = sceneName;
 #endif

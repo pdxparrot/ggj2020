@@ -55,22 +55,20 @@ namespace pdxpartyparrot.Game.State
         {
 #if USE_NETWORKING
             Core.Network.NetworkManager.Instance.DiscoverStop();
-#endif
 
             switch(_connectType)
             {
             case ConnectType.Local:
                 Core.Network.NetworkManager.Instance.StopHost();
                 break;
-#if USE_NETWORKING
             case ConnectType.Server:
                 Core.Network.NetworkManager.Instance.StopServer();
                 break;
             case ConnectType.Client:
                 Core.Network.NetworkManager.Instance.StopClient();
                 break;
-#endif
             }
+#endif
 
             GameStateManager.Instance.TransitionToInitialStateAsync();
         }
@@ -134,9 +132,12 @@ namespace pdxpartyparrot.Game.State
             Core.Network.NetworkManager.Instance.ServerConnectEvent += ServerConnectEventHandler;
 
             GameStateManager.Instance.NetworkClient = Core.Network.NetworkManager.Instance.StartHost();
-            if(Core.Network.NetworkManager.Instance.IsClientActive()) {
+            if(!Core.Network.NetworkManager.Instance.IsClientActive()) {
                 SetStatus("Unable to start network host!");
             }
+#else
+
+            ServerConnectEventHandler(this, null);
 #endif
         }
 
@@ -169,36 +170,43 @@ namespace pdxpartyparrot.Game.State
 
             SetStatus("Searching for server...");
         }
+#endif
 
         private void SetStatus(string status)
         {
             Debug.Log(status);
+
+#if USE_NETWORKING
             if(null != _networkConnectUI) {
                 _networkConnectUI.SetStatus(status);
             }
-        }
 #endif
+        }
 
 #region Event Handlers
-#if USE_NETWORKING
         private void ServerConnectEventHandler(object sender, EventArgs args)
         {
+#if USE_NETWORKING
             Core.Network.NetworkManager.Instance.DiscoverStop();
 
-            SetStatus($"Client connected, transitioning to game state...");
+            SetStatus("Client connected, transitioning to game state...");
+#else
+            SetStatus("Transitioning to game state...");
+#endif
 
             Core.Network.NetworkManager.Instance.ServerChangeScene(_gameStatePrefab.CurrentSceneName);
 
             GameStateManager.Instance.TransitionStateAsync(_gameStatePrefab, _gameStateInit);
         }
 
+#if USE_NETWORKING
         private void ClientConnectEventHandler(object sender, EventArgs args)
         {
             Core.Network.NetworkManager.Instance.DiscoverStop();
 
-            SetStatus("Connected, waiting for server...");
-
             Core.Network.NetworkManager.Instance.ClientSceneChangedEvent += ClientSceneChangedEventHandler;
+
+            SetStatus("Connected, waiting for server...");
         }
 
         private void ClientSceneChangedEventHandler(object sender, ClientSceneEventArgs args)

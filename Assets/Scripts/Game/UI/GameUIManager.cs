@@ -94,9 +94,9 @@ namespace pdxpartyparrot.Game.UI
             }
         }
 
-        public void InitializePlayerUI(UnityEngine.Camera camera)
+        public void InitializeGameUI(UnityEngine.Camera camera)
         {
-            Debug.Log("Initializing player UI...");
+            Debug.Log("Initializing game UI...");
 
             _gameUI = InstantiateUIPrefab(_gameUIPrefab);
             if(null != _gameUI) {

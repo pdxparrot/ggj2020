@@ -1,14 +1,21 @@
 ﻿using System;
 
+using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Game;
+using pdxpartyparrot.ggj2020.Camera;
 using pdxpartyparrot.ggj2020.Data;
+
+using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020
 {
     public sealed class GameManager : GameManager<GameManager>
     {
         public GameData GameGameData => (GameData)GameData;
+
+        // only valid on the client
+        public GameViewer Viewer { get; private set; }
 
         private DebugMenuNode _debugMenuNode;
 
@@ -38,6 +45,18 @@ namespace pdxpartyparrot.ggj2020
                 onComplete?.Invoke();
             });
         }
+
+        //[Client]
+        public void InitViewer()
+        {
+            Viewer = ViewerManager.Instance.AcquireViewer<GameViewer>(gameObject);
+            if(null == Viewer) {
+                Debug.LogWarning("Unable to acquire game viewer!");
+                return;
+            }
+            Viewer.Initialize(GameGameData);
+        }
+
         private void InitDebugMenu()
         {
             _debugMenuNode = DebugMenuManager.Instance.AddNode(() => "ggj2020.GameManager");

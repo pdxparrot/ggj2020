@@ -1,5 +1,8 @@
 ﻿using System;
 
+using pdxpartyparrot.ggj2020.Camera;
+using pdxpartyparrot.ggj2020.State;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Data
@@ -8,5 +11,24 @@ namespace pdxpartyparrot.ggj2020.Data
     [Serializable]
     public sealed class GameData : Game.Data.GameData
     {
+#region Game States
+        [Header("Game States")]
+
+        [SerializeField]
+        private MainGameState _mainGameStatePrefab;
+
+        public MainGameState MainGameStatePrefab => _mainGameStatePrefab;
+#endregion
+
+        [Space(10)]
+
+#region Viewers
+        [Header("Viewer")]
+
+        [SerializeField]
+        private GameViewer _viewerPrefab;
+
+        public GameViewer ViewerPrefab => _viewerPrefab;
+#endregion
     }
 }

@@ -152,8 +152,10 @@ namespace pdxpartyparrot.Game
 
         protected virtual void InitializeObjectPools()
         {
-            PooledObject pooledObject = GameData.FloatingTextPrefab.GetComponent<PooledObject>();
-            ObjectPoolManager.Instance.InitializePoolAsync(GameStateManager.Instance.GameUIManager.DefaultFloatingTextPoolName, pooledObject, GameData.FloatingTextPoolSize);
+            if(null != GameData.FloatingTextPrefab) {
+                PooledObject pooledObject = GameData.FloatingTextPrefab.GetComponent<PooledObject>();
+                ObjectPoolManager.Instance.InitializePoolAsync(GameStateManager.Instance.GameUIManager.DefaultFloatingTextPoolName, pooledObject, GameData.FloatingTextPoolSize);
+            }
         }
 
         protected virtual void DestroyObjectPools()

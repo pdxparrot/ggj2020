@@ -1,5 +1,7 @@
 ﻿using System;
 
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Game.UI;
 
 using UnityEngine;
@@ -40,8 +42,10 @@ namespace pdxpartyparrot.Game.Data
         [Header("Floating text")]
 
         [SerializeField]
+        [CanBeNull]
         private FloatingText _floatingTextPrefab;
 
+        [CanBeNull]
         public FloatingText FloatingTextPrefab => _floatingTextPrefab;
 
         [SerializeField]

@@ -19,7 +19,10 @@ using pdxpartyparrot.Game.UI;
 
 using UnityEngine;
 using UnityEngine.Assertions;
+
+#if USE_NETWORKING
 using UnityEngine.Networking;
+#endif
 
 namespace pdxpartyparrot.Game.State
 {

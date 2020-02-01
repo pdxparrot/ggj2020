@@ -691,6 +691,9 @@
 
 ## Pause Menu
 
+* **TODO:** do this
+* Attach to the GameUIManager
+
 # Game States
 
 ## MainGameState
@@ -698,10 +701,17 @@
 * Create a new MainGameState script that overrides the Game MainGameState
   * Implement the required interface
 * Create an empty Prefab and add the MainGameState component to it
-* Update the state object to initialize the server and client as necessary
-* Update the GameManager to initialize what it needs to as well
+* **TODO:** set the intial scene name
+* Attach to the GameData
 
-## TODO: GameOverState
+## GameOverState
+
+* Create a new GameOverState script that overrides the Game GameOverState
+  * Implement the required interface
+* Create an empty Prefab and add the GameOverState component to it
+* **TODO:** game over menu
+* Attach to the MainGameState
+* Attach to the SceneTester
 
 ## TODO
 
@@ -714,6 +724,7 @@
 
 * Game scenes must be added to the Build Settings
 * Game scenes require at least one SpawnPoint tagged with the player spawn tag in order for a player to spawn
+* Game scenes should have a level helper in them
 
 # Performance Notes
 

@@ -9,11 +9,13 @@ using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.Loading;
-using pdxpartyparrot.Game.UI;
 
 using UnityEngine;
 using UnityEngine.Assertions;
+
+#if USE_NETWORKING
 using UnityEngine.Networking;
+#endif
 
 namespace pdxpartyparrot.Game.State
 {
@@ -130,7 +132,7 @@ namespace pdxpartyparrot.Game.State
 
         protected virtual bool InitializeClient()
         {
-            if(Core.Network.NetworkManager.Instance.IsClientActive()) {
+            if(!Core.Network.NetworkManager.Instance.IsClientActive()) {
                 return false;
             }
 
