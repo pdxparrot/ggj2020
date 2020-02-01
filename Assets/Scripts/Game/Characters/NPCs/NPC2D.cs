@@ -37,14 +37,19 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         {
             base.Awake();
 
-            Assert.IsTrue(Behavior is NPCBehavior);
-
             _pooledObject = GetComponent<PooledObject>();
             if(null != _pooledObject) {
                 _pooledObject.RecycleEvent += RecycleEventHandler;
             }
         }
 #endregion
+
+        public override void Initialize(Guid id)
+        {
+            base.Initialize(id);
+
+            Assert.IsTrue(Behavior is NPCBehavior);
+        }
 
         public override void SetFacing(Vector3 direction)
         {

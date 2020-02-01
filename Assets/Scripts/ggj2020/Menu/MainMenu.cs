@@ -9,12 +9,7 @@ namespace pdxpartyparrot.ggj2020.Menu
         {
             base.OnStart();
 
-            GameStateManager.Instance.StartLocal(GameManager.Instance.GameGameData.MainGameStatePrefab, state => {
-                /*State.MainGameState mainGameState = (State.MainGameState)state;
-                foreach(short playerControllerId in GameManager.Instance.PlayerCharacterControllers) {
-                    mainGameState.AddPlayerController(playerControllerId);
-                }*/
-            });
+            GameStateManager.Instance.StartLocal(GameManager.Instance.GameGameData.MainGameStatePrefab);
         }
 #endregion
     }

@@ -33,11 +33,12 @@ namespace pdxpartyparrot.Core.Network
         public event EventHandler<EventArgs> ServerConnectEvent;
         public event EventHandler<EventArgs> ServerDisconnectEvent;
 #endif
+
         public event EventHandler<EventArgs> ServerChangeSceneEvent;
         public event EventHandler<EventArgs> ServerChangedSceneEvent;
-#if USE_NETWORKING
         public event EventHandler<ServerAddPlayerEventArgs> ServerAddPlayerEvent;
 
+#if USE_NETWORKING
         public event EventHandler<EventArgs> ClientConnectEvent;
         public event EventHandler<EventArgs> ClientDisconnectEvent;
         public event EventHandler<ClientSceneEventArgs> ClientSceneChangeEvent;
@@ -465,6 +466,8 @@ namespace pdxpartyparrot.Core.Network
 
 #if USE_NETWORKING
             ClientScene.AddPlayer(playerControllerId);
+#else
+            ServerAddPlayerEvent?.Invoke(this, new ServerAddPlayerEventArgs(new NetworkConnection(), playerControllerId));
 #endif
         }
 

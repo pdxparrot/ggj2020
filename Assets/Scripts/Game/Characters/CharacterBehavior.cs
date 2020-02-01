@@ -117,13 +117,6 @@ namespace pdxpartyparrot.Game.Characters
         private DebugMenuNode _debugMenuNode;
 
 #region Unity Lifecycle
-        protected override void Awake()
-        {
-            Assert.IsTrue(Owner.Movement is CharacterMovement3D);
-
-            base.Awake();
-        }
-
         protected override void OnDestroy()
         {
             DestroyDebugMenu();

@@ -1,5 +1,3 @@
-#pragma warning disable 0618    // disable obsolete warning for now
-
 using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Actors;
@@ -78,9 +76,7 @@ namespace pdxpartyparrot.Game.Players
             _playerContainer = new GameObject("Players");
 
             Core.Network.NetworkManager.Instance.RegisterPlayerPrefab(PlayerPrefab.NetworkPlayer);
-#if USE_NETWORKING
             Core.Network.NetworkManager.Instance.ServerAddPlayerEvent += ServerAddPlayerEventHandler;
-#endif
 
             InitDebugMenu();
 
@@ -96,9 +92,7 @@ namespace pdxpartyparrot.Game.Players
             DestroyDebugMenu();
 
             if(Core.Network.NetworkManager.HasInstance) {
-#if USE_NETWORKING
                 Core.Network.NetworkManager.Instance.ServerAddPlayerEvent -= ServerAddPlayerEventHandler;
-#endif
                 Core.Network.NetworkManager.Instance.UnregisterPlayerPrefab();
             }
 
@@ -179,12 +173,10 @@ namespace pdxpartyparrot.Game.Players
         }
 
 #region Event Handlers
-#if USE_NETWORKING
         private void ServerAddPlayerEventHandler(object sender, ServerAddPlayerEventArgs args)
         {
             SpawnPlayer(args.NetworkConnection, args.PlayerControllerId);
         }
-#endif
 #endregion
 
         private void InitDebugMenu()

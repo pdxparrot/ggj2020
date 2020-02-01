@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.ggj2020.Players
 {
-    public sealed class PlayerInput : SideScollerPlayerInput
+    public sealed class PlayerInputHandler : SideScollerPlayerInputHandler
     {
         private PlayerInputData GamePlayerInputData => (PlayerInputData)PlayerInputData;
 

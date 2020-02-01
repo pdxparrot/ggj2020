@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.Math;
+using pdxpartyparrot.Core.Network;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Camera;
 using pdxpartyparrot.Game.Players.Input;
@@ -32,9 +33,9 @@ namespace pdxpartyparrot.Game.Characters.Players
 
 #region Input / Behavior
         [SerializeField]
-        private PlayerInput _input;
+        private PlayerInputHandler _inputHandler;
 
-        public PlayerInput PlayerInput => _input;
+        public PlayerInputHandler PlayerInputHandler => _inputHandler;
 
         [CanBeNull]
         public PlayerBehavior PlayerBehavior => (PlayerBehavior)Behavior;
@@ -53,13 +54,6 @@ namespace pdxpartyparrot.Game.Characters.Players
 #endregion
 
 #region Unity Lifecycle
-        protected override void Awake()
-        {
-            base.Awake();
-
-            Assert.IsTrue(Behavior is PlayerBehavior);
-        }
-
         protected override void OnDestroy()
         {
             if(null != Viewer && ViewerManager.HasInstance) {
@@ -75,6 +69,8 @@ namespace pdxpartyparrot.Game.Characters.Players
         {
             base.Initialize(id);
 
+            Assert.IsTrue(Behavior is PlayerBehavior);
+
             InitializeLocalPlayer(id);
         }
 
@@ -86,7 +82,7 @@ namespace pdxpartyparrot.Game.Characters.Players
 
             Debug.Log($"Initializing local player {id}");
 
-            _input.Initialize();
+            _inputHandler.Initialize();
 
             NetworkPlayer.Init2D();
 
@@ -115,7 +111,9 @@ namespace pdxpartyparrot.Game.Characters.Players
             Initialize(Guid.NewGuid());
             Behavior.Initialize(GameStateManager.Instance.PlayerManager.PlayerBehaviorData);
 
-            NetworkPlayer.RpcSpawn(Id.ToString());
+            if(!NetworkManager.Instance.IsClientActive()) {
+                NetworkPlayer.RpcSpawn(Id.ToString());
+            }
 
             return base.OnSpawn(spawnpoint);
         }

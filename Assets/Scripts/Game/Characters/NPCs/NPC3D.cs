@@ -89,8 +89,6 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         {
             base.Awake();
 
-            Assert.IsTrue(Behavior is NPCBehavior);
-
             _agent = GetComponent<NavMeshAgent>();
 
             _pooledObject = GetComponent<PooledObject>();
@@ -134,6 +132,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         public override void Initialize(Guid id)
         {
             base.Initialize(id);
+
+            Assert.IsTrue(Behavior is NPCBehavior);
 
             // TODO: this might crash now that the behavior is not initialized by this
             _agent.speed = NPCBehavior.NPCBehaviorData.MoveSpeed;

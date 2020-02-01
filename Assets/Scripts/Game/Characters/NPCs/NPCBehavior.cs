@@ -16,13 +16,6 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         public abstract Vector3 MoveDirection { get; }
 
 #region Unity Lifecycle
-        protected override void Awake()
-        {
-            base.Awake();
-
-            Assert.IsTrue(Owner is INPC);
-        }
-
         protected virtual void LateUpdate()
         {
             Owner.IsMoving = MoveDirection.sqrMagnitude > MathUtil.Epsilon;
@@ -31,6 +24,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 
         public override void Initialize(ActorBehaviorComponentData behaviorData)
         {
+            Assert.IsTrue(Owner is INPC);
             Assert.IsTrue(behaviorData is NPCBehaviorData);
 
             base.Initialize(behaviorData);

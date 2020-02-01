@@ -11,17 +11,9 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public Player GamePlayerOwner => (Player)Owner;
 
-#region Unity Lifecycle
-        protected override void Awake()
-        {
-            Assert.IsTrue(Owner is Player);
-
-            base.Awake();
-        }
-#endregion
-
         public override void Initialize(ActorBehaviorComponentData behaviorData)
         {
+            Assert.IsTrue(Owner is Player);
             Assert.IsTrue(behaviorData is PlayerBehaviorData);
 
             base.Initialize(behaviorData);

@@ -26,13 +26,6 @@ namespace pdxpartyparrot.Game.Characters.Players
         public Vector3 MoveDirection => _moveDirection;
 
 #region Unity Lifecycle
-        protected override void Awake()
-        {
-            base.Awake();
-
-            Assert.IsTrue(Owner is IPlayer);
-        }
-
         protected override void Update()
         {
             base.Update();
@@ -40,7 +33,7 @@ namespace pdxpartyparrot.Game.Characters.Players
             float dt = Time.deltaTime;
 
             // set move direction from input
-            Vector3 moveDirection = Vector3.MoveTowards(MoveDirection, Player.PlayerInput.LastMove, dt * Player.PlayerInput.PlayerInputData.MovementLerpSpeed);
+            Vector3 moveDirection = Vector3.MoveTowards(MoveDirection, Player.PlayerInputHandler.LastMove, dt * Player.PlayerInputHandler.PlayerInputData.MovementLerpSpeed);
             SetMoveDirection(moveDirection);
         }
 
@@ -52,6 +45,7 @@ namespace pdxpartyparrot.Game.Characters.Players
 
         public override void Initialize(ActorBehaviorComponentData behaviorData)
         {
+            Assert.IsTrue(Owner is IPlayer);
             Assert.IsTrue(behaviorData is PlayerBehaviorData);
 
             base.Initialize(behaviorData);

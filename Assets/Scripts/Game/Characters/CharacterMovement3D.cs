@@ -32,11 +32,6 @@ namespace pdxpartyparrot.Game.Characters
         public bool IsComponentControlling { get; set; }
 
 #region Unity Lifecycle
-        protected override void Awake()
-        {
-            Assert.IsTrue(Owner.Behavior is CharacterBehavior);
-        }
-
         private void FixedUpdate()
         {
             float dt = Time.fixedDeltaTime;
@@ -63,6 +58,13 @@ namespace pdxpartyparrot.Game.Characters
             Gizmos.DrawLine(Position, Position + Velocity);
         }
 #endregion
+
+        public override void Initialize(ActorBehaviorComponentData behaviorData)
+        {
+            base.Initialize(behaviorData);
+
+            Assert.IsTrue(Owner.Behavior is CharacterBehavior);
+        }
 
         protected override void InitRigidbody(ActorBehaviorComponentData behaviorData)
         {

@@ -191,6 +191,7 @@
   * Add EventSystemHelper script to this
   * Copy the DefaultInputActions asset to Assets/Data/Input (can rename if desired)
     * Replace the EventSystem InputActions with this copy
+    * Pause action usually has to be added to this
 
 ## Server Spectator
 

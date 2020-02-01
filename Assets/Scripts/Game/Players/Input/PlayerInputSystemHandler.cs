@@ -1,7 +1,6 @@
 ﻿using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.DebugMenu;
-using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -9,7 +8,7 @@ using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.Game.Players.Input
 {
-    public abstract class PlayerInputSystem : PlayerInput
+    public abstract class PlayerInputSystemHandler : PlayerInputHandler
     {
         [SerializeField]
         [ReadOnly]
@@ -33,15 +32,15 @@ namespace pdxpartyparrot.Game.Players.Input
 
         [SerializeField]
         [CanBeNull]
-        private InputAction _moveAction;
+        private InputActionReference _moveAction;
 
-        protected InputAction MoveAction => _moveAction;
+        protected InputActionReference MoveAction => _moveAction;
 
         [SerializeField]
         [CanBeNull]
-        private InputAction _lookAction;
+        private InputActionReference _lookAction;
 
-        protected InputAction LookAction => _lookAction;
+        protected InputActionReference LookAction => _lookAction;
 
 #region Unity Lifecycle
         protected override void Update()
@@ -79,7 +78,7 @@ namespace pdxpartyparrot.Game.Players.Input
                 return;
             }
 
-            Vector2 axes = _moveAction.ReadValue<Vector2>();
+            Vector2 axes = _moveAction.action.ReadValue<Vector2>();
             OnMove(new Vector3(axes.x, axes.y, 0.0f));
         }
 
@@ -89,7 +88,7 @@ namespace pdxpartyparrot.Game.Players.Input
                 return;
             }
 
-            Vector2 axes = _lookAction.ReadValue<Vector2>();
+            Vector2 axes = _lookAction.action.ReadValue<Vector2>();
             OnLook(new Vector3(axes.x, axes.y, 0.0f));
         }
 

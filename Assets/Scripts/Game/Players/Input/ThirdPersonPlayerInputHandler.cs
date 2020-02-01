@@ -2,7 +2,7 @@
 
 namespace pdxpartyparrot.Game.Players.Input
 {
-    public abstract class ThirdPersonPlayerInput : PlayerInputSystem
+    public abstract class ThirdPersonPlayerInputHandler : PlayerInputSystemHandler
     {
         protected override void DoPollMove()
         {
@@ -10,7 +10,7 @@ namespace pdxpartyparrot.Game.Players.Input
                 return;
             }
 
-            Vector2 axes = MoveAction.ReadValue<Vector2>();
+            Vector2 axes = MoveAction.action.ReadValue<Vector2>();
 
             // translate movement from x / y to x / z
             OnMove(new Vector3(axes.x, 0.0f, axes.y));

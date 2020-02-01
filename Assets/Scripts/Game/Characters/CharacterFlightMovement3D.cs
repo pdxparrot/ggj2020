@@ -38,7 +38,6 @@ namespace pdxpartyparrot.Game.Characters
 #region Unity Lifecycle
         protected override void Awake()
         {
-            Assert.IsTrue(Owner.Behavior is CharacterBehavior);
             Assert.IsNotNull(_data);
 
             base.Awake();
@@ -67,6 +66,13 @@ namespace pdxpartyparrot.Game.Characters
             Gizmos.DrawLine(Position, Position + _bankForce);
         }
 #endregion
+
+        public override void Initialize(ActorBehaviorComponentData behaviorData)
+        {
+            base.Initialize(behaviorData);
+
+            Assert.IsTrue(Owner.Behavior is CharacterBehavior);
+        }
 
         protected override void InitRigidbody(ActorBehaviorComponentData behaviorData)
         {

@@ -24,7 +24,7 @@ namespace pdxpartyparrot.Game.Characters.Players
 
         PlayerBehavior PlayerBehavior { get; }
 
-        PlayerInput PlayerInput { get; }
+        PlayerInputHandler PlayerInputHandler { get; }
 
         Viewer Viewer { get; }
     }

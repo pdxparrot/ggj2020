@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using pdxpartyparrot.Core.Data.Actors.Components;
+
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Game.Characters.Players
@@ -7,14 +9,12 @@ namespace pdxpartyparrot.Game.Characters.Players
     {
         private CharacterFlightMovement3D CharacterFlightMovement3D => (CharacterFlightMovement3D)CharacterMovement;
 
-#region Unity Lifecycle
-        protected override void Awake()
+        public override void Initialize(ActorBehaviorComponentData behaviorData)
         {
-            base.Awake();
-
             Assert.IsTrue(Owner.Movement is CharacterFlightMovement3D);
+
+            base.Initialize(behaviorData);
         }
-#endregion
 
         protected override void AnimationUpdate(float dt)
         {

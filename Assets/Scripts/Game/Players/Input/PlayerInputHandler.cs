@@ -17,7 +17,7 @@ using UnityEngine.Assertions;
 namespace pdxpartyparrot.Game.Players.Input
 {
     [RequireComponent(typeof(PlayerInputHelper))]
-    public abstract class PlayerInput : MonoBehaviour
+    public abstract class PlayerInputHandler : MonoBehaviour
     {
         [SerializeField]
         private Actor _owner;

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GameData
   m_EditorClassIdentifier: 
   _viewportSize: 10
-  _maxLocalPlayers: 1
-  _gamepadsArePlayers: 0
+  _maxLocalPlayers: 4
+  _gamepadsArePlayers: 1
   _floatingTextPrefab: {fileID: 0}
   _floatingTextPoolSize: 10
   _mainGameStatePrefab: {fileID: 3933070110853357527, guid: 0e5cd865d68f73646b3f6c1aabfc74e4,

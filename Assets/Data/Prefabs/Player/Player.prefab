@@ -104,7 +104,7 @@ MonoBehaviour:
   _facingDirection: {x: 1, y: 0, z: 0}
   _manualAnimator: {fileID: 0}
   _networkPlayer: {fileID: 5382703400231986565}
-  _input: {fileID: 0}
+  _inputHandler: {fileID: 4350794235123103249}
 --- !u!1 &2622982466555137328
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +165,18 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4350794235123103249}
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 351f2ccd-1f9f-44bf-9bec-d62ac5c5f408
     m_ActionName: Player/Move[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
@@ -220,6 +231,21 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 5d04af40-2e57-45fb-9c7f-133621fd63a3
     m_ActionName: UI/TrackedDeviceSelect
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4350794235123103249}
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 82a4c919-51ee-481f-8dbd-b4b653b5546d
+    m_ActionName: Player/Pause[/XInputControllerWindows/start,/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -257,22 +283,9 @@ MonoBehaviour:
   _lastLookBufferTimestampMs: 0
   _pollMove: 0
   _pollLook: 0
-  _moveAction:
-    m_Name: Move
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: cb3699ce-4f19-44fe-820e-f18118d48847
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-  _lookAction:
-    m_Name: Look
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 24e41c31-d5aa-4a60-ac8f-82e29aa7fc6c
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
+  _moveAction: {fileID: -1246895598473198080, guid: f0a6030e8852a5d43a1e8a4c51c2c298,
+    type: 3}
+  _lookAction: {fileID: 0}
 --- !u!1 &2683829994576259934
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,6 +331,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _owner: {fileID: 0}
   _behaviorData: {fileID: 0}
+  _spineAnimationHelper: {fileID: 0}
+  _spineSkinHelper: {fileID: 0}
   _spriteAnimationHelper: {fileID: 0}
   _animator: {fileID: 0}
   _pauseAnimationOnPause: 1
