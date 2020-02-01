@@ -3,6 +3,7 @@ using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 namespace pdxpartyparrot.Core.Input
 {
@@ -33,6 +34,28 @@ namespace pdxpartyparrot.Core.Input
             }
         }
 #endregion
+
+        public void Initialize(short playerControllerId)
+        {
+            // TODO: we shouldn't blindly assume we want gamepads here
+
+            int gamepadCount = InputManager.Instance.GetGamepadCount();
+#if UNITY_EDITOR
+            if(gamepadCount < 1) {
+                Debug.LogWarning("No gamepads found, debug pairing with keyboard / mouse");
+                _playerInput.SwitchCurrentControlScheme(InputManager.Instance.InputData.KeyboardAndMouseScheme, Keyboard.current, Mouse.current);
+                return;
+            }
+#endif
+
+            Debug.Log($"Pairing player controller {playerControllerId} ({gamepadCount} total gamepads)");
+            Gamepad gamepad = InputManager.Instance.GetGamepad(playerControllerId);
+            if(null == gamepad) {
+                return;
+            }
+
+            _playerInput.SwitchCurrentControlScheme(InputManager.Instance.InputData.GamepadScheme, gamepad);
+        }
 
         public void Rumble(RumbleConfig config)
         {

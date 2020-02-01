@@ -61,9 +61,7 @@ namespace pdxpartyparrot.Game.Players.Input
 
         protected bool EnableMouseLook { get; private set; } = !Application.isEditor;
 
-        private PlayerInputHelper _inputHelper;
-
-        protected PlayerInputHelper InputHelper => _inputHelper;
+        protected PlayerInputHelper InputHelper { get; private set; }
 
         private DebugMenuNode _debugMenuNode;
 
@@ -75,7 +73,7 @@ namespace pdxpartyparrot.Game.Players.Input
             Assert.IsTrue(PlayerInputData.InputBufferSize > 0);
             Assert.IsTrue(PlayerInputData.InputBufferTimeoutMs > 0);
 
-            _inputHelper = GetComponent<PlayerInputHelper>();
+            InputHelper = GetComponent<PlayerInputHelper>();
 
             _moveBuffer = new CircularBuffer<Vector3>(PlayerInputData.InputBufferSize);
             _lookBuffer = new CircularBuffer<Vector3>(PlayerInputData.InputBufferSize);
@@ -96,11 +94,13 @@ namespace pdxpartyparrot.Game.Players.Input
         }
 #endregion
 
-        public virtual void Initialize()
+        public virtual void Initialize(short playerControllerId)
         {
             if(!Player.IsLocalActor) {
                 return;
             }
+
+            InputHelper.Initialize(playerControllerId);
 
             InitDebugMenu();
         }

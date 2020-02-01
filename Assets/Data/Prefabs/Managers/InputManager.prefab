@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2b603311e4ee414d86002bbb03b0b6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inputData: {fileID: 11400000, guid: 8a9d0f90b18aec64487c9bea2f5b4432, type: 2}
   _eventSystemPrefab: {fileID: 1960610327542182374, guid: e3c95b1d00828c949831dceced969bd3,
     type: 3}
   _enableDebug: 0

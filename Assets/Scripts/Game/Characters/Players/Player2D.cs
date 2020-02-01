@@ -82,7 +82,7 @@ namespace pdxpartyparrot.Game.Characters.Players
 
             Debug.Log($"Initializing local player {id}");
 
-            _inputHandler.Initialize();
+            _inputHandler.Initialize(NetworkPlayer.ControllerId);
 
             NetworkPlayer.Init2D();
 

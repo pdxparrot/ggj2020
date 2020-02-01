@@ -1,4 +1,7 @@
-﻿using pdxpartyparrot.Core.DebugMenu;
+﻿using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Data;
+using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -10,6 +13,11 @@ namespace pdxpartyparrot.Core.Input
     {
         // config keys
         private const string EnableVibrationKey = "input.vibration.enable";
+
+        [SerializeField]
+        private InputData _inputData;
+
+        public InputData InputData => _inputData;
 
         [SerializeField]
         private EventSystemHelper _eventSystemPrefab;
@@ -75,6 +83,32 @@ namespace pdxpartyparrot.Core.Input
                 count++;
             }
             return count;
+        }
+
+        [CanBeNull]
+        public Gamepad GetGamepad(short playerControllerId)
+        {
+            int gamepadCount = GetGamepadCount();
+            if(playerControllerId >= gamepadCount) {
+                Debug.LogError($"Player controller {playerControllerId} is greater than available gamepads ({gamepadCount})!");
+                return null;
+            }
+
+            // TODO: seriously?
+            int count = 0;
+            foreach(InputDevice device in InputSystem.devices) {
+                if(!(device is Gamepad gamepad)) {
+                    continue;
+                }
+
+                if(count == playerControllerId) {
+                    return gamepad;
+                }
+                count++;
+            }
+
+            Debug.LogError($"Unable to find gamepad for player {playerControllerId}");
+            return null;
         }
 
         private void InitDebugMenu()
