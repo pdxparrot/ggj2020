@@ -33,16 +33,16 @@ namespace pdxpartyparrot.ggj2020.Players
         }
 
 #region Actions
-        protected override void DoMove(InputAction.CallbackContext context)
+        protected override void DoMove(InputAction action)
         {
-            Vector2 axes = context.ReadValue<Vector2>();
+            Vector2 axes = action.ReadValue<Vector2>();
 
             if(GamePlayer.GamePlayerBehavior.IsOnLadder) {
                 OnMove(new Vector3(0.0f, axes.y, 0.0f));
                 return;
             }
 
-            base.DoMove(context);
+            base.DoMove(action);
         }
 
         public void OnUseLadder(InputAction.CallbackContext context)

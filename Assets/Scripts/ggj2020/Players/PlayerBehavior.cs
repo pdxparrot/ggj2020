@@ -18,7 +18,15 @@ namespace pdxpartyparrot.ggj2020.Players
         [ReadOnly]
         private bool _canUseLadder;
 
-        public bool CanUseLadder => _canUseLadder;
+        public bool CanUseLadder
+        {
+            get => _canUseLadder;
+            private set
+            {
+                _canUseLadder = value;
+                IsOnLadder = IsOnLadder && _canUseLadder;
+            }
+        }
 
         [SerializeField]
         [ReadOnly]
@@ -50,7 +58,7 @@ namespace pdxpartyparrot.ggj2020.Players
                 return false;
             }
 
-            _canUseLadder = true;
+            CanUseLadder = true;
 
             return false;
         }
@@ -62,7 +70,7 @@ namespace pdxpartyparrot.ggj2020.Players
                 return false;
             }
 
-            _canUseLadder = false;
+            CanUseLadder = false;
 
             return false;
         }

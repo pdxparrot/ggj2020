@@ -494,6 +494,11 @@ MonoBehaviour:
   _mouseSensitivity: 0.5
   _lastMoveBufferTimestampMs: 0
   _lastLookBufferTimestampMs: 0
+  _pollMove: 0
+  _pollLook: 0
+  _moveAction: {fileID: -1246895598473198080, guid: f0a6030e8852a5d43a1e8a4c51c2c298,
+    type: 3}
+  _lookAction: {fileID: 0}
 --- !u!1 &5616425848684913056
 GameObject:
   m_ObjectHideFlags: 0

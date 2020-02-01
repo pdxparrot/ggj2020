@@ -1,10 +1,79 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Util;
+
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.Game.Players.Input
 {
     public abstract class PlayerInputSystemHandler : PlayerInputHandler
     {
+        [SerializeField]	
+        [ReadOnly]	
+        private bool _pollMove;	
+
+        protected bool PollMove	
+        {	
+            get => _pollMove;	
+            set => _pollMove = value;	
+        }	
+
+        [SerializeField]	
+        [ReadOnly]	
+        private bool _pollLook;	
+
+        protected bool PollLook	
+        {	
+            get => _pollLook;	
+            set => _pollLook = value;	
+        }	
+
+        [SerializeField]	
+        [CanBeNull]	
+        private InputActionReference _moveAction;	
+
+        protected InputActionReference MoveAction => _moveAction;	
+
+        [SerializeField]	
+        [CanBeNull]	
+        private InputActionReference _lookAction;	
+
+        protected InputActionReference LookAction => _lookAction;
+
+#region Unity Lifecycle	
+        protected override void Update()	
+        {	
+            base.Update();	
+
+            if(PollMove) {	
+                DoPollMove();	
+            }	
+
+            if(PollLook) {	
+                DoPollLook();	
+            }	
+        }	
+#endregion
+
+        protected virtual void DoPollMove()	
+        {	
+            if(null == _moveAction) {	
+                return;	
+            }
+
+            DoMove(_moveAction.action);
+        }	
+
+        protected virtual void DoPollLook()	
+        {	
+            if(null == _lookAction) {	
+                return;	
+            }	
+
+            DoLook(_lookAction.action);	
+        }
+
 #region Common Actions
         public void OnPauseAction(InputAction.CallbackContext context)
         {
@@ -21,9 +90,9 @@ namespace pdxpartyparrot.Game.Players.Input
             }
         }
 
-        protected virtual void DoMove(InputAction.CallbackContext context)
+        protected virtual void DoMove(InputAction action)
         {
-            Vector2 axes = context.ReadValue<Vector2>();
+            Vector2 axes = action.ReadValue<Vector2>();
             OnMove(new Vector3(axes.x, axes.y, 0.0f));
         }
 
@@ -38,15 +107,17 @@ namespace pdxpartyparrot.Game.Players.Input
             }*/
 
             if(context.performed) {
-                DoMove(context);
+                PollMove = true;
+                DoPollMove();
             } else if(context.canceled) {
+                PollMove = false;
                 OnMove(Vector3.zero);
             }
         }
 
-        protected virtual void DoLook(InputAction.CallbackContext context)
+        protected virtual void DoLook(InputAction action)
         {
-            Vector2 axes = context.action.ReadValue<Vector2>();
+            Vector2 axes = action.ReadValue<Vector2>();
             OnLook(new Vector3(axes.x, axes.y, 0.0f));
         }
 
@@ -61,9 +132,11 @@ namespace pdxpartyparrot.Game.Players.Input
             }*/
 
             if(context.performed) {
-                DoLook(context);
+                PollLook = true;
+                DoPollLook();
             } else if(context.canceled) {
-                OnMove(Vector3.zero);
+                PollLook = false;
+                OnLook(Vector3.zero);
             }
         }
 #endregion
