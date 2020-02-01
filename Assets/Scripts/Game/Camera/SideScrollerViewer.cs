@@ -11,7 +11,6 @@ namespace pdxpartyparrot.Game.Camera
     [RequireComponent(typeof(CinemachineFramingTransposer))]
     [RequireComponent(typeof(CinemachinePOV))]
     [RequireComponent(typeof(CinemachineConfiner))]
-    [RequireComponent(typeof(CinemachineImpulseListener))]
     public class SideScrollerViewer : CinemachineViewer, IPlayerViewer
     {
         [Space(10)]
@@ -24,6 +23,7 @@ namespace pdxpartyparrot.Game.Camera
         public Viewer Viewer => this;
 
         private CinemachineFramingTransposer _transposer;
+
         private CinemachineConfiner _confiner;
 
 #region Unity Lifecycle

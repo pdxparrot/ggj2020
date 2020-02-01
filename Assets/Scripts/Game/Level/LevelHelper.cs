@@ -83,8 +83,11 @@ namespace pdxpartyparrot.Game.Level
 #region Event Handlers
         protected virtual void GameStartServerEventHandler(object sender, EventArgs args)
         {
+            Debug.Log("[Level] Server start...");
+
             // TODO: better to do this before we drop the loading screen and spawn stuff
 #if USE_NAVMESH
+            Debug.Log("[Level] Building nav mesh...");
             _navMeshSurface.BuildNavMesh();
 #endif
 
@@ -93,6 +96,8 @@ namespace pdxpartyparrot.Game.Level
 
         protected virtual void GameStartClientEventHandler(object sender, EventArgs args)
         {
+            Debug.Log("[Level] Client start...");
+
             // TODO: we really should communicate our ready state to the server
             // and then have it communicate back to us when everybody is ready
             if(null != _levelEnterEffect) {

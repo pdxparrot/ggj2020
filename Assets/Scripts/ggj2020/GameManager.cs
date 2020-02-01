@@ -49,7 +49,7 @@ namespace pdxpartyparrot.ggj2020
         //[Client]
         public void InitViewer()
         {
-            Viewer = ViewerManager.Instance.AcquireViewer<GameViewer>(gameObject);
+            Viewer = ViewerManager.Instance.AcquireViewer<GameViewer>();
             if(null == Viewer) {
                 Debug.LogWarning("Unable to acquire game viewer!");
                 return;

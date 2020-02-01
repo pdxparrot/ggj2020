@@ -55,7 +55,7 @@ namespace pdxpartyparrot.Core.Camera
                 Viewers.Clear();
             }
 
-            public T AcquireViewer<T>(GameObject owner) where T: Viewer
+            public T AcquireViewer<T>() where T: Viewer
             {
                 if(UnassignedViewers.Count < 1) {
                     Debug.LogWarning($"Attempt to acquire a viewer of type {typeof(T)} when there are none!");
@@ -63,7 +63,6 @@ namespace pdxpartyparrot.Core.Camera
                 }
 
                 Viewer viewer = UnassignedViewers.Dequeue();
-                viewer.Owner = owner;
                 viewer.gameObject.SetActive(true);
 
                 AssignedViewers.Add(viewer);
@@ -88,7 +87,6 @@ namespace pdxpartyparrot.Core.Camera
                 viewer.Reset();
 
                 viewer.gameObject.SetActive(false);
-                viewer.Owner = null;
 
                 AssignedViewers.Remove(viewer);
                 UnassignedViewers.Enqueue(viewer);
@@ -174,7 +172,7 @@ namespace pdxpartyparrot.Core.Camera
 
 #region Acquire
         [CanBeNull]
-        public T AcquireViewer<T>(GameObject owner) where T: Viewer
+        public T AcquireViewer<T>() where T: Viewer
         {
             Type viewerType = typeof(T);
             if(!_viewers.TryGetValue(viewerType, out var viewerSet)) {
@@ -182,7 +180,7 @@ namespace pdxpartyparrot.Core.Camera
                 return null;
             }
 
-            return viewerSet.AcquireViewer<T>(owner);
+            return viewerSet.AcquireViewer<T>();
         }
 
         public void ReleaseViewer<T>(T viewer) where T: Viewer

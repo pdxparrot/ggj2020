@@ -41,6 +41,7 @@ namespace pdxpartyparrot.Core.Camera
         {
             base.Awake();
 
+            SetVirtualCamera(GetComponent<CinemachineVirtualCamera>());
             _impulseListener = GetComponent<CinemachineImpulseListener>();
 
             _cinemachineBrain = Camera.GetComponent<CinemachineBrain>();
