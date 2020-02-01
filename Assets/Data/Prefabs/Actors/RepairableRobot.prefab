@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3148615342094747881}
   - component: {fileID: 66832366764214611}
   - component: {fileID: 4788878110304660387}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Right Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 5484873690973487389}
   - component: {fileID: 2701986255840837380}
   - component: {fileID: 3079978568795332819}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 23155145297198345}
   - component: {fileID: 5473908097856630613}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: ExitBayEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5595235354339922509}
   - component: {fileID: 1621312617529529064}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Right Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 9211634964949073877}
   - component: {fileID: 3510968000636547465}
   - component: {fileID: 2469668639859962049}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5038788137277300353}
   - component: {fileID: 5256200678216653756}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Right Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1007790043787347429}
   - component: {fileID: 7058271576401251284}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: EnterBayEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +461,7 @@ GameObject:
   - component: {fileID: 8137175040184156636}
   - component: {fileID: 3027978552484031162}
   - component: {fileID: 4636136512167309487}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Right Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 7691978165857373918}
   - component: {fileID: 6261019448351625329}
   - component: {fileID: 561397126231776815}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Left Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -645,7 +645,7 @@ GameObject:
   - component: {fileID: 523565659984739980}
   - component: {fileID: 5656403375802558436}
   - component: {fileID: 7406809952347720675}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Left Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -734,7 +734,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 616312301613751121}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -774,7 +774,7 @@ GameObject:
   - component: {fileID: 9219748788429474695}
   - component: {fileID: 6977189552765521521}
   - component: {fileID: 1276619284794111675}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -864,7 +864,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5314353140478429763}
   - component: {fileID: 1847414346860346256}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Left Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -907,7 +907,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3359889470192928266}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Repair Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -943,7 +943,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2934535648955232908}
   - component: {fileID: 2537623628645822170}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -989,7 +989,7 @@ GameObject:
   - component: {fileID: -6035783699288100202}
   - component: {fileID: 4029602140413457491}
   - component: {fileID: 8341995787778522481}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: RepairableRobot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1082,7 +1082,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4382180677456534510}
   - component: {fileID: 7035176483485470965}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Left Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
