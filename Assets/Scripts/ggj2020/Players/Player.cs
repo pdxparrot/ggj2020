@@ -16,6 +16,8 @@ namespace pdxpartyparrot.ggj2020.Players
 
         private GameViewer PlayerGameViewer => (GameViewer)Viewer;
 
+        private SpawnPoint _spawnpoint;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -46,9 +48,16 @@ namespace pdxpartyparrot.ggj2020.Players
 #region Spawn
         public override bool OnSpawn(SpawnPoint spawnpoint)
         {
+            Assert.IsNull(_spawnpoint);
+
             if(!base.OnSpawn(spawnpoint)) {
                 return false;
             }
+
+            if(!spawnpoint.Acquire(this)) {
+                return false;
+            }
+            _spawnpoint = spawnpoint;
 
             PlayerGameViewer.AddTarget(this);
 
@@ -57,9 +66,16 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public override bool OnReSpawn(SpawnPoint spawnpoint)
         {
+            Assert.IsNull(_spawnpoint);
+
             if(!base.OnReSpawn(spawnpoint)) {
                 return false;
             }
+
+            if(!spawnpoint.Acquire(this)) {
+                return false;
+            }
+            _spawnpoint = spawnpoint;
 
             PlayerGameViewer.AddTarget(this);
 
@@ -68,6 +84,9 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public override void OnDeSpawn()
         {
+            _spawnpoint.Release();
+            _spawnpoint = null;
+
             PlayerGameViewer.RemoveTarget(this);
 
             base.OnDeSpawn();

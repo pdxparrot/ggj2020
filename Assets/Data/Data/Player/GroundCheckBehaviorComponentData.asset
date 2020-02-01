@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 719ae4318af8771408f8e7c1e306afa0, type: 3}
-  m_Name: SpawnData
+  m_Script: {fileID: 11500000, guid: 25979673868a0f64790453e42f123c8b, type: 3}
+  m_Name: GroundCheckBehaviorComponentData
   m_EditorClassIdentifier: 
-  _playerSpawnPointTags:
-  - player
-  _types:
-  - _tag: player
-    _spawnMethod: 0
+  _raycastLayerMask:
+    serializedVersion: 2
+    m_Bits: 16384
+  _raycastRoutineRate: 0.1
+  _GroundedEpsilon: 0.1
+  _groundCheckLength: 1
+  _slopeLimit: 30

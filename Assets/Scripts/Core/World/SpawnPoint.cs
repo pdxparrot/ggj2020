@@ -119,7 +119,7 @@ namespace pdxpartyparrot.Core.World
             return actor.OnReSpawn(this);
         }
 
-        public bool Acquire(Actor owner, Action onRelease, bool force=false)
+        public bool Acquire(Actor owner, Action onRelease=null, bool force=false)
         {
             if(!force && null != _owner) {
                 return false;

@@ -1,6 +1,5 @@
 ﻿using JetBrains.Annotations;
 
-using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -57,21 +56,6 @@ namespace pdxpartyparrot.Game.Players.Input
         }
 #endregion
 
-        protected virtual bool IsInputAllowed(InputAction.CallbackContext ctx)
-        {
-            // no input unless we have focus
-            if(!Application.isFocused) {
-                return false;
-            }
-
-            // ignore keyboard/mouse while the debug menu is open
-            if(DebugMenuManager.Instance.Enabled && (ctx.control.device == Keyboard.current || ctx.control.device == Mouse.current)) {
-                return false;
-            }
-
-            return true;
-        }
-
         protected virtual void DoPollMove()
         {
             if(null == _moveAction) {
@@ -93,7 +77,7 @@ namespace pdxpartyparrot.Game.Players.Input
         }
 
 #region Common Actions
-        public void OnPause(InputAction.CallbackContext context)
+        public void OnPauseAction(InputAction.CallbackContext context)
         {
             if(!IsInputAllowed(context)) {
                 return;
@@ -108,11 +92,15 @@ namespace pdxpartyparrot.Game.Players.Input
             }
         }
 
-        public void OnMove(InputAction.CallbackContext context)
+        public void OnMoveAction(InputAction.CallbackContext context)
         {
             if(!IsInputAllowed(context)) {
                 return;
             }
+
+            /*if(Core.Input.InputManager.Instance.EnableDebug) {
+                Debug.Log($"Move: {context.action.phase}");
+            }*/
 
             if(context.performed) {
                 PollMove = true;
@@ -123,11 +111,15 @@ namespace pdxpartyparrot.Game.Players.Input
             }
         }
 
-        public void OnLook(InputAction.CallbackContext context)
+        public void OnLookAction(InputAction.CallbackContext context)
         {
             if(!IsInputAllowed(context)) {
                 return;
             }
+
+            /*if(Core.Input.InputManager.Instance.EnableDebug) {
+                Debug.Log($"Look: {context.action.phase}");
+            }*/
 
             if(context.performed) {
                 PollLook = true;

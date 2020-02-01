@@ -34,16 +34,14 @@ namespace pdxpartyparrot.Core.Input
         }
 #endregion
 
-        // TODO: is this useful anymore?
-        /*public bool IsOurDevice(InputAction.CallbackContext context)
+        public void EnableControls(bool enable)
         {
-            foreach(InputDevice device in _playerInput.devices) {
-                if(context.control.device == device) {
-                    return true;
-                }
+            if(enable) {
+                _playerInput.actions.Enable();
+            } else {
+                _playerInput.actions.Disable();
             }
-            return false;
-        }*/
+        }
 
         public void Rumble(RumbleConfig config)
         {

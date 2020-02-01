@@ -13,6 +13,7 @@ using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.InputSystem;
 
 namespace pdxpartyparrot.Game.Players.Input
 {
@@ -127,8 +128,29 @@ namespace pdxpartyparrot.Game.Players.Input
             InitDebugMenu();
         }
 
-        protected virtual void EnableControls(bool enable)
+        protected virtual bool IsInputAllowed(InputAction.CallbackContext ctx)
         {
+            // no input unless input is enabled
+            if(!InputEnabled) {
+                return false;
+            }
+
+            // no input unless we have focus
+            if(!Application.isFocused) {
+                return false;
+            }
+
+            // ignore keyboard/mouse while the debug menu is open
+            if(DebugMenuManager.Instance.Enabled && (ctx.control.device == Keyboard.current || ctx.control.device == Mouse.current)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        private void EnableControls(bool enable)
+        {
+            _inputHelper.EnableControls(enable);
         }
 
         private void UpdateBuffers()
