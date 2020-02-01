@@ -305,6 +305,7 @@
 * Create an empty Prefab and add the GameManager component to it
 * Create a GameData in Data/Data and attach it to the manager
   * Configure as necessary
+  * **TODO:** floating text prefab
 * Attach the manager to the LoadingManager prefab
 
 ### PlayerBehavior
@@ -667,6 +668,28 @@
   * Disable Auto Generate lighting
 * Add the scene to the Build Settings
 * The scene should now load when the main scene is run as long as the name of the scene matches what was set in the MainMenuState prefab
+
+# Game UI
+
+* Create a new GameUI script that overrides the Game GameUI
+* Create a GameUI Prefab in Prefabs/UI and add the GameUI component to it
+  * Layer: UI
+  * Add a Canvas under the prefab
+    * Render Mode: Screen Space - Overlay
+    * UI Scale Mode: Scale With Screen Size
+    * Reference Resolution: 1280x720
+    * Match Width Or Height: 0.5
+    * Set the Canvas on the GameUI object
+    * Remove the Graphic Raycaster
+    * Remove the EventSystem object that gets added (or turn it into a prefab if that hasn't been created yet)
+* Create a new GameUIManager script that overrides the Game GameUIManager
+  * Implement the required interface
+* Add a connection to the project GameUIManager in the project LoadingManager
+  * Create the GameUIManager prefab in the overloaded CreateManagers() in the project LoadingManager
+* Create an empty Prefab and add the GameUIManager component to it
+* Attach the GameUI prefab to he manager
+
+## Pause Menu
 
 # Game States
 

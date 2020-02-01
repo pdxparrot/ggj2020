@@ -1,4 +1,6 @@
-﻿using pdxpartyparrot.Core.Effects;
+﻿using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Input;
 
 using TMPro;
@@ -11,12 +13,15 @@ namespace pdxpartyparrot.Game.UI
     public sealed class TitleScreen : MonoBehaviour
     {
         [SerializeField]
+        [CanBeNull]
         private EffectTrigger _loadEffectTrigger;
 
         [SerializeField]
+        [CanBeNull]
         private TextMeshProUGUI _titleText;
 
         [SerializeField]
+        [CanBeNull]
         private TextMeshProUGUI _subTitleText;
 
         // flag to tell us if we've already started the load effect
@@ -27,21 +32,29 @@ namespace pdxpartyparrot.Game.UI
 #region Unity Lifecycle
         private void Awake()
         {
-            Color color = _titleText.color;
-            color.a = 0.0f;
-            _titleText.color = color;
+            // TODO: this should be up to the load effect to setup
+            /*if(null != _titleText) {
+                Color color = _titleText.color;
+                color.a = 0.0f;
+                _titleText.color = color;
+            }
 
-            color = _subTitleText.color;
-            color.a = 0.0f;
-            _subTitleText.color = color;
+            if(null != _subTitleText) {
+                Color color = _subTitleText.color;
+                color.a = 0.0f;
+                _subTitleText.color = color;
+            }*/
         }
 
         private void Start()
         {
-            _loadEffectTrigger.Trigger();
-            if(_started) {
-                _loadEffectTrigger.StopTrigger();
+            if(null != _loadEffectTrigger) {
+                _loadEffectTrigger.Trigger();
+                if(_started) {
+                    _loadEffectTrigger.StopTrigger();
+                }
             }
+
             _started = true;
         }
 
@@ -62,10 +75,12 @@ namespace pdxpartyparrot.Game.UI
 
         public void FinishLoading()
         {
-            if(_loadEffectTrigger.IsRunning) {
-                _loadEffectTrigger.StopTrigger();
-            } else if(!_started) {
-                _started = true;
+            if(null != _loadEffectTrigger) {
+                if(_loadEffectTrigger.IsRunning) {
+                    _loadEffectTrigger.StopTrigger();
+                } else if(!_started) {
+                    _started = true;
+                }
             }
         }
 
