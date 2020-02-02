@@ -74,9 +74,12 @@ namespace pdxpartyparrot.ggj2020.Players
 
             if(context.performed) {
                 Debug.LogWarning("TODO: context interact (ladder, tool, etc)");
-                if (MechanicLogic != null)
-                {
+                if (MechanicLogic != null) {
                     MechanicLogic.UseOrPickupTool();
+                }
+            } else {
+                if (MechanicLogic != null) {
+                    MechanicLogic.UseEnded();
                 }
             }
         }

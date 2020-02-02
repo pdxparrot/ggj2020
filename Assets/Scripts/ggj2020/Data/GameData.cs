@@ -76,5 +76,20 @@ namespace pdxpartyparrot.ggj2020.Data
 
         public string NPCFighterSpawnTag => _npcFighterSpawnTag;
 #endregion
+
+        [Space(10)]
+
+#region Game Stuff
+        [SerializeField]
+        [Range(0.0f, 1.0f)]
+        private float _passingRepairPercent = 0.5f;
+
+        public float PassingRepairPercent => _passingRepairPercent;
+
+        [SerializeField]
+        private int _maxFailures = 3;
+
+        public int MaxFailures => _maxFailures;
+#endregion
     }
 }

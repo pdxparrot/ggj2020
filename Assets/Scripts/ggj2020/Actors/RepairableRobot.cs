@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Effects;
@@ -54,6 +55,10 @@ namespace pdxpartyparrot.ggj2020.Actors
         [ReadOnly]
         private int _currentDamagedParts;
 
+        [SerializeField]
+        [ReadOnly]
+        private int _currentDamageIncreaseChance;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -83,6 +88,18 @@ namespace pdxpartyparrot.ggj2020.Actors
                 }
             }
             return true;
+        }
+
+        public float GetRepairPercent()
+        {
+            int damageCount = 0;
+            foreach(RepairPoint repairPoint in _repairPoints) {
+                if(!repairPoint.IsRepaired) {
+                    damageCount++;
+                }
+            }
+
+            return (_currentDamagedParts - damageCount) / (float)_currentDamagedParts;
         }
 
         public void EnterRepairBay(Action onComplete)
@@ -121,6 +138,7 @@ namespace pdxpartyparrot.ggj2020.Actors
             // init on first spawn
             if(0 == _currentDamagedParts) {
                 _currentDamagedParts = GameManager.Instance.GameGameData.RepairableRobotData.InitialDamagedAreasPerPlayerCount.ElementAt(PlayerManager.Instance.Players.Count);
+                _currentDamageIncreaseChance = GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreaseBasePercent;
             }
 
             // TODO: move this allocation out of here
@@ -133,16 +151,36 @@ namespace pdxpartyparrot.ggj2020.Actors
             return true;
         }
 
+        public override bool OnReSpawn(SpawnPoint spawnpoint)
+        {
+            if(!base.OnReSpawn(spawnpoint)) {
+                return false;
+            }
+
+            // reset all the parts
+            foreach(RepairPoint repairPoint in _repairPoints) {
+                repairPoint.ResetDamage();
+            }
+
+            // see if we get a damage increase
+            int chance = PartyParrotManager.Instance.Random.Next(100);
+            if(chance > _currentDamageIncreaseChance) {
+                Debug.Log("Damage increase!");
+                _currentDamagedParts += GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreasePerPlayerCount.ElementAt(PlayerManager.Instance.Players.Count);
+                _currentDamageIncreaseChance = GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreaseBasePercent;
+            } else {
+                _currentDamageIncreaseChance += GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreaseRate;
+            }
+
+            return true;
+        }
+
         public override void OnDeSpawn()
         {
             // reset all the parts
             foreach(RepairPoint repairPoint in _repairPoints) {
                 repairPoint.ResetDamage();
             }
-
-            // see if the number of damaged parts goes up
-
-            base.OnDeSpawn();
         }
 
         private void RepairedEventHandler(object sender, EventArgs args)

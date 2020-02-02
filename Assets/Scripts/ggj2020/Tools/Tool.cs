@@ -58,5 +58,10 @@ namespace pdxpartyparrot.ggj2020.Tools
         {
             print("Parent use tool called");
         }
+
+        virtual public void EndUseTool()
+        {
+            print("Parent end use tool called");
+        }
     }
 }
