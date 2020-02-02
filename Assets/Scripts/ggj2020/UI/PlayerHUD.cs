@@ -36,7 +36,7 @@ namespace pdxpartyparrot.ggj2020.UI
         private void Update()
         {
             if(GameManager.HasInstance && null != GameManager.Instance.GameLevelHelper) {
-                _timerText.text = $"{GameManager.Instance.GameLevelHelper.TimeRemaining:D2}";
+                _timerText.text = $"{GameManager.Instance.GameLevelHelper.TimeRemaining:00}";
             }
         }
 #endregion
