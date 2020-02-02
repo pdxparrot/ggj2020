@@ -58,19 +58,18 @@ namespace pdxpartyparrot.ggj2020.Actors
             // TODO: figure out what the current repair states are and set them up
 
             _enterMoveTween.From = transform.position;
+            _enterMoveTween.To = Vector3.zero;
+
             _enterRepairBayEffectTrigger.Trigger(() => {
                 onComplete?.Invoke();
             });
         }
 
-        public void ReadyForRepair()
-        {
-            _enterRepairBayEffectTrigger.StopTrigger();
-        }
-
         public void ExitRepairBay(Action onComplete)
         {
             _exitMoveTween.From = Vector3.zero;
+            _exitMoveTween.To = GameManager.Instance.GameLevelHelper.RepairableExit.position;
+
             _exitRepairBayEffectTrigger.Trigger(() => {
                 onComplete?.Invoke();
             });

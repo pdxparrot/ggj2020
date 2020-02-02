@@ -19,6 +19,8 @@ namespace pdxpartyparrot.ggj2020.Level
         [SerializeField]
         private Transform _repairableExit;
 
+        public Transform RepairableExit => _repairableExit;
+
         private ITimer _timer;
 
         public float TimeRemaining => (int)_timer.SecondsRemaining;
@@ -65,23 +67,30 @@ namespace pdxpartyparrot.ggj2020.Level
 
         protected override void GameReadyEventHandler(object sender, EventArgs args)
         {
+            GameManager.Instance.MechanicsCanInteract = false;
+
+            // this will init the timer UI correctly
+            _timer.AddTime(GameManager.Instance.GameGameData.RepairTime);
+
             _repairableRobot.gameObject.SetActive(true);
             _repairableRobot.EnterRepairBay(() => {
+                GameManager.Instance.MechanicsCanInteract = true;
+
                 _timer.Start(GameManager.Instance.GameGameData.RepairTime);
             });
-
-            // TODO: do we need to set some state to stop players moving?
         }
 
         private void OnRepairTimeUp(object sender, EventArgs args)
         {
-            // TODO: do we need to set some state to stop players moving?
+            GameManager.Instance.MechanicsCanInteract = false;
+
+            // TODO: when does the game end?
 
             _repairableRobot.ExitRepairBay(() => {
                 // TODO: advance to the next robot
             });
 
-            // TODO: when does the game end?
+            // TODO: kick off the next background battle
         }
 #endregion
     }

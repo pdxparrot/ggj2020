@@ -49,7 +49,7 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public void OnUseLadder(InputAction.CallbackContext context)
         {
-            if(!IsInputAllowed(context)) {
+            if(!IsInputAllowed(context) || !GameManager.Instance.MechanicsCanInteract) {
                 return;
             }
 
@@ -64,7 +64,7 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public void OnInteractAction(InputAction.CallbackContext context)
         {
-            if(!IsInputAllowed(context)) {
+            if(!IsInputAllowed(context) || !GameManager.Instance.MechanicsCanInteract) {
                 return;
             }
 
@@ -83,7 +83,7 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public void OnCancelAction(InputAction.CallbackContext context)
         {
-            if(!IsInputAllowed(context)) {
+            if(!IsInputAllowed(context) || !GameManager.Instance.MechanicsCanInteract) {
                 return;
             }
 

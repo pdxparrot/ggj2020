@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.DebugMenu;
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game;
 using pdxpartyparrot.ggj2020.Camera;
 using pdxpartyparrot.ggj2020.Data;
@@ -23,6 +24,16 @@ namespace pdxpartyparrot.ggj2020
 
         // only valid on the client
         public GameViewer Viewer { get; private set; }
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _mechanicsCanInteract;
+
+        public bool MechanicsCanInteract
+        {
+            get => _mechanicsCanInteract;
+            set => _mechanicsCanInteract = value;
+        }
 
         private DebugMenuNode _debugMenuNode;
 
