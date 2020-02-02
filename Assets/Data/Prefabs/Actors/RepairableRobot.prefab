@@ -1023,6 +1023,7 @@ MonoBehaviour:
   _exitRepairBayEffectTrigger: {fileID: 5473908097856630613}
   _exitMoveTween: {fileID: 8318760051022507415}
   _currentDamagedParts: 0
+  _currentDamageIncreaseChance: 0
 --- !u!1 &8852682599872701553
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,12 +1123,12 @@ PrefabInstance:
     - target: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
         type: 3}
@@ -1259,7 +1260,7 @@ PrefabInstance:
     - target: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15
+      value: 13.35
       objectReference: {fileID: 0}
     - target: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
         type: 3}
@@ -1386,7 +1387,7 @@ PrefabInstance:
     - target: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
         type: 3}
@@ -1518,7 +1519,7 @@ PrefabInstance:
     - target: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
         type: 3}
@@ -1650,12 +1651,12 @@ PrefabInstance:
     - target: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
         type: 3}
