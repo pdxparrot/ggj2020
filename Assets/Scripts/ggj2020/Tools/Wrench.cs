@@ -23,10 +23,10 @@ namespace pdxpartyparrot.ggj2020.Tools
         // Update is called once per frame
         void Update()
         {
-            if (closestPoint == null)
-                return;
             // -- TODO update this once functions have been moved
             closestPoint = FindClosestRepairPoint(FindRepairPoints());
+            if (closestPoint == null)
+                return;
         }
         override public void UseTool(Mechanic player)
         {
@@ -48,6 +48,9 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         public override void TrackThumbStickAxis(Vector2 Axis)
         {
+            if (closestPoint == null)
+                return;
+
             if ((Axis.x >= 1 || Axis.y >= 1) && LastTurnAxis != 1)
             {
                 LastTurnAxis = 1;

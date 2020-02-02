@@ -4,6 +4,7 @@ using UnityEngine;
 
 using pdxpartyparrot.ggj2020.Tools;
 using pdxpartyparrot.ggj2020.Players;
+using pdxpartyparrot.ggj2020.Actors;
 
 namespace pdxpartyparrot.ggj2020.Tools
 {
@@ -17,6 +18,7 @@ namespace pdxpartyparrot.ggj2020.Tools
         private float CurrentTime = 0;
         private bool ButtonHeld = false;
         private int SuccesfulHits = 0;
+        private RepairPoint oldClosestPoint = null;
         
         // Start is called before the first frame update
         void Start()
@@ -29,10 +31,16 @@ namespace pdxpartyparrot.ggj2020.Tools
         // Update is called once per frame
         void Update()
         {
-            if (closestPoint == null)
-                return;
             // -- TODO update this once functions have been moved
             closestPoint = FindClosestRepairPoint(FindRepairPoints());
+            if (closestPoint == null)
+                return;
+
+            if (closestPoint != oldClosestPoint)
+            {
+                oldClosestPoint = closestPoint;
+                SuccesfulHits = 0;
+            }
 
             CurrentTime = Time.realtimeSinceStartup;
             float delta = CurrentTime - TimeSinceLastWindow;
@@ -73,6 +81,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             if (SuccesfulHits >= MaxSuccesfulHits && !closestPoint.IsRepaired)
             {
                 closestPoint.Repair();
+                SuccesfulHits = 0;
                 print("Repair Done!");
 
             }
