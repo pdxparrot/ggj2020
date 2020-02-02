@@ -46,6 +46,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             {
                 LastTurnAxis = -1;
                 SuccessfulTurns++;
+                print("Turn was made");
             }
 
             if (SuccessfulTurns >= MaxSuccesfulTurns)
