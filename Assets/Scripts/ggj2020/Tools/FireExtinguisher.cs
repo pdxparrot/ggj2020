@@ -21,21 +21,34 @@ namespace pdxpartyparrot.ggj2020.Tools
         // Update is called once per frame
         void Update()
         {
+            // -- TODO update this once functions have been moved
+            closestPoint = FindClosestRepairPoint(FindRepairPoints());
+            if(closestPoint == null)
+                return;
+
             if (ButtonHeld)
             {
                 CurrentTime = Time.realtimeSinceStartup;
                 float delta = CurrentTime - TimeAtStartOfHold;
-                if (delta >= HoldTime)
+                if (delta >= HoldTime && !closestPoint.IsRepaired)
                 {
-                    print("Succesful Fix TODO hook up with robot");
+                    closestPoint.Repair();
+                    print("Repair Done!");
                 }
             }
-           
+            else
+            {
+                CurrentTime = Time.realtimeSinceStartup;
+                TimeAtStartOfHold = CurrentTime;
+            }
         }
 
         override public void UseTool(Mechanic player)
         {
-            if (HoldingPlayer.gameObject != player.gameObject)
+            if (closestPoint == null || HoldingPlayer.gameObject != player.gameObject)
+                return;
+
+            if (closestPoint.GetDamageType() != Actors.RepairPoint.DamageType.Fire)
                 return;
 
             ButtonHeld = true;

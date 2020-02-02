@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using pdxpartyparrot.ggj2020.Players;
+using pdxpartyparrot.ggj2020.Actors;
 using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Tools
@@ -9,6 +10,7 @@ namespace pdxpartyparrot.ggj2020.Tools
     {
         protected Mechanic HoldingPlayer = null;
         protected GameObject parent;
+        protected RepairPoint closestPoint = null;
         // Start is called before the first frame update
         void Start()
         {
@@ -18,7 +20,43 @@ namespace pdxpartyparrot.ggj2020.Tools
         // Update is called once per frame
         void Update()
         {
+            
+        }
 
+        // -- TODO move this out of tool script
+        public List<RepairPoint> FindRepairPoints()
+        {
+            List<RepairPoint> points = new List<RepairPoint>();
+
+            GameObject[] allObjects = (GameObject[])FindObjectsOfType(typeof(GameObject));
+            foreach (GameObject GO in allObjects)
+            {
+                RepairPoint point = GO.GetComponent<RepairPoint>();
+                if (point != null)
+                {
+                    points.Add(point);
+                }
+            }
+            return points;
+        }
+
+        // -- TODO move this out of tool script
+        public RepairPoint FindClosestRepairPoint(List<RepairPoint> points)
+        {
+            RepairPoint closestPoint = null;
+            float closestDistance = 9999999999;
+            foreach (RepairPoint item in points)
+            {
+                Vector3 ToVector = gameObject.transform.position - item.gameObject.transform.position;
+                float Distance = ToVector.magnitude;
+                if (Distance < closestDistance)
+                {
+                    closestPoint = item;
+                    closestDistance = Distance;
+                }
+            }
+
+            return closestPoint;
         }
 
         void OnTriggerEnter(Collider collision) { 

@@ -78,6 +78,11 @@ namespace pdxpartyparrot.ggj2020.Actors
             }
         }
 
+        public DamageType GetDamageType()
+        {
+            return RepairPointDamageType;
+        }
+
         public void Repair()
         {
             _repairState = RepairState.Repaired;

@@ -23,11 +23,17 @@ namespace pdxpartyparrot.ggj2020.Tools
         // Update is called once per frame
         void Update()
         {
-
+            if (closestPoint == null)
+                return;
+            // -- TODO update this once functions have been moved
+            closestPoint = FindClosestRepairPoint(FindRepairPoints());
         }
         override public void UseTool(Mechanic player)
         {
-            if (HoldingPlayer.gameObject != player.gameObject)
+            if (closestPoint == null || HoldingPlayer.gameObject != player.gameObject)
+                return;
+
+            if (closestPoint.GetDamageType() != Actors.RepairPoint.DamageType.Loose)
                 return;
 
             ButtonHeld = true;
@@ -49,12 +55,12 @@ namespace pdxpartyparrot.ggj2020.Tools
             {
                 LastTurnAxis = -1;
                 SuccessfulTurns++;
-                print("Turn was made");
             }
 
-            if (SuccessfulTurns >= MaxSuccesfulTurns)
+            if (SuccessfulTurns >= MaxSuccesfulTurns && !closestPoint.IsRepaired)
             {
-                print("Succesful Fix TODO hook up to the robo");
+                closestPoint.Repair();
+                print("Repair Done!");
             }
         }
     }

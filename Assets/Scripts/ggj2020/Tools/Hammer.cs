@@ -29,6 +29,11 @@ namespace pdxpartyparrot.ggj2020.Tools
         // Update is called once per frame
         void Update()
         {
+            if (closestPoint == null)
+                return;
+            // -- TODO update this once functions have been moved
+            closestPoint = FindClosestRepairPoint(FindRepairPoints());
+
             CurrentTime = Time.realtimeSinceStartup;
             float delta = CurrentTime - TimeSinceLastWindow;
             if ((delta - TimeBetweenPresses) >= TimeToAllowSuccesfulPress)
@@ -52,7 +57,10 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         override public void UseTool(Mechanic player)
         {
-            if (HoldingPlayer.gameObject != player.gameObject)
+            if (closestPoint == null || HoldingPlayer.gameObject != player.gameObject)
+                return;
+
+            if (closestPoint.GetDamageType() != Actors.RepairPoint.DamageType.Damaged)
                 return;
 
             float delta = CurrentTime - TimeSinceLastWindow;
@@ -60,16 +68,13 @@ namespace pdxpartyparrot.ggj2020.Tools
             {
                 SuccesfulHits++;
                 TimeSinceLastWindow = CurrentTime;
-                //print("Hammer hit");
             }
-            //else
-            //{
-            //    print("Hammer failed hit");
-            //}
            
-            if (SuccesfulHits >= MaxSuccesfulHits)
+            if (SuccesfulHits >= MaxSuccesfulHits && !closestPoint.IsRepaired)
             {
-                print("Succesful fix TODO connect to robot for fix");
+                closestPoint.Repair();
+                print("Repair Done!");
+
             }
 
         }

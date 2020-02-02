@@ -43,7 +43,7 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public void UseEnded()
         {
-            if (HasTool() && GameManager.Instance.MechanicsCanInteract)
+            if (HasTool())
             {
                 held_tool.EndUseTool();
             }
