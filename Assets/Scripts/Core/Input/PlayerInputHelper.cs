@@ -3,7 +3,6 @@ using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Users;
 
 namespace pdxpartyparrot.Core.Input
 {
@@ -15,6 +14,8 @@ namespace pdxpartyparrot.Core.Input
         private bool _isRumbling;
 
         private PlayerInput _playerInput;
+
+        public PlayerInput PlayerInput => _playerInput;
 
 #region Unity Lifecycle
         private void Awake()

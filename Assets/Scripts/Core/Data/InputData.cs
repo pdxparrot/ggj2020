@@ -17,5 +17,15 @@ namespace pdxpartyparrot.Core.Data
         private string _gamepadScheme = "Gamepad";
 
         public string GamepadScheme => _gamepadScheme;
+
+        [SerializeField]
+        private string _moveActionName = "Move";
+
+        public string MoveActionName => _moveActionName;
+
+        [SerializeField]
+        private string _lookActionName = "Look";
+
+        public string LookActionName => _lookActionName;
     }
 }

@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-
+﻿using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -27,27 +26,27 @@ namespace pdxpartyparrot.Game.Players.Input
         {	
             get => _pollLook;	
             set => _pollLook = value;	
-        }	
+        }
 
-        [SerializeField]	
-        [CanBeNull]	
-        private InputActionReference _moveAction;	
+        private InputAction _moveAction;
 
-        protected InputActionReference MoveAction => _moveAction;	
-
-        [SerializeField]	
-        [CanBeNull]	
-        private InputActionReference _lookAction;	
-
-        protected InputActionReference LookAction => _lookAction;
+        private InputAction _lookAction;
 
 #region Unity Lifecycle	
+        protected override void Awake()
+        {
+            base.Awake();
+
+            _moveAction = InputHelper.PlayerInput.actions.FindAction(InputManager.Instance.InputData.MoveActionName);
+            _lookAction = InputHelper.PlayerInput.actions.FindAction(InputManager.Instance.InputData.LookActionName);
+        }
+
         protected override void Update()	
-        {	
-            base.Update();	
+        {
+            base.Update();
 
             if(PollMove) {	
-                DoPollMove();	
+                DoPollMove();
             }	
 
             if(PollLook) {	
@@ -62,7 +61,7 @@ namespace pdxpartyparrot.Game.Players.Input
                 return;	
             }
 
-            DoMove(_moveAction.action);
+            DoMove(_moveAction);
         }	
 
         protected virtual void DoPollLook()	
@@ -71,7 +70,7 @@ namespace pdxpartyparrot.Game.Players.Input
                 return;	
             }	
 
-            DoLook(_lookAction.action);	
+            DoLook(_lookAction);	
         }
 
 #region Common Actions
