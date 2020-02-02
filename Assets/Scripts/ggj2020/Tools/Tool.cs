@@ -22,10 +22,13 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         void OnTriggerEnter(Collider collision)
         {            
-            collision.gameObject.GetComponent<Mechanic>().SetCollidedTool(this);
+            Mechanic mechanic = collision.gameObject.GetComponent<Mechanic>();
+            if(null != mechanic) {
+                mechanic.SetCollidedTool(this);
+            }
         }
 
-        virtual public void SetHeld(Mechanic player)
+        public void SetHeld(Mechanic player)
         {
             HoldingPlayer = player;
             gameObject.transform.parent = player.gameObject.transform;
