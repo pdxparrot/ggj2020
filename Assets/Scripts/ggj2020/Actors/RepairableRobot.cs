@@ -201,7 +201,7 @@ namespace pdxpartyparrot.ggj2020.Actors
                 return false;
             }
 
-            _currentDamagedParts = GameManager.Instance.GameGameData.RepairableRobotData.InitialDamagedAreasPerPlayerCount.ElementAt(PlayerManager.Instance.Players.Count);
+            _currentDamagedParts = GameManager.Instance.GameGameData.RepairableRobotData.InitialDamagedAreasPerPlayerCount.ElementAt(PlayerManager.Instance.Players.Count - 1);
             _currentDamageIncreaseChance = GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreaseBasePercent;
 
             InitDamage();
@@ -219,7 +219,7 @@ namespace pdxpartyparrot.ggj2020.Actors
             int chance = PartyParrotManager.Instance.Random.Next(100);
             if(chance <= _currentDamageIncreaseChance) {
                 Debug.Log($"Damage increased {chance} of {_currentDamageIncreaseChance}");
-                _currentDamagedParts += GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreasePerPlayerCount.ElementAt(PlayerManager.Instance.Players.Count);
+                _currentDamagedParts += GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreasePerPlayerCount.ElementAt(PlayerManager.Instance.Players.Count - 1);
                 _currentDamageIncreaseChance = GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreaseBasePercent;
             } else {
                 Debug.Log($"No damage increase {chance} of {_currentDamageIncreaseChance}");
