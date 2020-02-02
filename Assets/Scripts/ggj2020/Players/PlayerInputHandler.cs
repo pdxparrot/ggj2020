@@ -13,6 +13,8 @@ namespace pdxpartyparrot.ggj2020.Players
 
         private Player GamePlayer => (Player)Player;
 
+        public Mechanic MechanicLogic;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -72,6 +74,10 @@ namespace pdxpartyparrot.ggj2020.Players
 
             if(context.performed) {
                 Debug.LogWarning("TODO: context interact (ladder, tool, etc)");
+                if (MechanicLogic != null)
+                {
+                    MechanicLogic.UseOrPickupTool();
+                }
             }
         }
 

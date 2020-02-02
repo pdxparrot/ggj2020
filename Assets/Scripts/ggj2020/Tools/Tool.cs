@@ -21,9 +21,8 @@ namespace pdxpartyparrot.ggj2020.Tools
         }
 
         void OnTriggerEnter(Collider collision)
-        {
-            print("Tool collision");
-            //collided_tool = collision.gameObject.GetComponent<Tool>();
+        {            
+            collision.gameObject.GetComponent<Mechanic>().SetCollidedTool(this);
         }
 
         public void SetHeld(Mechanic player)

@@ -33,9 +33,9 @@ namespace pdxpartyparrot.ggj2020.Players
             }
         }
 
-        void SetHeldTool(Tool new_tool)
+        public void SetCollidedTool(Tool new_tool)
         {
-
+            collided_tool = new_tool;
         }
 
         Tool GetHeldTool()
