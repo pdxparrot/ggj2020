@@ -76,7 +76,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             Player pl = HoldingPlayer.GetComponent<Player>();
             if (pl != null)
             {
-                pl.GetMechanicModel().SetAttachment("Tool_FireExtinguisher", "Tool_FireExtinguisher");
+                pl.MechanicModel.SetAttachment("Tool_FireExtinguisher", "Tool_FireExtinguisher");
             }
         }
 
@@ -85,7 +85,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             Player pl = HoldingPlayer.GetComponent<Player>();
             if (pl != null)
             {
-                pl.GetMechanicModel().RemoveAttachment("Tool_FireExtinguisher");
+                pl.MechanicModel.RemoveAttachment("Tool_FireExtinguisher");
             }
         }
     }

@@ -104,7 +104,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             Player pl = HoldingPlayer.GetComponent<Player>();
             if (pl != null)
             {
-                pl.GetMechanicModel().SetAttachment("Tool_Hammer", "Tool_Hammer");
+                pl.MechanicModel.SetAttachment("Tool_Hammer", "Tool_Hammer");
             }
         }
 
@@ -113,7 +113,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             Player pl = HoldingPlayer.GetComponent<Player>();
             if (pl != null)
             {
-                pl.GetMechanicModel().RemoveAttachment("Tool_Hammer");
+                pl.MechanicModel.RemoveAttachment("Tool_Hammer");
             }
         }
     }

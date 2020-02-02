@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using pdxpartyparrot.ggj2020.UI;
+﻿using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.UI
 {
@@ -12,19 +9,9 @@ namespace pdxpartyparrot.ggj2020.UI
         public Sprite pressedButtonAndThumb;
         public Sprite pressedButtonAndThumbRight;
         private Sprite currentSprite;
+
+        [SerializeField]
         private SpriteRenderer SPRR;
-
-        // Start is called before the first frame update
-        void Start()
-        {
-            SPRR = gameObject.GetComponent<SpriteRenderer>();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
 
         public void SetThumbLeft()
         {

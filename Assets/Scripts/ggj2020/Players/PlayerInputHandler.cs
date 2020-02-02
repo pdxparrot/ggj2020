@@ -30,9 +30,9 @@ namespace pdxpartyparrot.ggj2020.Players
         private void DoUseLadder()
         {
             if(GamePlayer.GamePlayerBehavior.IsOnLadder) {
-                GamePlayer.GamePlayerBehavior.IsOnLadder = false;
+                GamePlayer.GamePlayerBehavior.ClimbLadder(false);
             } else if(GamePlayer.GamePlayerBehavior.CanUseLadder) {
-                GamePlayer.GamePlayerBehavior.IsOnLadder = true;
+                GamePlayer.GamePlayerBehavior.ClimbLadder(true);
             }
         }
 

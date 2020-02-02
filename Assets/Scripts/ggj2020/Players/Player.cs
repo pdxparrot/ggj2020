@@ -23,17 +23,14 @@ namespace pdxpartyparrot.ggj2020.Players
         [SerializeField]
         private MechanicModel _mechanicModel;
 
+        public MechanicModel MechanicModel => _mechanicModel;
+
         [SerializeField]
         private UIBubble _uiBubble;
 
         public UIBubble UIBubble => _uiBubble;
 
         private SpawnPoint _spawnpoint;
-
-        public MechanicModel GetMechanicModel()
-        {
-            return _mechanicModel;
-        }
 
 #region Unity Lifecycle
         protected override void Awake()
@@ -61,7 +58,7 @@ namespace pdxpartyparrot.ggj2020.Players
 
             PlayerViewer = GameManager.Instance.Viewer;
 
-            _mechanicModel.InitializeBehavior(Behavior, NetworkPlayer.ControllerId);
+            _mechanicModel.Initialize(NetworkPlayer.ControllerId);
 
             return true;
         }

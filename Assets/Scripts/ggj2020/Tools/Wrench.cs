@@ -97,7 +97,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             Player pl = HoldingPlayer.GetComponent<Player>();
             if (pl != null)
             {
-                pl.GetMechanicModel().SetAttachment("Tool_Wrench", "Tool_Wrench");
+                pl.MechanicModel.SetAttachment("Tool_Wrench", "Tool_Wrench");
             }
         }
 
@@ -106,7 +106,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             Player pl = HoldingPlayer.GetComponent<Player>();
             if (pl != null)
             {
-                pl.GetMechanicModel().RemoveAttachment("Tool_Wrench");
+                pl.MechanicModel.RemoveAttachment("Tool_Wrench");
             }
         }
     }

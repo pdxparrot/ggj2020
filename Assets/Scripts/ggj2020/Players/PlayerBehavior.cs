@@ -25,6 +25,9 @@ namespace pdxpartyparrot.ggj2020.Players
         private RumbleEffectTriggerComponent _rumbleEffect;
 
         [SerializeField]
+        private EffectTrigger _climbLadderEffectTrigger;
+
+        [SerializeField]
         [ReadOnly]
         private bool _canUseLadder;
 
@@ -45,7 +48,7 @@ namespace pdxpartyparrot.ggj2020.Players
         public bool IsOnLadder
         {
             get => _isOnLadder;
-            set
+            private set
             {
                 _isOnLadder = value;
                 Owner.Movement.IsKinematic = value;
@@ -90,6 +93,22 @@ namespace pdxpartyparrot.ggj2020.Players
                 pos.y = 0.0f;
                 Owner.Movement.Teleport(pos);
             }
+        }
+
+        protected override void TriggerMoveEffect()
+        {
+            if(IsOnLadder) {
+                return;
+            }
+            base.TriggerMoveEffect();
+        }
+
+        public void ClimbLadder(bool climb)
+        {
+            if(climb) {
+                _climbLadderEffectTrigger.Trigger();
+            }
+            IsOnLadder = climb;
         }
 
 #region Events

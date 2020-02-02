@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.ggj2020.Tools;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Players
@@ -15,11 +15,14 @@ namespace pdxpartyparrot.ggj2020.Players
         private Tool held_tool = null;
         private Tool collided_tool = null;
 
-        // Start is called before the first frame update
-        void Start()
-        {
+        [SerializeField]
+        private EffectTrigger _pickupToolEffect;
 
-        }
+        [SerializeField]
+        private EffectTrigger _dropToolEffect;
+
+        [SerializeField]
+        private EffectTrigger _useToolEffect;
 
         bool HasTool()
         {
@@ -31,10 +34,12 @@ namespace pdxpartyparrot.ggj2020.Players
             if (HasTool() && GameManager.Instance.MechanicsCanInteract)
             {
                 held_tool.UseTool(this);
+                _useToolEffect.Trigger();
             } else if (held_tool == null && collided_tool != null)
             {
                 held_tool = collided_tool;
                 held_tool.SetHeld(this);
+                _pickupToolEffect.Trigger();
             }
         }
 
@@ -51,6 +56,7 @@ namespace pdxpartyparrot.ggj2020.Players
             if (HasTool())
             {
                 held_tool.EndUseTool();
+                Owner.Behavior.SpineAnimationHelper.SetEmptyAnimation(1);
             }
         }
 
@@ -61,6 +67,8 @@ namespace pdxpartyparrot.ggj2020.Players
 
             held_tool.Drop();
             held_tool = null;
+
+            _dropToolEffect.Trigger();
         }
 
         public void SetCollidedTool(Tool new_tool)
@@ -71,12 +79,6 @@ namespace pdxpartyparrot.ggj2020.Players
         Tool GetHeldTool()
         {
             return held_tool;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
 
         void OnTriggerEnter(Collider collision)

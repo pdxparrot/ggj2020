@@ -1,26 +1,25 @@
-﻿using pdxpartyparrot.Core.Actors.Components;
-
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Players
 {
     public class MechanicModel : MonoBehaviour
     {
-        private ActorBehaviorComponent localBehavior = null;
-        public void InitializeBehavior(ActorBehaviorComponent behavior, short playerControllerId)
+        [SerializeField]
+        private Player _owner;
+
+        public void Initialize(short playerControllerId)
         {
-            behavior.SpineSkinHelper.SetSkin(playerControllerId);
-            localBehavior = behavior;
+            _owner.Behavior.SpineSkinHelper.SetSkin(playerControllerId);
         }
 
         public void SetAttachment(string slotName, string attachmentName)
         {
-            localBehavior.SpineSkinHelper.SetAttachment(slotName, attachmentName);
+            _owner.Behavior.SpineSkinHelper.SetAttachment(slotName, attachmentName);
         }
 
         public void RemoveAttachment(string slotName)
         {
-            localBehavior.SpineSkinHelper.RemoveAttachment(slotName);
+            _owner.Behavior.SpineSkinHelper.RemoveAttachment(slotName);
         }
     }
 }
