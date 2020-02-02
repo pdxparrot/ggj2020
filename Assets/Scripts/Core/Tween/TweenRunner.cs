@@ -116,16 +116,27 @@ namespace pdxpartyparrot.Core.Tween
         [CanBeNull]
         private Tweener _tweener;
 
-        public bool IsRunning => _tweener.IsPlaying();
+        public bool IsActive => null != _tweener && _tweener.IsActive();
+
+        public bool IsRunning => IsActive && _tweener.IsPlaying();
 
 #region Unity Lifecycle
         protected virtual void Awake()
         {
+            PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
+
             InitDuration();
             InitTimeScale();
 
             if(PlayOnAwake) {
                 Play();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if(PartyParrotManager.HasInstance) {
+                PartyParrotManager.Instance.PauseEvent -= PauseEventHandler;
             }
         }
 
@@ -190,7 +201,16 @@ namespace pdxpartyparrot.Core.Tween
 
         public void Pause()
         {
-            _tweener?.Pause();
+            if(IsRunning) {
+                _tweener?.Pause();
+            }
+        }
+
+        public void TogglePause()
+        {
+            if(IsActive) {
+                _tweener?.TogglePause();
+            }
         }
 
         public void Kill()
@@ -199,6 +219,13 @@ namespace pdxpartyparrot.Core.Tween
         }
 
         protected abstract Tweener CreateTweener();
+
+#region Events
+        private void PauseEventHandler(object sender, EventArgs args)
+        {
+            TogglePause();
+        }
+#endregion
     }
 }
 #endif

@@ -1,4 +1,6 @@
 #if USE_DOTWEEN
+using System;
+
 using DG.Tweening;
 
 using JetBrains.Annotations;
@@ -44,11 +46,15 @@ namespace pdxpartyparrot.Core.Tween
         [CanBeNull]
         private Sequence _sequence;
 
-        public bool IsRunning => _sequence != null && _sequence.IsActive() && _sequence.IsPlaying();
+        public bool IsActive => null != _sequence && _sequence.IsActive();
+
+        public bool IsRunning => IsActive && _sequence.IsPlaying();
 
 #region Unity Lifecycle
         private void Awake()
         {
+            PartyParrotManager.Instance.PauseEvent += PauseEventHandler;
+
             foreach(TweenRunner runner in _tweens.Items) {
                 // cleanup the runner start states so they don't act outside our control
                 // TODO: this doesn't work :( bleh...
@@ -63,6 +69,13 @@ namespace pdxpartyparrot.Core.Tween
 
             if(_playOnAwake) {
                 Play();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if(PartyParrotManager.HasInstance) {
+                PartyParrotManager.Instance.PauseEvent -= PauseEventHandler;
             }
         }
 
@@ -106,16 +119,23 @@ namespace pdxpartyparrot.Core.Tween
             }
         }
 
+        public void TogglePause()
+        {
+            if(IsActive) {
+                _sequence?.TogglePause();
+            }
+        }
+
         public void Complete()
         {
-            if(IsRunning) {
+            if(IsActive) {
                 _sequence?.Complete();
             }
         }
 
         public void Complete(bool withCallbacks)
         {
-            if(IsRunning) {
+            if(IsActive) {
                 _sequence?.Complete(withCallbacks);
             }
         }
@@ -124,6 +144,13 @@ namespace pdxpartyparrot.Core.Tween
         {
             _sequence?.Kill();
         }
+
+#region Events
+        private void PauseEventHandler(object sender, EventArgs args)
+        {
+            TogglePause();
+        }
+#endregion
     }
 }
 #endif
