@@ -64,21 +64,17 @@ namespace pdxpartyparrot.ggj2020.Actors
         {
             _repairState = RepairState.UnRepaired;
 
-            int RepairType = UnityEngine.Random.Range(0, 3);
-            switch (RepairType)
+            switch(RepairPointDamageType)
             {
-                case 0:
-                    _damageType = DamageType.Fire;
-                    _fireDamageEffectTrigger.Trigger();
-                    break;
-                case 1:
-                    _damageType = DamageType.Damaged;
-                    _damagedEffectTrigger.Trigger();
-                    break;
-                case 2:
-                    _damageType = DamageType.Loose;
-                    _looseEffectTrigger.Trigger();
-                    break;
+            case DamageType.Fire:
+                _fireDamageEffectTrigger.Trigger();
+                break;
+            case DamageType.Damaged:
+                _damagedEffectTrigger.Trigger();
+                break;
+            case DamageType.Loose:
+                _looseEffectTrigger.Trigger();
+                break;
             }
         }
 
