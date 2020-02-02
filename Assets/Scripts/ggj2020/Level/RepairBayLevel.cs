@@ -57,10 +57,26 @@ namespace pdxpartyparrot.ggj2020.Level
             // TODO: when does the game end?
 
             _repairableRobot.ExitRepairBay(() => {
-                // TODO: advance to the next robot
+                SpawnPoint spawnpoint = SpawnManager.Instance.GetSpawnPoint(GameManager.Instance.GameGameData.RepairableRobotSpawnTag);
+                spawnpoint.ReSpawn(_repairableRobot);
+
+                EnterRobot();
             });
 
             // TODO: kick off the next background battle
+        }
+
+        private void EnterRobot()
+        {
+            // this will init the timer UI correctly
+            _timer.AddTime(GameManager.Instance.GameGameData.RepairTime);
+
+            _repairableRobot.gameObject.SetActive(true);
+            _repairableRobot.EnterRepairBay(() => {
+                GameManager.Instance.MechanicsCanInteract = true;
+
+                _timer.Start(GameManager.Instance.GameGameData.RepairTime);
+            });
         }
 
 #region Events
@@ -84,15 +100,7 @@ namespace pdxpartyparrot.ggj2020.Level
         {
             GameManager.Instance.MechanicsCanInteract = false;
 
-            // this will init the timer UI correctly
-            _timer.AddTime(GameManager.Instance.GameGameData.RepairTime);
-
-            _repairableRobot.gameObject.SetActive(true);
-            _repairableRobot.EnterRepairBay(() => {
-                GameManager.Instance.MechanicsCanInteract = true;
-
-                _timer.Start(GameManager.Instance.GameGameData.RepairTime);
-            });
+            EnterRobot();
         }
 
         private void OnRepairTimeUp(object sender, EventArgs args)
