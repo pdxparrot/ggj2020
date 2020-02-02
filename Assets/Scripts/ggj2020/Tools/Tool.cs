@@ -8,6 +8,7 @@ namespace pdxpartyparrot.ggj2020.Tools
     public class Tool : MonoBehaviour
     {
         private Mechanic HoldingPlayer = null;
+        private GameObject parent;
         // Start is called before the first frame update
         void Start()
         {
@@ -21,23 +22,34 @@ namespace pdxpartyparrot.ggj2020.Tools
         }
 
         void OnTriggerEnter(Collider collision)
-        {            
             Mechanic mechanic = collision.gameObject.GetComponent<Mechanic>();
             if(null != mechanic) {
                 mechanic.SetCollidedTool(this);
             }
         }
 
-        public void SetHeld(Mechanic player)
+        void OnTriggerExit(Collider collision)
+        {
+            collision.gameObject.GetComponent<Mechanic>().SetCollidedTool(null);
+        }
+
+        virtual public void SetHeld(Mechanic player)
         {
             HoldingPlayer = player;
-            gameObject.transform.parent = player.gameObject.transform;
+            // -- parenting 2 rigidbodys is bad news, so remove it
+            Rigidbody rigid = gameObject.GetComponentInParent<Rigidbody>();
+            parent = rigid.gameObject;
+            Destroy(rigid);
+            parent.transform.SetParent(player.transform);
         }
 
         public void Drop()
         {
             HoldingPlayer = null;
-            gameObject.transform.parent = null;
+            parent.transform.SetParent(null);
+            // -- add a rigid body so we have nice physics
+            parent.AddComponent<Rigidbody>();
+            parent = null;
         }
 
         virtual public void UseTool()

@@ -35,6 +35,7 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public void DropTool()
         {
+            held_tool.Drop();
             held_tool = null;
         }
 
