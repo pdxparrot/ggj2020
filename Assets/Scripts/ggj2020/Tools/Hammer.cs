@@ -19,7 +19,7 @@ namespace pdxpartyparrot.ggj2020.Tools
         private float CurrentTime = 0;
         private bool ButtonHeld = false;
         private int SuccesfulHits = 0;
-        private RepairPoint oldClosestPoint = null;
+
         
         // Start is called before the first frame update
         void Start()
@@ -27,6 +27,8 @@ namespace pdxpartyparrot.ggj2020.Tools
             TimeSinceLastWindow = 0;
             CurrentTime = 0;
             ButtonHeld = false;
+            DType = Actors.RepairPoint.DamageType.Damaged;
+
         }
 
         // Update is called once per frame
@@ -37,14 +39,14 @@ namespace pdxpartyparrot.ggj2020.Tools
 
             // -- TODO update this once functions have been moved
             UIBubble bubble = HoldingPlayer.GetComponentInChildren<UIBubble>();
-            closestPoint = FindClosestRepairPoint(FindRepairPoints());
+            closestPoint = FindClosestRepairPoint(FindRepairPoints(), DType);
             if (closestPoint == null)
             {
                 bubble.HideSprite();
                 return;
             }
-                
 
+            // -- make sure you don't repair multiple points
             if (closestPoint != oldClosestPoint)
             {
                 oldClosestPoint = closestPoint;
@@ -78,7 +80,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             if (closestPoint == null || HoldingPlayer.gameObject != player.gameObject)
                 return;
 
-            if (closestPoint.GetDamageType() != Actors.RepairPoint.DamageType.Damaged)
+            if (closestPoint.GetDamageType() != DType)
                 return;
 
             float delta = CurrentTime - TimeSinceLastWindow;

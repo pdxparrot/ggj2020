@@ -13,10 +13,11 @@ namespace pdxpartyparrot.ggj2020.Tools
         private float CurrentTime = 0;
         private float TimeAtStartOfHold = 0;
         private bool ButtonHeld = false;
+
         // Start is called before the first frame update
         void Start()
         {
-
+            DType = Actors.RepairPoint.DamageType.Fire;
         }
 
         // Update is called once per frame
@@ -27,17 +28,23 @@ namespace pdxpartyparrot.ggj2020.Tools
 
             // -- TODO update this once functions have been moved
             UIBubble bubble = HoldingPlayer.GetComponentInChildren<UIBubble>();
-            closestPoint = FindClosestRepairPoint(FindRepairPoints());
-            if(closestPoint == null || closestPoint.GetDamageType() != Actors.RepairPoint.DamageType.Fire)
+            closestPoint = FindClosestRepairPoint(FindRepairPoints(), DType);
+            if(closestPoint == null || closestPoint.GetDamageType() != DType)
             {
                 bubble.HideSprite();
                 return;
             }
 
-
             bubble.SetPressedSprite();
             if (ButtonHeld)
             {
+                // -- make sure you don't repair multiple points
+                if (closestPoint != oldClosestPoint)
+                {
+                    oldClosestPoint = closestPoint;
+                    TimeAtStartOfHold = Time.realtimeSinceStartup;
+                }
+
                 CurrentTime = Time.realtimeSinceStartup;
                 float delta = CurrentTime - TimeAtStartOfHold;
                 if (delta >= HoldTime && !closestPoint.IsRepaired)

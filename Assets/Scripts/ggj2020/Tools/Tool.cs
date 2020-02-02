@@ -12,6 +12,9 @@ namespace pdxpartyparrot.ggj2020.Tools
         protected Mechanic HoldingPlayer = null;
         protected GameObject parent;
         protected RepairPoint closestPoint = null;
+        protected Actors.RepairPoint.DamageType DType;
+        protected RepairPoint oldClosestPoint = null;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -42,15 +45,20 @@ namespace pdxpartyparrot.ggj2020.Tools
         }
 
         // -- TODO move this out of tool script
-        public RepairPoint FindClosestRepairPoint(List<RepairPoint> points)
+        public RepairPoint FindClosestRepairPoint(List<RepairPoint> points, RepairPoint.DamageType type)
         {
             RepairPoint closestPoint = null;
-            float closestDistance = 5;
+            float closestDistance = 4.5f;
+            float tempdist = 0;
             foreach (RepairPoint item in points)
             {
                 Vector3 ToVector = gameObject.transform.position - item.gameObject.transform.position;
                 float Distance = ToVector.magnitude;
-                if (Distance < closestDistance && !item.IsRepaired)
+                if (item.GetDamageType() == type)
+                {
+                    tempdist = Distance;
+                }
+                if (Distance < closestDistance && !item.IsRepaired && item.GetDamageType() == type)
                 {
                     closestPoint = item;
                     closestDistance = Distance;

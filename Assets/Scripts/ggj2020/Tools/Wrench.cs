@@ -19,6 +19,8 @@ namespace pdxpartyparrot.ggj2020.Tools
         void Start()
         {
             ButtonHeld = false;
+            DType = Actors.RepairPoint.DamageType.Loose;
+
         }
 
         // Update is called once per frame
@@ -29,10 +31,17 @@ namespace pdxpartyparrot.ggj2020.Tools
 
             // -- TODO update this once functions have been moved
             UIBubble bubble = HoldingPlayer.GetComponentInChildren<UIBubble>();
-            closestPoint = FindClosestRepairPoint(FindRepairPoints());
+            closestPoint = FindClosestRepairPoint(FindRepairPoints(), DType);
             if (closestPoint == null) {
                 bubble.HideSprite();
                 return;
+            }
+
+            // -- make sure you don't repair multiple points
+            if (closestPoint != oldClosestPoint)
+            {
+                oldClosestPoint = closestPoint;
+                SuccessfulTurns = 0;
             }
 
             if (LastTurnAxis != 1)
@@ -49,7 +58,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             if (closestPoint == null || HoldingPlayer.gameObject != player.gameObject)
                 return;
 
-            if (closestPoint.GetDamageType() != Actors.RepairPoint.DamageType.Loose)
+            if (closestPoint.GetDamageType() != DType)
                 return;
 
             ButtonHeld = true;
