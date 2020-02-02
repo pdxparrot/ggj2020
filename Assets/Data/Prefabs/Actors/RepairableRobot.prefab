@@ -1063,10 +1063,8 @@ MonoBehaviour:
   - {fileID: 6327779297676751108}
   _chargeLevel: 0
   _enterRepairBayEffectTrigger: {fileID: 7058271576401251284}
-  _enterTweenEffect: {fileID: 0}
   _enterMoveTween: {fileID: 4706370909871949078}
   _exitRepairBayEffectTrigger: {fileID: 5473908097856630613}
-  _exitTweenEffect: {fileID: 0}
   _exitMoveTween: {fileID: 8318760051022507415}
   _currentDamagedParts: 0
   _currentDamageIncreaseChance: 0
@@ -1119,7 +1117,7 @@ MonoBehaviour:
   _loops: 0
   _loopType: 0
   _firstRunDelay: 0
-  _delay: 3
+  _delay: 1
   _firstRun: 1
   _tweens:
     _items:
