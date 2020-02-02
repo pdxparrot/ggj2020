@@ -77,27 +77,14 @@ namespace pdxpartyparrot.Core.Util
             SetSkin(PartyParrotManager.Instance.Random.Next(_skinNames.Length));
         }
 
-        public void EnableAttachment(string slotName, string attachmentName, bool enable)
+        public void SetAttachment(string slotName, string attachmentName)
         {
-            int slotIndex = SkeletonAnimation.Skeleton.FindSlotIndex(slotName);
-            // TODO: error condition?
+            SkeletonAnimation.Skeleton.SetAttachment(slotName, attachmentName);
+        }
 
-            if(enable) {
-                // get the attachment from the skeleton
-                Attachment attachment = SkeletonAnimation.Skeleton.GetAttachment(slotIndex, attachmentName);
-                if(null == attachment) {
-                    Debug.LogWarning($"No attachment named {attachmentName} for slot {slotName}");
-                    return;
-                }
-
-                // set / unset it in the 
-                SkeletonAnimation.Skeleton.Skin.SetAttachment(slotIndex, attachmentName, attachment);
-            } else {
-                SkeletonAnimation.Skeleton.Skin.SetAttachment(slotIndex, attachmentName, null);
-            }
-
-            SkeletonAnimation.Skeleton.SetSlotsToSetupPose();
-            SkeletonAnimation.AnimationState.Apply(SkeletonAnimation.Skeleton);
+        public void RemoveAttachment(string slotName)
+        {
+            SkeletonAnimation.Skeleton.SetAttachment(slotName, null);
         }
     }
 }
