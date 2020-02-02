@@ -30,5 +30,5 @@ MonoBehaviour:
   _npcFighterSpawnTag: npc_fighter
   _repairTime: 20
   _robotRespawnRate: 1
-  _passingRepairPercent: 0.5
+  _passingRepairPercent: 0.66
   _maxFailures: 3
