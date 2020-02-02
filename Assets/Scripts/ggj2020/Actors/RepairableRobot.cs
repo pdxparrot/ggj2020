@@ -67,6 +67,8 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         private CinemachineImpulseSource _impulseSource;
 
+        private Coroutine _impulseRoutine;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -78,8 +80,6 @@ namespace pdxpartyparrot.ggj2020.Actors
                 repairPoint.ResetDamage();
                 repairPoint.RepairedEvent += RepairedEventHandler;
             }
-
-            StartCoroutine(ImpulseRoutine());
         }
 
         protected override void OnDestroy()
@@ -89,6 +89,17 @@ namespace pdxpartyparrot.ggj2020.Actors
             }
 
             base.OnDestroy();
+        }
+
+        private void OnEnable()
+        {
+            _impulseRoutine = StartCoroutine(ImpulseRoutine());
+        }
+
+        private void OnDisable()
+        {
+            StopCoroutine(_impulseRoutine);
+            _impulseRoutine = null;
         }
 #endregion
 
