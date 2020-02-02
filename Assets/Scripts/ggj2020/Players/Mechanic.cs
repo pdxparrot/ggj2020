@@ -33,6 +33,14 @@ namespace pdxpartyparrot.ggj2020.Players
             }
         }
 
+        public void TrackThumbStickAxis(Vector2 Axis)
+        {
+            if (HasTool() && GameManager.Instance.MechanicsCanInteract)
+            {
+                held_tool.TrackThumbStickAxis(Axis);
+            }
+        }
+
         public void UseEnded()
         {
             if (HasTool() && GameManager.Instance.MechanicsCanInteract)
