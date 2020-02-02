@@ -509,9 +509,6 @@ MonoBehaviour:
   _lastLookBufferTimestampMs: 0
   _pollMove: 0
   _pollLook: 0
-  _moveAction: {fileID: -1246895598473198080, guid: f0a6030e8852a5d43a1e8a4c51c2c298,
-    type: 3}
-  _lookAction: {fileID: 0}
   MechanicLogic: {fileID: 5239626287983972643}
 --- !u!1 &5616425848684913056
 GameObject:
@@ -639,8 +636,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca46c86c9989834fbbfe185c441880f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skeletonAnimation: {fileID: 0}
-  _skinNames: []
+  _skeletonAnimation: {fileID: 866938173472370235}
+  _skinNames:
+  - 01
+  - 02
+  - 03
+  - 04
 --- !u!114 &4883907486622949208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,7 +654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f443d5a7d540b74c9d864b8d385a08a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skeletonAnimation: {fileID: 0}
+  _skeletonAnimation: {fileID: 866938173472370235}
 --- !u!114 &6081686433606110312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -800,6 +801,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.15
       objectReference: {fileID: 0}
+    - target: {fileID: 2510637311823016404, guid: 869c172c3d8d6684c9aaf5584c27f2ab,
+        type: 3}
+      propertyPath: initialSkinName
+      value: 01
+      objectReference: {fileID: 0}
     - target: {fileID: 5314294488446648267, guid: 869c172c3d8d6684c9aaf5584c27f2ab,
         type: 3}
       propertyPath: m_Name
@@ -813,3 +819,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3373311542694420463}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &866938173472370235 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2510637311823016404, guid: 869c172c3d8d6684c9aaf5584c27f2ab,
+    type: 3}
+  m_PrefabInstance: {fileID: 3373311542694420463}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
