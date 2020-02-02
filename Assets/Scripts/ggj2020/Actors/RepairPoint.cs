@@ -6,14 +6,23 @@ namespace pdxpartyparrot.ggj2020.Actors
 {
     public class RepairPoint : MonoBehaviour
     {
-        public enum RepairState
+        public enum DamageType
         {
-            Repaired,
-
-            OnFire,
+            Fire,
             Damaged,
             Loose,
         }
+
+        public enum RepairState
+        {
+            UnRepaired,
+            Repaired,
+        }
+
+        [SerializeField]
+        private DamageType _damageType = DamageType.Fire;
+
+        public DamageType RepairPointDamageType => _damageType;
 
         [SerializeField]
         [ReadOnly]
