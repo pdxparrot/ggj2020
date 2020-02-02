@@ -90,6 +90,18 @@ namespace pdxpartyparrot.ggj2020.Actors
             return true;
         }
 
+        public float GetRepairPercent()
+        {
+            int damageCount = 0;
+            foreach(RepairPoint repairPoint in _repairPoints) {
+                if(!repairPoint.IsRepaired) {
+                    damageCount++;
+                }
+            }
+
+            return (_currentDamagedParts - damageCount) / (float)_currentDamagedParts;
+        }
+
         public void EnterRepairBay(Action onComplete)
         {
             Debug.Log("Robot entering repair bay...");
@@ -114,11 +126,6 @@ namespace pdxpartyparrot.ggj2020.Actors
             _exitRepairBayEffectTrigger.Trigger(() => {
                 onComplete?.Invoke();
             });
-        }
-
-        public void DeSpawn()
-        {
-            OnDeSpawn();
         }
 
 #region Events

@@ -106,12 +106,22 @@ namespace pdxpartyparrot.ggj2020.Level
         private void OnRepairTimeUp(object sender, EventArgs args)
         {
             Debug.Log("Times up!");
+
+            if(_repairableRobot.GetRepairPercent() < GameManager.Instance.GameGameData.PassingRepairPercent) {
+                GameManager.Instance.RepairFailure();
+            } else {
+                GameManager.Instance.RepairSuccess();
+            }
+
             NextRobot();
         }
 
         private void RepairedEventHandler(object sender, EventArgs args)
         {
-            Debug.Log("Robot repaired!");
+            Debug.Log("Robot fully repaired!");
+
+            GameManager.Instance.RepairSuccess();
+
             NextRobot();
         }
 #endregion

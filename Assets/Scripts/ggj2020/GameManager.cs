@@ -36,6 +36,18 @@ namespace pdxpartyparrot.ggj2020
             set => _mechanicsCanInteract = value;
         }
 
+        [SerializeField]
+        [ReadOnly]
+        private int _repairSuccesses;
+
+        public int RepairSuccesses => _repairSuccesses;
+
+        [SerializeField]
+        [ReadOnly]
+        private int _repairFailures;
+
+        public int RepairFailures => _repairFailures;
+
         private DebugMenuNode _debugMenuNode;
 
 #region Unity Lifecycle
@@ -68,6 +80,14 @@ namespace pdxpartyparrot.ggj2020
             });
         }
 
+        public override void GameReady()
+        {
+            base.GameReady();
+
+            _repairSuccesses = 0;
+            _repairFailures = 0;
+        }
+
         //[Client]
         public void InitViewer()
         {
@@ -77,6 +97,24 @@ namespace pdxpartyparrot.ggj2020
                 return;
             }
             Viewer.Initialize(GameGameData);
+        }
+
+        public void RepairSuccess()
+        {
+            Debug.Log("Repair success!");
+
+            _repairSuccesses++;
+        }
+
+        public void RepairFailure()
+        {
+            Debug.Log("Repair failure!");
+
+            _repairFailures++;
+
+            if(_repairFailures >= GameGameData.MaxFailures) {
+                GameOver();
+            }
         }
 
         private void InitDebugMenu()
