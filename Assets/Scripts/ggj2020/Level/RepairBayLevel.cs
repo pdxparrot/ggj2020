@@ -16,6 +16,9 @@ namespace pdxpartyparrot.ggj2020.Level
         [SerializeField]
         private Collider2D _cameraBounds;
 
+        [SerializeField]
+        private Transform _repairableExit;
+
         private ITimer _timer;
 
         public float TimeRemaining => (int)_timer.SecondsRemaining;
