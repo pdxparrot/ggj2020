@@ -51,5 +51,20 @@ namespace pdxpartyparrot.ggj2020.Data
         private RepairableRobotData _repairableRobotData;
 
         public RepairableRobotData RepairableRobotData => _repairableRobotData;
+
+        [SerializeField]
+        private string _repairableRobotSpawnTag = "repairable_robot";
+
+        public string RepairableRobotSpawnTag => _repairableRobotSpawnTag;
+
+        [SerializeField]
+        private string _playerFighterSpawnTag = "player_fighter";
+
+        public string PlayerFighterSpawnTag => _playerFighterSpawnTag;
+
+        [SerializeField]
+        private string _npcFighterSpawnTag = "npc_fighter";
+
+        public string NPCFighterSpawnTag => _npcFighterSpawnTag;
     }
 }

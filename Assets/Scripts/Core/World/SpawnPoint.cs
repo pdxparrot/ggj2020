@@ -78,7 +78,7 @@ namespace pdxpartyparrot.Core.World
         {
             InitActor(actor);
 
-            if(null != actor.Behavior) {
+            if(null != actor.Behavior && null != behaviorData) {
                 actor.Behavior.Initialize(behaviorData);
             }
         }
@@ -96,6 +96,12 @@ namespace pdxpartyparrot.Core.World
                 return null;
             }
             return actor;
+        }
+
+        [CanBeNull]
+        public Actor SpawnNPCPrefab(Actor prefab, ActorBehaviorComponentData behaviorData, Transform parent=null, bool active=true)
+        {
+            return SpawnFromPrefab(prefab, Guid.NewGuid(), behaviorData, parent, active);
         }
 
         public virtual bool Spawn(Actor actor, Guid id, ActorBehaviorComponentData behaviorData)

@@ -107,7 +107,7 @@ namespace pdxpartyparrot.Game.NPCs
                             continue;
                         }
                     } else {
-                        actor = spawnPoint.SpawnFromPrefab(_spawnGroupData.ActorPrefab, Guid.NewGuid(), _spawnGroupData.NPCBehaviorData, _poolContainer.transform);
+                        actor = spawnPoint.SpawnNPCPrefab(_spawnGroupData.ActorPrefab, _spawnGroupData.NPCBehaviorData, _poolContainer.transform);
                         if(null == actor) {
                             continue;
                         }

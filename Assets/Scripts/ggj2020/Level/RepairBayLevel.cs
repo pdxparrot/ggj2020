@@ -1,6 +1,7 @@
 ﻿using System;
 
 using pdxpartyparrot.Core.Time;
+using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Level;
 using pdxpartyparrot.ggj2020.Actors;
 
@@ -48,8 +49,8 @@ namespace pdxpartyparrot.ggj2020.Level
         {
             base.GameStartServerEventHandler(sender, args);
 
-            _repairableRobot = Instantiate(GameManager.Instance.GameGameData.RepairableRobotPrefab, transform);
-            _repairableRobot.gameObject.SetActive(false);
+            SpawnPoint spawnpoint = SpawnManager.Instance.GetSpawnPoint(GameManager.Instance.GameGameData.RepairableRobotSpawnTag);
+            _repairableRobot = spawnpoint.SpawnNPCPrefab(GameManager.Instance.GameGameData.RepairableRobotPrefab, null, transform).GetComponent<RepairableRobot>();
         }
 
         protected override void GameStartClientEventHandler(object sender, EventArgs args)
