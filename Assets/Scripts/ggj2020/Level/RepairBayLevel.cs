@@ -64,9 +64,8 @@ namespace pdxpartyparrot.ggj2020.Level
 
                 // TODO: kick off the next background battle
 
-                // TODO: either run this after the background battle starts
-                // or make this delay configurable
-                _respawnTimer.Start(5.0f);
+                // TODO: really this should go after the background battle finishes or is close to finishing
+                _respawnTimer.Start(GameManager.Instance.GameGameData.RobotRespawnRate);
             });
         }
 
