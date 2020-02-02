@@ -113,16 +113,20 @@ namespace pdxpartyparrot.ggj2020.Actors
             return true;
         }
 
-        public float GetRepairPercent()
+        public int GetDamagedCount()
         {
-            int damageCount = 0;
+            int damagedCount = 0;
             foreach(RepairPoint repairPoint in _repairPoints) {
                 if(!repairPoint.IsRepaired) {
-                    damageCount++;
+                    damagedCount++;
                 }
             }
+            return damagedCount;
+        }
 
-            return (_currentDamagedParts - damageCount) / (float)_currentDamagedParts;
+        public float GetRepairPercent()
+        {
+            return (_currentDamagedParts - GetDamagedCount()) / (float)_currentDamagedParts;
         }
 
         public void EnterRepairBay(Action onComplete)
@@ -152,6 +156,7 @@ namespace pdxpartyparrot.ggj2020.Actors
         private void InitDamage()
         {
             // TODO: move this allocation out of here
+            Debug.Log($"Damaging {_currentDamagedParts} parts");
             List<RepairPoint> repairPoints = new List<RepairPoint>(_repairPoints);
             for(int i=0; i<_currentDamagedParts; ++i) {
                 RepairPoint repairPoint = repairPoints.RemoveRandomEntry();
@@ -161,6 +166,7 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         private void ResetDamage()
         {
+            Debug.Log("Resetting damage");
             foreach(RepairPoint repairPoint in _repairPoints) {
                 repairPoint.ResetDamage();
             }

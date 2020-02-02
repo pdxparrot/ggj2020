@@ -1,4 +1,5 @@
 ﻿using System;
+
 using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Util;
@@ -111,7 +112,9 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         private void StopDamageEffects()
         {
-            _audioSource.Stop();
+            if(null != _audioSource) {
+                _audioSource.Stop();
+            }
 
             _fireDamageEffectTrigger.StopTrigger();
             _damagedEffectTrigger.StopTrigger();
