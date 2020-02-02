@@ -104,9 +104,7 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         public void EnterRepairBay(Action onComplete)
         {
-            Debug.Log("Robot entering repair bay...");
-
-            // TODO: figure out what the current repair states are and set them up
+            Debug.Log($"Robot entering repair bay {transform.position}...");
 
             _enterMoveTween.From = transform.position;
             _enterMoveTween.To = Vector3.zero;
@@ -128,6 +126,23 @@ namespace pdxpartyparrot.ggj2020.Actors
             });
         }
 
+        private void InitDamage()
+        {
+            // TODO: move this allocation out of here
+            List<RepairPoint> repairPoints = new List<RepairPoint>(_repairPoints);
+            for(int i=0; i<_currentDamagedParts; ++i) {
+                RepairPoint repairPoint = repairPoints.RemoveRandomEntry();
+                repairPoint.Damage();
+            }
+        }
+
+        private void ResetDamage()
+        {
+            foreach(RepairPoint repairPoint in _repairPoints) {
+                repairPoint.ResetDamage();
+            }
+        }
+
 #region Events
         public override bool OnSpawn(SpawnPoint spawnpoint)
         {
@@ -135,18 +150,10 @@ namespace pdxpartyparrot.ggj2020.Actors
                 return false;
             }
 
-            // init on first spawn
-            if(0 == _currentDamagedParts) {
-                _currentDamagedParts = GameManager.Instance.GameGameData.RepairableRobotData.InitialDamagedAreasPerPlayerCount.ElementAt(PlayerManager.Instance.Players.Count);
-                _currentDamageIncreaseChance = GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreaseBasePercent;
-            }
+            _currentDamagedParts = GameManager.Instance.GameGameData.RepairableRobotData.InitialDamagedAreasPerPlayerCount.ElementAt(PlayerManager.Instance.Players.Count);
+            _currentDamageIncreaseChance = GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreaseBasePercent;
 
-            // TODO: move this allocation out of here
-            List<RepairPoint> repairPoints = new List<RepairPoint>(_repairPoints);
-            for(int i=0; i<_currentDamagedParts; ++i) {
-                RepairPoint repairPoint = repairPoints.RemoveRandomEntry();
-                repairPoint.Damage();
-            }
+            InitDamage();
 
             return true;
         }
@@ -157,30 +164,28 @@ namespace pdxpartyparrot.ggj2020.Actors
                 return false;
             }
 
-            // reset all the parts
-            foreach(RepairPoint repairPoint in _repairPoints) {
-                repairPoint.ResetDamage();
-            }
-
             // see if we get a damage increase
             int chance = PartyParrotManager.Instance.Random.Next(100);
-            if(chance > _currentDamageIncreaseChance) {
-                Debug.Log("Damage increase!");
+            if(chance <= _currentDamageIncreaseChance) {
+                Debug.Log($"Damage increased {chance} of {_currentDamageIncreaseChance}");
                 _currentDamagedParts += GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreasePerPlayerCount.ElementAt(PlayerManager.Instance.Players.Count);
                 _currentDamageIncreaseChance = GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreaseBasePercent;
             } else {
+                Debug.Log($"No damage increase {chance} of {_currentDamageIncreaseChance}");
                 _currentDamageIncreaseChance += GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreaseRate;
             }
+
+            InitDamage();
 
             return true;
         }
 
         public override void OnDeSpawn()
         {
-            // reset all the parts
-            foreach(RepairPoint repairPoint in _repairPoints) {
-                repairPoint.ResetDamage();
-            }
+            ResetDamage();
+
+            _enterRepairBayEffectTrigger.StopTrigger();
+            _exitRepairBayEffectTrigger.StopTrigger();
         }
 
         private void RepairedEventHandler(object sender, EventArgs args)

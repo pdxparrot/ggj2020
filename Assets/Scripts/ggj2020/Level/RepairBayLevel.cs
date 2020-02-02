@@ -54,16 +54,20 @@ namespace pdxpartyparrot.ggj2020.Level
         {
             GameManager.Instance.MechanicsCanInteract = false;
 
-            // TODO: when does the game end?
-
             _repairableRobot.ExitRepairBay(() => {
-                SpawnPoint spawnpoint = SpawnManager.Instance.GetSpawnPoint(GameManager.Instance.GameGameData.RepairableRobotSpawnTag);
-                spawnpoint.ReSpawn(_repairableRobot);
+                _repairableRobot.DeSpawn();
 
-                EnterRobot();
+                // TODO: kick off the next background battle
+
+                // TODO: either run this after the background battle starts
+                // or make this delay configurable
+                TimeManager.Instance.RunAfterDelay(5.0f, () => {
+                    SpawnPoint spawnpoint = SpawnManager.Instance.GetSpawnPoint(GameManager.Instance.GameGameData.RepairableRobotSpawnTag);
+                    spawnpoint.ReSpawn(_repairableRobot);
+
+                    EnterRobot();
+                });
             });
-
-            // TODO: kick off the next background battle
         }
 
         private void EnterRobot()
@@ -71,7 +75,6 @@ namespace pdxpartyparrot.ggj2020.Level
             // this will init the timer UI correctly
             _timer.AddTime(GameManager.Instance.GameGameData.RepairTime);
 
-            _repairableRobot.gameObject.SetActive(true);
             _repairableRobot.EnterRepairBay(() => {
                 GameManager.Instance.MechanicsCanInteract = true;
 
@@ -107,10 +110,13 @@ namespace pdxpartyparrot.ggj2020.Level
         {
             Debug.Log("Times up!");
 
-            if(_repairableRobot.GetRepairPercent() < GameManager.Instance.GameGameData.PassingRepairPercent) {
-                GameManager.Instance.RepairFailure();
+            float repairPercent = _repairableRobot.GetRepairPercent();
+            if(repairPercent < GameManager.Instance.GameGameData.PassingRepairPercent) {
+                if(!GameManager.Instance.RepairFailure(repairPercent)) {
+                    return;
+                }
             } else {
-                GameManager.Instance.RepairSuccess();
+                GameManager.Instance.RepairSuccess(repairPercent);
             }
 
             NextRobot();
@@ -120,7 +126,7 @@ namespace pdxpartyparrot.ggj2020.Level
         {
             Debug.Log("Robot fully repaired!");
 
-            GameManager.Instance.RepairSuccess();
+            GameManager.Instance.RepairSuccess(1.0f);
 
             NextRobot();
         }

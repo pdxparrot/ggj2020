@@ -19,7 +19,7 @@ namespace pdxpartyparrot.Core.Tween
         }
 
         [SerializeField]
-        private bool _playOnAwake = true;
+        private bool _playOnAwake = false;
 
         public bool PlayOnAwake
         {
@@ -28,7 +28,7 @@ namespace pdxpartyparrot.Core.Tween
         }
 
         [SerializeField]
-        private bool _resetOnEnable = true;
+        private bool _resetOnEnable = false;
 
         public bool ResetOnEnable
         {

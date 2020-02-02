@@ -12,10 +12,10 @@ namespace pdxpartyparrot.Core.Tween
     public class TweenSequence : MonoBehaviour
     {
         [SerializeField]
-        private bool _playOnAwake = true;
+        private bool _playOnAwake = false;
 
         [SerializeField]
-        private bool _resetOnEnable = true;
+        private bool _resetOnEnable = false;
 
 #region Looping
         [SerializeField]
@@ -44,7 +44,7 @@ namespace pdxpartyparrot.Core.Tween
         [CanBeNull]
         private Sequence _sequence;
 
-        public bool IsRunning => _sequence.IsActive() && _sequence.IsPlaying();
+        public bool IsRunning => _sequence != null && _sequence.IsActive() && _sequence.IsPlaying();
 
 #region Unity Lifecycle
         private void Awake()

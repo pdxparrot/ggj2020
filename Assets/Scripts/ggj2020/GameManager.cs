@@ -99,22 +99,25 @@ namespace pdxpartyparrot.ggj2020
             Viewer.Initialize(GameGameData);
         }
 
-        public void RepairSuccess()
+        public void RepairSuccess(float repairPercent)
         {
-            Debug.Log("Repair success!");
+            Debug.Log($"Repair success {repairPercent} of {GameGameData.PassingRepairPercent}");
 
             _repairSuccesses++;
         }
 
-        public void RepairFailure()
+        public bool RepairFailure(float repairPercent)
         {
-            Debug.Log("Repair failure!");
+            Debug.Log($"Repair failure {repairPercent} of {GameGameData.PassingRepairPercent}");
 
             _repairFailures++;
 
             if(_repairFailures >= GameGameData.MaxFailures) {
                 GameOver();
+                return false;
             }
+
+            return true;
         }
 
         private void InitDebugMenu()

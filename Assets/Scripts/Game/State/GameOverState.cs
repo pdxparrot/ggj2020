@@ -1,5 +1,8 @@
+using System;
+
 using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Input;
+using pdxpartyparrot.Core.Time;
 
 using UnityEngine;
 
@@ -15,18 +18,27 @@ namespace pdxpartyparrot.Game.State
 
         private Menu.Menu _menu;
 
+        [SerializeField]
+        private float _completeWaitTimeSeconds = 5.0f;
+
+        private ITimer _completeTimer;
+
         public override void OnEnter()
         {
             base.OnEnter();
 
-            // TODO: show game over text
+            // TODO: show game over UI
         }
 
         protected override void DoEnter()
         {
             base.DoEnter();
 
-            if(null != _menuPrefab) {
+            if(null == _menuPrefab) {
+                _completeTimer = TimeManager.Instance.AddTimer();
+                _completeTimer.TimesUpEvent += CompleteTimerTimesUpEventHandler;
+                _completeTimer.Start(_completeWaitTimeSeconds);
+            } else {
                 InputManager.Instance.EventSystem.UIModule.EnableAllActions();
 
                 _menu = GameStateManager.Instance.GameUIManager.InstantiateUIPrefab(_menuPrefab);
@@ -40,7 +52,10 @@ namespace pdxpartyparrot.Game.State
                 InputManager.Instance.EventSystem.UIModule.DisableAllActions();
             }
 
-            if(null != _menu) {
+            if(null == _menu) {
+                TimeManager.Instance.RemoveTimer(_completeTimer);
+                _completeTimer = null;
+            } else {
                 Destroy(_menu.gameObject);
                 _menu = null;
             }
@@ -53,5 +68,12 @@ namespace pdxpartyparrot.Game.State
         public virtual void Initialize()
         {
         }
+
+#region Event Handlers
+        private void CompleteTimerTimesUpEventHandler(object sender, EventArgs args)
+        {
+            GameStateManager.Instance.TransitionToInitialStateAsync();
+        }
+#endregion
     }
 }

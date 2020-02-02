@@ -86,7 +86,9 @@ namespace pdxpartyparrot.Core.World
         [CanBeNull]
         public virtual Actor SpawnFromPrefab(Actor prefab, Guid id, ActorBehaviorComponentData behaviorData, Transform parent=null, bool activate=true)
         {
+#if USE_NETWORKING
             Debug.LogWarning("You probably meant to use NetworkManager.SpawnNetworkPrefab");
+#endif
 
             Actor actor = Instantiate(prefab, parent);
             actor.gameObject.SetActive(activate);

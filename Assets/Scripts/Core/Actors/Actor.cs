@@ -242,6 +242,13 @@ namespace pdxpartyparrot.Core.Actors
             return offset.sqrMagnitude < d;
         }
 
+        public void DeSpawn()
+        {
+            OnDeSpawn();
+
+            gameObject.SetActive(false);
+        }
+
 #region Events
         public virtual bool OnSpawn(SpawnPoint spawnpoint)
         {
