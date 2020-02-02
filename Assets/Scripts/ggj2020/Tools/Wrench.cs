@@ -58,7 +58,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             if (closestPoint == null || HoldingPlayer.gameObject != player.gameObject)
                 return;
 
-            if (closestPoint.GetDamageType() != DType)
+            if (closestPoint.RepairPointDamageType != DType)
                 return;
 
             ButtonHeld = true;

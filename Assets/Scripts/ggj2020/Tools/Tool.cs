@@ -55,11 +55,11 @@ namespace pdxpartyparrot.ggj2020.Tools
             {
                 Vector3 ToVector = gameObject.transform.position - item.gameObject.transform.position;
                 float Distance = ToVector.magnitude;
-                if (item.GetDamageType() == type)
+                if (item.RepairPointDamageType == type)
                 {
                     tempdist = Distance;
                 }
-                if (Distance < closestDistance && !item.IsRepaired && item.GetDamageType() == type)
+                if (Distance < closestDistance && !item.IsRepaired && item.RepairPointDamageType == type)
                 {
                     closestPoint = item;
                     closestDistance = Distance;
