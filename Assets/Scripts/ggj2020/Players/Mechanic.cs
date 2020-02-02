@@ -26,7 +26,7 @@ namespace pdxpartyparrot.ggj2020.Players
             if (HasTool() && GameManager.Instance.MechanicsCanInteract)
             {
                 held_tool.UseTool();
-            } else if (held_tool == null)
+            } else if (held_tool == null && collided_tool != null)
             {
                 held_tool = collided_tool;
                 held_tool.SetHeld(this);
@@ -35,6 +35,9 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public void DropTool()
         {
+            if (held_tool == null)
+                return;
+
             held_tool.Drop();
             held_tool = null;
         }
