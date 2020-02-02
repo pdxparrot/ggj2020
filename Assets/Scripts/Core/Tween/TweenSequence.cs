@@ -48,7 +48,13 @@ namespace pdxpartyparrot.Core.Tween
 
         public bool IsActive => null != _sequence && _sequence.IsActive();
 
-        public bool IsRunning => IsActive && _sequence.IsPlaying();
+        public bool IsRunning => IsActive && (_sequence.IsPlaying() || IsPaused);
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _isPaused;
+
+        public bool IsPaused => _isPaused;
 
 #region Unity Lifecycle
         private void Awake()
@@ -99,6 +105,8 @@ namespace pdxpartyparrot.Core.Tween
 
         public void Play()
         {
+            DoReset();
+
             _sequence = DOTween.Sequence()
                 .SetDelay(_firstRun ? (_firstRunDelay + _delay) : _delay)
                 .SetLoops(_loops, _loopType);
@@ -116,6 +124,7 @@ namespace pdxpartyparrot.Core.Tween
         {
             if(IsRunning) {
                 _sequence?.Pause();
+                _isPaused = true;
             }
         }
 
@@ -123,6 +132,7 @@ namespace pdxpartyparrot.Core.Tween
         {
             if(IsActive) {
                 _sequence?.TogglePause();
+                _isPaused = !_isPaused;
             }
         }
 
@@ -130,6 +140,7 @@ namespace pdxpartyparrot.Core.Tween
         {
             if(IsActive) {
                 _sequence?.Complete();
+                _isPaused = false;
             }
         }
 
@@ -137,12 +148,14 @@ namespace pdxpartyparrot.Core.Tween
         {
             if(IsActive) {
                 _sequence?.Complete(withCallbacks);
+                _isPaused = false;
             }
         }
 
         public void Kill()
         {
             _sequence?.Kill();
+            _isPaused = false;
         }
 
 #region Events

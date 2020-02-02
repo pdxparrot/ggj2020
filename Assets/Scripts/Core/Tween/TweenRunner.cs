@@ -118,7 +118,13 @@ namespace pdxpartyparrot.Core.Tween
 
         public bool IsActive => null != _tweener && _tweener.IsActive();
 
-        public bool IsRunning => IsActive && _tweener.IsPlaying();
+        public bool IsRunning => IsActive && (_tweener.IsPlaying() || IsPaused);
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _isPaused;
+
+        public bool IsPaused => _isPaused;
 
 #region Unity Lifecycle
         protected virtual void Awake()
@@ -203,6 +209,7 @@ namespace pdxpartyparrot.Core.Tween
         {
             if(IsRunning) {
                 _tweener?.Pause();
+                _isPaused = true;
             }
         }
 
@@ -210,12 +217,14 @@ namespace pdxpartyparrot.Core.Tween
         {
             if(IsActive) {
                 _tweener?.TogglePause();
+                _isPaused = !_isPaused;
             }
         }
 
         public void Kill()
         {
             _tweener?.Kill();
+            _isPaused = false;
         }
 
         protected abstract Tweener CreateTweener();

@@ -23,6 +23,8 @@ namespace pdxpartyparrot.ggj2020.Level
 
         private ITimer _timer;
 
+        private ITimer _respawnTimer;
+
         public float TimeRemaining => (int)_timer.SecondsRemaining;
 
         private RepairableRobot _repairableRobot;
@@ -33,7 +35,10 @@ namespace pdxpartyparrot.ggj2020.Level
             base.Awake();
 
             _timer = TimeManager.Instance.AddTimer();
-            _timer.TimesUpEvent += OnRepairTimeUp;
+            _timer.TimesUpEvent += RepairTimesUpEventHandler;
+
+            _respawnTimer = TimeManager.Instance.AddTimer();
+            _respawnTimer.TimesUpEvent += RespawnRobotEventHandler;
         }
 
         protected override void OnDestroy()
@@ -61,12 +66,7 @@ namespace pdxpartyparrot.ggj2020.Level
 
                 // TODO: either run this after the background battle starts
                 // or make this delay configurable
-                TimeManager.Instance.RunAfterDelay(5.0f, () => {
-                    SpawnPoint spawnpoint = SpawnManager.Instance.GetSpawnPoint(GameManager.Instance.GameGameData.RepairableRobotSpawnTag);
-                    spawnpoint.ReSpawn(_repairableRobot);
-
-                    EnterRobot();
-                });
+                _respawnTimer.Start(5.0f);
             });
         }
 
@@ -106,7 +106,7 @@ namespace pdxpartyparrot.ggj2020.Level
             EnterRobot();
         }
 
-        private void OnRepairTimeUp(object sender, EventArgs args)
+        private void RepairTimesUpEventHandler(object sender, EventArgs args)
         {
             Debug.Log("Times up!");
 
@@ -120,6 +120,14 @@ namespace pdxpartyparrot.ggj2020.Level
             }
 
             NextRobot();
+        }
+
+        private void RespawnRobotEventHandler(object sender, EventArgs args)
+        {
+            SpawnPoint spawnpoint = SpawnManager.Instance.GetSpawnPoint(GameManager.Instance.GameGameData.RepairableRobotSpawnTag);
+            spawnpoint.ReSpawn(_repairableRobot);
+
+            EnterRobot();
         }
 
         private void RepairedEventHandler(object sender, EventArgs args)
