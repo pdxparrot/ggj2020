@@ -77,10 +77,10 @@ namespace pdxpartyparrot.ggj2020.Tools
                 return;
 
 
-            if ((Axis.x >= 1 || Axis.y >= 1) && LastTurnAxis != 1)
+            if ((Axis.x >= .5f || Axis.y >= .5f) && LastTurnAxis != 1)
             {
                 LastTurnAxis = 1;
-            } else if ((Axis.x <= -1 || Axis.y <= -1) && LastTurnAxis != -1)
+            } else if ((Axis.x <= -.5f || Axis.y <= -.5f) && LastTurnAxis != -1)
             {
                 LastTurnAxis = -1;
                 SuccessfulTurns++;
