@@ -76,7 +76,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
                 return;
             }
 
-            Gizmos.color = Behavior.IsGrounded ? Color.red : Color.yellow;
+            Gizmos.color = null != Behavior && Behavior.IsGrounded ? Color.red : Color.yellow;
             Gizmos.DrawWireSphere(GroundCheckCenter + (_data.GroundedEpsilon * Vector3.down), GroundCheckRadius);
 
             Gizmos.color = _didGroundCheckCollide ? Color.red : Color.yellow;

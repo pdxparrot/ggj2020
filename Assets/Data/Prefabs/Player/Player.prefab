@@ -65,8 +65,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rumbleConfig:
     _seconds: 0.5
-    _lowFrequency: 0.5
-    _highFrequency: 0.5
+    _lowFrequency: 0.1
+    _highFrequency: 0.1
   _playerInput: {fileID: 0}
   _waitForComplete: 0
   _isPlaying: 0

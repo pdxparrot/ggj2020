@@ -1027,7 +1027,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_AttackTime: 0
-      m_SustainTime: 0.2
+      m_SustainTime: 0.4
       m_DecayTime: 0.7
       m_ScaleWithImpact: 1
       m_HoldForever: 0
