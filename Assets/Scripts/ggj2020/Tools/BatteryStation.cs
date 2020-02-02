@@ -44,7 +44,7 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         override public void UseTool(Mechanic player)
         {
-            if (HoldingPlayer.gameObject != player.gameObject)
+            if (HoldingPlayer == null || HoldingPlayer.gameObject != player.gameObject)
                 return;
 
             SuccesfulHits++;
