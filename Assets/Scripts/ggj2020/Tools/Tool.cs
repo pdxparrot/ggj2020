@@ -7,8 +7,8 @@ namespace pdxpartyparrot.ggj2020.Tools
 {
     public class Tool : MonoBehaviour
     {
-        private Mechanic HoldingPlayer = null;
-        private GameObject parent;
+        protected Mechanic HoldingPlayer = null;
+        protected GameObject parent;
         // Start is called before the first frame update
         void Start()
         {
@@ -34,7 +34,13 @@ namespace pdxpartyparrot.ggj2020.Tools
             if (null != mechanic)
             {
                 mechanic.SetCollidedTool(null);
+                PlayerExitTrigger();
             }
+        }
+
+        virtual public void PlayerExitTrigger() 
+        {
+
         }
 
         virtual public void SetHeld(Mechanic player)
@@ -46,7 +52,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             parent.transform.SetParent(player.transform);
         }
 
-        public void Drop()
+        virtual public void Drop()
         {
             HoldingPlayer = null;
             parent.GetComponent<Rigidbody>().isKinematic = false;
@@ -59,7 +65,7 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         }
 
-        virtual public void UseTool()
+        virtual public void UseTool(Mechanic player)
         {
             //print("Parent use tool called");
         }

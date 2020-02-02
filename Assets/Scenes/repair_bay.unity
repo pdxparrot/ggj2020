@@ -1880,3 +1880,72 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 141c48f4805f1d34998d4d89f05bbcec, type: 3}
+--- !u!1001 &9075223312799161518
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 9075223313615424424, guid: d7c0e15f73bdaf04a9ba8a8525703eef,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075223313615424424, guid: d7c0e15f73bdaf04a9ba8a8525703eef,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075223313615424424, guid: d7c0e15f73bdaf04a9ba8a8525703eef,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075223313615424424, guid: d7c0e15f73bdaf04a9ba8a8525703eef,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075223313615424424, guid: d7c0e15f73bdaf04a9ba8a8525703eef,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075223313615424424, guid: d7c0e15f73bdaf04a9ba8a8525703eef,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075223313615424424, guid: d7c0e15f73bdaf04a9ba8a8525703eef,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075223313615424424, guid: d7c0e15f73bdaf04a9ba8a8525703eef,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075223313615424424, guid: d7c0e15f73bdaf04a9ba8a8525703eef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075223313615424424, guid: d7c0e15f73bdaf04a9ba8a8525703eef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075223313615424424, guid: d7c0e15f73bdaf04a9ba8a8525703eef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075223313615424431, guid: d7c0e15f73bdaf04a9ba8a8525703eef,
+        type: 3}
+      propertyPath: m_Name
+      value: BatteryStation
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d7c0e15f73bdaf04a9ba8a8525703eef, type: 3}

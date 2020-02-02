@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using pdxpartyparrot.ggj2020.Tools;
+using pdxpartyparrot.ggj2020.Players;
 
 namespace pdxpartyparrot.ggj2020.Tools
 {
@@ -32,8 +33,11 @@ namespace pdxpartyparrot.ggj2020.Tools
            
         }
 
-        override public void UseTool()
+        override public void UseTool(Mechanic player)
         {
+            if (HoldingPlayer.gameObject != player.gameObject)
+                return;
+
             ButtonHeld = true;
             TimeAtStartOfHold = Time.realtimeSinceStartup;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using pdxpartyparrot.ggj2020.Players;
 using pdxpartyparrot.ggj2020.Tools;
 
 namespace pdxpartyparrot.ggj2020.Tools
@@ -24,9 +25,11 @@ namespace pdxpartyparrot.ggj2020.Tools
         {
 
         }
-        override public void UseTool()
+        override public void UseTool(Mechanic player)
         {
-            print("child use tool called");
+            if (HoldingPlayer.gameObject != player.gameObject)
+                return;
+
             ButtonHeld = true;
         }
 
