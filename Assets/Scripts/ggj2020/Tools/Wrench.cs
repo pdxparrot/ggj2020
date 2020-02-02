@@ -30,10 +30,9 @@ namespace pdxpartyparrot.ggj2020.Tools
                 return;
 
             // -- TODO update this once functions have been moved
-            UIBubble bubble = HoldingPlayer.GetComponentInChildren<UIBubble>();
             closestPoint = FindClosestRepairPoint(FindRepairPoints(), DType);
             if (!GameManager.Instance.MechanicsCanInteract || closestPoint == null) {
-                bubble.HideSprite();
+                HoldingPlayer.Owner.UIBubble.HideSprite();
                 return;
             }
 
@@ -46,11 +45,11 @@ namespace pdxpartyparrot.ggj2020.Tools
 
             if (LastTurnAxis != 1)
             {
-                bubble.SetThumbRight();
+                HoldingPlayer.Owner.UIBubble.SetThumbRight();
             }
             else if (LastTurnAxis != -1)
             {
-                bubble.SetThumbLeft();
+                HoldingPlayer.Owner.UIBubble.SetThumbLeft();
             }
         }
         override public void UseTool(Mechanic player)

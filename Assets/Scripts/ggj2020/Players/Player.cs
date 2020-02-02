@@ -3,6 +3,7 @@
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Characters.Players;
 using pdxpartyparrot.ggj2020.Camera;
+using pdxpartyparrot.ggj2020.UI;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -21,6 +22,11 @@ namespace pdxpartyparrot.ggj2020.Players
 
         [SerializeField]
         private MechanicModel _mechanicModel;
+
+        [SerializeField]
+        private UIBubble _uiBubble;
+
+        public UIBubble UIBubble => _uiBubble;
 
         private SpawnPoint _spawnpoint;
 

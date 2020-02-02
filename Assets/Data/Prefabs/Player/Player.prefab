@@ -237,6 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a536ef947a68a4c9e0b132387e5053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _owner: {fileID: 7987886923199208902}
 --- !u!114 &7987886923199208902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +263,7 @@ MonoBehaviour:
   _networkPlayer: {fileID: 5382703400231986565}
   _inputHandler: {fileID: 2370158299331129459}
   _mechanicModel: {fileID: 6081686433606110312}
+  _uiBubble: {fileID: 8315547422127839510}
 --- !u!1 &2683829994576259934
 GameObject:
   m_ObjectHideFlags: 0

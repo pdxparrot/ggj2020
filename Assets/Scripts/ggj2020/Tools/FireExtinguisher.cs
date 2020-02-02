@@ -27,15 +27,14 @@ namespace pdxpartyparrot.ggj2020.Tools
                 return;
 
             // -- TODO update this once functions have been moved
-            UIBubble bubble = HoldingPlayer.GetComponentInChildren<UIBubble>();
             closestPoint = FindClosestRepairPoint(FindRepairPoints(), DType);
             if(!GameManager.Instance.MechanicsCanInteract || closestPoint == null)
             {
-                bubble.HideSprite();
+                HoldingPlayer.Owner.UIBubble.HideSprite();
                 return;
             }
 
-            bubble.SetPressedSprite();
+            HoldingPlayer.Owner.UIBubble.SetPressedSprite();
             if (ButtonHeld)
             {
                 // -- make sure you don't repair multiple points

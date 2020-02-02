@@ -7,6 +7,11 @@ namespace pdxpartyparrot.ggj2020.Players
 {
     public class Mechanic : MonoBehaviour
     {
+        [SerializeField]
+        private Player _owner;
+
+        public Player Owner => _owner;
+
         private Tool held_tool = null;
         private Tool collided_tool = null;
 

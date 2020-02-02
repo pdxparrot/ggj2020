@@ -105,7 +105,7 @@ namespace pdxpartyparrot.ggj2020.Tools
         virtual public void Drop()
         {
             RemoveAttachment();
-            HoldingPlayer.GetComponentInChildren<UIBubble>().HideSprite();
+            HoldingPlayer.Owner.UIBubble.HideSprite();
             HoldingPlayer = null;
             parent.GetComponent<Rigidbody>().isKinematic = false;
             parent.transform.SetParent(null);
