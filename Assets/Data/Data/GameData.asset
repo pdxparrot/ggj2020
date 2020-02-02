@@ -26,3 +26,8 @@ MonoBehaviour:
     type: 3}
   _repairableRobotData: {fileID: 11400000, guid: c0cd17ff7e9e9154da1760e60726b368,
     type: 2}
+  _repairableRobotSpawnTag: repairable_robot
+  _playerFighterSpawnTag: player_fighter
+  _npcFighterSpawnTag: npc_fighter
+  _passingRepairPercent: 0.5
+  _maxFailures: 3

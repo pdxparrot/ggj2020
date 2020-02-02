@@ -14,11 +14,11 @@ namespace pdxpartyparrot.Core.UI
     {
         [SerializeField]
         [Tooltip("The time, in seconds, to complete a full blink cycle")]
-        private float _blinkRate = 1.0f;
+        private float _blinkRate = 0.5f;
 
         [SerializeField]
         [Tooltip("Delay between blink states")]
-        private float _delay = 1.0f;
+        private float _delay = 0.5f;
 
         [SerializeField]
         [Tooltip("Fade in and out")]
@@ -74,6 +74,10 @@ namespace pdxpartyparrot.Core.UI
 
         public void StopBlink()
         {
+            if(null == _delayTimer || null == _blinkTimer) {
+                return;
+            }
+
             _delayTimer.Stop();
             _blinkTimer.Stop();
 

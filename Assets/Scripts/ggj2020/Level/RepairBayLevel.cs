@@ -134,6 +134,8 @@ namespace pdxpartyparrot.ggj2020.Level
         {
             Debug.Log("Robot fully repaired!");
 
+            _timer.Stop();
+
             GameManager.Instance.RepairSuccess(1.0f);
 
             NextRobot();

@@ -600,6 +600,7 @@
           * Add a Scroll View under the container
             * Remove the Image
             * Uncheck Horizontal
+            * **TODO:** inertia
             * Movement Type: Clamped
             * Remove the Scroll Bars
           * Add a LayoutElement to the Scroll View

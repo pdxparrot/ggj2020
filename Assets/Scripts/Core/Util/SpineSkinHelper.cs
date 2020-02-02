@@ -1,5 +1,4 @@
 ﻿#if USE_SPINE
-using Spine;
 using Spine.Unity;
 
 using UnityEngine;

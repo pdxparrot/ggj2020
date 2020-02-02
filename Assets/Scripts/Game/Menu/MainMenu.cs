@@ -21,6 +21,12 @@ namespace pdxpartyparrot.Game.Menu
         private CreditsMenu _creditsPanel;
 #endregion
 
+#region Character Select
+        [SerializeField]
+        [CanBeNull]
+        private CharacterSelectMenu _characterSelectPanel;
+#endregion
+
         private DebugMenuNode _debugMenuNode;
 
 #region Unity Lifecycle
@@ -34,6 +40,10 @@ namespace pdxpartyparrot.Game.Menu
 
             if(null != _creditsPanel) {
                 _creditsPanel.gameObject.SetActive(false);
+            }
+
+            if(null != _characterSelectPanel) {
+                _characterSelectPanel.gameObject.SetActive(false);
             }
 
             InitDebugMenu();
@@ -55,6 +65,9 @@ namespace pdxpartyparrot.Game.Menu
 #region Event Handlers
         public virtual void OnStart()
         {
+            if(null != _characterSelectPanel) {
+                Owner.PushPanel(_characterSelectPanel);
+            }
         }
 
         public void OnHighScores()

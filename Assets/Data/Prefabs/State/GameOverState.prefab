@@ -45,4 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enterEffect: {fileID: 0}
   _exitEffect: {fileID: 0}
-  _menuPrefab: {fileID: 0}
+  _menuPrefab: {fileID: 1589487096920976824, guid: c21ca151b40fd704ab22e10444dee948,
+    type: 3}
+  _completeWaitTimeSeconds: 5
