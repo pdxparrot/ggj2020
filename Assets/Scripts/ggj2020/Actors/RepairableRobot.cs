@@ -11,31 +11,23 @@ namespace pdxpartyparrot.ggj2020.Actors
 {
     public class RepairableRobot : Actor3D
     {
+#region Events
+        public event EventHandler<EventArgs> RepairedEvent;
+#endregion
+
         public override bool IsLocalActor => true;
 
         [Space(10)]
 
-        [Header("Repair Points")]
-
         [SerializeField]
-        private RepairPoint _headRepairPoint;
-
-        [SerializeField]
-        private RepairPoint _leftArmRepairPoint;
-
-        [SerializeField]
-        private RepairPoint _rightArmRepairPoint;
-
-        [SerializeField]
-        private RepairPoint _leftLegRepairPoint;
-
-        [SerializeField]
-        private RepairPoint _rightLegRepairPoint;
+        private RepairPoint[] _repairPoints;
 
         // TODO: this should be split into a factor per-player
         [SerializeField]
         [ReadOnly]
         private float _chargeLevel;
+
+        public float ChargeLevel => _chargeLevel;
 
         [Space(10)]
 
@@ -52,6 +44,36 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         [SerializeField]
         private TweenMove _exitMoveTween;
+
+#region Unity Lifecycle
+        protected override void Awake()
+        {
+            base.Awake();
+
+            foreach(RepairPoint repairPoint in _repairPoints) {
+                repairPoint.RepairedEvent += RepairedEventHandler;
+            }
+        }
+
+        protected override void OnDestroy()
+        {
+            foreach(RepairPoint repairPoint in _repairPoints) {
+                repairPoint.RepairedEvent -= RepairedEventHandler;
+            }
+
+            base.OnDestroy();
+        }
+#endregion
+
+        public bool IsRepared()
+        {
+            foreach(RepairPoint repairPoint in _repairPoints) {
+                if(!repairPoint.IsRepaired) {
+                    return false;
+                }
+            }
+            return true;
+        }
 
         public void EnterRepairBay(Action onComplete)
         {
@@ -74,5 +96,14 @@ namespace pdxpartyparrot.ggj2020.Actors
                 onComplete?.Invoke();
             });
         }
+
+#region Events
+        private void RepairedEventHandler(object sender, EventArgs args)
+        {
+            if(IsRepared()) {
+                RepairedEvent?.Invoke(this, EventArgs.Empty);
+            }
+        }
+#endregion
     }
 }

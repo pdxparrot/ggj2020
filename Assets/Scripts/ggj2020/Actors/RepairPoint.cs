@@ -1,4 +1,7 @@
-﻿using pdxpartyparrot.Core.Util;
+﻿using System;
+
+using pdxpartyparrot.Core.Effects;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
@@ -6,6 +9,13 @@ namespace pdxpartyparrot.ggj2020.Actors
 {
     public class RepairPoint : MonoBehaviour
     {
+#region Events
+        public event EventHandler<EventArgs> RepairedEvent;
+#endregion
+
+        [SerializeField]
+        private EffectTrigger _repairEffectTrigger;
+
         public enum DamageType
         {
             Fire,
@@ -30,11 +40,15 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         public RepairState CurrentRepairState => _repairState;
 
-        public void SetRepairState(RepairState repairState)
-        {
-            _repairState = repairState;
+        public bool IsRepaired => RepairState.Repaired == CurrentRepairState;
 
-            // TODO: this should kick off some effect
+        public void Repair()
+        {
+            _repairState = RepairState.Repaired;
+
+            _repairEffectTrigger.Trigger();
+
+            RepairedEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 }

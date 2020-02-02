@@ -38,6 +38,7 @@ namespace pdxpartyparrot.ggj2020.Level
 
         protected override void OnDestroy()
         {
+            _repairableRobot.RepairedEvent -= RepairedEventHandler;
             Destroy(_repairableRobot);
 
             if(TimeManager.HasInstance) {
@@ -49,6 +50,19 @@ namespace pdxpartyparrot.ggj2020.Level
         }
 #endregion
 
+        private void NextRobot()
+        {
+            GameManager.Instance.MechanicsCanInteract = false;
+
+            // TODO: when does the game end?
+
+            _repairableRobot.ExitRepairBay(() => {
+                // TODO: advance to the next robot
+            });
+
+            // TODO: kick off the next background battle
+        }
+
 #region Events
         protected override void GameStartServerEventHandler(object sender, EventArgs args)
         {
@@ -56,6 +70,7 @@ namespace pdxpartyparrot.ggj2020.Level
 
             SpawnPoint spawnpoint = SpawnManager.Instance.GetSpawnPoint(GameManager.Instance.GameGameData.RepairableRobotSpawnTag);
             _repairableRobot = spawnpoint.SpawnNPCPrefab(GameManager.Instance.GameGameData.RepairableRobotPrefab, null, transform).GetComponent<RepairableRobot>();
+            _repairableRobot.RepairedEvent += RepairedEventHandler;
         }
 
         protected override void GameStartClientEventHandler(object sender, EventArgs args)
@@ -82,15 +97,12 @@ namespace pdxpartyparrot.ggj2020.Level
 
         private void OnRepairTimeUp(object sender, EventArgs args)
         {
-            GameManager.Instance.MechanicsCanInteract = false;
+            NextRobot();
+        }
 
-            // TODO: when does the game end?
-
-            _repairableRobot.ExitRepairBay(() => {
-                // TODO: advance to the next robot
-            });
-
-            // TODO: kick off the next background battle
+        private void RepairedEventHandler(object sender, EventArgs args)
+        {
+            NextRobot();
         }
 #endregion
     }

@@ -1,4 +1,4 @@
-﻿using pdxpartyparrot.Game.Players.Input;
+using pdxpartyparrot.Game.Players.Input;
 using pdxpartyparrot.ggj2020.Data.Players;
 
 using UnityEngine;

@@ -50,6 +50,18 @@ namespace pdxpartyparrot.ggj2020.Players
             base.Initialize(behaviorData);
         }
 
+        protected override void PhysicsUpdate(float dt)
+        {
+            base.PhysicsUpdate(dt);
+
+            // hack to prevent ladder movement going through the floor
+            if(Owner.Movement.Position.y < 0.0f) {
+                Vector3 pos = Owner.Movement.Position;
+                pos.y = 0.0f;
+                Owner.Movement.Teleport(pos);
+            }
+        }
+
 #region Events
         public override bool TriggerEnter(GameObject triggerObject)
         {
