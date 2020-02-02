@@ -4,6 +4,7 @@ using UnityEngine;
 
 using pdxpartyparrot.ggj2020.Players;
 using pdxpartyparrot.ggj2020.Tools;
+using pdxpartyparrot.ggj2020.UI;
 
 namespace pdxpartyparrot.ggj2020.Tools
 {
@@ -23,10 +24,25 @@ namespace pdxpartyparrot.ggj2020.Tools
         // Update is called once per frame
         void Update()
         {
-            // -- TODO update this once functions have been moved
-            closestPoint = FindClosestRepairPoint(FindRepairPoints());
-            if (closestPoint == null)
+            if (HoldingPlayer == null)
                 return;
+
+            // -- TODO update this once functions have been moved
+            UIBubble bubble = HoldingPlayer.GetComponentInChildren<UIBubble>();
+            closestPoint = FindClosestRepairPoint(FindRepairPoints());
+            if (closestPoint == null) {
+                bubble.HideSprite();
+                return;
+            }
+
+            if (LastTurnAxis != 1)
+            {
+                bubble.SetThumbRight();
+            }
+            else if (LastTurnAxis != -1)
+            {
+                bubble.SetThumbLeft();
+            }
         }
         override public void UseTool(Mechanic player)
         {
@@ -48,8 +64,9 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         public override void TrackThumbStickAxis(Vector2 Axis)
         {
-            if (closestPoint == null)
+            if (closestPoint == null && !ButtonHeld)
                 return;
+
 
             if ((Axis.x >= 1 || Axis.y >= 1) && LastTurnAxis != 1)
             {

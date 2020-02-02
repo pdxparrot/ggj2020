@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using pdxpartyparrot.ggj2020.Tools;
 using pdxpartyparrot.ggj2020.Players;
+using pdxpartyparrot.ggj2020.UI;
 
 namespace pdxpartyparrot.ggj2020.Tools
 {
@@ -21,11 +22,20 @@ namespace pdxpartyparrot.ggj2020.Tools
         // Update is called once per frame
         void Update()
         {
-            // -- TODO update this once functions have been moved
-            closestPoint = FindClosestRepairPoint(FindRepairPoints());
-            if(closestPoint == null)
+            if (HoldingPlayer == null)
                 return;
 
+            // -- TODO update this once functions have been moved
+            UIBubble bubble = HoldingPlayer.GetComponentInChildren<UIBubble>();
+            closestPoint = FindClosestRepairPoint(FindRepairPoints());
+            if(closestPoint == null || closestPoint.GetDamageType() != Actors.RepairPoint.DamageType.Fire)
+            {
+                bubble.HideSprite();
+                return;
+            }
+
+
+            bubble.SetPressedSprite();
             if (ButtonHeld)
             {
                 CurrentTime = Time.realtimeSinceStartup;

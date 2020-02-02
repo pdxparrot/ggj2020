@@ -5,6 +5,7 @@ using UnityEngine;
 using pdxpartyparrot.ggj2020.Tools;
 using pdxpartyparrot.ggj2020.Players;
 using pdxpartyparrot.ggj2020.Actors;
+using pdxpartyparrot.ggj2020.UI;
 
 namespace pdxpartyparrot.ggj2020.Tools
 {
@@ -31,10 +32,18 @@ namespace pdxpartyparrot.ggj2020.Tools
         // Update is called once per frame
         void Update()
         {
+            if (HoldingPlayer == null)
+                return;
+
             // -- TODO update this once functions have been moved
+            UIBubble bubble = HoldingPlayer.GetComponentInChildren<UIBubble>();
             closestPoint = FindClosestRepairPoint(FindRepairPoints());
             if (closestPoint == null)
+            {
+                bubble.HideSprite();
                 return;
+            }
+                
 
             if (closestPoint != oldClosestPoint)
             {
@@ -49,18 +58,19 @@ namespace pdxpartyparrot.ggj2020.Tools
                 TimeSinceLastWindow = CurrentTime;
             }
 
-            if (PrintWindowToConsole)
-            {
-                if (delta >= TimeBetweenPresses && (delta - TimeBetweenPresses) < TimeToAllowSuccesfulPress)
-                {
-                    print("Hammer window is open");
-                }
-                else
-                {
-                    print("Hammer window is closed");
-                }
-            }
             
+            if (delta >= TimeBetweenPresses && (delta - TimeBetweenPresses) < TimeToAllowSuccesfulPress)
+            {
+                bubble.SetPressedSprite();
+                if (PrintWindowToConsole)
+                    print("Hammer window is open");
+            }
+            else
+            {
+                bubble.SetUnpressedSprite();
+                if (PrintWindowToConsole)
+                    print("Hammer window is closed");
+            }
         }
 
         override public void UseTool(Mechanic player)
@@ -68,7 +78,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             if (closestPoint == null || HoldingPlayer.gameObject != player.gameObject)
                 return;
 
-            if (closestPoint.GetDamageType() != Actors.RepairPoint.DamageType.Damaged)
+            if (closestPoint.GetDamageType() != Actors.RepairPoint.DamageType.Fire)
                 return;
 
             float delta = CurrentTime - TimeSinceLastWindow;

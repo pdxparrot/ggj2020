@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using pdxpartyparrot.ggj2020.Players;
 using pdxpartyparrot.ggj2020.Actors;
+using pdxpartyparrot.ggj2020.UI;
 using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Tools
@@ -44,12 +45,12 @@ namespace pdxpartyparrot.ggj2020.Tools
         public RepairPoint FindClosestRepairPoint(List<RepairPoint> points)
         {
             RepairPoint closestPoint = null;
-            float closestDistance = 9999999999;
+            float closestDistance = 5;
             foreach (RepairPoint item in points)
             {
                 Vector3 ToVector = gameObject.transform.position - item.gameObject.transform.position;
                 float Distance = ToVector.magnitude;
-                if (Distance < closestDistance)
+                if (Distance < closestDistance && !item.IsRepaired)
                 {
                     closestPoint = item;
                     closestDistance = Distance;
@@ -92,6 +93,7 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         virtual public void Drop()
         {
+            HoldingPlayer.GetComponentInChildren<UIBubble>().HideSprite();
             HoldingPlayer = null;
             parent.GetComponent<Rigidbody>().isKinematic = false;
             parent.transform.SetParent(null);
