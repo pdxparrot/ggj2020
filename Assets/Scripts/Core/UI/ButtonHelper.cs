@@ -11,6 +11,8 @@ namespace pdxpartyparrot.Core.UI
     [RequireComponent(typeof(Button))]
     public class ButtonHelper : MonoBehaviour, ISelectHandler, IPointerClickHandler, IPointerEnterHandler
     {
+// TODO: add font override to this (like TextHelper)
+
         [SerializeField]
         [CanBeNull]
         private EffectTrigger _hoverEffectTrigger;
