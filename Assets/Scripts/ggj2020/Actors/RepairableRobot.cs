@@ -65,7 +65,7 @@ namespace pdxpartyparrot.ggj2020.Actors
         }
 #endregion
 
-        public bool IsRepared()
+        public bool IsRepaired()
         {
             foreach(RepairPoint repairPoint in _repairPoints) {
                 if(!repairPoint.IsRepaired) {
@@ -77,6 +77,8 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         public void EnterRepairBay(Action onComplete)
         {
+            Debug.Log("Robot entering repair bay...");
+
             // TODO: figure out what the current repair states are and set them up
 
             _enterMoveTween.From = transform.position;
@@ -89,6 +91,8 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         public void ExitRepairBay(Action onComplete)
         {
+            Debug.Log("Robot exiting repair bay...");
+
             _exitMoveTween.From = Vector3.zero;
             _exitMoveTween.To = GameManager.Instance.GameLevelHelper.RepairableExit.position;
 
@@ -100,7 +104,7 @@ namespace pdxpartyparrot.ggj2020.Actors
 #region Events
         private void RepairedEventHandler(object sender, EventArgs args)
         {
-            if(IsRepared()) {
+            if(IsRepaired()) {
                 RepairedEvent?.Invoke(this, EventArgs.Empty);
             }
         }

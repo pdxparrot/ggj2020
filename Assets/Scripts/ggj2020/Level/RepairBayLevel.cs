@@ -97,11 +97,13 @@ namespace pdxpartyparrot.ggj2020.Level
 
         private void OnRepairTimeUp(object sender, EventArgs args)
         {
+            Debug.Log("Times up!");
             NextRobot();
         }
 
         private void RepairedEventHandler(object sender, EventArgs args)
         {
+            Debug.Log("Robot repaired!");
             NextRobot();
         }
 #endregion

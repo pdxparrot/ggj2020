@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e307b4de63043f999f5a7434f70f4ea, type: 3}
   m_Name: RepairableRobotData
   m_EditorClassIdentifier: 
+  _initialDamagedAreasPerPlayerCount: 01000000020000000300000004000000
+  _damageAreaIncreasePerPlayerCount: 01000000020000000300000004000000
+  _damageAreaIncreaseBasePercent: 5
+  _damageAreaIncreasePercentRate: 5

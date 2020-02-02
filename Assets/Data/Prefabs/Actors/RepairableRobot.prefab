@@ -269,6 +269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 23155145297198345}
   - component: {fileID: 5473908097856630613}
+  - component: {fileID: 6810320590549602242}
   m_Layer: 0
   m_Name: ExitBayEffect
   m_TagString: Untagged
@@ -306,9 +307,24 @@ MonoBehaviour:
   _triggerOnComplete:
     _items: []
   _components:
-    _items: []
+    _items:
+    - {fileID: 6810320590549602242}
   _isRunning: 0
   _complete: 0
+--- !u!114 &6810320590549602242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646052577674719723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a44306ddd3b2d64fb1a5a60d38d6676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tweenSequence: {fileID: 8599939920824246416}
+  _waitForComplete: 1
 --- !u!1 &4561461212222675391
 GameObject:
   m_ObjectHideFlags: 0

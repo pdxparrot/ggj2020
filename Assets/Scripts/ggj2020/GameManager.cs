@@ -11,6 +11,7 @@ using pdxpartyparrot.ggj2020.Data;
 using pdxpartyparrot.ggj2020.Level;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ggj2020
 {
@@ -40,6 +41,9 @@ namespace pdxpartyparrot.ggj2020
 #region Unity Lifecycle
         protected override void Awake()
         {
+            Assert.IsTrue(GameGameData.RepairableRobotData.InitialDamagedAreasPerPlayerCount.Count == GameGameData.MaxLocalPlayers);
+            Assert.IsTrue(GameGameData.RepairableRobotData.DamageAreaIncreasePerPlayerCount.Count == GameGameData.MaxLocalPlayers);
+
             base.Awake();
 
             InitDebugMenu();

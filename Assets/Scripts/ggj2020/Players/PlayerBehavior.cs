@@ -1,4 +1,4 @@
-﻿using pdxpartyparrot.Core.Data.Actors.Components;
+using pdxpartyparrot.Core.Data.Actors.Components;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ggj2020.Data.Players;
 using pdxpartyparrot.ggj2020.World;

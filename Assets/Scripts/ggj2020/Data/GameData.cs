@@ -42,6 +42,9 @@ namespace pdxpartyparrot.ggj2020.Data
 
         [Space(10)]
 
+#region Repairable Robot
+        [Header("Repairable Robot")]
+
         [SerializeField]
         private RepairableRobot _repairableRobotPrefab;
 
@@ -51,6 +54,12 @@ namespace pdxpartyparrot.ggj2020.Data
         private RepairableRobotData _repairableRobotData;
 
         public RepairableRobotData RepairableRobotData => _repairableRobotData;
+#endregion
+
+        [Space(10)]
+
+#region Spawn Tags
+        [Header("Spawn Tags")]
 
         [SerializeField]
         private string _repairableRobotSpawnTag = "repairable_robot";
@@ -66,5 +75,6 @@ namespace pdxpartyparrot.ggj2020.Data
         private string _npcFighterSpawnTag = "npc_fighter";
 
         public string NPCFighterSpawnTag => _npcFighterSpawnTag;
+#endregion
     }
 }
