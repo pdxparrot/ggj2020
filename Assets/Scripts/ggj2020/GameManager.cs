@@ -17,6 +17,11 @@ namespace pdxpartyparrot.ggj2020
 {
     public sealed class GameManager : GameManager<GameManager>
     {
+#region Events
+        public event EventHandler<EventArgs> RepairSuccessEvent;
+        public event EventHandler<EventArgs> RepairFailureEvent;
+#endregion
+
         public GameData GameGameData => (GameData)GameData;
 
         // TODO: this should be a base class
@@ -104,6 +109,8 @@ namespace pdxpartyparrot.ggj2020
             Debug.Log($"Repair success {repairPercent} of {GameGameData.PassingRepairPercent}");
 
             _repairSuccesses++;
+
+            RepairSuccessEvent?.Invoke(this, EventArgs.Empty);
         }
 
         public bool RepairFailure(float repairPercent)
@@ -111,6 +118,8 @@ namespace pdxpartyparrot.ggj2020
             Debug.Log($"Repair failure {repairPercent} of {GameGameData.PassingRepairPercent}");
 
             _repairFailures++;
+
+            RepairFailureEvent?.Invoke(this, EventArgs.Empty);
 
             if(_repairFailures >= GameGameData.MaxFailures) {
                 GameOver();
