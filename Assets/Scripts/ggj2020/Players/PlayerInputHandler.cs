@@ -13,6 +13,8 @@ namespace pdxpartyparrot.ggj2020.Players
 
         private Player GamePlayer => (Player)Player;
 
+        private bool ActionActive = false;
+
         public Mechanic MechanicLogic;
 
 #region Unity Lifecycle
@@ -37,9 +39,19 @@ namespace pdxpartyparrot.ggj2020.Players
 #region Actions
         protected override void DoMove(InputAction action)
         {
+
             Vector2 axes = action.ReadValue<Vector2>();
 
-            if(GamePlayer.GamePlayerBehavior.IsOnLadder) {
+            if (ActionActive)
+            {
+                if (MechanicLogic != null)
+                {
+                    MechanicLogic.TrackThumbStickAxis(axes);
+                }
+                return;
+            }
+
+            if (GamePlayer.GamePlayerBehavior.IsOnLadder) {
                 OnMove(new Vector3(0.0f, axes.y, 0.0f));
                 return;
             }
@@ -76,10 +88,12 @@ namespace pdxpartyparrot.ggj2020.Players
                 Debug.LogWarning("TODO: context interact (ladder, tool, etc)");
                 if (MechanicLogic != null) {
                     MechanicLogic.UseOrPickupTool();
+                    ActionActive = true;
                 }
             } else {
                 if (MechanicLogic != null) {
                     MechanicLogic.UseEnded();
+                    ActionActive = false;
                 }
             }
         }

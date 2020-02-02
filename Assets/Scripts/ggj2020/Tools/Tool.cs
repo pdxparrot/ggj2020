@@ -54,6 +54,11 @@ namespace pdxpartyparrot.ggj2020.Tools
             parent = null;
         }
 
+        virtual public void TrackThumbStickAxis(Vector2 Axis)
+        {
+
+        }
+
         virtual public void UseTool()
         {
             //print("Parent use tool called");
