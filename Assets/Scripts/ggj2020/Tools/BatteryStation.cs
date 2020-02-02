@@ -38,6 +38,10 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         override public void PlayerExitTrigger()
         {
+            if (HoldingPlayer == null)
+                return;
+
+            HoldingPlayer.DropTool();
             HoldingPlayer = null;
             SuccesfulHits = 0;
         }
