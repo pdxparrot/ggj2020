@@ -10,11 +10,26 @@ namespace pdxpartyparrot.Core.Tween
     public sealed class TweenRotate : TweenRunner
     {
         [SerializeField]
+        private Transform _target;
+
+        [SerializeField]
         [ReadOnly]
         private Vector3 _from;
 
+        public Vector3 From
+        {
+            get => _from;
+            set => _from = value;
+        }
+
         [SerializeField]
         private Vector3 _to;
+
+        public Vector3 To
+        {
+            get => _to;
+            set => _to = value;
+        }
 
         [SerializeField]
         private RotateMode _rotateMode = RotateMode.Fast;
@@ -25,7 +40,11 @@ namespace pdxpartyparrot.Core.Tween
 #region Unity Lifecycle
         protected override void Awake()
         {
-            _from = _useLocalRotation ? transform.localEulerAngles : transform.eulerAngles;
+            if(null == _target) {
+                _target = transform;
+            }
+
+            _from = _useLocalRotation ? _target.localEulerAngles : _target.eulerAngles;
 
             base.Awake();
         }
@@ -36,17 +55,17 @@ namespace pdxpartyparrot.Core.Tween
             base.DoReset();
 
             if(_useLocalRotation) {
-                transform.localEulerAngles = _from;
+                _target.localEulerAngles = _from;
             } else {
-                transform.eulerAngles = _from;
+                _target.eulerAngles = _from;
             }
         }
 
         protected override Tweener CreateTweener()
         {
             return _useLocalRotation
-                ? transform.DOLocalRotate(_to, Duration, _rotateMode)
-                : transform.DORotate(_to, Duration, _rotateMode);
+                ? _target.DOLocalRotate(_to, Duration, _rotateMode)
+                : _target.DORotate(_to, Duration, _rotateMode);
         }
     }
 }

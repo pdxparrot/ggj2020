@@ -10,11 +10,26 @@ namespace pdxpartyparrot.Core.Tween
     public sealed class TweenMove : TweenRunner
     {
         [SerializeField]
+        private Transform _target;
+
+        [SerializeField]
         [ReadOnly]
         private Vector3 _from;
 
+        public Vector3 From
+        {
+            get => _from;
+            set => _from = value;
+        }
+
         [SerializeField]
         private Vector3 _to;
+
+        public Vector3 To
+        {
+            get => _to;
+            set => _to = value;
+        }
 
         [SerializeField]
         private bool _snapping;
@@ -25,7 +40,11 @@ namespace pdxpartyparrot.Core.Tween
 #region Unity Lifecycle
         protected override void Awake()
         {
-            _from = _useLocalPosition ? transform.localPosition : transform.position;
+            if(null == _target) {
+                _target = transform;
+            }
+
+            _from = _useLocalPosition ? _target.localPosition : _target.position;
 
             base.Awake();
         }
@@ -36,17 +55,17 @@ namespace pdxpartyparrot.Core.Tween
             base.DoReset();
 
             if(_useLocalPosition) {
-                transform.localPosition = _from;
+                _target.localPosition = _from;
             } else {
-                transform.position = _from;
+                _target.position = _from;
             }
         }
 
         protected override Tweener CreateTweener()
         {
             return _useLocalPosition
-                ? transform.DOLocalMove(_to, Duration, _snapping)
-                : transform.DOMove(_to, Duration, _snapping);
+                ? _target.DOLocalMove(_to, Duration, _snapping)
+                : _target.DOMove(_to, Duration, _snapping);
         }
     }
 }

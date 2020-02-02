@@ -10,16 +10,35 @@ namespace pdxpartyparrot.Core.Tween
     public sealed class TweenScale : TweenRunner
     {
         [SerializeField]
+        private Transform _target;
+
+        [SerializeField]
         [ReadOnly]
         private Vector3 _from;
+
+        public Vector3 From
+        {
+            get => _from;
+            set => _from = value;
+        }
 
         [SerializeField]
         private Vector3 _to;
 
+        public Vector3 To
+        {
+            get => _to;
+            set => _to = value;
+        }
+
 #region Unity Lifecycle
         protected override void Awake()
         {
-            _from = transform.localScale;
+            if(null == _target) {
+                _target = transform;
+            }
+
+            _from = _target.localScale;
 
             base.Awake();
         }
@@ -29,12 +48,12 @@ namespace pdxpartyparrot.Core.Tween
         {
             base.DoReset();
 
-            transform.localScale = _from;
+            _target.localScale = _from;
         }
 
         protected override Tweener CreateTweener()
         {
-            return transform.DOScale(_to, Duration);
+            return _target.DOScale(_to, Duration);
         }
     }
 }

@@ -63,16 +63,20 @@ namespace pdxpartyparrot.ggj2020.Level
         protected override void GameReadyEventHandler(object sender, EventArgs args)
         {
             _repairableRobot.gameObject.SetActive(true);
-            _repairableRobot.EnterRepairBay();
+            _repairableRobot.EnterRepairBay(() => {
+                _timer.Start(GameManager.Instance.GameGameData.RepairTime);
+            });
 
-            _timer.Start(GameManager.Instance.GameGameData.RepairTime);
+            // TODO: do we need to set some state to stop players moving?
         }
 
         private void OnRepairTimeUp(object sender, EventArgs args)
         {
-            _repairableRobot.ExitRepairBay();
+            // TODO: do we need to set some state to stop players moving?
 
-            // TODO: advance to the next robot
+            _repairableRobot.ExitRepairBay(() => {
+                // TODO: advance to the next robot
+            });
 
             // TODO: when does the game end?
         }

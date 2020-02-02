@@ -92,6 +92,95 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1039189556108033911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8107791792468406954}
+  - component: {fileID: 8599939920824246416}
+  - component: {fileID: 8318760051022507415}
+  m_Layer: 0
+  m_Name: TweenMove
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8107791792468406954
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039189556108033911}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 23155145297198345}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8599939920824246416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039189556108033911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6c19caad370d347bb19c10b34462ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playOnAwake: 0
+  _resetOnEnable: 1
+  _loops: 0
+  _loopType: 0
+  _firstRunDelay: 0
+  _delay: 0
+  _firstRun: 1
+  _tweens:
+    _items:
+    - {fileID: 8318760051022507415}
+--- !u!114 &8318760051022507415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039189556108033911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1959cc43f5ef3724ca06e76c3f7963c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playOnAwake: 0
+  _resetOnEnable: 1
+  _timeScale: 1
+  _useRandomTimeScale: 0
+  _randomTimeScaleMin: 1
+  _randomTimeScaleMax: 1
+  _duration: 5
+  _useRandomDuration: 0
+  _randomDurationMin: 1
+  _randomDurationMax: 1
+  _loops: 0
+  _loopType: 0
+  _ease: 1
+  _firstRunDelay: 0
+  _delay: 0
+  _isFrom: 0
+  _isRelative: 0
+  _firstRun: 1
+  _target: {fileID: 5928489026279979436}
+  _from: {x: 0, y: 0, z: 0}
+  _to: {x: 0, y: 0, z: 0}
+  _snapping: 0
+  _useLocalPosition: 1
 --- !u!1 &1624950447616142625
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +286,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8107791792468406954}
   m_Father: {fileID: 5928489026279979436}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -262,6 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381e73fed90b429a84bdf6cf3486bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damageType: 0
   _repairState: 0
 --- !u!1 &4561461212222675391
 GameObject:
@@ -399,6 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381e73fed90b429a84bdf6cf3486bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damageType: 0
   _repairState: 0
 --- !u!1 &4719988888009220033
 GameObject:
@@ -410,6 +502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1007790043787347429}
   - component: {fileID: 7058271576401251284}
+  - component: {fileID: 8043813736933560306}
   m_Layer: 0
   m_Name: EnterBayEffect
   m_TagString: Untagged
@@ -427,7 +520,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1207971754281980068}
   m_Father: {fileID: 5928489026279979436}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -446,9 +540,24 @@ MonoBehaviour:
   _triggerOnComplete:
     _items: []
   _components:
-    _items: []
+    _items:
+    - {fileID: 8043813736933560306}
   _isRunning: 0
   _complete: 0
+--- !u!114 &8043813736933560306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4719988888009220033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a44306ddd3b2d64fb1a5a60d38d6676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tweenSequence: {fileID: 4857315481396713272}
+  _waitForComplete: 1
 --- !u!1 &5025478556223237155
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,6 +1006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381e73fed90b429a84bdf6cf3486bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damageType: 0
   _repairState: 0
 --- !u!1 &8186301270934887549
 GameObject:
@@ -976,6 +1086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381e73fed90b429a84bdf6cf3486bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damageType: 0
   _repairState: 0
 --- !u!1 &8737774189802463822
 GameObject:
@@ -1071,7 +1182,9 @@ MonoBehaviour:
   _rightLegRepairPoint: {fileID: 5256200678216653756}
   _chargeLevel: 0
   _enterRepairBayEffectTrigger: {fileID: 7058271576401251284}
+  _enterMoveTween: {fileID: 4706370909871949078}
   _exitRepairBayEffectTrigger: {fileID: 5473908097856630613}
+  _exitMoveTween: {fileID: 8318760051022507415}
 --- !u!1 &8837569177533938115
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,4 +1228,94 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381e73fed90b429a84bdf6cf3486bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damageType: 0
   _repairState: 0
+--- !u!1 &8852682599872701553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1207971754281980068}
+  - component: {fileID: 4857315481396713272}
+  - component: {fileID: 4706370909871949078}
+  m_Layer: 0
+  m_Name: TweenMove
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1207971754281980068
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8852682599872701553}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1007790043787347429}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4857315481396713272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8852682599872701553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6c19caad370d347bb19c10b34462ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playOnAwake: 0
+  _resetOnEnable: 1
+  _loops: 0
+  _loopType: 0
+  _firstRunDelay: 5
+  _delay: 0
+  _firstRun: 1
+  _tweens:
+    _items:
+    - {fileID: 4706370909871949078}
+--- !u!114 &4706370909871949078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8852682599872701553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1959cc43f5ef3724ca06e76c3f7963c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playOnAwake: 0
+  _resetOnEnable: 1
+  _timeScale: 1
+  _useRandomTimeScale: 0
+  _randomTimeScaleMin: 1
+  _randomTimeScaleMax: 1
+  _duration: 5
+  _useRandomDuration: 0
+  _randomDurationMin: 1
+  _randomDurationMax: 1
+  _loops: 0
+  _loopType: 0
+  _ease: 1
+  _firstRunDelay: 0
+  _delay: 0
+  _isFrom: 0
+  _isRelative: 0
+  _firstRun: 1
+  _target: {fileID: 5928489026279979436}
+  _from: {x: 0, y: 0, z: 0}
+  _to: {x: 0, y: 0, z: 0}
+  _snapping: 0
+  _useLocalPosition: 1

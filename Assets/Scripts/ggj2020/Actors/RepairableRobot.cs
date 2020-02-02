@@ -1,5 +1,8 @@
-﻿using pdxpartyparrot.Core.Actors;
+﻿using System;
+
+using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Effects;
+using pdxpartyparrot.Core.Tween;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -42,13 +45,22 @@ namespace pdxpartyparrot.ggj2020.Actors
         private EffectTrigger _enterRepairBayEffectTrigger;
 
         [SerializeField]
+        private TweenMove _enterMoveTween;
+
+        [SerializeField]
         private EffectTrigger _exitRepairBayEffectTrigger;
 
-        public void EnterRepairBay()
+        [SerializeField]
+        private TweenMove _exitMoveTween;
+
+        public void EnterRepairBay(Action onComplete)
         {
             // TODO: figure out what the current repair states are and set them up
 
-            _enterRepairBayEffectTrigger.Trigger();
+            _enterMoveTween.From = transform.position;
+            _enterRepairBayEffectTrigger.Trigger(() => {
+                onComplete?.Invoke();
+            });
         }
 
         public void ReadyForRepair()
@@ -56,9 +68,12 @@ namespace pdxpartyparrot.ggj2020.Actors
             _enterRepairBayEffectTrigger.StopTrigger();
         }
 
-        public void ExitRepairBay()
+        public void ExitRepairBay(Action onComplete)
         {
-            _exitRepairBayEffectTrigger.Trigger();
+            _exitMoveTween.From = Vector3.zero;
+            _exitRepairBayEffectTrigger.Trigger(() => {
+                onComplete?.Invoke();
+            });
         }
     }
 }

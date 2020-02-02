@@ -1,4 +1,4 @@
-﻿#if USE_DOTWEEN
+#if USE_DOTWEEN
 using DG.Tweening;
 
 using JetBrains.Annotations;
