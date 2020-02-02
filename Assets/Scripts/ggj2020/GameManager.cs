@@ -20,6 +20,8 @@ namespace pdxpartyparrot.ggj2020
 #region Events
         public event EventHandler<EventArgs> RepairSuccessEvent;
         public event EventHandler<EventArgs> RepairFailureEvent;
+
+        public event EventHandler<EventArgs> RobotImpulseEvent;
 #endregion
 
         public GameData GameGameData => (GameData)GameData;
@@ -102,6 +104,11 @@ namespace pdxpartyparrot.ggj2020
                 return;
             }
             Viewer.Initialize(GameGameData);
+        }
+
+        public void RobotImpulse()
+        {
+            RobotImpulseEvent?.Invoke(this, EventArgs.Empty);
         }
 
         public void RepairSuccess(float repairPercent)

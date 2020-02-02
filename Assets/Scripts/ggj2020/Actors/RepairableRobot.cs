@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+
+using Cinemachine;
 
 using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.Actors;
@@ -15,6 +18,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Actors
 {
+    [RequireComponent(typeof(CinemachineImpulseSource))]
     public class RepairableRobot : Actor3D
     {
 #region Events
@@ -51,6 +55,8 @@ namespace pdxpartyparrot.ggj2020.Actors
         [SerializeField]
         private TweenMove _exitMoveTween;
 
+        [Space(10)]
+
         [SerializeField]
         [ReadOnly]
         private int _currentDamagedParts;
@@ -59,15 +65,21 @@ namespace pdxpartyparrot.ggj2020.Actors
         [ReadOnly]
         private int _currentDamageIncreaseChance;
 
+        private CinemachineImpulseSource _impulseSource;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
             base.Awake();
 
+            _impulseSource = GetComponent<CinemachineImpulseSource>();
+
             foreach(RepairPoint repairPoint in _repairPoints) {
                 repairPoint.ResetDamage();
                 repairPoint.RepairedEvent += RepairedEventHandler;
             }
+
+            StartCoroutine(ImpulseRoutine());
         }
 
         protected override void OnDestroy()
@@ -140,6 +152,28 @@ namespace pdxpartyparrot.ggj2020.Actors
         {
             foreach(RepairPoint repairPoint in _repairPoints) {
                 repairPoint.ResetDamage();
+            }
+        }
+
+        private IEnumerator ImpulseRoutine()
+        {
+            WaitForSeconds wait = new WaitForSeconds(GameManager.Instance.GameGameData.RepairableRobotData.ImpulseRate);
+            while(true) {
+                yield return wait;
+
+                if(PartyParrotManager.Instance.IsPaused) {
+                    continue;
+                }
+
+                if(!_enterRepairBayEffectTrigger.IsRunning && !_exitRepairBayEffectTrigger.IsRunning) {
+                    continue;
+                }
+
+                if(EffectsManager.Instance.EnableViewerShake) {
+                    _impulseSource.GenerateImpulse();
+                }
+
+                GameManager.Instance.RobotImpulse();
             }
         }
 

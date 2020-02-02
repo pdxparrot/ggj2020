@@ -11,6 +11,9 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         [SerializeField]
         private bool _waitForComplete = true;
 
+        [SerializeField]
+        private bool _clearOnStop;
+
         public override bool WaitForComplete => _waitForComplete;
 
         public override bool IsDone => !_vfx.isPlaying;
@@ -34,7 +37,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         public override void OnStop()
         {
-            _vfx.Stop(true);
+            _vfx.Stop(true, _clearOnStop ? ParticleSystemStopBehavior.StopEmittingAndClear : ParticleSystemStopBehavior.StopEmitting);
             _vfx.time = 0.0f;
         }
 

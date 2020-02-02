@@ -61,7 +61,7 @@ namespace pdxpartyparrot.Game.Players.Input
 
         protected bool EnableMouseLook { get; private set; } = !Application.isEditor;
 
-        protected PlayerInputHelper InputHelper { get; private set; }
+        public PlayerInputHelper InputHelper { get; private set; }
 
         private DebugMenuNode _debugMenuNode;
 

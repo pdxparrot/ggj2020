@@ -32,5 +32,11 @@ namespace pdxpartyparrot.ggj2020.Data.Actors
         private int _damageAreaIncreasePercentRate = 5;
 
         public int DamageAreaIncreaseRate => _damageAreaIncreasePercentRate;
+
+        [SerializeField]
+        [Range(0.1f, 1.0f)]
+        private float _impulseRate = 0.5f;
+
+        public float ImpulseRate => _impulseRate;
     }
 }

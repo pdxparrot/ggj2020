@@ -26,6 +26,11 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         {
             _tweenSequence.Complete(true);
         }
+
+        public float GetDuration()
+        {
+            return _tweenSequence.GetDuration();
+        }
     }
 }
 #endif

@@ -33,6 +33,9 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
             Assert.IsTrue(_impulseSource.m_ImpulseDefinition.m_TimeEnvelope.Duration >= 0);
 
             _isPlaying = true;
+
+            // TODO: this won't respect pause in terms of duration and it really should
+            // a coroutine that continually generates a short impulse over a large duration might make more sense
             TimeManager.Instance.RunAfterDelay(_impulseSource.m_ImpulseDefinition.m_TimeEnvelope.Duration, () => _isPlaying = false);
         }
 

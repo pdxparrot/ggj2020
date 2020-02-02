@@ -42,6 +42,9 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
             }
 
             _isPlaying = true;
+
+            // TODO: this won't respect pause in terms of duration and it really should
+            // a coroutine that continually generates a short impulse over a large duration might make more sense
             TimeManager.Instance.RunAfterDelay(_rumbleConfig.Seconds, () => _isPlaying = false);
         }
 

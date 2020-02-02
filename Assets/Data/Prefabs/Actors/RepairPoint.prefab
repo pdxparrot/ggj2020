@@ -66,6 +66,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _vfx: {fileID: 4013522020928129602}
   _waitForComplete: 0
+  _clearOnStop: 1
 --- !u!1 &4014047200212892896
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _vfx: {fileID: 1577036291634140908}
   _waitForComplete: 0
+  _clearOnStop: 1
 --- !u!1 &5098832288785590059
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,6 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _vfx: {fileID: 2554416156186925755}
   _waitForComplete: 0
+  _clearOnStop: 1
 --- !u!1 &6406167814278837835
 GameObject:
   m_ObjectHideFlags: 0

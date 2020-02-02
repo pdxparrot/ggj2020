@@ -23,8 +23,12 @@ namespace pdxpartyparrot.Core.Tween
         [SerializeField]
         private int _loops = 0;
 
+        public int Loops => _loops;
+
         [SerializeField]
         LoopType _loopType = LoopType.Restart;
+
+        public LoopType LoopType => _loopType;
 #endregion
 
 #region Delay
@@ -68,6 +72,7 @@ namespace pdxpartyparrot.Core.Tween
                 runner.ResetOnEnable = false;
                 runner.FirstRun = false;
 
+                // no infinite runners
                 if(runner.IsInfiniteLoop) {
                     runner.Loops = 0;
                 }
@@ -101,6 +106,17 @@ namespace pdxpartyparrot.Core.Tween
             foreach(TweenRunner runner in _tweens.Items) {
                 runner.DoReset();
             }
+        }
+
+        public float GetDuration()
+        {
+            // TODO: sequence / runner delay might need to factor into this
+            // TODO: also time scale
+            float duration = 0.0f;
+            foreach(TweenRunner runner in _tweens.Items) {
+                duration += (runner.Loops + 1) * runner.Duration;
+            }
+            return (Loops + 1) * duration;
         }
 
         public void Play()

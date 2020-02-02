@@ -17,6 +17,8 @@ namespace pdxpartyparrot.ggj2020.Players
 
         private GameViewer PlayerGameViewer => (GameViewer)Viewer;
 
+        [Space(10)]
+
         [SerializeField]
         private MechanicModel _mechanicModel;
 

@@ -54,7 +54,7 @@ namespace pdxpartyparrot.Core.Tween
         [SerializeField]
         private float _duration = 1.0f;
 
-        protected float Duration => _duration;
+        public float Duration => _duration;
 
         [SerializeField]
         private bool _useRandomDuration;
@@ -80,6 +80,8 @@ namespace pdxpartyparrot.Core.Tween
 
         [SerializeField]
         LoopType _loopType = LoopType.Restart;
+
+        public LoopType LoopType => _loopType;
 #endregion
 
 #region Easing

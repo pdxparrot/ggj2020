@@ -246,6 +246,7 @@ namespace pdxpartyparrot.Game.Characters
 
         protected virtual void TriggerMoveEffect()
         {
+            // TODO: split moving into walking / running
             if(Owner.IsMoving && null != _movingEffectTrigger) {
                 _movingEffectTrigger.Trigger();
             } else if(!Owner.IsMoving && null != _idleEffect) {
