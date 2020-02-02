@@ -40,12 +40,16 @@ namespace pdxpartyparrot.ggj2020.Tools
         virtual public void SetHeld(Mechanic player)
         {
             HoldingPlayer = player;
+            Rigidbody rigid = gameObject.GetComponentInParent<Rigidbody>();
+            rigid.isKinematic = true;
+            parent = rigid.gameObject;
             parent.transform.SetParent(player.transform);
         }
 
         public void Drop()
         {
             HoldingPlayer = null;
+            parent.GetComponent<Rigidbody>().isKinematic = false;
             parent.transform.SetParent(null);
             parent = null;
         }
