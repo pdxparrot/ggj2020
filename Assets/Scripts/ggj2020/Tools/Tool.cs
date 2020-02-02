@@ -30,7 +30,11 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         void OnTriggerExit(Collider collision)
         {
-            collision.gameObject.GetComponent<Mechanic>().SetCollidedTool(null);
+            Mechanic mechanic = collision.gameObject.GetComponent<Mechanic>();
+            if (null != mechanic)
+            {
+                mechanic.SetCollidedTool(null);
+            }
         }
 
         virtual public void SetHeld(Mechanic player)
