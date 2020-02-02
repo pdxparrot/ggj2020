@@ -92,5 +92,23 @@ namespace pdxpartyparrot.ggj2020.Tools
                 print("Repair Done!");
             }
         }
+
+        override public void SetAttachment()
+        {
+            Player pl = HoldingPlayer.GetComponent<Player>();
+            if (pl != null)
+            {
+                pl.GetMechanicModel().SetAttachment("Tool_Wrench", "Tool_Wrench");
+            }
+        }
+
+        override public void RemoveAttachment()
+        {
+            Player pl = HoldingPlayer.GetComponent<Player>();
+            if (pl != null)
+            {
+                pl.GetMechanicModel().RemoveAttachment("Tool_Wrench");
+            }
+        }
     }
 }

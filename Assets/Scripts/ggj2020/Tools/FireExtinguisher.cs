@@ -72,9 +72,22 @@ namespace pdxpartyparrot.ggj2020.Tools
             TimeAtStartOfHold = Time.realtimeSinceStartup;
         }
 
-        public override void EndUseTool()
+        override public void SetAttachment()
         {
-            ButtonHeld = false;
+            Player pl = HoldingPlayer.GetComponent<Player>();
+            if (pl != null)
+            {
+                pl.GetMechanicModel().SetAttachment("Tool_FireExtinguisher", "Tool_FireExtinguisher");
+            }
+        }
+
+        override public void RemoveAttachment()
+        {
+            Player pl = HoldingPlayer.GetComponent<Player>();
+            if (pl != null)
+            {
+                pl.GetMechanicModel().RemoveAttachment("Tool_FireExtinguisher");
+            }
         }
     }
 }

@@ -24,6 +24,11 @@ namespace pdxpartyparrot.ggj2020.Players
 
         private SpawnPoint _spawnpoint;
 
+        public MechanicModel GetMechanicModel()
+        {
+            return _mechanicModel;
+        }
+
 #region Unity Lifecycle
         protected override void Awake()
         {

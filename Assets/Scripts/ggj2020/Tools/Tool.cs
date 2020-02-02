@@ -9,6 +9,7 @@ namespace pdxpartyparrot.ggj2020.Tools
 {
     public class Tool : MonoBehaviour
     {
+        public SpriteRenderer render = null;
         protected Mechanic HoldingPlayer = null;
         protected GameObject parent;
         protected RepairPoint closestPoint = null;
@@ -97,14 +98,18 @@ namespace pdxpartyparrot.ggj2020.Tools
             rigid.isKinematic = true;
             parent = rigid.gameObject;
             parent.transform.SetParent(player.transform);
+            render.enabled = false;
+            SetAttachment();
         }
 
         virtual public void Drop()
         {
+            RemoveAttachment();
             HoldingPlayer.GetComponentInChildren<UIBubble>().HideSprite();
             HoldingPlayer = null;
             parent.GetComponent<Rigidbody>().isKinematic = false;
             parent.transform.SetParent(null);
+            render.enabled = true;
             parent = null;
         }
 
@@ -121,6 +126,16 @@ namespace pdxpartyparrot.ggj2020.Tools
         virtual public void EndUseTool()
         {
             //print("Parent end use tool called");
+        }
+
+        virtual public void SetAttachment()
+        {
+
+        }
+
+        virtual public void RemoveAttachment()
+        {
+
         }
     }
 }
