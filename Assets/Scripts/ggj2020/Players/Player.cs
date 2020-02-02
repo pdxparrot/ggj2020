@@ -41,6 +41,8 @@ namespace pdxpartyparrot.ggj2020.Players
             base.Awake();
 
             Assert.IsTrue(PlayerInputHandler is PlayerInputHandler);
+
+            _uiBubble.HideSprite();
         }
 #endregion
 
