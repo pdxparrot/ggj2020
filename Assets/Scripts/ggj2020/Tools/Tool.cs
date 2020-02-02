@@ -28,12 +28,13 @@ namespace pdxpartyparrot.ggj2020.Tools
         public void SetHeld(Mechanic player)
         {
             HoldingPlayer = player;
-            
+            gameObject.transform.parent = player.gameObject.transform;
         }
 
         public void Drop()
         {
             HoldingPlayer = null;
+            gameObject.transform.parent = null;
         }
 
         virtual public void UseTool()

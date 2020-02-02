@@ -93,6 +93,10 @@ namespace pdxpartyparrot.ggj2020.Players
 
             if(context.performed) {
                 Debug.LogWarning("TODO: context cancel (drop tool, etc)");
+                if (MechanicLogic != null)
+                {
+                    MechanicLogic.DropTool();
+                }
             }
         }
 #endregion

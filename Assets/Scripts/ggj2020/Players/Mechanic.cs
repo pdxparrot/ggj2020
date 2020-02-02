@@ -33,6 +33,11 @@ namespace pdxpartyparrot.ggj2020.Players
             }
         }
 
+        public void DropTool()
+        {
+            held_tool = null;
+        }
+
         public void SetCollidedTool(Tool new_tool)
         {
             collided_tool = new_tool;
@@ -51,7 +56,6 @@ namespace pdxpartyparrot.ggj2020.Players
 
         void OnTriggerEnter(Collider collision)
         {
-            print("mechanic collision");
             collided_tool = collision.gameObject.GetComponent<Tool>();
         }
     }
