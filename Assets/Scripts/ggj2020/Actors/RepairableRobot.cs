@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using pdxpartyparrot.Core.Actors;
+using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Tween;
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.World;
+using pdxpartyparrot.ggj2020.Players;
 
 using UnityEngine;
 
@@ -45,12 +50,17 @@ namespace pdxpartyparrot.ggj2020.Actors
         [SerializeField]
         private TweenMove _exitMoveTween;
 
+        [SerializeField]
+        [ReadOnly]
+        private int _currentDamagedParts;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
             base.Awake();
 
             foreach(RepairPoint repairPoint in _repairPoints) {
+                repairPoint.ResetDamage();
                 repairPoint.RepairedEvent += RepairedEventHandler;
             }
         }
@@ -102,6 +112,39 @@ namespace pdxpartyparrot.ggj2020.Actors
         }
 
 #region Events
+        public override bool OnSpawn(SpawnPoint spawnpoint)
+        {
+            if(!base.OnSpawn(spawnpoint)) {
+                return false;
+            }
+
+            // init on first spawn
+            if(0 == _currentDamagedParts) {
+                _currentDamagedParts = GameManager.Instance.GameGameData.RepairableRobotData.InitialDamagedAreasPerPlayerCount.ElementAt(PlayerManager.Instance.Players.Count);
+            }
+
+            // TODO: move this allocation out of here
+            List<RepairPoint> repairPoints = new List<RepairPoint>(_repairPoints);
+            for(int i=0; i<_currentDamagedParts; ++i) {
+                RepairPoint repairPoint = repairPoints.RemoveRandomEntry();
+                repairPoint.Damage();
+            }
+
+            return true;
+        }
+
+        public override void OnDeSpawn()
+        {
+            // reset all the parts
+            foreach(RepairPoint repairPoint in _repairPoints) {
+                repairPoint.ResetDamage();
+            }
+
+            // see if the number of damaged parts goes up
+
+            base.OnDeSpawn();
+        }
+
         private void RepairedEventHandler(object sender, EventArgs args)
         {
             if(IsRepaired()) {
