@@ -13,6 +13,9 @@ namespace pdxpartyparrot.ggj2020.Players
         public Player Owner => _owner;
 
         private Tool held_tool = null;
+
+        public bool HasTool => held_tool != null;
+
         private Tool collided_tool = null;
 
         [SerializeField]
@@ -24,14 +27,9 @@ namespace pdxpartyparrot.ggj2020.Players
         [SerializeField]
         private EffectTrigger _useToolEffect;
 
-        bool HasTool()
-        {
-            return held_tool != null;
-        }
-
         public void UseOrPickupTool()
         {
-            if (HasTool() && GameManager.Instance.MechanicsCanInteract)
+            if (HasTool && GameManager.Instance.MechanicsCanInteract)
             {
                 held_tool.UseTool(this);
                 _useToolEffect.Trigger();
@@ -45,7 +43,7 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public void TrackThumbStickAxis(Vector2 Axis)
         {
-            if (HasTool() && GameManager.Instance.MechanicsCanInteract)
+            if (HasTool && GameManager.Instance.MechanicsCanInteract)
             {
                 held_tool.TrackThumbStickAxis(Axis);
             }
@@ -53,7 +51,7 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public void UseEnded()
         {
-            if (HasTool())
+            if (HasTool)
             {
                 held_tool.EndUseTool();
                 Owner.Behavior.SpineAnimationHelper.SetEmptyAnimation(1);
@@ -74,11 +72,6 @@ namespace pdxpartyparrot.ggj2020.Players
         public void SetCollidedTool(Tool new_tool)
         {
             collided_tool = new_tool;
-        }
-
-        Tool GetHeldTool()
-        {
-            return held_tool;
         }
 
         void OnTriggerEnter(Collider collision)

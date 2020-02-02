@@ -87,9 +87,15 @@ namespace pdxpartyparrot.Game.Characters
         [CanBeNull]
         private EffectTrigger _idleEffect;
 
+        [CanBeNull]
+        protected virtual EffectTrigger IdleEffect => _idleEffect;
+
         [SerializeField]
         [CanBeNull]
         private EffectTrigger _movingEffectTrigger;
+
+        [CanBeNull]
+        protected virtual EffectTrigger MovingEffectTrigger => _movingEffectTrigger;
 #endregion
 
         public override bool CanMove => !CharacterMovement.IsComponentControlling && CanMoveNoComponents;
@@ -247,10 +253,10 @@ namespace pdxpartyparrot.Game.Characters
         protected virtual void TriggerMoveEffect()
         {
             // TODO: split moving into walking / running
-            if(Owner.IsMoving && null != _movingEffectTrigger) {
-                _movingEffectTrigger.Trigger();
-            } else if(!Owner.IsMoving && null != _idleEffect) {
-                _idleEffect.Trigger();
+            if(Owner.IsMoving && null != MovingEffectTrigger) {
+                MovingEffectTrigger.Trigger();
+            } else if(!Owner.IsMoving && null != IdleEffect) {
+                IdleEffect.Trigger();
             }
         }
 

@@ -10,6 +10,7 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ggj2020.Players
 {
+    [RequireComponent(typeof(Mechanic))]
     public sealed class Player : Player25D
     {
         public PlayerInputHandler GamePlayerInput => (PlayerInputHandler)PlayerInputHandler;
@@ -19,6 +20,10 @@ namespace pdxpartyparrot.ggj2020.Players
         private GameViewer PlayerGameViewer => (GameViewer)Viewer;
 
         [Space(10)]
+
+        private Mechanic _mechanic;
+
+        public Mechanic Mechanic => _mechanic;
 
         [SerializeField]
         private MechanicModel _mechanicModel;
@@ -38,6 +43,8 @@ namespace pdxpartyparrot.ggj2020.Players
             base.Awake();
 
             Assert.IsTrue(PlayerInputHandler is PlayerInputHandler);
+
+            _mechanic = GetComponent<Mechanic>();
 
             _uiBubble.HideSprite();
         }

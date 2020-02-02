@@ -18,6 +18,8 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public Player GamePlayerOwner => (Player)Owner;
 
+        [Space(10)]
+
         [SerializeField]
         private EffectTrigger _robotImpuleEffectTrigger;
 
@@ -25,7 +27,18 @@ namespace pdxpartyparrot.ggj2020.Players
         private RumbleEffectTriggerComponent _rumbleEffect;
 
         [SerializeField]
+        private EffectTrigger _idleWithToolEffect;
+
+        [SerializeField]
+        private EffectTrigger _runWithToolEffect;
+
+        [SerializeField]
         private EffectTrigger _climbLadderEffectTrigger;
+
+        [SerializeField]
+        private EffectTrigger _climbWithToolEffectTrigger;
+
+        [Space(10)]
 
         [SerializeField]
         [ReadOnly]
@@ -54,6 +67,14 @@ namespace pdxpartyparrot.ggj2020.Players
                 Owner.Movement.IsKinematic = value;
             }
         }
+
+        protected override EffectTrigger IdleEffect => IsOnLadder
+                                                ? (GamePlayerOwner.Mechanic.HasTool ? _climbWithToolEffectTrigger : _climbLadderEffectTrigger)
+                                                : (GamePlayerOwner.Mechanic.HasTool ? _idleWithToolEffect : base.IdleEffect);
+
+        protected override EffectTrigger MovingEffectTrigger => IsOnLadder
+                                                        ? (GamePlayerOwner.Mechanic.HasTool ? _climbWithToolEffectTrigger : _climbLadderEffectTrigger)
+                                                        : (GamePlayerOwner.Mechanic.HasTool ? _runWithToolEffect : base.MovingEffectTrigger);
 
 #region Unity Lifecycle
         protected override void Awake()
@@ -93,14 +114,6 @@ namespace pdxpartyparrot.ggj2020.Players
                 pos.y = 0.0f;
                 Owner.Movement.Teleport(pos);
             }
-        }
-
-        protected override void TriggerMoveEffect()
-        {
-            if(IsOnLadder) {
-                return;
-            }
-            base.TriggerMoveEffect();
         }
 
         public void ClimbLadder(bool climb)
