@@ -25,7 +25,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             collision.gameObject.GetComponent<Mechanic>().SetCollidedTool(this);
         }
 
-        public void SetHeld(Mechanic player)
+        virtual public void SetHeld(Mechanic player)
         {
             HoldingPlayer = player;
             gameObject.transform.parent = player.gameObject.transform;
