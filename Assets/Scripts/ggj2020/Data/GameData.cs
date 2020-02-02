@@ -35,13 +35,6 @@ namespace pdxpartyparrot.ggj2020.Data
 
         [Space(10)]
 
-        [SerializeField]
-        private int _repairTime = 30;
-
-        public int RepairTime => _repairTime;
-
-        [Space(10)]
-
 #region Repairable Robot
         [Header("Repairable Robot")]
 
@@ -80,6 +73,17 @@ namespace pdxpartyparrot.ggj2020.Data
         [Space(10)]
 
 #region Game Stuff
+        [SerializeField]
+        private int _repairTime = 30;
+
+        public int RepairTime => _repairTime;
+
+        [SerializeField]
+        [Range(1.0f, 5.0f)]
+        private float _robotRespawnRate = 5.0f;
+
+        public float RobotRespawnRate => _robotRespawnRate;
+
         [SerializeField]
         [Range(0.0f, 1.0f)]
         private float _passingRepairPercent = 0.5f;

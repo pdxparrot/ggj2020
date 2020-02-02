@@ -1,5 +1,6 @@
 ﻿using System;
 
+using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Util;
 
@@ -7,6 +8,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Actors
 {
+    [RequireComponent(typeof(AudioSource))]
     public class RepairPoint : MonoBehaviour
     {
 #region Events
@@ -51,6 +53,19 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         public bool IsRepaired => RepairState.Repaired == CurrentRepairState;
 
+        private AudioSource _audioSource;
+
+#region Unity Lifecycle
+        private void Awake()
+        {
+            _audioSource = GetComponent<AudioSource>();
+            AudioManager.Instance.InitSFXAudioMixerGroup(_audioSource);
+
+            _audioSource.loop = true;
+            _audioSource.spatialBlend = 0.0f;
+        }
+#endregion
+
         public void ResetDamage()
         {
             _repairState = RepairState.Repaired;
@@ -68,19 +83,20 @@ namespace pdxpartyparrot.ggj2020.Actors
             {
             case DamageType.Fire:
                 _fireDamageEffectTrigger.Trigger();
+                _audioSource.clip = GameManager.Instance.GameGameData.RepairableRobotData.FireAudioClip;
+                _audioSource.Play();
                 break;
             case DamageType.Damaged:
                 _damagedEffectTrigger.Trigger();
+                _audioSource.clip = GameManager.Instance.GameGameData.RepairableRobotData.DamagedAudioClip;
+                _audioSource.Play();
                 break;
             case DamageType.Loose:
                 _looseEffectTrigger.Trigger();
+                _audioSource.clip = GameManager.Instance.GameGameData.RepairableRobotData.LooseAudioClip;
+                _audioSource.Play();
                 break;
             }
-        }
-
-        public DamageType GetDamageType()
-        {
-            return RepairPointDamageType;
         }
 
         public void Repair()
@@ -96,6 +112,10 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         private void StopDamageEffects()
         {
+            if(null != _audioSource) {
+                _audioSource.Stop();
+            }
+
             _fireDamageEffectTrigger.StopTrigger();
             _damagedEffectTrigger.StopTrigger();
             _looseEffectTrigger.StopTrigger();

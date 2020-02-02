@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialDamagedAreasPerPlayerCount: 01000000020000000300000004000000
   _damageAreaIncreasePerPlayerCount: 01000000020000000300000004000000
-  _damageAreaIncreaseBasePercent: 5
-  _damageAreaIncreasePercentRate: 5
+  _damageAreaIncreaseBasePercent: 15
+  _damageAreaIncreasePercentRate: 15
+  _impulseRate: 0.5
+  _fireAudioClip: {fileID: 0}
+  _damagedAudioClip: {fileID: 0}
+  _looseAudioClip: {fileID: 8300000, guid: c472be7528a381f43872c061124402c0, type: 3}

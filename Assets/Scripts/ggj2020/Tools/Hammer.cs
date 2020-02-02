@@ -80,7 +80,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             if (closestPoint == null || HoldingPlayer.gameObject != player.gameObject)
                 return;
 
-            if (closestPoint.GetDamageType() != DType)
+            if (closestPoint.RepairPointDamageType != DType)
                 return;
 
             float delta = CurrentTime - TimeSinceLastWindow;
@@ -98,6 +98,24 @@ namespace pdxpartyparrot.ggj2020.Tools
 
             }
 
+        }
+
+        override public void SetAttachment()
+        {
+            Player pl = HoldingPlayer.GetComponent<Player>();
+            if (pl != null)
+            {
+                pl.GetMechanicModel().SetAttachment("Tool_Hammer", "Tool_Hammer");
+            }
+        }
+
+        override public void RemoveAttachment()
+        {
+            Player pl = HoldingPlayer.GetComponent<Player>();
+            if (pl != null)
+            {
+                pl.GetMechanicModel().RemoveAttachment("Tool_Hammer");
+            }
         }
     }
 }

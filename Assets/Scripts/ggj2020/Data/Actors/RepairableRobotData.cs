@@ -10,6 +10,7 @@ namespace pdxpartyparrot.ggj2020.Data.Actors
     [Serializable]
     public sealed class RepairableRobotData : ScriptableObject
     {
+// TODO: a lot of this probably should go to game data
         [SerializeField]
         [FormerlySerializedAs("_damagedAreasPerPlayerCount")]
         private int[] _initialDamagedAreasPerPlayerCount;
@@ -38,5 +39,20 @@ namespace pdxpartyparrot.ggj2020.Data.Actors
         private float _impulseRate = 0.5f;
 
         public float ImpulseRate => _impulseRate;
+
+        [SerializeField]
+        private AudioClip _fireAudioClip;
+
+        public AudioClip FireAudioClip => _fireAudioClip;
+
+        [SerializeField]
+        private AudioClip _damagedAudioClip;
+
+        public AudioClip DamagedAudioClip => _damagedAudioClip;
+
+        [SerializeField]
+        private AudioClip _looseAudioClip;
+
+        public AudioClip LooseAudioClip => _looseAudioClip;
     }
 }

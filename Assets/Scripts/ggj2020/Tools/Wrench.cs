@@ -58,7 +58,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             if (closestPoint == null || HoldingPlayer.gameObject != player.gameObject)
                 return;
 
-            if (closestPoint.GetDamageType() != DType)
+            if (closestPoint.RepairPointDamageType != DType)
                 return;
 
             ButtonHeld = true;
@@ -77,10 +77,10 @@ namespace pdxpartyparrot.ggj2020.Tools
                 return;
 
 
-            if ((Axis.x >= 1 || Axis.y >= 1) && LastTurnAxis != 1)
+            if ((Axis.x >= .5f || Axis.y >= .5f) && LastTurnAxis != 1)
             {
                 LastTurnAxis = 1;
-            } else if ((Axis.x <= -1 || Axis.y <= -1) && LastTurnAxis != -1)
+            } else if ((Axis.x <= -.5f || Axis.y <= -.5f) && LastTurnAxis != -1)
             {
                 LastTurnAxis = -1;
                 SuccessfulTurns++;
@@ -90,6 +90,24 @@ namespace pdxpartyparrot.ggj2020.Tools
             {
                 closestPoint.Repair();
                 print("Repair Done!");
+            }
+        }
+
+        override public void SetAttachment()
+        {
+            Player pl = HoldingPlayer.GetComponent<Player>();
+            if (pl != null)
+            {
+                pl.GetMechanicModel().SetAttachment("Tool_Wrench", "Tool_Wrench");
+            }
+        }
+
+        override public void RemoveAttachment()
+        {
+            Player pl = HoldingPlayer.GetComponent<Player>();
+            if (pl != null)
+            {
+                pl.GetMechanicModel().RemoveAttachment("Tool_Wrench");
             }
         }
     }

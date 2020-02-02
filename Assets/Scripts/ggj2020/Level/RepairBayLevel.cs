@@ -64,9 +64,8 @@ namespace pdxpartyparrot.ggj2020.Level
 
                 // TODO: kick off the next background battle
 
-                // TODO: either run this after the background battle starts
-                // or make this delay configurable
-                _respawnTimer.Start(5.0f);
+                // TODO: really this should go after the background battle finishes or is close to finishing
+                _respawnTimer.Start(GameManager.Instance.GameGameData.RobotRespawnRate);
             });
         }
 
@@ -83,15 +82,6 @@ namespace pdxpartyparrot.ggj2020.Level
         }
 
 #region Events
-        protected override void GameStartServerEventHandler(object sender, EventArgs args)
-        {
-            base.GameStartServerEventHandler(sender, args);
-
-            SpawnPoint spawnpoint = SpawnManager.Instance.GetSpawnPoint(GameManager.Instance.GameGameData.RepairableRobotSpawnTag);
-            _repairableRobot = spawnpoint.SpawnNPCPrefab(GameManager.Instance.GameGameData.RepairableRobotPrefab, null, transform).GetComponent<RepairableRobot>();
-            _repairableRobot.RepairedEvent += RepairedEventHandler;
-        }
-
         protected override void GameStartClientEventHandler(object sender, EventArgs args)
         {
             base.GameStartClientEventHandler(sender, args);
@@ -102,6 +92,10 @@ namespace pdxpartyparrot.ggj2020.Level
         protected override void GameReadyEventHandler(object sender, EventArgs args)
         {
             GameManager.Instance.MechanicsCanInteract = false;
+
+            SpawnPoint spawnpoint = SpawnManager.Instance.GetSpawnPoint(GameManager.Instance.GameGameData.RepairableRobotSpawnTag);
+            _repairableRobot = spawnpoint.SpawnNPCPrefab(GameManager.Instance.GameGameData.RepairableRobotPrefab, null, transform).GetComponent<RepairableRobot>();
+            _repairableRobot.RepairedEvent += RepairedEventHandler;
 
             EnterRobot();
         }
