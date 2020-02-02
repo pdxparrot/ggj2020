@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using pdxpartyparrot.Core.Util;
-
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,6 +10,7 @@ namespace pdxpartyparrot.ggj2020.Data.Actors
     [Serializable]
     public sealed class RepairableRobotData : ScriptableObject
     {
+// TODO: a lot of this probably should go to game data
         [SerializeField]
         [FormerlySerializedAs("_damagedAreasPerPlayerCount")]
         private int[] _initialDamagedAreasPerPlayerCount;
