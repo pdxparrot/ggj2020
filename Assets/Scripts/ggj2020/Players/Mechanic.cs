@@ -33,6 +33,14 @@ namespace pdxpartyparrot.ggj2020.Players
             }
         }
 
+        public void UseEnded()
+        {
+            if (HasTool() && GameManager.Instance.MechanicsCanInteract)
+            {
+                held_tool.EndUseTool();
+            }
+        }
+
         public void DropTool()
         {
             if (held_tool == null)
