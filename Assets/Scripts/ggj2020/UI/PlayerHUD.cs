@@ -1,6 +1,7 @@
 ﻿using System;
 
 using pdxpartyparrot.Core.UI;
+using pdxpartyparrot.Core.Util;
 
 using TMPro;
 
@@ -15,15 +16,27 @@ namespace pdxpartyparrot.ggj2020.UI
         private TextMeshProUGUI _timerText;
 
         [SerializeField]
-        private GameObject _lifeCardPrefab;
+        private LifeCard _lifeCardPrefab;
 
         [SerializeField]
         private Transform _lifeContainer;
+
+        private LifeCard[] _lifeCards;
+
+        [SerializeField]
+        [ReadOnly]
+        private int _currentFailure;
 
 #region Unity Lifecycle
         private void Awake()
         {
             GameManager.Instance.RepairFailureEvent += RepairFailureEventHandler;
+
+            _lifeCards = new LifeCard[GameManager.Instance.GameGameData.MaxFailures];
+            for(int i=0; i<_lifeCards.Length; ++i) {
+                _lifeCards[i] = Instantiate(_lifeCardPrefab, _lifeContainer);
+            }
+            _currentFailure = 0;
         }
 
         private void OnDestroy()
@@ -44,7 +57,8 @@ namespace pdxpartyparrot.ggj2020.UI
 #region Events
         private void RepairFailureEventHandler(object sender, EventArgs args)
         {
-            Instantiate(_lifeCardPrefab, _lifeContainer);
+            _lifeCards[_currentFailure].Fail();
+            _currentFailure++;
         }
 #endregion
     }

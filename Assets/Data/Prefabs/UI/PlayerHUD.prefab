@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timerText: {fileID: 1579435737055831046}
-  _lifeCardPrefab: {fileID: 6231730224694028628, guid: f8cbff8f185420541a1b329c65f5b33b,
+  _lifeCardPrefab: {fileID: 3910801058976382889, guid: f8cbff8f185420541a1b329c65f5b33b,
     type: 3}
   _lifeContainer: {fileID: 3923321388687808562}
 --- !u!1 &5409777607818096909
