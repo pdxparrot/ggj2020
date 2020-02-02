@@ -64,7 +64,7 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         public override void TrackThumbStickAxis(Vector2 Axis)
         {
-            if (closestPoint == null && !ButtonHeld)
+            if (closestPoint == null || !ButtonHeld)
                 return;
 
 

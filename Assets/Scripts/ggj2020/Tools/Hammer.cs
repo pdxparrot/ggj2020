@@ -78,7 +78,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             if (closestPoint == null || HoldingPlayer.gameObject != player.gameObject)
                 return;
 
-            if (closestPoint.GetDamageType() != Actors.RepairPoint.DamageType.Fire)
+            if (closestPoint.GetDamageType() != Actors.RepairPoint.DamageType.Damaged)
                 return;
 
             float delta = CurrentTime - TimeSinceLastWindow;
