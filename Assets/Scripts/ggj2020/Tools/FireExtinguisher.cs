@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using pdxpartyparrot.ggj2020.Tools;
 
 namespace pdxpartyparrot.ggj2020.Tools
 {
     public class FireExtinguisher : Tool
     {
+        public float HoldTime = 1;
+        private float CurrentTime = 0;
+        private float TimeAtStartOfHold = 0;
+        private bool ButtonHeld = false;
         // Start is called before the first frame update
         void Start()
         {
@@ -15,12 +20,27 @@ namespace pdxpartyparrot.ggj2020.Tools
         // Update is called once per frame
         void Update()
         {
-
+            if (ButtonHeld)
+            {
+                CurrentTime = Time.realtimeSinceStartup;
+                float delta = CurrentTime - TimeAtStartOfHold;
+                if (delta >= HoldTime)
+                {
+                    print("Succesful Fix TODO hook up with robot");
+                }
+            }
+           
         }
 
         override public void UseTool()
         {
-            print("child use tool called");
+            ButtonHeld = true;
+            TimeAtStartOfHold = Time.realtimeSinceStartup;
+        }
+
+        public override void EndUseTool()
+        {
+            ButtonHeld = false;
         }
     }
 }

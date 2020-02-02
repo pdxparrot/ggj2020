@@ -56,12 +56,12 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         virtual public void UseTool()
         {
-            print("Parent use tool called");
+            //print("Parent use tool called");
         }
 
         virtual public void EndUseTool()
         {
-            print("Parent end use tool called");
+            //print("Parent end use tool called");
         }
     }
 }
