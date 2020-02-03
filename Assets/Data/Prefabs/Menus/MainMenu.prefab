@@ -1155,8 +1155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24d420a24f758b44a028290bd2c2399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delay: 1
-  _scrollRate: 100
+  _delay: 3
+  _scrollRate: 65
   _resetOnEnable: 1
   _step: 0
   _delayRemaining: 0
