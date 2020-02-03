@@ -55,7 +55,11 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         private AudioSource _audioSource;
 
-#region Unity Lifecycle
+        #region Unity Lifecycle
+        void Start()
+        {
+            //gameObject.transform.localScale = Vector3.zero;
+        }
         private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
@@ -70,6 +74,7 @@ namespace pdxpartyparrot.ggj2020.Actors
         {
             _repairState = RepairState.Repaired;
 
+            gameObject.transform.localScale = Vector3.zero;
             StopDamageEffects();
 
             _repairEffectTrigger.StopTrigger();
@@ -78,8 +83,9 @@ namespace pdxpartyparrot.ggj2020.Actors
         public void Damage()
         {
             _repairState = RepairState.UnRepaired;
+            gameObject.transform.localScale = Vector3.one;
 
-            switch(RepairPointDamageType)
+            switch (RepairPointDamageType)
             {
             case DamageType.Fire:
                 _fireDamageEffectTrigger.Trigger();
@@ -102,6 +108,8 @@ namespace pdxpartyparrot.ggj2020.Actors
         public void Repair()
         {
             _repairState = RepairState.Repaired;
+
+            gameObject.transform.localScale = Vector3.zero;
 
             StopDamageEffects();
 
