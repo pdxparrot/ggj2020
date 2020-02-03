@@ -18,4 +18,19 @@ MonoBehaviour:
     - _title: Programming
       _contributors:
       - Shane Lillie
+    - _title: Animation
+      _contributors:
+      - Allyson Willsey
+    - _title: VFX
+      _contributors:
+      - Taylor Lane
+    - _title: Music and SFX
+      _contributors:
+      - Jesse Clark
+    - _title: Art - Robot Design
+      _contributors:
+      - Jessica Clark
+    - _title: Unity Generalist
+      _contributors:
+      - Tien Tam
   _postAmble: <link="pigsquad">http://www.pigsquad.com</link>
