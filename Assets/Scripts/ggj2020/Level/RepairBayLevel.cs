@@ -55,11 +55,11 @@ namespace pdxpartyparrot.ggj2020.Level
         }
 #endregion
 
-        private void NextRobot()
+        private void NextRobot(bool success)
         {
             GameManager.Instance.MechanicsCanInteract = false;
 
-            _repairableRobot.ExitRepairBay(() => {
+            _repairableRobot.ExitRepairBay(success, () => {
                 _repairableRobot.DeSpawn();
 
                 // TODO: kick off the next background battle
@@ -105,7 +105,8 @@ namespace pdxpartyparrot.ggj2020.Level
             Debug.Log("Times up!");
 
             float repairPercent = _repairableRobot.GetRepairPercent();
-            if(repairPercent < GameManager.Instance.GameGameData.PassingRepairPercent) {
+            bool success = repairPercent >= GameManager.Instance.GameGameData.PassingRepairPercent;
+            if(!success) {
                 if(!GameManager.Instance.RepairFailure(repairPercent)) {
                     return;
                 }
@@ -113,7 +114,7 @@ namespace pdxpartyparrot.ggj2020.Level
                 GameManager.Instance.RepairSuccess(repairPercent);
             }
 
-            NextRobot();
+            NextRobot(success);
         }
 
         private void RespawnRobotEventHandler(object sender, EventArgs args)
@@ -132,7 +133,7 @@ namespace pdxpartyparrot.ggj2020.Level
 
             GameManager.Instance.RepairSuccess(1.0f);
 
-            NextRobot();
+            NextRobot(true);
         }
 #endregion
     }
