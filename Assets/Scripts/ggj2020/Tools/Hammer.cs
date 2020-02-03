@@ -37,6 +37,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             if (HoldingPlayer == null)
                 return;
 
+            SetAttachment();
             // -- TODO update this once functions have been moved
             closestPoint = FindClosestRepairPoint(FindRepairPoints(), DType);
             if (!GameManager.Instance.MechanicsCanInteract || closestPoint == null)
