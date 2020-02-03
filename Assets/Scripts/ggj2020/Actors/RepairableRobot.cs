@@ -15,6 +15,7 @@ using pdxpartyparrot.Core.World;
 using pdxpartyparrot.ggj2020.Players;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.ggj2020.Actors
 {
@@ -44,22 +45,29 @@ namespace pdxpartyparrot.ggj2020.Actors
         [Header("Effects")]
 
         [SerializeField]
-        private EffectTrigger _enterRepairBayEffectTrigger;
+        [FormerlySerializedAs("_enterRepairBayEffectTrigger")]
+        private EffectTrigger _enterRepairBayMoveEffectTrigger;
 
         [SerializeField]
         private TweenMove _enterMoveTween;
 
         [SerializeField]
+        private EffectTrigger _enterRepairBayAnimEffectTrigger;
+
+        [SerializeField]
         private EffectTrigger _repairBayDockedEffect;
+
+        [SerializeField]
+        private EffectTrigger _exitRepairBayMoveEffectTrigger;
+
+        [SerializeField]
+        private TweenMove _exitMoveTween;
 
         [SerializeField]
         private EffectTrigger _exitRepairBaySuccessEffectTrigger;
 
         [SerializeField]
         private EffectTrigger _exitRepairBayFailureEffectTrigger;
-
-        [SerializeField]
-        private TweenMove _exitMoveTween;
 
         [Space(10)]
 
@@ -142,10 +150,13 @@ namespace pdxpartyparrot.ggj2020.Actors
             _enterMoveTween.From = transform.position;
             _enterMoveTween.To = Vector3.zero;
 
-            _enterRepairBayEffectTrigger.Trigger(() => {
-                _repairBayDockedEffect.Trigger();
-                onComplete?.Invoke();
+            _enterRepairBayMoveEffectTrigger.Trigger(() => {
+                _repairBayDockedEffect.Trigger(() => {
+                    onComplete?.Invoke();
+                });
             });
+
+            _enterRepairBayAnimEffectTrigger.Trigger();
         }
 
         public void ExitRepairBay(bool success, Action onComplete)
@@ -155,14 +166,14 @@ namespace pdxpartyparrot.ggj2020.Actors
             _exitMoveTween.From = Vector3.zero;
             _exitMoveTween.To = GameManager.Instance.GameLevelHelper.RepairableExit.position;
 
+            _exitRepairBayMoveEffectTrigger.Trigger(() => {
+                onComplete?.Invoke();
+            });
+
             if(success) {
-                _exitRepairBaySuccessEffectTrigger.Trigger(() => {
-                    onComplete?.Invoke();
-                });
+                _exitRepairBaySuccessEffectTrigger.Trigger();
             } else {
-                _exitRepairBayFailureEffectTrigger.Trigger(() => {
-                    onComplete?.Invoke();
-                });
+                _exitRepairBayFailureEffectTrigger.Trigger();
             }
         }
 
@@ -195,7 +206,7 @@ namespace pdxpartyparrot.ggj2020.Actors
                     continue;
                 }
 
-                if(!_enterRepairBayEffectTrigger.IsRunning && !_exitRepairBaySuccessEffectTrigger.IsRunning && !_exitRepairBayFailureEffectTrigger.IsRunning) {
+                if(!_enterRepairBayMoveEffectTrigger.IsRunning && !_exitRepairBayMoveEffectTrigger.IsRunning) {
                     continue;
                 }
 
@@ -248,9 +259,7 @@ namespace pdxpartyparrot.ggj2020.Actors
         {
             ResetDamage();
 
-            _enterRepairBayEffectTrigger.StopTrigger();
-            _exitRepairBaySuccessEffectTrigger.StopTrigger();
-            _exitRepairBayFailureEffectTrigger.StopTrigger();
+            _exitRepairBayMoveEffectTrigger.StopTrigger();
         }
 
         private void RepairedEventHandler(object sender, EventArgs args)

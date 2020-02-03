@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 6349876652495964358}
   - component: {fileID: 7658738223817777824}
   - component: {fileID: 3234969933289736746}
-  - component: {fileID: 4103552149273966935}
   m_Layer: 0
-  m_Name: ExitBaySuccessEffect
+  m_Name: Exit Success Anim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,9 +28,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 284642993995121014}
   m_Father: {fileID: 5928489026279979436}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7658738223817777824
 MonoBehaviour:
@@ -46,11 +46,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggerOnComplete:
-    _items: []
+    _items:
+    - {fileID: 4017976284774377252}
   _components:
     _items:
     - {fileID: 3234969933289736746}
-    - {fileID: 4103552149273966935}
   _isRunning: 0
   _complete: 0
 --- !u!114 &3234969933289736746
@@ -70,20 +70,6 @@ MonoBehaviour:
   _spineAnimationTrack: 0
   _loop: 0
   _trackStartTime: 0
-  _waitForComplete: 1
---- !u!114 &4103552149273966935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359254967763848667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a44306ddd3b2d64fb1a5a60d38d6676, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tweenSequence: {fileID: 8599939920824246416}
   _waitForComplete: 1
 --- !u!1 &1039189556108033911
 GameObject:
@@ -114,8 +100,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5928489026279979436}
-  m_RootOrder: 5
+  m_Father: {fileID: 2500675382091446632}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8599939920824246416
 MonoBehaviour:
@@ -188,7 +174,7 @@ GameObject:
   - component: {fileID: 6271772420364577435}
   - component: {fileID: 6285272799961954211}
   m_Layer: 0
-  m_Name: RepairBayDocked Effect
+  m_Name: Bay Dock Anim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,12 +187,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1623247931723058837}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 3830226614733096646}
   m_Father: {fileID: 5928489026279979436}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6271772420364577435
 MonoBehaviour:
@@ -221,7 +208,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggerOnComplete:
-    _items: []
+    _items:
+    - {fileID: 2312860960984404746}
   _components:
     _items:
     - {fileID: 6285272799961954211}
@@ -240,11 +228,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 3844286469459284050}
-  _spineAnimationName: idle_static
+  _spineAnimationName: intro_anim
   _spineAnimationTrack: 0
-  _loop: 1
+  _loop: 0
   _trackStartTime: 0
-  _waitForComplete: 0
+  _waitForComplete: 1
 --- !u!1 &1694430821910555896
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,9 +244,8 @@ GameObject:
   - component: {fileID: 4780972369342924741}
   - component: {fileID: 1889134314180390883}
   - component: {fileID: 5276832883597376315}
-  - component: {fileID: 2541573750190112751}
   m_Layer: 0
-  m_Name: ExitBayFailureEffect
+  m_Name: Exit Bay Failure Anim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -274,9 +261,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 5536243210777162958}
   m_Father: {fileID: 5928489026279979436}
-  m_RootOrder: 4
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1889134314180390883
 MonoBehaviour:
@@ -291,11 +279,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggerOnComplete:
-    _items: []
+    _items:
+    - {fileID: 5825678802798495509}
   _components:
     _items:
     - {fileID: 5276832883597376315}
-    - {fileID: 2541573750190112751}
   _isRunning: 0
   _complete: 0
 --- !u!114 &5276832883597376315
@@ -313,16 +301,68 @@ MonoBehaviour:
   _spineAnimation: {fileID: 3844286469459284050}
   _spineAnimationName: outro_anim_nocharge
   _spineAnimationTrack: 0
-  _loop: 1
+  _loop: 0
   _trackStartTime: 0
-  _waitForComplete: 0
---- !u!114 &2541573750190112751
+  _waitForComplete: 1
+--- !u!1 &1849855140735761234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2500675382091446632}
+  - component: {fileID: 3585391425163085120}
+  - component: {fileID: 5671640196762289126}
+  m_Layer: 0
+  m_Name: Exit Bay Move Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2500675382091446632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849855140735761234}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8107791792468406954}
+  m_Father: {fileID: 5928489026279979436}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3585391425163085120
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1694430821910555896}
+  m_GameObject: {fileID: 1849855140735761234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d686a2a25b0fa4580b19af290d7bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 5671640196762289126}
+  _isRunning: 0
+  _complete: 0
+--- !u!114 &5671640196762289126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849855140735761234}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a44306ddd3b2d64fb1a5a60d38d6676, type: 3}
@@ -330,6 +370,210 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tweenSequence: {fileID: 8599939920824246416}
   _waitForComplete: 1
+--- !u!1 &2542986547281676721
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1224454947874809852}
+  - component: {fileID: 6068512087542430561}
+  - component: {fileID: 1691047862422160622}
+  m_Layer: 0
+  m_Name: Enter Bay Move Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1224454947874809852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2542986547281676721}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1207971754281980068}
+  m_Father: {fileID: 5928489026279979436}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6068512087542430561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2542986547281676721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d686a2a25b0fa4580b19af290d7bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 1691047862422160622}
+  _isRunning: 0
+  _complete: 0
+--- !u!114 &1691047862422160622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2542986547281676721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a44306ddd3b2d64fb1a5a60d38d6676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tweenSequence: {fileID: 4857315481396713272}
+  _waitForComplete: 1
+--- !u!1 &3743064557274741230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3830226614733096646}
+  - component: {fileID: 2312860960984404746}
+  - component: {fileID: 6977936732216016373}
+  m_Layer: 0
+  m_Name: Dock Complete Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3830226614733096646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3743064557274741230}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7811495975873536936}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2312860960984404746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3743064557274741230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d686a2a25b0fa4580b19af290d7bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 6977936732216016373}
+  _isRunning: 0
+  _complete: 0
+--- !u!114 &6977936732216016373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3743064557274741230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890052abe26e68944bcda59c4dfc1e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spineAnimation: {fileID: 3844286469459284050}
+  _spineAnimationName: idle_static
+  _spineAnimationTrack: 0
+  _loop: 1
+  _trackStartTime: 0
+  _waitForComplete: 0
+--- !u!1 &3954229677131364094
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 284642993995121014}
+  - component: {fileID: 4017976284774377252}
+  - component: {fileID: 579650758068280461}
+  m_Layer: 0
+  m_Name: Exiting Bay Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &284642993995121014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3954229677131364094}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6349876652495964358}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4017976284774377252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3954229677131364094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d686a2a25b0fa4580b19af290d7bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 579650758068280461}
+  _isRunning: 0
+  _complete: 0
+--- !u!114 &579650758068280461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3954229677131364094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890052abe26e68944bcda59c4dfc1e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spineAnimation: {fileID: 3844286469459284050}
+  _spineAnimationName: outro_static_charge
+  _spineAnimationTrack: 0
+  _loop: 1
+  _trackStartTime: 0
+  _waitForComplete: 0
 --- !u!1 &4719988888009220033
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,10 +584,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1007790043787347429}
   - component: {fileID: 7058271576401251284}
-  - component: {fileID: 8043813736933560306}
   - component: {fileID: 4116422518261725291}
   m_Layer: 0
-  m_Name: EnterBayEffect
+  m_Name: Enter Bay Anim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,9 +603,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1207971754281980068}
+  - {fileID: 5507590336372515067}
   m_Father: {fileID: 5928489026279979436}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7058271576401251284
 MonoBehaviour:
@@ -377,27 +620,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggerOnComplete:
-    _items: []
+    _items:
+    - {fileID: 4294419306870006013}
   _components:
     _items:
-    - {fileID: 8043813736933560306}
     - {fileID: 4116422518261725291}
   _isRunning: 0
   _complete: 0
---- !u!114 &8043813736933560306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4719988888009220033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a44306ddd3b2d64fb1a5a60d38d6676, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tweenSequence: {fileID: 4857315481396713272}
-  _waitForComplete: 1
 --- !u!114 &4116422518261725291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,7 +644,7 @@ MonoBehaviour:
   _spineAnimationTrack: 0
   _loop: 0
   _trackStartTime: 0
-  _waitForComplete: 0
+  _waitForComplete: 1
 --- !u!1 &7217340828678557511
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +690,75 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _skeletonAnimation: {fileID: 1803605241261867943}
+--- !u!1 &7814176801417037441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5536243210777162958}
+  - component: {fileID: 5825678802798495509}
+  - component: {fileID: 689119593106446182}
+  m_Layer: 0
+  m_Name: Exiting Bay Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5536243210777162958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7814176801417037441}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4780972369342924741}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5825678802798495509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7814176801417037441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d686a2a25b0fa4580b19af290d7bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 689119593106446182}
+  _isRunning: 0
+  _complete: 0
+--- !u!114 &689119593106446182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7814176801417037441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890052abe26e68944bcda59c4dfc1e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spineAnimation: {fileID: 3844286469459284050}
+  _spineAnimationName: outro_static_nocharge
+  _spineAnimationTrack: 0
+  _loop: 1
+  _trackStartTime: 0
+  _waitForComplete: 0
 --- !u!1 &8186301270934887549
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,6 +801,75 @@ Transform:
   m_Father: {fileID: 5928489026279979436}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8378497459781821700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5507590336372515067}
+  - component: {fileID: 4294419306870006013}
+  - component: {fileID: 6085593920420129123}
+  m_Layer: 0
+  m_Name: Entering Bay Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5507590336372515067
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8378497459781821700}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1007790043787347429}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4294419306870006013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8378497459781821700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d686a2a25b0fa4580b19af290d7bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 6085593920420129123}
+  _isRunning: 0
+  _complete: 0
+--- !u!114 &6085593920420129123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8378497459781821700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890052abe26e68944bcda59c4dfc1e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spineAnimation: {fileID: 3844286469459284050}
+  _spineAnimationName: intro_static
+  _spineAnimationTrack: 0
+  _loop: 1
+  _trackStartTime: 0
+  _waitForComplete: 0
 --- !u!1 &8737774189802463822
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,11 +903,12 @@ Transform:
   m_Children:
   - {fileID: 616312301613751121}
   - {fileID: 3359889470192928266}
+  - {fileID: 1224454947874809852}
   - {fileID: 1007790043787347429}
+  - {fileID: 7811495975873536936}
+  - {fileID: 2500675382091446632}
   - {fileID: 6349876652495964358}
   - {fileID: 4780972369342924741}
-  - {fileID: 8107791792468406954}
-  - {fileID: 7811495975873536936}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -649,12 +1017,14 @@ MonoBehaviour:
   - {fileID: 1706778612927635251}
   - {fileID: 178433764870063422}
   _chargeLevel: 0
-  _enterRepairBayEffectTrigger: {fileID: 7058271576401251284}
+  _enterRepairBayMoveEffectTrigger: {fileID: 6068512087542430561}
   _enterMoveTween: {fileID: 4706370909871949078}
+  _enterRepairBayAnimEffectTrigger: {fileID: 7058271576401251284}
   _repairBayDockedEffect: {fileID: 6271772420364577435}
+  _exitRepairBayMoveEffectTrigger: {fileID: 3585391425163085120}
+  _exitMoveTween: {fileID: 8318760051022507415}
   _exitRepairBaySuccessEffectTrigger: {fileID: 7658738223817777824}
   _exitRepairBayFailureEffectTrigger: {fileID: 1889134314180390883}
-  _exitMoveTween: {fileID: 8318760051022507415}
   _currentDamagedParts: 0
   _currentDamageIncreaseChance: 0
 --- !u!1 &8852682599872701553
@@ -669,7 +1039,7 @@ GameObject:
   - component: {fileID: 4857315481396713272}
   - component: {fileID: 4706370909871949078}
   m_Layer: 0
-  m_Name: TweenMove
+  m_Name: TweenMove Enter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -682,11 +1052,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8852682599872701553}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1007790043787347429}
+  m_Father: {fileID: 1224454947874809852}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4857315481396713272
@@ -887,12 +1257,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e56b59a14bd75314ea7fce4ef1e60fb3, type: 3}
---- !u!4 &718059370405173608 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
-    type: 3}
-  m_PrefabInstance: {fileID: 53565362274989827}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &178433764870063422 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 200306801771442749, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
@@ -905,6 +1269,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381e73fed90b429a84bdf6cf3486bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &718059370405173608 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 53565362274989827}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1297676709393257546 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1349966625272800073, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
@@ -1237,12 +1607,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b3e7bf277980974ab79a639a08ff251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &2026991167444943717 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
-    type: 3}
-  m_PrefabInstance: {fileID: 1542504736180628750}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1706778612927635251 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 200306801771442749, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
@@ -1255,6 +1619,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381e73fed90b429a84bdf6cf3486bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &2026991167444943717 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1542504736180628750}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1759811125108707407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1568,24 +1938,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e56b59a14bd75314ea7fce4ef1e60fb3, type: 3}
---- !u!4 &2934535648955232908 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
-    type: 3}
-  m_PrefabInstance: {fileID: 2445686351324781799}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2537623628645822170 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 200306801771442749, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
-    type: 3}
-  m_PrefabInstance: {fileID: 2445686351324781799}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 381e73fed90b429a84bdf6cf3486bab6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3696568783238381486 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1349966625272800073, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
@@ -1598,6 +1950,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b3e7bf277980974ab79a639a08ff251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2537623628645822170 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 200306801771442749, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 2445686351324781799}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381e73fed90b429a84bdf6cf3486bab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2934535648955232908 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 2445686351324781799}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3163944166151246263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1901,18 +2271,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e56b59a14bd75314ea7fce4ef1e60fb3, type: 3}
---- !u!114 &4755548145996862883 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1349966625272800073, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
+--- !u!4 &6488087209842038913 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
     type: 3}
   m_PrefabInstance: {fileID: 5999659647868188394}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b3e7bf277980974ab79a639a08ff251, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5874016970474767575 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 200306801771442749, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
@@ -1925,12 +2289,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381e73fed90b429a84bdf6cf3486bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &6488087209842038913 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
+--- !u!114 &4755548145996862883 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1349966625272800073, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
     type: 3}
   m_PrefabInstance: {fileID: 5999659647868188394}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b3e7bf277980974ab79a639a08ff251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6131484073228075833
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2070,6 +2440,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e56b59a14bd75314ea7fce4ef1e60fb3, type: 3}
+--- !u!4 &6655803615971110226 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 6131484073228075833}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6327779297676751108 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 200306801771442749, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
@@ -2082,12 +2458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381e73fed90b429a84bdf6cf3486bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &6655803615971110226 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
-    type: 3}
-  m_PrefabInstance: {fileID: 6131484073228075833}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5164330494522630256 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1349966625272800073, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
@@ -2246,12 +2616,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b3e7bf277980974ab79a639a08ff251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &6938168249796210838 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
-    type: 3}
-  m_PrefabInstance: {fileID: 7566066184914820861}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7766370568598662336 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 200306801771442749, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
@@ -2264,6 +2628,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381e73fed90b429a84bdf6cf3486bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6938168249796210838 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 7566066184914820861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8485906118801534589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2403,6 +2773,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e56b59a14bd75314ea7fce4ef1e60fb3, type: 3}
+--- !u!4 &8974193010933022742 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8485906118801534589}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8576084448654974016 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 200306801771442749, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
@@ -2427,12 +2803,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b3e7bf277980974ab79a639a08ff251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &8974193010933022742 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
-    type: 3}
-  m_PrefabInstance: {fileID: 8485906118801534589}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8614490549961649617
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2537,12 +2907,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41db5dfd8e4407948b7e0746b616ff3d, type: 3}
---- !u!4 &2729644787251752300 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5939532108116476093, guid: 41db5dfd8e4407948b7e0746b616ff3d,
-    type: 3}
-  m_PrefabInstance: {fileID: 8614490549961649617}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1803605241261867943 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7965566925266628214, guid: 41db5dfd8e4407948b7e0746b616ff3d,
@@ -2555,6 +2919,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &2729644787251752300 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5939532108116476093, guid: 41db5dfd8e4407948b7e0746b616ff3d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8614490549961649617}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8652169548063338991
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2706,6 +3076,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b3e7bf277980974ab79a639a08ff251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &8168381852211093380 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8652169548063338991}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8850997845980480466 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 200306801771442749, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
@@ -2718,12 +3094,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381e73fed90b429a84bdf6cf3486bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &8168381852211093380 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 669138968084639339, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
-    type: 3}
-  m_PrefabInstance: {fileID: 8652169548063338991}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8969491074012696083
 PrefabInstance:
   m_ObjectHideFlags: 0
