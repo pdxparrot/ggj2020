@@ -15,21 +15,22 @@ MonoBehaviour:
   _preAmble: <align="center">Global Game Jam 2020!</align>
   _credits:
     _items:
-    - _title: Programming
-      _contributors:
-      - Shane Lillie
     - _title: Animation
       _contributors:
       - Allyson Willsey
-    - _title: VFX
-      _contributors:
-      - Taylor Lane
-    - _title: Music and SFX
-      _contributors:
-      - Jesse Clark
     - _title: Art - Robot Design
       _contributors:
       - Jessica Clark
+    - _title: Music and SFX
+      _contributors:
+      - Jesse Clark
+    - _title: Programming
+      _contributors:
+      - Shane Lillie
+      - Luis Garcia
+    - _title: VFX
+      _contributors:
+      - Taylor Lane
     - _title: Unity Generalist
       _contributors:
       - Tien Tam
