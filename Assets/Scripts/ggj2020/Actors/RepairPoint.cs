@@ -79,6 +79,7 @@ namespace pdxpartyparrot.ggj2020.Actors
         {
             _repairState = RepairState.UnRepaired;
 
+            gameObject.SetActive(true);
             switch(RepairPointDamageType)
             {
             case DamageType.Fire:
@@ -103,6 +104,7 @@ namespace pdxpartyparrot.ggj2020.Actors
         {
             _repairState = RepairState.Repaired;
 
+            gameObject.SetActive(false);
             StopDamageEffects();
 
             _repairEffectTrigger.Trigger();
