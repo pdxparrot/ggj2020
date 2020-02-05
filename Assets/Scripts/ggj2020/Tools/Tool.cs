@@ -96,11 +96,13 @@ namespace pdxpartyparrot.ggj2020.Tools
         {
             RemoveAttachment();
 
-            HoldingPlayer.Owner.UIBubble.HideSprite();
-            HoldingPlayer = null;
-
             transform.SetParent(null);
             _model.SetActive(true);
+
+            _rigidbody.isKinematic = false;
+
+            HoldingPlayer.Owner.UIBubble.HideSprite();
+            HoldingPlayer = null;
         }
 
         public virtual void TrackThumbStickAxis(Vector2 axis)
