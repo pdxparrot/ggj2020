@@ -5,11 +5,14 @@ using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Interactables;
 
+using Spine.Unity;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Actors
 {
     [RequireComponent(typeof(AudioSource))]
+    [RequireComponent(typeof(BoneFollower))]
     public class RepairPoint : MonoBehaviour, IInteractable
     {
 #region Events
@@ -27,6 +30,11 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         [SerializeField]
         private EffectTrigger _repairEffectTrigger;
+
+        private BoneFollower _boneFollower;
+
+        [SerializeField]
+        private string _attachmentBoneName = "root";
 
         public enum DamageType
         {
@@ -63,11 +71,21 @@ namespace pdxpartyparrot.ggj2020.Actors
         {
             _audioSource = GetComponent<AudioSource>();
             AudioManager.Instance.InitSFXAudioMixerGroup(_audioSource);
-
             _audioSource.loop = true;
             _audioSource.spatialBlend = 0.0f;
+
+            _boneFollower = GetComponent<BoneFollower>();
+            _boneFollower.boneName = _attachmentBoneName;
         }
 #endregion
+
+        public void Initialize(SkeletonAnimation skeleton)
+        {
+            // TODO: we can enable this once we have the bones ready
+            //_boneFollower.SkeletonRenderer = skeleton;
+
+            ResetDamage();
+        }
 
         public void ResetDamage()
         {
@@ -82,7 +100,9 @@ namespace pdxpartyparrot.ggj2020.Actors
         {
             _repairState = RepairState.UnRepaired;
 
+            // TODO: instead of disabling the entire thing just disable the vfx
             gameObject.SetActive(true);
+
             switch(RepairPointDamageType)
             {
             case DamageType.Fire:
@@ -107,10 +127,11 @@ namespace pdxpartyparrot.ggj2020.Actors
         {
             _repairState = RepairState.Repaired;
 
+            // TODO: instead of disabling the entire thing just disable the vfx
             gameObject.SetActive(false);
             StopDamageEffects();
 
-            _repairEffectTrigger.Trigger();
+            //_repairEffectTrigger.Trigger();
 
             RepairedEvent?.Invoke(this, EventArgs.Empty);
         }

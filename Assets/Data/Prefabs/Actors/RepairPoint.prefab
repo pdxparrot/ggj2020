@@ -284,6 +284,7 @@ GameObject:
   - component: {fileID: 5056821147568844013}
   - component: {fileID: 200306801771442749}
   - component: {fileID: 3677669527334742351}
+  - component: {fileID: 8452482742531082849}
   m_Layer: 19
   m_Name: RepairPoint
   m_TagString: Untagged
@@ -436,6 +437,26 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8452482742531082849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6406167814278837835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd8daaed7b64148a34acb96ba14ce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonRenderer: {fileID: 0}
+  boneName: 
+  followXYPosition: 1
+  followZPosition: 1
+  followBoneRotation: 1
+  followSkeletonFlip: 1
+  followLocalScale: 0
+  initializeOnAwake: 1
 --- !u!1001 &2943290224739513611
 PrefabInstance:
   m_ObjectHideFlags: 0

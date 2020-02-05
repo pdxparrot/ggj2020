@@ -7,6 +7,7 @@ using Cinemachine;
 
 using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.Actors;
+using pdxpartyparrot.Core.Animation;
 using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Tween;
@@ -39,6 +40,9 @@ namespace pdxpartyparrot.ggj2020.Actors
         private float _chargeLevel;
 
         public float ChargeLevel => _chargeLevel;
+
+        [SerializeField]
+        private SpineAnimationHelper _animationHelper;
 
         [Space(10)]
 
@@ -91,7 +95,7 @@ namespace pdxpartyparrot.ggj2020.Actors
             _impulseSource = GetComponent<CinemachineImpulseSource>();
 
             foreach(RepairPoint repairPoint in _repairPoints) {
-                repairPoint.ResetDamage();
+                repairPoint.Initialize(_animationHelper.SkeletonAnimation);
                 repairPoint.RepairedEvent += RepairedEventHandler;
             }
         }

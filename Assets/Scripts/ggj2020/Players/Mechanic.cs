@@ -63,6 +63,9 @@ namespace pdxpartyparrot.ggj2020.Players
         [SerializeField]
         private EffectTrigger _useToolEffect;
 
+        [SerializeField]
+        private GameObject _toolVFXAttachment;
+
         private Interactables _interactables;
 
 #region Unity Lifecycle
