@@ -3,15 +3,14 @@ using System;
 using pdxpartyparrot.Core.Data.Actors.Components;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
-using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ggj2020.Data.Players;
-using pdxpartyparrot.ggj2020.World;
 
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ggj2020.Players
 {
+    [RequireComponent(typeof(Mechanic))]
     public sealed class PlayerBehavior : Game.Characters.Players.PlayerBehavior
     {
         public PlayerBehaviorData GamePlayerBehaviorData => (PlayerBehaviorData)PlayerBehaviorData;
@@ -35,44 +34,16 @@ namespace pdxpartyparrot.ggj2020.Players
         [SerializeField]
         private EffectTrigger _climbLadderEffectTrigger;
 
+        public EffectTrigger ClimbLadderEffectTrigger => _climbLadderEffectTrigger;
+
         [SerializeField]
         private EffectTrigger _climbWithToolEffectTrigger;
 
-        [Space(10)]
-
-        [SerializeField]
-        [ReadOnly]
-        private bool _canUseLadder;
-
-        public bool CanUseLadder
-        {
-            get => _canUseLadder;
-            private set
-            {
-                _canUseLadder = value;
-                IsOnLadder = IsOnLadder && _canUseLadder;
-            }
-        }
-
-        [SerializeField]
-        [ReadOnly]
-        private bool _isOnLadder;
-
-        public bool IsOnLadder
-        {
-            get => _isOnLadder;
-            private set
-            {
-                _isOnLadder = value;
-                Owner.Movement.IsKinematic = value;
-            }
-        }
-
-        protected override EffectTrigger IdleEffect => IsOnLadder
+        protected override EffectTrigger IdleEffect => GamePlayerOwner.Mechanic.IsOnLadder
                                                 ? (GamePlayerOwner.Mechanic.HasTool ? _climbWithToolEffectTrigger : _climbLadderEffectTrigger)
                                                 : (GamePlayerOwner.Mechanic.HasTool ? _idleWithToolEffect : base.IdleEffect);
 
-        protected override EffectTrigger MovingEffectTrigger => IsOnLadder
+        protected override EffectTrigger MovingEffectTrigger => GamePlayerOwner.Mechanic.IsOnLadder
                                                         ? (GamePlayerOwner.Mechanic.HasTool ? _climbWithToolEffectTrigger : _climbLadderEffectTrigger)
                                                         : (GamePlayerOwner.Mechanic.HasTool ? _runWithToolEffect : base.MovingEffectTrigger);
 
@@ -116,44 +87,12 @@ namespace pdxpartyparrot.ggj2020.Players
             }
         }
 
-        public void ClimbLadder(bool climb)
-        {
-            if(climb) {
-                _climbLadderEffectTrigger.Trigger();
-            }
-            IsOnLadder = climb;
-        }
-
 #region Events
         public override bool OnDeSpawn()
         {
             _robotImpuleEffectTrigger.StopTrigger();
 
             return base.OnDeSpawn();
-        }
-
-        public override bool TriggerEnter(GameObject triggerObject)
-        {
-            Ladder ladder = triggerObject.GetComponent<Ladder>();
-            if(null == ladder) {
-                return false;
-            }
-
-            CanUseLadder = true;
-
-            return false;
-        }
-
-        public override bool TriggerExit(GameObject triggerObject)
-        {
-            Ladder ladder = triggerObject.GetComponent<Ladder>();
-            if(null == ladder) {
-                return false;
-            }
-
-            CanUseLadder = false;
-
-            return false;
         }
 
         private void RobotImpulseEventHandler(object sender, EventArgs args)

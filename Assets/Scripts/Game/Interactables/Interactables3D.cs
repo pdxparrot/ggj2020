@@ -8,8 +8,10 @@ namespace pdxpartyparrot.Game.Interactables
         private Collider _trigger;
 
 #region Unity Life Cycle
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             _trigger = GetComponent<Collider>();
             _trigger.isTrigger = true;
         }

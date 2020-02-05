@@ -1,10 +1,14 @@
 using pdxpartyparrot.Core.Effects;
+using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ggj2020.Tools;
+using pdxpartyparrot.ggj2020.World;
 
 using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Players
 {
+    [RequireComponent(typeof(Interactables3D))]
     public class Mechanic : MonoBehaviour
     {
         [SerializeField]
@@ -12,11 +16,43 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public Player Owner => _owner;
 
+        [SerializeField]
+        [ReadOnly]
         private Tool held_tool = null;
 
         public bool HasTool => held_tool != null;
 
+        [SerializeField]
+        [ReadOnly]
         private Tool collided_tool = null;
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _canUseLadder;
+
+        public bool CanUseLadder
+        {
+            get => _canUseLadder;
+            private set
+            {
+                _canUseLadder = value;
+                IsOnLadder = IsOnLadder && _canUseLadder;
+            }
+        }
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _isOnLadder;
+
+        public bool IsOnLadder
+        {
+            get => _isOnLadder;
+            private set
+            {
+                _isOnLadder = value;
+                Owner.Movement.IsKinematic = value;
+            }
+        }
 
         [SerializeField]
         private EffectTrigger _pickupToolEffect;
@@ -27,14 +63,31 @@ namespace pdxpartyparrot.ggj2020.Players
         [SerializeField]
         private EffectTrigger _useToolEffect;
 
+        private Interactables _interactables;
+
+#region Unity Lifecycle
+        private void Awake()
+        {
+            _interactables = GetComponent<Interactables>();
+            _interactables.InteractableAddedEvent += InteractableAddedEventHandler;
+            _interactables.InteractableRemovedEvent += InteractableRemovedEventHandler;
+        }
+#endregion
+
+        public void ClimbLadder(bool climb)
+        {
+            if(climb) {
+                Owner.GamePlayerBehavior.ClimbLadderEffectTrigger.Trigger();
+            }
+            IsOnLadder = climb;
+        }
+
         public void UseOrPickupTool()
         {
-            if (HasTool && GameManager.Instance.MechanicsCanInteract)
-            {
+            if (HasTool && GameManager.Instance.MechanicsCanInteract) {
                 held_tool.UseTool(this);
                 _useToolEffect.Trigger();
-            } else if (held_tool == null && collided_tool != null)
-            {
+            } else if (held_tool == null && collided_tool != null) {
                 held_tool = collided_tool;
                 held_tool.SetHeld(this);
                 _pickupToolEffect.Trigger();
@@ -69,14 +122,31 @@ namespace pdxpartyparrot.ggj2020.Players
             _dropToolEffect.Trigger();
         }
 
-        public void SetCollidedTool(Tool new_tool)
+#region Events
+        private void InteractableAddedEventHandler(object sender, InteractableEventArgs args)
         {
-            collided_tool = new_tool;
+            // this might make sense? I dunno...
+            Tool tool = args.Interactable.gameObject.GetComponent<Tool>();
+            if(tool != null) {
+                collided_tool = tool;
+            }
+
+            CanUseLadder = args.Interactable.gameObject.GetComponent<Ladder>() != null;
         }
 
-        void OnTriggerEnter(Collider collision)
+        private void InteractableRemovedEventHandler(object sender, InteractableEventArgs args)
         {
-            collided_tool = collision.gameObject.GetComponent<Tool>();
+            Tool tool = args.Interactable.gameObject.GetComponent<Tool>();
+            if(null != tool) {
+                tool.PlayerExitTrigger();
+
+                collided_tool = _interactables.GetRandomInteractable<Tool>();
+            }
+
+            if(args.Interactable.gameObject.GetComponent<Ladder>() != null) {
+                CanUseLadder = false;
+            }
         }
+#endregion
     }
 }

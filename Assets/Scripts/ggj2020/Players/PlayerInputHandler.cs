@@ -15,8 +15,6 @@ namespace pdxpartyparrot.ggj2020.Players
 
         private bool ActionActive = false;
 
-        public Mechanic MechanicLogic;
-
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -29,10 +27,10 @@ namespace pdxpartyparrot.ggj2020.Players
 
         private void DoUseLadder()
         {
-            if(GamePlayer.GamePlayerBehavior.IsOnLadder) {
-                GamePlayer.GamePlayerBehavior.ClimbLadder(false);
-            } else if(GamePlayer.GamePlayerBehavior.CanUseLadder) {
-                GamePlayer.GamePlayerBehavior.ClimbLadder(true);
+            if(GamePlayer.Mechanic.IsOnLadder) {
+                GamePlayer.Mechanic.ClimbLadder(false);
+            } else if(GamePlayer.Mechanic.CanUseLadder) {
+                GamePlayer.Mechanic.ClimbLadder(true);
             }
         }
 
@@ -44,14 +42,11 @@ namespace pdxpartyparrot.ggj2020.Players
 
             if (ActionActive)
             {
-                if (MechanicLogic != null)
-                {
-                    MechanicLogic.TrackThumbStickAxis(axes);
-                }
+                GamePlayer.Mechanic.TrackThumbStickAxis(axes);
                 return;
             }
 
-            if (GamePlayer.GamePlayerBehavior.IsOnLadder) {
+            if(GamePlayer.Mechanic.IsOnLadder) {
                 OnMove(new Vector3(0.0f, axes.y, 0.0f));
                 return;
             }
@@ -85,15 +80,11 @@ namespace pdxpartyparrot.ggj2020.Players
             }
 
             if(context.performed) {
-                if (MechanicLogic != null) {
-                    MechanicLogic.UseOrPickupTool();
-                    ActionActive = true;
-                }
+                GamePlayer.Mechanic.UseOrPickupTool();
+                ActionActive = true;
             } else {
-                if (MechanicLogic != null) {
-                    MechanicLogic.UseEnded();
-                    ActionActive = false;
-                }
+                GamePlayer.Mechanic.UseEnded();
+                ActionActive = false;
             }
         }
 
@@ -108,10 +99,7 @@ namespace pdxpartyparrot.ggj2020.Players
             }
 
             if(context.performed) {
-                if (MechanicLogic != null)
-                {
-                    MechanicLogic.DropTool();
-                }
+                GamePlayer.Mechanic.DropTool();
             }
         }
 #endregion

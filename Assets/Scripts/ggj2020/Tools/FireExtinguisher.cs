@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using pdxpartyparrot.ggj2020.Tools;
+﻿using UnityEngine;
+
 using pdxpartyparrot.ggj2020.Players;
-using pdxpartyparrot.ggj2020.UI;
 
 namespace pdxpartyparrot.ggj2020.Tools
 {
@@ -66,6 +63,8 @@ namespace pdxpartyparrot.ggj2020.Tools
 
             if (closestPoint.RepairPointDamageType != DType)
                 return;
+
+            base.UseTool(player);
 
             ButtonHeld = true;
             TimeAtStartOfHold = Time.realtimeSinceStartup;

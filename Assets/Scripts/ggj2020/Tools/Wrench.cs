@@ -60,6 +60,8 @@ namespace pdxpartyparrot.ggj2020.Tools
             if (closestPoint.RepairPointDamageType != DType)
                 return;
 
+            base.UseTool(player);
+
             ButtonHeld = true;
         }
 
@@ -68,6 +70,8 @@ namespace pdxpartyparrot.ggj2020.Tools
             ButtonHeld = false;
             SuccessfulTurns = 0;
             LastTurnAxis = 1;
+
+            base.EndUseTool();
         }
 
         public override void TrackThumbStickAxis(Vector2 Axis)

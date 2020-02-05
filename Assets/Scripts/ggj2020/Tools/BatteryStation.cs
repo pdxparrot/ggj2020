@@ -51,6 +51,8 @@ namespace pdxpartyparrot.ggj2020.Tools
             if (HoldingPlayer == null || HoldingPlayer.gameObject != player.gameObject)
                 return;
 
+            base.UseTool(player);
+
             SuccesfulHits++;
             if (SuccesfulHits >= MaxSuccesfulHits)
             {

@@ -9,6 +9,9 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         private ParticleSystem _vfx;
 
         [SerializeField]
+        private bool _loop;
+
+        [SerializeField]
         private bool _waitForComplete = true;
 
         [SerializeField]
@@ -23,12 +26,17 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
             base.Initialize(owner);
 
             ParticleSystem.MainModule main = _vfx.main;
+            main.loop = false;
+
             Assert.IsFalse(main.playOnAwake, $"ParticleSystem '{_vfx.name}' should not have playOnAwake set!");
         }
 
         public override void OnStart()
         {
             if(EffectsManager.Instance.EnableVFX) {
+                ParticleSystem.MainModule main = _vfx.main;
+                main.loop = _loop;
+
                 _vfx.Play();
             } else {
                 // TODO: set a timer or something to timeout when we'd normally be done
@@ -37,6 +45,9 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         public override void OnStop()
         {
+            ParticleSystem.MainModule main = _vfx.main;
+            main.loop = false;
+
             _vfx.Stop(true, _clearOnStop ? ParticleSystemStopBehavior.StopEmittingAndClear : ParticleSystemStopBehavior.StopEmitting);
             _vfx.time = 0.0f;
         }

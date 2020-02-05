@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5318524101165217869}
   - component: {fileID: 4750750942517711631}
   - component: {fileID: 5917260705357168258}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Loose Damage Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,6 +65,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vfx: {fileID: 3696014494944944201}
+  _loop: 1
   _waitForComplete: 0
   _clearOnStop: 1
 --- !u!1 &4014047200212892896
@@ -78,7 +79,7 @@ GameObject:
   - component: {fileID: 7074048320172718409}
   - component: {fileID: 1868389956939677588}
   - component: {fileID: 1349966625272800073}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Repair Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,8 +133,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vfx: {fileID: 7634372097432193760}
-  _waitForComplete: 1
-  _clearOnStop: 0
+  _loop: 0
+  _waitForComplete: 0
+  _clearOnStop: 1
 --- !u!1 &4868647854976279400
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +147,7 @@ GameObject:
   - component: {fileID: 5177322501180487650}
   - component: {fileID: 2188932221086374278}
   - component: {fileID: 7170717495588363478}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Fire Damage Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,6 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vfx: {fileID: 1239469299696073320}
+  _loop: 1
   _waitForComplete: 0
   _clearOnStop: 1
 --- !u!1 &5098832288785590059
@@ -212,7 +215,7 @@ GameObject:
   - component: {fileID: 7538119380867375869}
   - component: {fileID: 3494796904747190336}
   - component: {fileID: 565503918735661207}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Damaged Damage Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vfx: {fileID: 5163837832894721085}
+  _loop: 1
   _waitForComplete: 0
   _clearOnStop: 1
 --- !u!1 &6406167814278837835
@@ -279,7 +283,8 @@ GameObject:
   - component: {fileID: 669138968084639339}
   - component: {fileID: 5056821147568844013}
   - component: {fileID: 200306801771442749}
-  m_Layer: 0
+  - component: {fileID: 3677669527334742351}
+  m_Layer: 19
   m_Name: RepairPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -418,6 +423,19 @@ MonoBehaviour:
   _repairEffectTrigger: {fileID: 1868389956939677588}
   _damageType: 0
   _repairState: 0
+--- !u!135 &3677669527334742351
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6406167814278837835}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2943290224739513611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -480,22 +498,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1632930599510223744, guid: 3fc55b3e87ca06f48bff780f761b6256,
+        type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 4801691369773194420, guid: 3fc55b3e87ca06f48bff780f761b6256,
         type: 3}
       propertyPath: m_Name
       value: PS_Damage_Dent
       objectReference: {fileID: 0}
+    - target: {fileID: 4801691369773194420, guid: 3fc55b3e87ca06f48bff780f761b6256,
+        type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fc55b3e87ca06f48bff780f761b6256, type: 3}
---- !u!4 &2570031605321751482 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 824788741716487857, guid: 3fc55b3e87ca06f48bff780f761b6256,
-    type: 3}
-  m_PrefabInstance: {fileID: 2943290224739513611}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &5163837832894721085 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 8030210584875358518, guid: 3fc55b3e87ca06f48bff780f761b6256,
+    type: 3}
+  m_PrefabInstance: {fileID: 2943290224739513611}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2570031605321751482 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 824788741716487857, guid: 3fc55b3e87ca06f48bff780f761b6256,
     type: 3}
   m_PrefabInstance: {fileID: 2943290224739513611}
   m_PrefabAsset: {fileID: 0}
@@ -510,6 +538,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PS_Repair_Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 448862436883710501, guid: 1eeb1ec5897074c4f8a832e02c3b6469,
+        type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 3255829183977340841, guid: 1eeb1ec5897074c4f8a832e02c3b6469,
+        type: 3}
+      propertyPath: m_Layer
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 5758866027057983520, guid: 1eeb1ec5897074c4f8a832e02c3b6469,
         type: 3}
@@ -587,6 +625,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5318524101165217869}
     m_Modifications:
+    - target: {fileID: 1819452602070666365, guid: e44bc4406eab278499c47cd3a1eef8ff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 2145653101900132872, guid: e44bc4406eab278499c47cd3a1eef8ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -642,10 +685,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4244263889274628335, guid: e44bc4406eab278499c47cd3a1eef8ff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 6059540526789263373, guid: e44bc4406eab278499c47cd3a1eef8ff,
         type: 3}
       propertyPath: m_Name
       value: PS_Damage_Electric_Spark
+      objectReference: {fileID: 0}
+    - target: {fileID: 6059540526789263373, guid: e44bc4406eab278499c47cd3a1eef8ff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754394562088854870, guid: e44bc4406eab278499c47cd3a1eef8ff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e44bc4406eab278499c47cd3a1eef8ff, type: 3}
@@ -727,6 +785,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PS_Damage_Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 5063933167323415942, guid: 2ea8d13a28f66d54382722c0eaf3d654,
+        type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 5459705577968889775, guid: 2ea8d13a28f66d54382722c0eaf3d654,
+        type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723857948580351908, guid: 2ea8d13a28f66d54382722c0eaf3d654,
+        type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122974362286301077, guid: 2ea8d13a28f66d54382722c0eaf3d654,
+        type: 3}
+      propertyPath: m_Layer
+      value: 19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ea8d13a28f66d54382722c0eaf3d654, type: 3}

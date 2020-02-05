@@ -2,7 +2,6 @@
 
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Characters.Players;
-using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ggj2020.Camera;
 using pdxpartyparrot.ggj2020.UI;
 
@@ -11,8 +10,6 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ggj2020.Players
 {
-    [RequireComponent(typeof(Interactables3D))]
-    [RequireComponent(typeof(Mechanic))]
     public sealed class Player : Player25D
     {
         public PlayerInputHandler GamePlayerInput => (PlayerInputHandler)PlayerInputHandler;
@@ -23,6 +20,7 @@ namespace pdxpartyparrot.ggj2020.Players
 
         [Space(10)]
 
+        [SerializeField]
         private Mechanic _mechanic;
 
         public Mechanic Mechanic => _mechanic;
@@ -45,8 +43,6 @@ namespace pdxpartyparrot.ggj2020.Players
             base.Awake();
 
             Assert.IsTrue(PlayerInputHandler is PlayerInputHandler);
-
-            _mechanic = GetComponent<Mechanic>();
 
             _uiBubble.HideSprite();
         }

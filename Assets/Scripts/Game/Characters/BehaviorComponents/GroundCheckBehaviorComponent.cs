@@ -16,6 +16,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
     public class GroundCheckBehaviorComponent : CharacterBehaviorComponent
     {
 #region Events
+        public event EventHandler<EventArgs> GroundedEvent;
         public event EventHandler<EventArgs> SlopeLimitEvent;
 #endregion
 
@@ -152,6 +153,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
                 if(!wasGrounded && Behavior.IsGrounded && Behavior.IsAlive) {
                     Behavior.OnIdle();
 
+                    GroundedEvent?.Invoke(this, EventArgs.Empty);
                     if(null != _groundedEffect) {
                         _groundedEffect.Trigger();
                     }

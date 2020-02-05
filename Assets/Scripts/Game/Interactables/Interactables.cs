@@ -2,9 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Collections;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Game.Interactables
 {
@@ -17,6 +21,15 @@ namespace pdxpartyparrot.Game.Interactables
 
         private readonly Dictionary<Type, HashSet<IInteractable>> _interactables = new Dictionary<Type, HashSet<IInteractable>>();
 
+#region Unity Lifecycle
+        protected virtual void Awake()
+        {
+            // hacky attempt at making sure we don't turn
+            // an actor's non-trigger collider into a trigger
+            Assert.IsNull(GetComponent<Actor>(), "Interactables modify their associated collider to be a trigger and should not be attached directly to an actor");
+        }
+#endregion
+
         public bool RemoveInteractable(IInteractable interactable)
         {
             var interactables = _interactables.GetOrAdd(interactable.GetType());
@@ -26,6 +39,12 @@ namespace pdxpartyparrot.Game.Interactables
         public IReadOnlyCollection<IInteractable> GetInteractables<T>() where T: IInteractable
         {
             return _interactables.GetOrAdd(typeof(T));
+        }
+
+        [CanBeNull]
+        public T GetRandomInteractable<T>() where T: class, IInteractable
+        {
+            return  GetInteractables<T>().GetRandomEntry() as T;
         }
 
         public void GetInteractables<T>(ICollection<T> interactables) where T: class, IInteractable

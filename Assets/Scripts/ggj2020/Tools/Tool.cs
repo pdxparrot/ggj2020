@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ggj2020.Players;
 using pdxpartyparrot.ggj2020.Actors;
@@ -8,16 +9,31 @@ using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Tools
 {
-    public class Tool : MonoBehaviour, IInteractable
+    // TODO: make this an actor
+    [RequireComponent(typeof(Rigidbody))]
+    public abstract class Tool : MonoBehaviour, IInteractable
     {
-        public SpriteRenderer render = null;
+        [SerializeField]
+        private GameObject _model;
+
+        [SerializeField]
+        private EffectTrigger _useEffect;
+
+        public bool CanInteract => true;
+
         protected Mechanic HoldingPlayer = null;
-        protected GameObject parent;
         protected RepairPoint closestPoint = null;
         protected Actors.RepairPoint.DamageType DType;
         protected RepairPoint oldClosestPoint = null;
 
-        public bool CanInteract => true;
+        private Rigidbody _rigidbody;
+
+#region Unity Lifecycle
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+        }
+#endregion
 
         // -- TODO move this out of tool script
         public List<RepairPoint> FindRepairPoints()
@@ -60,73 +76,53 @@ namespace pdxpartyparrot.ggj2020.Tools
             return closestPoint;
         }
 
-        void OnTriggerEnter(Collider collision) { 
-            Mechanic mechanic = collision.gameObject.GetComponent<Mechanic>();
-            if(null != mechanic) {
-                mechanic.SetCollidedTool(this);
-            }
-        }
-
-        void OnTriggerExit(Collider collision)
+        public virtual void PlayerExitTrigger()
         {
-            Mechanic mechanic = collision.gameObject.GetComponent<Mechanic>();
-            if (null != mechanic)
-            {
-                mechanic.SetCollidedTool(null);
-                PlayerExitTrigger();
-            }
         }
 
-        virtual public void PlayerExitTrigger() 
-        {
-
-        }
-
-        virtual public void SetHeld(Mechanic player)
+        public virtual void SetHeld(Mechanic player)
         {
             HoldingPlayer = player;
-            Rigidbody rigid = gameObject.GetComponentInParent<Rigidbody>();
-            rigid.isKinematic = true;
-            parent = rigid.gameObject;
-            parent.transform.SetParent(player.transform);
-            render.enabled = false;
+
+            _rigidbody.isKinematic = true;
+
+            _model.SetActive(false);
+            transform.SetParent(player.transform);
+
             SetAttachment();
         }
 
-        virtual public void Drop()
+        public virtual void Drop()
         {
             RemoveAttachment();
+
             HoldingPlayer.Owner.UIBubble.HideSprite();
             HoldingPlayer = null;
-            parent.GetComponent<Rigidbody>().isKinematic = false;
-            parent.transform.SetParent(null);
-            render.enabled = true;
-            parent = null;
+
+            transform.SetParent(null);
+            _model.SetActive(true);
         }
 
-        virtual public void TrackThumbStickAxis(Vector2 Axis)
+        public virtual void TrackThumbStickAxis(Vector2 axis)
         {
-
         }
 
-        virtual public void UseTool(Mechanic player)
+        public virtual void UseTool(Mechanic player)
         {
-            //print("Parent use tool called");
+            _useEffect.Trigger();
         }
 
-        virtual public void EndUseTool()
+        public virtual void EndUseTool()
         {
-            //print("Parent end use tool called");
+            _useEffect.StopTrigger();
         }
 
-        virtual public void SetAttachment()
+        public virtual void SetAttachment()
         {
-
         }
 
-        virtual public void RemoveAttachment()
+        public virtual void RemoveAttachment()
         {
-
         }
     }
 }
