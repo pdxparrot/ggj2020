@@ -3,13 +3,14 @@
 using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Game.Interactables;
 
 using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Actors
 {
     [RequireComponent(typeof(AudioSource))]
-    public class RepairPoint : MonoBehaviour
+    public class RepairPoint : MonoBehaviour, IInteractable
     {
 #region Events
         public event EventHandler<EventArgs> RepairedEvent;
@@ -52,6 +53,8 @@ namespace pdxpartyparrot.ggj2020.Actors
         public RepairState CurrentRepairState => _repairState;
 
         public bool IsRepaired => RepairState.Repaired == CurrentRepairState;
+
+        public bool CanInteract => !IsRepaired;
 
         private AudioSource _audioSource;
 

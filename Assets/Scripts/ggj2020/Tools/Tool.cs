@@ -1,13 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
+using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ggj2020.Players;
 using pdxpartyparrot.ggj2020.Actors;
-using pdxpartyparrot.ggj2020.UI;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Tools
 {
-    public class Tool : MonoBehaviour
+    public class Tool : MonoBehaviour, IInteractable
     {
         public SpriteRenderer render = null;
         protected Mechanic HoldingPlayer = null;
@@ -16,17 +17,7 @@ namespace pdxpartyparrot.ggj2020.Tools
         protected Actors.RepairPoint.DamageType DType;
         protected RepairPoint oldClosestPoint = null;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
+        public bool CanInteract => true;
 
         // -- TODO move this out of tool script
         public List<RepairPoint> FindRepairPoints()
