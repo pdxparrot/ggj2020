@@ -640,9 +640,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spineAnimation: {fileID: 3844286469459284050}
-  _spineAnimationName: intro_anim
+  _spineAnimationName: intro_static
   _spineAnimationTrack: 0
-  _loop: 0
+  _loop: 1
   _trackStartTime: 0
   _waitForComplete: 1
 --- !u!1 &7217340828678557511
@@ -2893,7 +2893,7 @@ PrefabInstance:
     - target: {fileID: 7965566925266628214, guid: 41db5dfd8e4407948b7e0746b616ff3d,
         type: 3}
       propertyPath: _animationName
-      value: intro_anim
+      value: outro_anim_charge
       objectReference: {fileID: 0}
     - target: {fileID: 7965566925266628214, guid: 41db5dfd8e4407948b7e0746b616ff3d,
         type: 3}
