@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 using pdxpartyparrot.ggj2020.Players;
-using pdxpartyparrot.ggj2020.Tools;
-using pdxpartyparrot.ggj2020.UI;
 
 namespace pdxpartyparrot.ggj2020.Tools
 {
@@ -15,16 +11,16 @@ namespace pdxpartyparrot.ggj2020.Tools
         private bool ButtonHeld = false;
         private Vector2 OldCurrentAxis;
         private int SuccessfulTurns = 0;
+
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             ButtonHeld = false;
             DType = Actors.RepairPoint.DamageType.Loose;
-
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             if (HoldingPlayer == null)
                 return;
@@ -52,7 +48,7 @@ namespace pdxpartyparrot.ggj2020.Tools
                 HoldingPlayer.Owner.UIBubble.SetThumbLeft();
             }
         }
-        override public void UseTool(Mechanic player)
+        public override void UseTool(Mechanic player)
         {
             if (closestPoint == null || HoldingPlayer.gameObject != player.gameObject)
                 return;
@@ -92,11 +88,11 @@ namespace pdxpartyparrot.ggj2020.Tools
             if (SuccessfulTurns >= MaxSuccesfulTurns && !closestPoint.IsRepaired)
             {
                 closestPoint.Repair();
-                print("Repair Done!");
+                Debug.Log("Repair Done!");
             }
         }
 
-        override public void SetAttachment()
+        public override void SetAttachment()
         {
             Player pl = HoldingPlayer.GetComponent<Player>();
             if (pl != null)
@@ -105,7 +101,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             }
         }
 
-        override public void RemoveAttachment()
+        public override void RemoveAttachment()
         {
             Player pl = HoldingPlayer.GetComponent<Player>();
             if (pl != null)

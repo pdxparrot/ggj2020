@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ggj2020.Players;
 using pdxpartyparrot.ggj2020.Actors;
@@ -16,12 +15,12 @@ namespace pdxpartyparrot.ggj2020.Tools
         [SerializeField]
         private GameObject _model;
 
-        [SerializeField]
-        private EffectTrigger _useEffect;
+        public bool CanInteract => !IsHeld;
 
-        public bool CanInteract => true;
+        protected Mechanic HoldingPlayer;
 
-        protected Mechanic HoldingPlayer = null;
+        public bool IsHeld => HoldingPlayer != null;
+
         protected RepairPoint closestPoint = null;
         protected Actors.RepairPoint.DamageType DType;
         protected RepairPoint oldClosestPoint = null;
@@ -111,12 +110,10 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         public virtual void UseTool(Mechanic player)
         {
-            _useEffect.Trigger();
         }
 
         public virtual void EndUseTool()
         {
-            _useEffect.StopTrigger();
         }
 
         public virtual void SetAttachment()

@@ -12,13 +12,13 @@ namespace pdxpartyparrot.ggj2020.Tools
         private bool ButtonHeld = false;
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             DType = Actors.RepairPoint.DamageType.Fire;
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             if (HoldingPlayer == null)
                 return;
@@ -46,7 +46,7 @@ namespace pdxpartyparrot.ggj2020.Tools
                 if (delta >= HoldTime && !closestPoint.IsRepaired)
                 {
                     closestPoint.Repair();
-                    print("Repair Done!");
+                    Debug.Log("Repair Done!");
                 }
             }
             else
@@ -56,7 +56,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             }
         }
 
-        override public void UseTool(Mechanic player)
+        public override void UseTool(Mechanic player)
         {
             if (closestPoint == null || HoldingPlayer.gameObject != player.gameObject)
                 return;
@@ -70,7 +70,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             TimeAtStartOfHold = Time.realtimeSinceStartup;
         }
 
-        override public void SetAttachment()
+        public override void SetAttachment()
         {
             Player pl = HoldingPlayer.GetComponent<Player>();
             if (pl != null)
@@ -79,7 +79,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             }
         }
 
-        override public void RemoveAttachment()
+        public override void RemoveAttachment()
         {
             Player pl = HoldingPlayer.GetComponent<Player>();
             if (pl != null)

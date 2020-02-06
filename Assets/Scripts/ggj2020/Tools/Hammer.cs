@@ -14,20 +14,18 @@ namespace pdxpartyparrot.ggj2020.Tools
         private float CurrentTime = 0;
         private bool ButtonHeld = false;
         private int SuccesfulHits = 0;
-
         
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             TimeSinceLastWindow = 0;
             CurrentTime = 0;
             ButtonHeld = false;
             DType = Actors.RepairPoint.DamageType.Damaged;
-
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             if (HoldingPlayer == null)
                 return;
@@ -59,17 +57,17 @@ namespace pdxpartyparrot.ggj2020.Tools
             {
                 HoldingPlayer.Owner.UIBubble.SetPressedSprite();
                 if (PrintWindowToConsole)
-                    print("Hammer window is open");
+                    Debug.Log("Hammer window is open");
             }
             else
             {
                 HoldingPlayer.Owner.UIBubble.SetUnpressedSprite();
                 if (PrintWindowToConsole)
-                    print("Hammer window is closed");
+                    Debug.Log("Hammer window is closed");
             }
         }
 
-        override public void UseTool(Mechanic player)
+        public override void UseTool(Mechanic player)
         {
             if (closestPoint == null || HoldingPlayer.gameObject != player.gameObject)
                 return;
@@ -90,13 +88,13 @@ namespace pdxpartyparrot.ggj2020.Tools
             {
                 closestPoint.Repair();
                 SuccesfulHits = 0;
-                print("Repair Done!");
+                Debug.Log("Repair Done!");
 
             }
 
         }
 
-        override public void SetAttachment()
+        public override void SetAttachment()
         {
             Player pl = HoldingPlayer.GetComponent<Player>();
             if (pl != null)
@@ -105,7 +103,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             }
         }
 
-        override public void RemoveAttachment()
+        public override void RemoveAttachment()
         {
             Player pl = HoldingPlayer.GetComponent<Player>();
             if (pl != null)

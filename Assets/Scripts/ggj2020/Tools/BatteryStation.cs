@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-using pdxpartyparrot.ggj2020.Tools;
 using pdxpartyparrot.ggj2020.Players;
 
 namespace pdxpartyparrot.ggj2020.Tools
@@ -14,29 +12,17 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         List<GameObject> SuccesfulPlayers = new List<GameObject>();
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-           
-        }
-
-        override public void SetHeld(Mechanic player)
+        public override void SetHeld(Mechanic player)
         {
             HoldingPlayer = player;
         }
 
-        override public void Drop()
+        public override void Drop()
         {
 
         }
 
-        override public void PlayerExitTrigger()
+        public override void PlayerExitTrigger()
         {
             if (HoldingPlayer == null)
                 return;
@@ -46,7 +32,7 @@ namespace pdxpartyparrot.ggj2020.Tools
             SuccesfulHits = 0;
         }
 
-        override public void UseTool(Mechanic player)
+        public override void UseTool(Mechanic player)
         {
             if (HoldingPlayer == null || HoldingPlayer.gameObject != player.gameObject)
                 return;
@@ -60,7 +46,7 @@ namespace pdxpartyparrot.ggj2020.Tools
                 {
                     SuccesfulPlayers.Add(HoldingPlayer.gameObject);
                 }
-                print("Succesful Fix TODO Hook up to Robo");
+                Debug.LogWarning("Succesful Fix TODO Hook up to Robo");
             }
         }
     }
