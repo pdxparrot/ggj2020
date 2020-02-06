@@ -64,7 +64,19 @@ namespace pdxpartyparrot.ggj2020.Players
         private EffectTrigger _useToolEffect;
 
         [SerializeField]
-        private GameObject _toolVFXAttachment;
+        private EffectTrigger _fireExtinguisherEffect;
+
+        public EffectTrigger FireExtinguisherEffect => _fireExtinguisherEffect;
+
+        [SerializeField]
+        private EffectTrigger _hammerEffect;
+
+        public EffectTrigger HammerEffect => _hammerEffect;
+
+        [SerializeField]
+        private EffectTrigger _wrenchEffect;
+
+        public EffectTrigger WrenchEffect => _wrenchEffect;
 
         private Interactables _interactables;
 
@@ -74,6 +86,8 @@ namespace pdxpartyparrot.ggj2020.Players
             _interactables = GetComponent<Interactables>();
             _interactables.InteractableAddedEvent += InteractableAddedEventHandler;
             _interactables.InteractableRemovedEvent += InteractableRemovedEventHandler;
+
+            DisableToolEffects();
         }
 #endregion
 
@@ -123,6 +137,20 @@ namespace pdxpartyparrot.ggj2020.Players
             held_tool = null;
 
             _dropToolEffect.Trigger();
+
+            DisableToolEffects();
+        }
+
+        private void DisableToolEffects()
+        {
+            _fireExtinguisherEffect.StopTrigger();
+            _fireExtinguisherEffect.gameObject.SetActive(false);
+
+            _hammerEffect.StopTrigger();
+            _hammerEffect.gameObject.SetActive(false);
+
+            _wrenchEffect.StopTrigger();
+            _wrenchEffect.gameObject.SetActive(false);
         }
 
 #region Events

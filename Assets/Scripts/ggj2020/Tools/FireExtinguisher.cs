@@ -68,6 +68,17 @@ namespace pdxpartyparrot.ggj2020.Tools
 
             ButtonHeld = true;
             TimeAtStartOfHold = Time.realtimeSinceStartup;
+
+            HoldingPlayer.FireExtinguisherEffect.gameObject.SetActive(true);
+            HoldingPlayer.FireExtinguisherEffect.Trigger();
+        }
+
+        public override void EndUseTool()
+        {
+            HoldingPlayer.FireExtinguisherEffect.StopTrigger();
+            HoldingPlayer.FireExtinguisherEffect.gameObject.SetActive(false);
+
+            base.EndUseTool();
         }
 
         public override void SetAttachment()

@@ -19,7 +19,6 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         public override void Drop()
         {
-
         }
 
         public override void PlayerExitTrigger()

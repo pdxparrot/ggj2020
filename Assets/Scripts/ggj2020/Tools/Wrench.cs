@@ -59,10 +59,16 @@ namespace pdxpartyparrot.ggj2020.Tools
             base.UseTool(player);
 
             ButtonHeld = true;
+
+            HoldingPlayer.WrenchEffect.gameObject.SetActive(true);
+            HoldingPlayer.WrenchEffect.Trigger();
         }
 
         public override void EndUseTool()
         {
+            HoldingPlayer.WrenchEffect.StopTrigger();
+            HoldingPlayer.WrenchEffect.gameObject.SetActive(false);
+
             ButtonHeld = false;
             SuccessfulTurns = 0;
             LastTurnAxis = 1;

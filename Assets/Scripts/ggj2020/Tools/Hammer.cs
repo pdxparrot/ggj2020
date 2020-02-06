@@ -77,6 +77,9 @@ namespace pdxpartyparrot.ggj2020.Tools
 
             base.UseTool(player);
 
+            HoldingPlayer.HammerEffect.gameObject.SetActive(true);
+            HoldingPlayer.HammerEffect.Trigger();
+
             float delta = CurrentTime - TimeSinceLastWindow;
             if (delta >= TimeBetweenPresses && (delta - TimeBetweenPresses) < TimeToAllowSuccesfulPress)
             {
@@ -91,7 +94,14 @@ namespace pdxpartyparrot.ggj2020.Tools
                 Debug.Log("Repair Done!");
 
             }
+        }
 
+        public override void EndUseTool()
+        {
+            HoldingPlayer.HammerEffect.StopTrigger();
+            HoldingPlayer.HammerEffect.gameObject.SetActive(false);
+
+            base.EndUseTool();
         }
 
         public override void SetAttachment()
