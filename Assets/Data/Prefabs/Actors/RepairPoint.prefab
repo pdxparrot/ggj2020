@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 669138968084639339}
   - component: {fileID: 5056821147568844013}
   - component: {fileID: 200306801771442749}
-  - component: {fileID: 3677669527334742351}
+  - component: {fileID: 3364565841446961596}
   - component: {fileID: 8452482742531082849}
   m_Layer: 19
   m_Name: RepairPoint
@@ -424,8 +424,8 @@ MonoBehaviour:
   _repairEffectTrigger: {fileID: 1868389956939677588}
   _damageType: 0
   _repairState: 0
---- !u!135 &3677669527334742351
-SphereCollider:
+--- !u!65 &3364565841446961596
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -435,7 +435,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Size: {x: 3, y: 3, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8452482742531082849
 MonoBehaviour:

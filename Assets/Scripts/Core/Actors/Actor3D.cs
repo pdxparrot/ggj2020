@@ -7,6 +7,8 @@ namespace pdxpartyparrot.Core.Actors
     public abstract class Actor3D : Actor
     {
 #region Collider
+        public Rigidbody Rigidbody { get; private set; }
+
         public Collider Collider { get; private set; }
 #endregion
 
@@ -19,6 +21,7 @@ namespace pdxpartyparrot.Core.Actors
         {
             base.Awake();
 
+            Rigidbody = GetComponent<Rigidbody>();
             Collider = GetComponent<Collider>();
         }
 

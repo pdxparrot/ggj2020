@@ -1,9 +1,12 @@
-﻿using System;
+using System;
+
+using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Data.Actors.Components;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Core.Actors.Components
 {
@@ -36,6 +39,9 @@ namespace pdxpartyparrot.Core.Actors.Components
             }
         }
 
+        [CanBeNull]
+        protected Actor3D Owner3D => (Actor3D)Owner;
+
         [Space(10)]
 
 #region Physics
@@ -50,6 +56,8 @@ namespace pdxpartyparrot.Core.Actors.Components
         [ReadOnly]
         private Vector3 _lastAngularVelocity;
 
+        // need the rigidbody hooked rather than coming from the owner
+        // because we don't have the owner early enough
         [SerializeField]
         private Rigidbody _rigidbody;
 
@@ -135,6 +143,13 @@ namespace pdxpartyparrot.Core.Actors.Components
             _lastAngularVelocity = _rigidbody.angularVelocity;
         }
 #endregion
+
+        public override void Initialize(Actor owner)
+        {
+            Assert.IsTrue(owner is Actor3D);
+
+            base.Initialize(owner);
+        }
 
         public override void Initialize(ActorBehaviorComponentData behaviorData)
         {

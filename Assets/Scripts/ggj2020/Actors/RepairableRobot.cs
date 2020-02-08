@@ -32,20 +32,14 @@ namespace pdxpartyparrot.ggj2020.Actors
         [Space(10)]
 
         [SerializeField]
-        private RepairPoint[] _repairPoints;
-
-        // TODO: this should be split into a factor per-player
-        [SerializeField]
-        [ReadOnly]
-        private float _chargeLevel;
-
-        public float ChargeLevel => _chargeLevel;
+        private GameObject _repairPointContainer;
 
         [SerializeField]
         private SpineAnimationHelper _animationHelper;
 
         [Space(10)]
 
+#region Effects
         [Header("Effects")]
 
         [SerializeField]
@@ -72,6 +66,7 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         [SerializeField]
         private EffectTrigger _exitRepairBayFailureEffectTrigger;
+#endregion
 
         [Space(10)]
 
@@ -83,6 +78,16 @@ namespace pdxpartyparrot.ggj2020.Actors
         [ReadOnly]
         private int _currentDamageIncreaseChance;
 
+        // TODO: this should be split into a factor per-player
+        [SerializeField]
+        [ReadOnly]
+        private float _chargeLevel;
+
+        public float ChargeLevel => _chargeLevel;
+
+        private readonly List<RepairPoint> _repairPoints = new List<RepairPoint>();
+        //private readonly List<RepairPoint> _stackedRepairPoints = new List<RepairPoint>();
+
         private CinemachineImpulseSource _impulseSource;
 
         private Coroutine _impulseRoutine;
@@ -92,16 +97,27 @@ namespace pdxpartyparrot.ggj2020.Actors
         {
             base.Awake();
 
+            Rigidbody.isKinematic = true;
+            Rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+
             _impulseSource = GetComponent<CinemachineImpulseSource>();
 
-            foreach(RepairPoint repairPoint in _repairPoints) {
-                repairPoint.Initialize(_animationHelper.SkeletonAnimation);
+            var repairPoints = _repairPointContainer.GetComponentsInChildren<RepairPoint>();
+            foreach(RepairPoint repairPoint in repairPoints) {
+                repairPoint.Initialize();
                 repairPoint.RepairedEvent += RepairedEventHandler;
+
+                // TODO: stacked damage goes in its own bucket
+                _repairPoints.Add(repairPoint);
             }
         }
 
         protected override void OnDestroy()
         {
+            /*foreach(RepairPoint repairPoint in _stackedRepairPoints) {
+                repairPoint.RepairedEvent -= RepairedEventHandler;
+            }*/
+
             foreach(RepairPoint repairPoint in _repairPoints) {
                 repairPoint.RepairedEvent -= RepairedEventHandler;
             }
@@ -128,17 +144,32 @@ namespace pdxpartyparrot.ggj2020.Actors
                     return false;
                 }
             }
+
+            /*foreach(RepairPoint repairPoint in _stackedRepairPoints) {
+                if(!repairPoint.IsRepaired) {
+                    return false;
+                }
+            }*/
+
             return true;
         }
 
         public int GetDamagedCount()
         {
             int damagedCount = 0;
+
             foreach(RepairPoint repairPoint in _repairPoints) {
                 if(!repairPoint.IsRepaired) {
                     damagedCount++;
                 }
             }
+
+            /*foreach(RepairPoint repairPoint in _stackedRepairPoints) {
+                if(!repairPoint.IsRepaired) {
+                    damagedCount++;
+                }
+            }*/
+
             return damagedCount;
         }
 
@@ -183,21 +214,30 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         private void InitDamage()
         {
-            // TODO: move this allocation out of here
             Debug.Log($"Damaging {_currentDamagedParts} parts");
+
+            // TODO: move this allocation out of here
             List<RepairPoint> repairPoints = new List<RepairPoint>(_repairPoints);
+
             for(int i=0; i<_currentDamagedParts; ++i) {
                 RepairPoint repairPoint = repairPoints.RemoveRandomEntry();
                 repairPoint.Damage();
             }
+
+            // TODO: handle stacked damage
         }
 
         private void ResetDamage()
         {
             Debug.Log("Resetting damage");
+
             foreach(RepairPoint repairPoint in _repairPoints) {
                 repairPoint.ResetDamage();
             }
+
+            /*foreach(RepairPoint repairPoint in _stackedRepairPoints) {
+                repairPoint.ResetDamage();
+            }*/
         }
 
         private IEnumerator ImpulseRoutine()

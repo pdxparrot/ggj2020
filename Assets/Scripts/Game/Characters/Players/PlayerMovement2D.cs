@@ -1,4 +1,4 @@
-﻿using pdxpartyparrot.Core.Data.Actors.Components;
+using pdxpartyparrot.Core.Data.Actors.Components;
 
 using UnityEngine;
 

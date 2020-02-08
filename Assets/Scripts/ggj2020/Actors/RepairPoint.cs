@@ -19,6 +19,24 @@ namespace pdxpartyparrot.ggj2020.Actors
         public event EventHandler<EventArgs> RepairedEvent;
 #endregion
 
+        public enum DamageType
+        {
+            Fire,
+            Damaged,
+            Loose,
+            //Random,
+            //Stacked,
+        }
+
+        public enum RepairState
+        {
+            UnRepaired,
+            Repaired,
+        }
+
+#region Effects
+        [Header("Effects")]
+
         [SerializeField]
         private EffectTrigger _fireDamageEffectTrigger;
 
@@ -30,24 +48,9 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         [SerializeField]
         private EffectTrigger _repairEffectTrigger;
+#endregion
 
-        private BoneFollower _boneFollower;
-
-        [SerializeField]
-        private string _attachmentBoneName = "root";
-
-        public enum DamageType
-        {
-            Fire,
-            Damaged,
-            Loose,
-        }
-
-        public enum RepairState
-        {
-            UnRepaired,
-            Repaired,
-        }
+        [Space(10)]
 
         [SerializeField]
         private DamageType _damageType = DamageType.Fire;
@@ -73,17 +76,11 @@ namespace pdxpartyparrot.ggj2020.Actors
             AudioManager.Instance.InitSFXAudioMixerGroup(_audioSource);
             _audioSource.loop = true;
             _audioSource.spatialBlend = 0.0f;
-
-            _boneFollower = GetComponent<BoneFollower>();
-            _boneFollower.boneName = _attachmentBoneName;
         }
 #endregion
 
-        public void Initialize(SkeletonAnimation skeleton)
+        public void Initialize()
         {
-            // TODO: we can enable this once we have the bones ready
-            //_boneFollower.SkeletonRenderer = skeleton;
-
             ResetDamage();
         }
 
@@ -120,6 +117,10 @@ namespace pdxpartyparrot.ggj2020.Actors
                 _audioSource.clip = GameManager.Instance.GameGameData.RepairableRobotData.LooseAudioClip;
                 _audioSource.Play();
                 break;
+            /*case DamageType.Random:
+                break;*/
+            /*case DamageType.Stacked:
+                break;*/
             }
         }
 
@@ -129,6 +130,7 @@ namespace pdxpartyparrot.ggj2020.Actors
 
             // TODO: instead of disabling the entire thing just disable the vfx
             gameObject.SetActive(false);
+
             StopDamageEffects();
 
             //_repairEffectTrigger.Trigger();
