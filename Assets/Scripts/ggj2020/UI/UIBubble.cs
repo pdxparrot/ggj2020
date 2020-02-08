@@ -1,41 +1,53 @@
-﻿using UnityEngine;
+﻿using pdxpartyparrot.Core.Util;
+
+using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.UI
 {
-    public class UIBubble : MonoBehaviour
+    [RequireComponent(typeof(SpriteRenderer))]
+    [RequireComponent(typeof(Billboard))]
+    public sealed class UIBubble : MonoBehaviour
     {
-        public Sprite pressedButton;
-        public Sprite unpressedButton;
-        public Sprite pressedButtonAndThumb;
-        public Sprite pressedButtonAndThumbRight;
-        private Sprite currentSprite;
+        [SerializeField]
+        private Sprite pressedButton;
 
         [SerializeField]
-        private SpriteRenderer SPRR;
+        private Sprite unpressedButton;
+
+        [SerializeField]
+        private Sprite pressedButtonAndThumb;
+
+        [SerializeField]
+        private Sprite pressedButtonAndThumbRight;
+
+        // I believe this is hooked up because
+        // we need it earlier than awake
+        [SerializeField]
+        private SpriteRenderer _renderer;
 
         public void SetThumbLeft()
         {
-            SPRR.sprite = pressedButtonAndThumb;
+            _renderer.sprite = pressedButtonAndThumb;
         }
 
         public void SetThumbRight()
         {
-            SPRR.sprite = pressedButtonAndThumbRight;
+            _renderer.sprite = pressedButtonAndThumbRight;
         }
 
         public void SetPressedSprite()
         {
-            SPRR.sprite = pressedButton;
+            _renderer.sprite = pressedButton;
         }
 
         public void SetUnpressedSprite()
         {
-            SPRR.sprite = unpressedButton;
+            _renderer.sprite = unpressedButton;
         }
 
         public void HideSprite()
         {
-            SPRR.sprite = null;
+            _renderer.sprite = null;
         }
     }
 }

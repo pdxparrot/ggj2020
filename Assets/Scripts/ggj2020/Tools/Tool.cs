@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
+using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ggj2020.Players;
 using pdxpartyparrot.ggj2020.Actors;
@@ -12,76 +15,73 @@ namespace pdxpartyparrot.ggj2020.Tools
     [RequireComponent(typeof(Rigidbody))]
     public abstract class Tool : MonoBehaviour, IInteractable
     {
+        public bool CanInteract => !IsHeld;
+
+        public Type InteractableType => typeof(Tool);
+
         [SerializeField]
         private GameObject _model;
 
-        public bool CanInteract => !IsHeld;
+        [SerializeField]
+        private RepairPoint.DamageType _damageType;
 
-        protected Mechanic HoldingPlayer;
+        public RepairPoint.DamageType DamageType => _damageType;
 
-        public bool IsHeld => HoldingPlayer != null;
+        [SerializeField]
+        [ReadOnly]
+        private bool _inUse;
 
-        protected RepairPoint closestPoint = null;
-        protected Actors.RepairPoint.DamageType DType;
-        protected RepairPoint oldClosestPoint = null;
+        protected bool InUse => _inUse;
+
+        [SerializeField]
+        [ReadOnly]
+        [CanBeNull]
+        private RepairPoint _repairPoint;
+
+        [CanBeNull]
+        protected RepairPoint RepairPoint
+        {
+            get => _repairPoint;
+            set => _repairPoint = value;
+        }
+
+        [SerializeField]
+        [ReadOnly]
+        [CanBeNull]
+        private Mechanic _holdingPlayer;
+
+        [CanBeNull]
+        protected Mechanic HoldingPlayer
+        {
+            get => _holdingPlayer;
+            set => _holdingPlayer = value;
+        }
+
+        public bool IsHeld => _holdingPlayer != null;
 
         private Rigidbody _rigidbody;
 
 #region Unity Lifecycle
-        private void Awake()
+        protected virtual void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
+            _rigidbody.useGravity = true;
+            _rigidbody.isKinematic = false;
+            _rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
         }
 #endregion
-
-        // -- TODO move this out of tool script
-        public List<RepairPoint> FindRepairPoints()
-        {
-            List<RepairPoint> points = new List<RepairPoint>();
-
-            GameObject[] allObjects = (GameObject[])FindObjectsOfType(typeof(GameObject));
-            foreach (GameObject GO in allObjects)
-            {
-                RepairPoint point = GO.GetComponent<RepairPoint>();
-                if (point != null)
-                {
-                    points.Add(point);
-                }
-            }
-            return points;
-        }
-
-        // -- TODO move this out of tool script
-        public RepairPoint FindClosestRepairPoint(List<RepairPoint> points, RepairPoint.DamageType type)
-        {
-            RepairPoint closestPoint = null;
-            float closestDistance = 4.5f;
-            float tempdist = 0;
-            foreach (RepairPoint item in points)
-            {
-                Vector3 ToVector = gameObject.transform.position - item.gameObject.transform.position;
-                float Distance = ToVector.magnitude;
-                if (item.RepairPointDamageType == type)
-                {
-                    tempdist = Distance;
-                }
-                if (Distance < closestDistance && !item.IsRepaired && item.RepairPointDamageType == type)
-                {
-                    closestPoint = item;
-                    closestDistance = Distance;
-                }
-            }
-
-            return closestPoint;
-        }
 
         public virtual void PlayerExitTrigger()
         {
         }
 
-        public virtual void SetHeld(Mechanic player)
+        public virtual bool SetHeld(Mechanic player)
         {
-            HoldingPlayer = player;
+            if(IsHeld) {
+                return false;
+            }
+
+            _holdingPlayer = player;
 
             _rigidbody.isKinematic = true;
 
@@ -89,10 +89,16 @@ namespace pdxpartyparrot.ggj2020.Tools
             transform.SetParent(player.transform);
 
             SetAttachment();
+
+            return true;
         }
 
         public virtual void Drop()
         {
+            if(!IsHeld) {
+                return;
+            }
+
             RemoveAttachment();
 
             transform.SetParent(null);
@@ -100,20 +106,28 @@ namespace pdxpartyparrot.ggj2020.Tools
 
             _rigidbody.isKinematic = false;
 
-            HoldingPlayer.Owner.UIBubble.HideSprite();
-            HoldingPlayer = null;
+            _holdingPlayer.Owner.UIBubble.HideSprite();
+            _holdingPlayer = null;
         }
 
         public virtual void TrackThumbStickAxis(Vector2 axis)
         {
         }
 
-        public virtual void UseTool(Mechanic player)
+        public virtual bool UseTool()
         {
+            if(!GameManager.Instance.MechanicsCanInteract || !IsHeld) {
+                return false;
+            }
+
+            _inUse = true;
+
+            return true;
         }
 
         public virtual void EndUseTool()
         {
+            _inUse = false;
         }
 
         public virtual void SetAttachment()

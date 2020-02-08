@@ -30,9 +30,27 @@ namespace pdxpartyparrot.Game.Interactables
         }
 #endregion
 
+        public bool AddInteractable(IInteractable interactable)
+        {
+            if(null == interactable || !interactable.CanInteract) {
+                return false;
+            }
+
+            //Debug.Log($"Adding interactable of type {interactable.InteractableType}");
+
+            var interactables = _interactables.GetOrAdd(interactable.InteractableType);
+            return interactables.Add(interactable);
+        }
+
         public bool RemoveInteractable(IInteractable interactable)
         {
-            var interactables = _interactables.GetOrAdd(interactable.GetType());
+            if(null == interactable) {
+                return false;
+            }
+
+            //Debug.Log($"Removing interactable of type {interactable.InteractableType}");
+
+            var interactables = _interactables.GetOrAdd(interactable.InteractableType);
             return interactables.Remove(interactable);
         }
 
@@ -89,12 +107,7 @@ namespace pdxpartyparrot.Game.Interactables
         protected void AddInteractable(GameObject other)
         {
             IInteractable interactable = other.GetComponent<IInteractable>();
-            if(null == interactable || !interactable.CanInteract) {
-                return;
-            }
-
-            var interactables = _interactables.GetOrAdd(interactable.GetType());
-            if(interactables.Add(interactable)) {
+            if(AddInteractable(interactable)) {
                 InteractableAddedEvent?.Invoke(this, new InteractableEventArgs{
                     Interactable = interactable
                 });
@@ -104,10 +117,6 @@ namespace pdxpartyparrot.Game.Interactables
         protected void RemoveInteractable(GameObject other)
         {
             IInteractable interactable = other.GetComponent<IInteractable>();
-            if(null == interactable) {
-                return;
-            }
-
             if(RemoveInteractable(interactable)) {
                 InteractableRemovedEvent?.Invoke(this, new InteractableEventArgs{
                     Interactable = interactable

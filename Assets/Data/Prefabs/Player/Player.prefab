@@ -539,8 +539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _owner: {fileID: 7987886923199208902}
-  held_tool: {fileID: 0}
-  collided_tool: {fileID: 0}
+  _heldTool: {fileID: 0}
   _canUseLadder: 0
   _isOnLadder: 0
   _pickupToolEffect: {fileID: 3976977114511096063}
@@ -1443,7 +1442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vfx: {fileID: 3311585489024076412}
-  _loop: 1
+  _loop: 0
   _waitForComplete: 0
   _clearOnStop: 1
 --- !u!1 &7509659918872967694
@@ -1629,7 +1628,8 @@ MonoBehaviour:
     type: 3}
   pressedButtonAndThumbRight: {fileID: 21300000, guid: ef4d0fa487c671d468f4d29f999c816d,
     type: 3}
-  SPRR: {fileID: 4421887116532456154}
+  _renderer: {fileID: 4421887116532456154}
+  currentSprite: {fileID: 0}
 --- !u!1 &9217885349944983814
 GameObject:
   m_ObjectHideFlags: 0
@@ -2077,6 +2077,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6935365467862487268, guid: ca816f8af43cb8445ab549b4e3e656a5,
+        type: 3}
+      propertyPath: looping
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca816f8af43cb8445ab549b4e3e656a5, type: 3}

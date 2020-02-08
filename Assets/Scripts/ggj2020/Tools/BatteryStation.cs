@@ -1,52 +1,65 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ggj2020.Players;
+
+using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Tools
 {
-    public class BatteryStation : Tool
+    public sealed class BatteryStation : Tool
     {
-        public int MaxSuccesfulHits = 25;
-        private int SuccesfulHits = 0;
+        // TODO: move to data
+        [SerializeField]
+        private int _maxSuccesfulHits = 25;
 
-        List<GameObject> SuccesfulPlayers = new List<GameObject>();
+        [SerializeField]
+        [ReadOnly]
+        private int _succesfulHits;
 
-        public override void SetHeld(Mechanic player)
+        private readonly HashSet<Mechanic> _succesfulPlayers = new HashSet<Mechanic>();
+
+        public override bool SetHeld(Mechanic player)
         {
+            if(IsHeld) {
+                return false;
+            }
+
             HoldingPlayer = player;
+
+            return true;
         }
 
         public override void Drop()
         {
+            HoldingPlayer = null;
         }
 
         public override void PlayerExitTrigger()
         {
-            if (HoldingPlayer == null)
+            if(HoldingPlayer == null) {
                 return;
+            }
 
             HoldingPlayer.DropTool();
-            HoldingPlayer = null;
-            SuccesfulHits = 0;
+
+            _succesfulHits = 0;
         }
 
-        public override void UseTool(Mechanic player)
+        public override bool UseTool()
         {
-            if (HoldingPlayer == null || HoldingPlayer.gameObject != player.gameObject)
-                return;
+            if(!base.UseTool()) {
+                return false;
+            }
 
-            base.UseTool(player);
+            _succesfulHits++;
+            if(_succesfulHits >= _maxSuccesfulHits) {
+                _succesfulPlayers.Add(HoldingPlayer);
 
-            SuccesfulHits++;
-            if (SuccesfulHits >= MaxSuccesfulHits)
-            {
-                if (!SuccesfulPlayers.Contains(HoldingPlayer.gameObject))
-                {
-                    SuccesfulPlayers.Add(HoldingPlayer.gameObject);
-                }
                 Debug.LogWarning("Succesful Fix TODO Hook up to Robo");
             }
+
+            return true;
         }
     }
 }

@@ -1,80 +1,65 @@
-﻿using UnityEngine;
+﻿using System;
 
-using pdxpartyparrot.ggj2020.Players;
+using pdxpartyparrot.Core.Time;
+
+using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Tools
 {
-    public class FireExtinguisher : Tool
+    public sealed class FireExtinguisher : Tool
     {
-        public float HoldTime = 1;
-        private float CurrentTime = 0;
-        private float TimeAtStartOfHold = 0;
-        private bool ButtonHeld = false;
+        // TODO: move to data
+        [SerializeField]
+        private float _holdTime = 1;
 
-        // Start is called before the first frame update
-        private void Start()
+        private ITimer _holdTimer;
+
+#region Unity Lifecycle
+        protected override void Awake()
         {
-            DType = Actors.RepairPoint.DamageType.Fire;
+            base.Awake();
+
+            _holdTimer = TimeManager.Instance.AddTimer();
+            _holdTimer.TimesUpEvent += HoldTimerTimesUpEventHandler;
         }
 
-        // Update is called once per frame
-        private void Update()
+        private void OnDestroy()
         {
-            if (HoldingPlayer == null)
-                return;
+            _holdTimer.TimesUpEvent -= HoldTimerTimesUpEventHandler;
 
-            // -- TODO update this once functions have been moved
-            closestPoint = FindClosestRepairPoint(FindRepairPoints(), DType);
-            if(!GameManager.Instance.MechanicsCanInteract || closestPoint == null)
-            {
-                HoldingPlayer.Owner.UIBubble.HideSprite();
-                return;
+            if(TimeManager.HasInstance) {
+                TimeManager.Instance.RemoveTimer(_holdTimer);
             }
+        }
+#endregion
+
+        public override bool UseTool()
+        {
+            if(!base.UseTool()) {
+                return false;
+            }
+
+            // find a point to repair
+            RepairPoint = HoldingPlayer.GetDamagedRepairPoint(DamageType);
+            if(RepairPoint == null) {
+                base.EndUseTool();
+                return false;
+            }
+
+            _holdTimer.Start(_holdTime);
 
             HoldingPlayer.Owner.UIBubble.SetPressedSprite();
-            if (ButtonHeld)
-            {
-                // -- make sure you don't repair multiple points
-                if (closestPoint != oldClosestPoint)
-                {
-                    oldClosestPoint = closestPoint;
-                    TimeAtStartOfHold = Time.realtimeSinceStartup;
-                }
-
-                CurrentTime = Time.realtimeSinceStartup;
-                float delta = CurrentTime - TimeAtStartOfHold;
-                if (delta >= HoldTime && !closestPoint.IsRepaired)
-                {
-                    closestPoint.Repair();
-                    Debug.Log("Repair Done!");
-                }
-            }
-            else
-            {
-                CurrentTime = Time.realtimeSinceStartup;
-                TimeAtStartOfHold = CurrentTime;
-            }
-        }
-
-        public override void UseTool(Mechanic player)
-        {
-            if (closestPoint == null || HoldingPlayer.gameObject != player.gameObject)
-                return;
-
-            if (closestPoint.RepairPointDamageType != DType)
-                return;
-
-            base.UseTool(player);
-
-            ButtonHeld = true;
-            TimeAtStartOfHold = Time.realtimeSinceStartup;
 
             HoldingPlayer.FireExtinguisherEffect.gameObject.SetActive(true);
             HoldingPlayer.FireExtinguisherEffect.Trigger();
+
+            return true;
         }
 
         public override void EndUseTool()
         {
+            _holdTimer.Stop();
+
             HoldingPlayer.FireExtinguisherEffect.StopTrigger();
             HoldingPlayer.FireExtinguisherEffect.gameObject.SetActive(false);
 
@@ -83,20 +68,22 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         public override void SetAttachment()
         {
-            Player pl = HoldingPlayer.GetComponent<Player>();
-            if (pl != null)
-            {
-                pl.MechanicModel.SetAttachment("Tool_FireExtinguisher", "Tool_FireExtinguisher");
-            }
+            HoldingPlayer.Owner.MechanicModel.SetAttachment("Tool_FireExtinguisher", "Tool_FireExtinguisher");
         }
 
         public override void RemoveAttachment()
         {
-            Player pl = HoldingPlayer.GetComponent<Player>();
-            if (pl != null)
-            {
-                pl.MechanicModel.RemoveAttachment("Tool_FireExtinguisher");
-            }
+            HoldingPlayer.Owner.MechanicModel.RemoveAttachment("Tool_FireExtinguisher");
         }
+
+#region Events
+        private void HoldTimerTimesUpEventHandler(object sender, EventArgs args)
+        {
+            if(!RepairPoint.IsRepaired) {
+                RepairPoint.Repair();
+            }
+            RepairPoint = null;
+        }
+#endregion
     }
 }

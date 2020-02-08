@@ -13,7 +13,7 @@ namespace pdxpartyparrot.ggj2020.Actors
 {
     [RequireComponent(typeof(AudioSource))]
     [RequireComponent(typeof(BoneFollower))]
-    public class RepairPoint : MonoBehaviour, IInteractable
+    public sealed class RepairPoint : MonoBehaviour, IInteractable
     {
 #region Events
         public event EventHandler<EventArgs> RepairedEvent;
@@ -33,6 +33,8 @@ namespace pdxpartyparrot.ggj2020.Actors
             UnRepaired,
             Repaired,
         }
+
+        public Type InteractableType => GetType();
 
 #region Effects
         [Header("Effects")]

@@ -26,7 +26,11 @@ namespace pdxpartyparrot.Core.Time
             [SerializeField]
             private float _timerSeconds;
 
-            public float TimerSeconds => _timerSeconds;
+            public float TimerSeconds
+            {
+                get => _timerSeconds;
+                set => _timerSeconds = value;
+            }
 
             [SerializeField]
             private float _secondsRemaining;

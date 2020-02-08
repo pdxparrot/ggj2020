@@ -21,7 +21,7 @@ using UnityEngine.Serialization;
 namespace pdxpartyparrot.ggj2020.Actors
 {
     [RequireComponent(typeof(CinemachineImpulseSource))]
-    public class RepairableRobot : Actor3D
+    public sealed class RepairableRobot : Actor3D
     {
 #region Events
         public event EventHandler<EventArgs> RepairedEvent;

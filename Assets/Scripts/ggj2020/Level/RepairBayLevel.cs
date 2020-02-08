@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Level
 {
-    public class RepairBayLevel : LevelHelper
+    public sealed class RepairBayLevel : LevelHelper
     {
         [Space(10)]
 
@@ -72,7 +72,7 @@ namespace pdxpartyparrot.ggj2020.Level
         private void EnterRobot()
         {
             // this will init the timer UI correctly
-            _timer.AddTime(GameManager.Instance.GameGameData.RepairTime);
+            _timer.TimerSeconds = GameManager.Instance.GameGameData.RepairTime;
 
             _repairableRobot.EnterRepairBay(() => {
                 GameManager.Instance.MechanicsCanInteract = true;

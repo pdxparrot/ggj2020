@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3106343173454530574}
-  - component: {fileID: 1295712120783440684}
   - component: {fileID: 8510521444372484665}
+  - component: {fileID: 1295712120783440684}
   - component: {fileID: 80484098468955470}
   m_Layer: 18
   m_Name: Hammer
@@ -35,6 +35,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8510521444372484665
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3106343173454530571}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.5, z: 2}
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!54 &1295712120783440684
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -49,21 +62,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 120
+  m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &8510521444372484665
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3106343173454530571}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 1.5, z: 2}
-  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!114 &80484098468955470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,10 +77,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _model: {fileID: 5803791752801032210}
-  TimeBetweenPresses: 0.4
-  TimeToAllowSuccesfulPress: 0.5
-  MaxSuccesfulHits: 5
-  PrintWindowToConsole: 0
+  _damageType: 1
+  _inUse: 0
+  _repairPoint: {fileID: 0}
+  _holdingPlayer: {fileID: 0}
+  _timeToAllowSuccesfulPress: 0.5
+  _maxSuccesfulHits: 5
+  _succesfulHits: 0
 --- !u!1 &5803791752801032210
 GameObject:
   m_ObjectHideFlags: 0

@@ -137,7 +137,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 120
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &774330570102187719
 MonoBehaviour:
@@ -152,7 +152,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _model: {fileID: 7177642793694872351}
-  MaxSuccesfulTurns: 5
+  _damageType: 2
+  _inUse: 0
+  _repairPoint: {fileID: 0}
+  _holdingPlayer: {fileID: 0}
+  _maxSuccesfulTurns: 5
+  _lastTurnAxis: 1
+  _successfulTurns: 0
 --- !u!1 &9063892095010551941
 GameObject:
   m_ObjectHideFlags: 0

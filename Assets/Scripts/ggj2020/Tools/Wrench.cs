@@ -1,67 +1,56 @@
-﻿using UnityEngine;
+﻿using pdxpartyparrot.Core.Util;
 
-using pdxpartyparrot.ggj2020.Players;
+using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Tools
 {
-    public class Wrench : Tool
+    public sealed class Wrench : Tool
     {
-        public int MaxSuccesfulTurns = 5;
-        private int LastTurnAxis = 1;
-        private bool ButtonHeld = false;
-        private Vector2 OldCurrentAxis;
-        private int SuccessfulTurns = 0;
+        [SerializeField]
+        private int _maxSuccesfulTurns = 5;
 
-        // Start is called before the first frame update
-        private void Start()
-        {
-            ButtonHeld = false;
-            DType = Actors.RepairPoint.DamageType.Loose;
-        }
+        [SerializeField]
+        [ReadOnly]
+        private int _lastTurnAxis = 1;
 
-        // Update is called once per frame
+        [SerializeField]
+        [ReadOnly]
+        private int _successfulTurns;
+
+#region Unity Lifecycle
         private void Update()
         {
-            if (HoldingPlayer == null)
-                return;
-
-            // -- TODO update this once functions have been moved
-            closestPoint = FindClosestRepairPoint(FindRepairPoints(), DType);
-            if (!GameManager.Instance.MechanicsCanInteract || closestPoint == null) {
-                HoldingPlayer.Owner.UIBubble.HideSprite();
+            if(!InUse) {
                 return;
             }
 
-            // -- make sure you don't repair multiple points
-            if (closestPoint != oldClosestPoint)
-            {
-                oldClosestPoint = closestPoint;
-                SuccessfulTurns = 0;
-            }
-
-            if (LastTurnAxis != 1)
-            {
+            if(_lastTurnAxis != 1) {
                 HoldingPlayer.Owner.UIBubble.SetThumbRight();
-            }
-            else if (LastTurnAxis != -1)
-            {
+            } else if (_lastTurnAxis != -1) {
                 HoldingPlayer.Owner.UIBubble.SetThumbLeft();
             }
         }
-        public override void UseTool(Mechanic player)
+#endregion
+
+        public override bool UseTool()
         {
-            if (closestPoint == null || HoldingPlayer.gameObject != player.gameObject)
-                return;
+            if(!base.UseTool()) {
+                return false;
+            }
 
-            if (closestPoint.RepairPointDamageType != DType)
-                return;
+            // find a point to repair
+            RepairPoint = HoldingPlayer.GetDamagedRepairPoint(DamageType);
+            if(RepairPoint == null) {
+                base.EndUseTool();
+                return false;
+            }
 
-            base.UseTool(player);
-
-            ButtonHeld = true;
+            _lastTurnAxis = 1;
 
             HoldingPlayer.WrenchEffect.gameObject.SetActive(true);
             HoldingPlayer.WrenchEffect.Trigger();
+
+            return true;
         }
 
         public override void EndUseTool()
@@ -69,51 +58,37 @@ namespace pdxpartyparrot.ggj2020.Tools
             HoldingPlayer.WrenchEffect.StopTrigger();
             HoldingPlayer.WrenchEffect.gameObject.SetActive(false);
 
-            ButtonHeld = false;
-            SuccessfulTurns = 0;
-            LastTurnAxis = 1;
+            _successfulTurns = 0;
 
             base.EndUseTool();
         }
 
-        public override void TrackThumbStickAxis(Vector2 Axis)
+        public override void TrackThumbStickAxis(Vector2 axis)
         {
-            if (closestPoint == null || !ButtonHeld)
+            if(!InUse || !GameManager.Instance.MechanicsCanInteract)
                 return;
 
-
-            if ((Axis.x >= .5f || Axis.y >= .5f) && LastTurnAxis != 1)
-            {
-                LastTurnAxis = 1;
-            } else if ((Axis.x <= -.5f || Axis.y <= -.5f) && LastTurnAxis != -1)
-            {
-                LastTurnAxis = -1;
-                SuccessfulTurns++;
+            if((axis.x >= .5f || axis.y >= .5f) && _lastTurnAxis != 1) {
+                _lastTurnAxis = 1;
+            } else if ((axis.x <= -.5f || axis.y <= -.5f) && _lastTurnAxis != -1) {
+                _lastTurnAxis = -1;
+                _successfulTurns++;
             }
 
-            if (SuccessfulTurns >= MaxSuccesfulTurns && !closestPoint.IsRepaired)
-            {
-                closestPoint.Repair();
+            if(_successfulTurns >= _maxSuccesfulTurns && !RepairPoint.IsRepaired) {
+                RepairPoint.Repair();
                 Debug.Log("Repair Done!");
             }
         }
 
         public override void SetAttachment()
         {
-            Player pl = HoldingPlayer.GetComponent<Player>();
-            if (pl != null)
-            {
-                pl.MechanicModel.SetAttachment("Tool_Wrench", "Tool_Wrench");
-            }
+            HoldingPlayer.Owner.MechanicModel.SetAttachment("Tool_Wrench", "Tool_Wrench");
         }
 
         public override void RemoveAttachment()
         {
-            Player pl = HoldingPlayer.GetComponent<Player>();
-            if (pl != null)
-            {
-                pl.MechanicModel.RemoveAttachment("Tool_Wrench");
-            }
+            HoldingPlayer.Owner.MechanicModel.RemoveAttachment("Tool_Wrench");
         }
     }
 }

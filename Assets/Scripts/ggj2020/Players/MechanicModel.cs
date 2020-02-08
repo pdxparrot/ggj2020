@@ -2,7 +2,7 @@
 
 namespace pdxpartyparrot.ggj2020.Players
 {
-    public class MechanicModel : MonoBehaviour
+    public sealed class MechanicModel : MonoBehaviour
     {
         [SerializeField]
         private Player _owner;
