@@ -4,6 +4,7 @@ using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Level;
 using pdxpartyparrot.ggj2020.Actors;
+using pdxpartyparrot.ggj2020.Tools;
 
 using UnityEngine;
 
@@ -11,6 +12,11 @@ namespace pdxpartyparrot.ggj2020.Level
 {
     public sealed class RepairBayLevel : LevelHelper
     {
+        [Space(10)]
+
+        [SerializeField]
+        private Transform _toolContainer;
+
         [Space(10)]
 
         [SerializeField]
@@ -54,6 +60,11 @@ namespace pdxpartyparrot.ggj2020.Level
             base.OnDestroy();
         }
 #endregion
+
+        public void ReclaimTool(Tool tool)
+        {
+            tool.transform.SetParent(_toolContainer);
+        }
 
         private void NextRobot(bool success)
         {
