@@ -35,6 +35,12 @@ namespace pdxpartyparrot.Core.DebugMenu
 
         public bool Enabled => _enabled;
 
+        [SerializeField]
+        private Key _debugGUIEnableKey = Key.F11;
+
+        [SerializeField]
+        private bool _debugGUIEnabled = true;
+
         private DebugWindow _window;
 
         [SerializeField]
@@ -140,8 +146,13 @@ namespace pdxpartyparrot.Core.DebugMenu
         {
             // TODO: this is dependent on the inputsystem being set to run
             // in fixed update. would be better if we could detect that somehow
+
             if(Keyboard.current[_enableKey].wasPressedThisFrame) {
                 _enabled = !_enabled;
+            }
+
+            if(Keyboard.current[_debugGUIEnableKey].wasPressedThisFrame) {
+                _debugGUIEnabled = !_debugGUIEnabled;
             }
         }
 
@@ -323,9 +334,14 @@ namespace pdxpartyparrot.Core.DebugMenu
 #if UNITY_EDITOR
         private void RenderDebugUI()
         {
+            if(!_debugGUIEnabled) {
+                return;
+            }
+
             GUI.color = Color.white;
 
             GUILayout.BeginVertical();
+                GUILayout.Label($"{_debugGUIEnableKey} to hide");
                 GUILayout.Label($"{_enableKey} for debug menu");
                 GUILayout.Label($"Average FPS: {(int)AverageFPS}");
                 GUILayout.Label($"Allocated: {Profiler.GetTotalAllocatedMemoryLong() / 1048576.0f:0.00}MB / {Profiler.GetTotalReservedMemoryLong() / 1048576.0f:0.00}MB");
