@@ -12,9 +12,7 @@ namespace pdxpartyparrot.Core.Time
         event EventHandler<EventArgs> TimesUpEvent;
 #endregion
 
-        float TimerSeconds { get; set; }
-
-        float SecondsRemaining { get; }
+        float SecondsRemaining { get; set; }
 
         bool IsRunning { get; }
 

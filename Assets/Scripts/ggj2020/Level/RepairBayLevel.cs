@@ -72,7 +72,7 @@ namespace pdxpartyparrot.ggj2020.Level
         private void EnterRobot()
         {
             // this will init the timer UI correctly
-            _timer.TimerSeconds = GameManager.Instance.GameGameData.RepairTime;
+            _timer.SecondsRemaining = GameManager.Instance.GameGameData.RepairTime;
 
             _repairableRobot.EnterRepairBay(() => {
                 GameManager.Instance.MechanicsCanInteract = true;

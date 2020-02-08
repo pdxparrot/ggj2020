@@ -24,18 +24,13 @@ namespace pdxpartyparrot.Core.Time
 #endregion
 
             [SerializeField]
-            private float _timerSeconds;
-
-            public float TimerSeconds
-            {
-                get => _timerSeconds;
-                set => _timerSeconds = value;
-            }
-
-            [SerializeField]
             private float _secondsRemaining;
 
-            public float SecondsRemaining => _secondsRemaining;
+            public float SecondsRemaining
+            {
+                get => _secondsRemaining;
+                set => _secondsRemaining = value;
+            }
 
             [SerializeField]
             private bool _isRunning;
@@ -48,8 +43,7 @@ namespace pdxpartyparrot.Core.Time
                     return;
                 }
 
-                _timerSeconds = timerSeconds;
-                _secondsRemaining = TimerSeconds;
+                _secondsRemaining = timerSeconds;
                 _isRunning = true;
 
                 StartEvent?.Invoke(this, EventArgs.Empty);
@@ -66,8 +60,7 @@ namespace pdxpartyparrot.Core.Time
                     return;
                 }
 
-                _timerSeconds = timerSeconds.GetRandomValue();
-                _secondsRemaining = TimerSeconds;
+                _secondsRemaining = timerSeconds.GetRandomValue();
                 _isRunning = true;
 
                 StartEvent?.Invoke(this, EventArgs.Empty);
