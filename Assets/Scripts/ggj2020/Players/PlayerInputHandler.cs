@@ -13,8 +13,6 @@ namespace pdxpartyparrot.ggj2020.Players
 
         private Player GamePlayer => (Player)Player;
 
-        private bool ActionActive = false;
-
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -25,23 +23,12 @@ namespace pdxpartyparrot.ggj2020.Players
         }
 #endregion
 
-        private void DoUseLadder()
-        {
-            if(GamePlayer.Mechanic.IsOnLadder) {
-                GamePlayer.Mechanic.ClimbLadder(false);
-            } else if(GamePlayer.Mechanic.CanUseLadder) {
-                GamePlayer.Mechanic.ClimbLadder(true);
-            }
-        }
-
 #region Actions
         protected override void DoMove(InputAction action)
         {
-
             Vector2 axes = action.ReadValue<Vector2>();
 
-            if (ActionActive)
-            {
+            if(GamePlayer.Mechanic.IsUsingTool) {
                 GamePlayer.Mechanic.TrackThumbStickAxis(axes);
                 return;
             }
@@ -65,7 +52,7 @@ namespace pdxpartyparrot.ggj2020.Players
             }
 
             if(context.performed) {
-                DoUseLadder();
+                GamePlayer.Mechanic.HandleLadderInput();
             }
         }
 
@@ -80,11 +67,9 @@ namespace pdxpartyparrot.ggj2020.Players
             }
 
             if(context.performed) {
-                GamePlayer.Mechanic.UseOrPickupTool();
-                ActionActive = true;
+                GamePlayer.Mechanic.HandleToolInput();
             } else {
                 GamePlayer.Mechanic.UseEnded();
-                ActionActive = false;
             }
         }
 

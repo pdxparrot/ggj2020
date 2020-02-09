@@ -7,7 +7,6 @@ using Cinemachine;
 
 using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.Actors;
-using pdxpartyparrot.Core.Animation;
 using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Tween;
@@ -33,9 +32,6 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         [SerializeField]
         private GameObject _repairPointContainer;
-
-        [SerializeField]
-        private SpineAnimationHelper _animationHelper;
 
         [Space(10)]
 
@@ -79,11 +75,11 @@ namespace pdxpartyparrot.ggj2020.Actors
         private int _currentDamageIncreaseChance;
 
         // TODO: this should be split into a factor per-player
-        [SerializeField]
+        /*[SerializeField]
         [ReadOnly]
         private float _chargeLevel;
 
-        public float ChargeLevel => _chargeLevel;
+        public float ChargeLevel => _chargeLevel;*/
 
         private readonly List<RepairPoint> _repairPoints = new List<RepairPoint>();
         //private readonly List<RepairPoint> _stackedRepairPoints = new List<RepairPoint>();

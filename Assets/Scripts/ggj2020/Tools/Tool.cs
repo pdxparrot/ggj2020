@@ -31,7 +31,7 @@ namespace pdxpartyparrot.ggj2020.Tools
         [ReadOnly]
         private bool _inUse;
 
-        protected bool InUse => _inUse;
+        public bool InUse => _inUse;
 
         [SerializeField]
         [ReadOnly]
@@ -71,10 +71,6 @@ namespace pdxpartyparrot.ggj2020.Tools
         }
 #endregion
 
-        public virtual void PlayerExitTrigger()
-        {
-        }
-
         public virtual bool SetHeld(Mechanic player)
         {
             if(IsHeld) {
@@ -86,7 +82,6 @@ namespace pdxpartyparrot.ggj2020.Tools
             _rigidbody.isKinematic = true;
 
             _model.SetActive(false);
-            transform.SetParent(player.transform);
 
             SetAttachment();
 
@@ -101,12 +96,11 @@ namespace pdxpartyparrot.ggj2020.Tools
 
             RemoveAttachment();
 
-            transform.SetParent(null);
+            GameManager.Instance.GameLevelHelper.ReclaimTool(this);
             _model.SetActive(true);
 
             _rigidbody.isKinematic = false;
 
-            _holdingPlayer.Owner.UIBubble.HideSprite();
             _holdingPlayer = null;
         }
 

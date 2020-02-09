@@ -539,9 +539,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _owner: {fileID: 7987886923199208902}
+  _toolAttachment: {fileID: 6346126699756507838}
   _heldTool: {fileID: 0}
   _canUseLadder: 0
   _isOnLadder: 0
+  _canUseTool: 0
   _pickupToolEffect: {fileID: 3976977114511096063}
   _dropToolEffect: {fileID: 2748718958486531674}
   _useToolEffect: {fileID: 4766913535688855161}
@@ -1629,7 +1631,6 @@ MonoBehaviour:
   pressedButtonAndThumbRight: {fileID: 21300000, guid: ef4d0fa487c671d468f4d29f999c816d,
     type: 3}
   _renderer: {fileID: 4421887116532456154}
-  currentSprite: {fileID: 0}
 --- !u!1 &9217885349944983814
 GameObject:
   m_ObjectHideFlags: 0

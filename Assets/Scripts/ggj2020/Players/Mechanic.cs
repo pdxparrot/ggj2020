@@ -7,6 +7,8 @@ using pdxpartyparrot.ggj2020.Actors;
 using pdxpartyparrot.ggj2020.Tools;
 using pdxpartyparrot.ggj2020.World;
 
+using Spine.Unity;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Players
@@ -19,6 +21,9 @@ namespace pdxpartyparrot.ggj2020.Players
         private Player _owner;
 
         public Player Owner => _owner;
+
+        [SerializeField]
+        private BoneFollower _toolAttachment;
 
         [SerializeField]
         [ReadOnly]
@@ -54,6 +59,22 @@ namespace pdxpartyparrot.ggj2020.Players
                 Owner.Movement.IsKinematic = value;
             }
         }
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _canUseTool;
+
+        public bool CanUseTool
+        {
+            get => GameManager.Instance.MechanicsCanInteract && HasTool && !IsUsingTool && _canUseTool;
+            private set
+            {
+                _canUseTool = value;
+                // TODO: notify the tool so it can whatever it needs to with its sprite thingy
+            }
+        }
+
+        public bool IsUsingTool => HasTool && _heldTool.InUse;
 
         [Space(10)]
 
@@ -110,58 +131,90 @@ namespace pdxpartyparrot.ggj2020.Players
             return null;
         }
 
-        public void ClimbLadder(bool climb)
+        public void HandleLadderInput()
         {
-            if(climb) {
-                Owner.GamePlayerBehavior.ClimbLadderEffectTrigger.Trigger();
+            if(IsUsingTool) {
+                return;
             }
-            IsOnLadder = climb;
+
+            if(IsOnLadder) {
+                IsOnLadder = false;
+            } else if(CanUseLadder) {
+                Owner.GamePlayerBehavior.ClimbLadderEffectTrigger.Trigger();
+                IsOnLadder = true;
+            }
         }
 
-        public void UseOrPickupTool()
+        private bool UseTool()
         {
-            // use the tool we're holding if we can
-            if(HasTool) {
-                if(!GameManager.Instance.MechanicsCanInteract) {
-                    return;
-                }
+            if(!CanUseTool) {
+                return false;
+            }
 
-                if(_heldTool.UseTool()) {
-                    _useToolEffect.Trigger();
-                }
+            if(!_heldTool.UseTool()) {
+                return false;
+            }
+
+            _useToolEffect.Trigger();
+            return true;
+        }
+
+        private void PickupTool()
+        {
+            Tool tool = _interactables.GetRandomInteractable<Tool>();
+            if(null == tool) {
                 return;
             }
 
-            // if not, try to pick on eup
-            _heldTool = _interactables.GetRandomInteractable<Tool>();
-            if(null == _heldTool) {
+            if(!tool.SetHeld(this)) {
                 return;
             }
+
+            _heldTool = tool;
             _interactables.RemoveInteractable(_heldTool);
 
-            if(_heldTool.SetHeld(this)) {
-                _pickupToolEffect.Trigger();
+            _heldTool.transform.SetParent(_toolAttachment.transform);
+
+            _pickupToolEffect.Trigger();
+        }
+
+        // returns true if we're using a tool
+        public bool HandleToolInput()
+        {
+            if(IsOnLadder) {
+                return false;
             }
+
+            if(UseTool()) {
+                return true;
+            }
+
+            PickupTool();
+            return false;
         }
 
         public void TrackThumbStickAxis(Vector2 axis)
         {
-            if(HasTool) {
-                _heldTool.TrackThumbStickAxis(axis);
+            if(!IsUsingTool) {
+                return;
             }
+
+            _heldTool.TrackThumbStickAxis(axis);
         }
 
         public void UseEnded()
         {
-            if(_heldTool) {
-                _heldTool.EndUseTool();
-                Owner.Behavior.SpineAnimationHelper.SetEmptyAnimation(1);
+            if(!IsUsingTool) {
+                return;
             }
+
+            _heldTool.EndUseTool();
+            Owner.Behavior.SpineAnimationHelper.SetEmptyAnimation(1);
         }
 
         public void DropTool()
         {
-            if(_heldTool == null) {
+            if(!HasTool || IsUsingTool) {
                 return;
             }
 
@@ -184,18 +237,30 @@ namespace pdxpartyparrot.ggj2020.Players
 
             _wrenchEffect.StopTrigger();
             _wrenchEffect.gameObject.SetActive(false);
+
+            Owner.UIBubble.HideSprite();
         }
 
 #region Events
         private void InteractableAddedEventHandler(object sender, InteractableEventArgs args)
         {
-            CanUseLadder = args.Interactable.gameObject.GetComponent<Ladder>() != null;
+            if(!CanUseLadder && args.Interactable.gameObject.GetComponent<Ladder>() != null) {
+                CanUseLadder = true;
+            }
+
+            if(!CanUseTool && args.Interactable.gameObject.GetComponent<RepairPoint>() != null) {
+                CanUseTool = true;
+            }
         }
 
         private void InteractableRemovedEventHandler(object sender, InteractableEventArgs args)
         {
-            if(args.Interactable.gameObject.GetComponent<Ladder>() != null) {
+            if(args.Interactable.gameObject.GetComponent<Ladder>() != null && !_interactables.HasInteractables<Ladder>()) {
                 CanUseLadder = false;
+            }
+
+            if(args.Interactable.gameObject.GetComponent<RepairPoint>() != null && !_interactables.HasInteractables<RepairPoint>()) {
+                CanUseTool = false;
             }
         }
 #endregion
