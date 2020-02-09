@@ -2,6 +2,7 @@
 
 using JetBrains.Annotations;
 
+using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ggj2020.Players;
@@ -27,6 +28,19 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         public RepairPoint.DamageType DamageType => _damageType;
 
+        [Space(10)]
+
+#region Effects
+        [Header("Effects")]
+
+        [SerializeField]
+        private EffectTrigger _useEffect;
+
+        protected EffectTrigger UseEffect => _useEffect;
+#endregion
+
+        [Space(10)]
+
         [SerializeField]
         [ReadOnly]
         private bool _inUse;
@@ -36,28 +50,20 @@ namespace pdxpartyparrot.ggj2020.Tools
         [SerializeField]
         [ReadOnly]
         [CanBeNull]
-        private RepairPoint _repairPoint;
+        private Mechanic _holdingPlayer;
 
         [CanBeNull]
-        protected RepairPoint RepairPoint
-        {
-            get => _repairPoint;
-            set => _repairPoint = value;
-        }
+        protected Mechanic HoldingPlayer => _holdingPlayer;
+
+        public bool IsHeld => HoldingPlayer != null;
 
         [SerializeField]
         [ReadOnly]
         [CanBeNull]
-        private Mechanic _holdingPlayer;
+        private RepairPoint _repairPoint;
 
         [CanBeNull]
-        protected Mechanic HoldingPlayer
-        {
-            get => _holdingPlayer;
-            set => _holdingPlayer = value;
-        }
-
-        public bool IsHeld => _holdingPlayer != null;
+        protected RepairPoint RepairPoint => _repairPoint;
 
         private Rigidbody _rigidbody;
 
@@ -68,10 +74,12 @@ namespace pdxpartyparrot.ggj2020.Tools
             _rigidbody.useGravity = true;
             _rigidbody.isKinematic = false;
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+
+            _useEffect.gameObject.SetActive(false);
         }
 #endregion
 
-        public virtual bool SetHeld(Mechanic player)
+        public virtual bool Hold(Mechanic player)
         {
             if(IsHeld) {
                 return false;
@@ -97,39 +105,74 @@ namespace pdxpartyparrot.ggj2020.Tools
             RemoveAttachment();
 
             GameManager.Instance.GameLevelHelper.ReclaimTool(this);
+
             _model.SetActive(true);
 
             _rigidbody.isKinematic = false;
 
             _holdingPlayer = null;
+
+            _useEffect.StopTrigger();
+            _useEffect.gameObject.SetActive(false);
+        }
+
+        public bool SetRepairPoint(RepairPoint repairPoint)
+        {
+            if(null != RepairPoint) {
+                return false;
+            }
+
+            _repairPoint = repairPoint;
+            _repairPoint.RepairedEvent += RepairPointRepairedEventHandler;
+
+            return true;
         }
 
         public virtual void TrackThumbStickAxis(Vector2 axis)
         {
         }
 
-        public virtual bool UseTool()
+        public abstract void CanUse();
+
+        public virtual bool Use()
         {
-            if(!GameManager.Instance.MechanicsCanInteract || !IsHeld) {
+            if(!GameManager.Instance.MechanicsCanInteract || !IsHeld || null == _repairPoint) {
                 return false;
             }
 
             _inUse = true;
 
+            _useEffect.gameObject.SetActive(true);
+            _useEffect.Trigger(OnUseToolEffectEnd);
+
             return true;
         }
 
-        public virtual void EndUseTool()
+        public virtual void EndUse()
         {
             _inUse = false;
+
+            _useEffect.StopTrigger();
+            _useEffect.gameObject.SetActive(false);
         }
 
-        public virtual void SetAttachment()
+        protected virtual void OnUseToolEffectEnd()
         {
         }
 
-        public virtual void RemoveAttachment()
+#region Attachments
+        public abstract void SetAttachment();
+
+        public abstract void RemoveAttachment();
+#endregion
+
+#region Events
+        private void RepairPointRepairedEventHandler(object sender, EventArgs args)
         {
+            _repairPoint = null;
+
+            HoldingPlayer.UseEnded();
         }
+#endregion
     }
 }

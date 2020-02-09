@@ -1,4 +1,5 @@
 ﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2020.Actors;
 
 using UnityEngine;
 
@@ -8,61 +9,76 @@ namespace pdxpartyparrot.ggj2020.Tools
     {
         // TODO: move to data
         [SerializeField]
-        private float _timeToAllowSuccesfulPress = 1;
-
-        [SerializeField]
         private int _maxSuccesfulHits = 5;
 
         [SerializeField]
         [ReadOnly]
         private int _succesfulHits;
 
-        public override bool UseTool()
+        public override void CanUse()
         {
-            if(!base.UseTool()) {
+            if(InUse) {
+                HoldingPlayer.Owner.UIBubble.SetPressedSprite();
+            } else {
+                HoldingPlayer.Owner.UIBubble.SetUnpressedSprite();
+            }
+        }
+
+        public override bool Use()
+        {
+            if(UseEffect.IsRunning) {
                 return false;
             }
 
-            if(HoldingPlayer.HammerEffect.IsRunning) {
-                return false;
-            }
+            // find a point to repair if we don't already have one
+            RepairPoint repairPoint = RepairPoint;
+            if(null == repairPoint) {
+                repairPoint = HoldingPlayer.GetDamagedRepairPoint(DamageType);
+                if(repairPoint == null) {
+                    return false;
+                }
 
-            // find a point to repair
-            if(null == RepairPoint) {
-                RepairPoint = HoldingPlayer.GetDamagedRepairPoint(DamageType);
-                if(RepairPoint == null) {
+                if(!SetRepairPoint(repairPoint)) {
                     return false;
                 }
             }
 
+            if(!base.Use()) {
+                return false;
+            }
+
             HoldingPlayer.Owner.UIBubble.SetPressedSprite();
-
-            HoldingPlayer.HammerEffect.gameObject.SetActive(true);
-            HoldingPlayer.HammerEffect.Trigger(() => {
-                _succesfulHits++;
-                if(_succesfulHits >= _maxSuccesfulHits && !RepairPoint.IsRepaired) {
-                    RepairPoint.Repair();
-                    RepairPoint = null;
-
-                    _succesfulHits = 0;
-                    Debug.Log("Repair Done!");
-                    return;
-                }
-
-                HoldingPlayer.Owner.UIBubble.SetUnpressedSprite();
-            });
 
             return true;
         }
 
-        public override void EndUseTool()
+        public override void EndUse()
         {
-            HoldingPlayer.HammerEffect.StopTrigger();
-            HoldingPlayer.HammerEffect.gameObject.SetActive(false);
+            // TODO: if we move away from the repair point
+            // then reset the successes to 0
 
-            base.EndUseTool();
+            base.EndUse();
         }
 
+        protected override void OnUseToolEffectEnd()
+        {
+            base.OnUseToolEffectEnd();
+
+            HoldingPlayer.Owner.UIBubble.SetUnpressedSprite();
+
+            _succesfulHits++;
+            if(_succesfulHits < _maxSuccesfulHits) {
+                return;
+            }
+
+            if(!RepairPoint.IsRepaired) {
+                RepairPoint.Repair();
+            }
+
+            _succesfulHits = 0;
+        }
+
+#region Attachments
         public override void SetAttachment()
         {
             HoldingPlayer.Owner.MechanicModel.SetAttachment("Tool_Hammer", "Tool_Hammer");
@@ -72,5 +88,6 @@ namespace pdxpartyparrot.ggj2020.Tools
         {
             HoldingPlayer.Owner.MechanicModel.RemoveAttachment("Tool_Hammer");
         }
+#endregion
     }
 }

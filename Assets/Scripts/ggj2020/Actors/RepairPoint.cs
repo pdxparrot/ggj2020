@@ -128,6 +128,8 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         public void Repair()
         {
+            Debug.Log("Point repair successful!");
+
             _repairState = RepairState.Repaired;
 
             // TODO: instead of disabling the entire thing just disable the vfx

@@ -1,4 +1,5 @@
 ﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2020.Actors;
 
 using UnityEngine;
 
@@ -17,70 +18,64 @@ namespace pdxpartyparrot.ggj2020.Tools
         [ReadOnly]
         private int _successfulTurns;
 
-#region Unity Lifecycle
-        private void Update()
+        public override void CanUse()
         {
-            if(!InUse) {
-                return;
-            }
-
-            if(_lastTurnAxis != 1) {
-                HoldingPlayer.Owner.UIBubble.SetThumbRight();
-            } else if (_lastTurnAxis != -1) {
+            if(_lastTurnAxis == 1) {
                 HoldingPlayer.Owner.UIBubble.SetThumbLeft();
+            } else {
+                HoldingPlayer.Owner.UIBubble.SetThumbRight();
             }
         }
-#endregion
 
-        public override bool UseTool()
+        public override bool Use()
         {
-            if(!base.UseTool()) {
+            // find a point to repair
+            RepairPoint repairPoint = HoldingPlayer.GetDamagedRepairPoint(DamageType);
+            if(repairPoint == null) {
                 return false;
             }
 
-            // find a point to repair
-            RepairPoint = HoldingPlayer.GetDamagedRepairPoint(DamageType);
-            if(RepairPoint == null) {
-                base.EndUseTool();
+            if(!SetRepairPoint(repairPoint)) {
+                return false;
+            }
+
+            if(!base.Use()) {
                 return false;
             }
 
             _lastTurnAxis = 1;
-
-            HoldingPlayer.WrenchEffect.gameObject.SetActive(true);
-            HoldingPlayer.WrenchEffect.Trigger();
+            HoldingPlayer.Owner.UIBubble.SetThumbLeft();
 
             return true;
         }
 
-        public override void EndUseTool()
+        public override void EndUse()
         {
-            HoldingPlayer.WrenchEffect.StopTrigger();
-            HoldingPlayer.WrenchEffect.gameObject.SetActive(false);
-
             _successfulTurns = 0;
 
-            base.EndUseTool();
+            base.EndUse();
         }
 
         public override void TrackThumbStickAxis(Vector2 axis)
         {
-            if(!InUse || !GameManager.Instance.MechanicsCanInteract)
-                return;
-
-            if((axis.x >= .5f || axis.y >= .5f) && _lastTurnAxis != 1) {
+            if((axis.x >= 0.5f || axis.y >= 0.5f) && _lastTurnAxis != 1) {
                 _lastTurnAxis = 1;
-            } else if ((axis.x <= -.5f || axis.y <= -.5f) && _lastTurnAxis != -1) {
+                HoldingPlayer.Owner.UIBubble.SetThumbLeft();
+            } else if ((axis.x <= -0.5f || axis.y <= -0.5f) && _lastTurnAxis != -1) {
                 _lastTurnAxis = -1;
+                HoldingPlayer.Owner.UIBubble.SetThumbRight();
+
                 _successfulTurns++;
             }
 
-            if(_successfulTurns >= _maxSuccesfulTurns && !RepairPoint.IsRepaired) {
-                RepairPoint.Repair();
-                Debug.Log("Repair Done!");
+            if(_successfulTurns >= _maxSuccesfulTurns) {
+                if(!RepairPoint.IsRepaired) {
+                    RepairPoint.Repair();
+                }
             }
         }
 
+#region Attachments
         public override void SetAttachment()
         {
             HoldingPlayer.Owner.MechanicModel.SetAttachment("Tool_Wrench", "Tool_Wrench");
@@ -90,5 +85,6 @@ namespace pdxpartyparrot.ggj2020.Tools
         {
             HoldingPlayer.Owner.MechanicModel.RemoveAttachment("Tool_Wrench");
         }
+#endregion
     }
 }

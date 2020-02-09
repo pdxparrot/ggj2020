@@ -1,3 +1,5 @@
+using System;
+
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Effects;
@@ -24,6 +26,8 @@ namespace pdxpartyparrot.ggj2020.Players
 
         [SerializeField]
         private BoneFollower _toolAttachment;
+
+        [Space(10)]
 
         [SerializeField]
         [ReadOnly]
@@ -70,7 +74,12 @@ namespace pdxpartyparrot.ggj2020.Players
             private set
             {
                 _canUseTool = value;
-                // TODO: notify the tool so it can whatever it needs to with its sprite thingy
+
+                if(CanUseTool) {
+                    _heldTool.CanUse();
+                } else {
+                    Owner.UIBubble.HideSprite();
+                }
             }
         }
 
@@ -89,21 +98,6 @@ namespace pdxpartyparrot.ggj2020.Players
 
         [SerializeField]
         private EffectTrigger _useToolEffect;
-
-        [SerializeField]
-        private EffectTrigger _fireExtinguisherEffect;
-
-        public EffectTrigger FireExtinguisherEffect => _fireExtinguisherEffect;
-
-        [SerializeField]
-        private EffectTrigger _hammerEffect;
-
-        public EffectTrigger HammerEffect => _hammerEffect;
-
-        [SerializeField]
-        private EffectTrigger _wrenchEffect;
-
-        public EffectTrigger WrenchEffect => _wrenchEffect;
 #endregion
 
         private Interactables _interactables;
@@ -115,7 +109,16 @@ namespace pdxpartyparrot.ggj2020.Players
             _interactables.InteractableAddedEvent += InteractableAddedEventHandler;
             _interactables.InteractableRemovedEvent += InteractableRemovedEventHandler;
 
-            DisableToolEffects();
+            Owner.UIBubble.HideSprite();
+
+            GameManager.Instance.MechanicsCanInteractEvent += MechanicsCanInteractEventHandler;
+        }
+
+        private void OnDestroy()
+        {
+            if(GameManager.HasInstance) {
+                GameManager.Instance.MechanicsCanInteractEvent -= MechanicsCanInteractEventHandler;
+            }
         }
 #endregion
 
@@ -151,7 +154,7 @@ namespace pdxpartyparrot.ggj2020.Players
                 return false;
             }
 
-            if(!_heldTool.UseTool()) {
+            if(!_heldTool.Use()) {
                 return false;
             }
 
@@ -161,12 +164,16 @@ namespace pdxpartyparrot.ggj2020.Players
 
         private void PickupTool()
         {
+            if(HasTool) {
+                return;
+            }
+
             Tool tool = _interactables.GetRandomInteractable<Tool>();
             if(null == tool) {
                 return;
             }
 
-            if(!tool.SetHeld(this)) {
+            if(!tool.Hold(this)) {
                 return;
             }
 
@@ -208,7 +215,7 @@ namespace pdxpartyparrot.ggj2020.Players
                 return;
             }
 
-            _heldTool.EndUseTool();
+            _heldTool.EndUse();
             Owner.Behavior.SpineAnimationHelper.SetEmptyAnimation(1);
         }
 
@@ -224,24 +231,15 @@ namespace pdxpartyparrot.ggj2020.Players
 
             _dropToolEffect.Trigger();
 
-            DisableToolEffects();
-        }
-
-        private void DisableToolEffects()
-        {
-            _fireExtinguisherEffect.StopTrigger();
-            _fireExtinguisherEffect.gameObject.SetActive(false);
-
-            _hammerEffect.StopTrigger();
-            _hammerEffect.gameObject.SetActive(false);
-
-            _wrenchEffect.StopTrigger();
-            _wrenchEffect.gameObject.SetActive(false);
-
             Owner.UIBubble.HideSprite();
         }
 
 #region Events
+        private void MechanicsCanInteractEventHandler(object sender, EventArgs args)
+        {
+            CanUseTool = _canUseTool && GameManager.Instance.MechanicsCanInteract;
+        }
+
         private void InteractableAddedEventHandler(object sender, InteractableEventArgs args)
         {
             if(!CanUseLadder && args.Interactable.gameObject.GetComponent<Ladder>() != null) {

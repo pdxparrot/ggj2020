@@ -24,19 +24,6 @@ namespace pdxpartyparrot.ggj2020.Tools
         [CanBeNull]
         private Mechanic _usingPlayer;
 
-        [CanBeNull]
-        private Mechanic UsingPlayer
-        {
-            get => _usingPlayer;
-            set => _usingPlayer = value;
-        }
-
-        [SerializeField]
-        [ReadOnly]
-        private bool _inUse;
-
-        public bool InUse => _inUse;
-
         private readonly HashSet<Mechanic> _succesfulPlayers = new HashSet<Mechanic>();
 
 #region Unity Lifecycle
@@ -47,8 +34,8 @@ namespace pdxpartyparrot.ggj2020.Tools
                 return;
             }
 
-            if(UsingPlayer == player.Mechanic) {
-                UsingPlayer = null;
+            if(_usingPlayer == player.Mechanic) {
+                _usingPlayer = null;
                 return;
             }
 
@@ -56,19 +43,18 @@ namespace pdxpartyparrot.ggj2020.Tools
         }
 #endregion
 
-        public bool Use()
+        public bool Use(Mechanic player)
         {
-            if(!GameManager.Instance.MechanicsCanInteract || !InUse) {
+            if(!GameManager.Instance.MechanicsCanInteract || null != _usingPlayer) {
                 return false;
             }
 
-            _inUse = true;
+            _usingPlayer = player;
 
             _succesfulHits++;
             if(_succesfulHits >= _maxSuccesfulHits) {
-                _succesfulPlayers.Add(UsingPlayer);
-
-                Debug.LogWarning("Succesful Fix TODO Hook up to Robo");
+                _succesfulPlayers.Add(_usingPlayer);
+                _usingPlayer = null;
             }
 
             return true;

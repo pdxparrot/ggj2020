@@ -1,6 +1,7 @@
 ﻿using System;
 
 using pdxpartyparrot.Core.Time;
+using pdxpartyparrot.ggj2020.Actors;
 
 using UnityEngine;
 
@@ -33,39 +34,40 @@ namespace pdxpartyparrot.ggj2020.Tools
         }
 #endregion
 
-        public override bool UseTool()
+        public override void CanUse()
         {
-            if(!base.UseTool()) {
+            HoldingPlayer.Owner.UIBubble.SetPressedSprite();
+        }
+
+        public override bool Use()
+        {
+            // find a point to repair
+            RepairPoint repairPoint = HoldingPlayer.GetDamagedRepairPoint(DamageType);
+            if(repairPoint == null) {
                 return false;
             }
 
-            // find a point to repair
-            RepairPoint = HoldingPlayer.GetDamagedRepairPoint(DamageType);
-            if(RepairPoint == null) {
-                base.EndUseTool();
+            if(!SetRepairPoint(repairPoint)) {
+                return false;
+            }
+
+            if(!base.Use()) {
                 return false;
             }
 
             _holdTimer.Start(_holdTime);
 
-            HoldingPlayer.Owner.UIBubble.SetPressedSprite();
-
-            HoldingPlayer.FireExtinguisherEffect.gameObject.SetActive(true);
-            HoldingPlayer.FireExtinguisherEffect.Trigger();
-
             return true;
         }
 
-        public override void EndUseTool()
+        public override void EndUse()
         {
             _holdTimer.Stop();
 
-            HoldingPlayer.FireExtinguisherEffect.StopTrigger();
-            HoldingPlayer.FireExtinguisherEffect.gameObject.SetActive(false);
-
-            base.EndUseTool();
+            base.EndUse();
         }
 
+#region Attachments
         public override void SetAttachment()
         {
             HoldingPlayer.Owner.MechanicModel.SetAttachment("Tool_FireExtinguisher", "Tool_FireExtinguisher");
@@ -75,6 +77,7 @@ namespace pdxpartyparrot.ggj2020.Tools
         {
             HoldingPlayer.Owner.MechanicModel.RemoveAttachment("Tool_FireExtinguisher");
         }
+#endregion
 
 #region Events
         private void HoldTimerTimesUpEventHandler(object sender, EventArgs args)
@@ -82,7 +85,6 @@ namespace pdxpartyparrot.ggj2020.Tools
             if(!RepairPoint.IsRepaired) {
                 RepairPoint.Repair();
             }
-            RepairPoint = null;
         }
 #endregion
     }

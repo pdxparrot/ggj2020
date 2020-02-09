@@ -18,6 +18,8 @@ namespace pdxpartyparrot.ggj2020
     public sealed class GameManager : GameManager<GameManager>
     {
 #region Events
+        public event EventHandler<EventArgs> MechanicsCanInteractEvent;
+
         public event EventHandler<EventArgs> RepairSuccessEvent;
         public event EventHandler<EventArgs> RepairFailureEvent;
 
@@ -40,7 +42,11 @@ namespace pdxpartyparrot.ggj2020
         public bool MechanicsCanInteract
         {
             get => _mechanicsCanInteract;
-            set => _mechanicsCanInteract = value;
+            set
+            {
+                _mechanicsCanInteract = value;
+                MechanicsCanInteractEvent?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         [SerializeField]
