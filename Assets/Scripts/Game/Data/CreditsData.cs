@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
+using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -44,6 +47,20 @@ namespace pdxpartyparrot.Game.Data
         [SerializeField]
         [TextArea]
         private string _postAmble;
+
+        [CanBeNull]
+        public string GetRandomContributor()
+        {
+            // TODO: move this allocation out of here
+            HashSet<string> contributors = new HashSet<string>();
+            foreach(Credits credits in _credits.Items) {
+                foreach(string contributor in credits.Contributors) {
+                    contributors.Add(contributor);
+                }
+            }
+
+            return contributors.GetRandomEntry();
+        }
 
         public override string ToString()
         {
