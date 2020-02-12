@@ -18,8 +18,23 @@ namespace pdxpartyparrot.ggj2020.Tools
         [ReadOnly]
         private int _successfulTurns;
 
-        public override void CanUse()
+        public override bool SetRepairPoint(RepairPoint repairPoint)
         {
+            if(!base.SetRepairPoint(repairPoint)) {
+                return false;
+            }
+
+            _successfulTurns = 0;
+
+            return true;
+        }
+
+        public override void ShowBubble()
+        {
+            if(!IsHeld) {
+                return;
+            }
+
             if(_lastTurnAxis == 1) {
                 HoldingPlayer.Owner.UIBubble.SetThumbLeft();
             } else {
@@ -29,16 +44,6 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         public override bool Use()
         {
-            // find a point to repair
-            RepairPoint repairPoint = HoldingPlayer.GetDamagedRepairPoint(DamageType);
-            if(repairPoint == null) {
-                return false;
-            }
-
-            if(!SetRepairPoint(repairPoint)) {
-                return false;
-            }
-
             if(!base.Use()) {
                 return false;
             }

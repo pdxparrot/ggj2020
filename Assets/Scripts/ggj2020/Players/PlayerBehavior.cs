@@ -10,7 +10,7 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.ggj2020.Players
 {
-    [RequireComponent(typeof(Mechanic))]
+    [RequireComponent(typeof(MechanicBehavior))]
     public sealed class PlayerBehavior : Game.Characters.Players.PlayerBehavior
     {
         public PlayerBehaviorData GamePlayerBehaviorData => (PlayerBehaviorData)PlayerBehaviorData;

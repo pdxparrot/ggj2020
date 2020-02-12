@@ -15,8 +15,23 @@ namespace pdxpartyparrot.ggj2020.Tools
         [ReadOnly]
         private int _succesfulHits;
 
-        public override void CanUse()
+        public override bool SetRepairPoint(RepairPoint repairPoint)
         {
+            if(!base.SetRepairPoint(repairPoint)) {
+                return false;
+            }
+
+            _succesfulHits = 0;
+
+            return true;
+        }
+
+        public override void ShowBubble()
+        {
+            if(!IsHeld) {
+                return;
+            }
+
             if(InUse) {
                 HoldingPlayer.Owner.UIBubble.SetPressedSprite();
             } else {
@@ -30,19 +45,6 @@ namespace pdxpartyparrot.ggj2020.Tools
                 return false;
             }
 
-            // find a point to repair if we don't already have one
-            RepairPoint repairPoint = RepairPoint;
-            if(null == repairPoint) {
-                repairPoint = HoldingPlayer.GetDamagedRepairPoint(DamageType);
-                if(repairPoint == null) {
-                    return false;
-                }
-
-                if(!SetRepairPoint(repairPoint)) {
-                    return false;
-                }
-            }
-
             if(!base.Use()) {
                 return false;
             }
@@ -50,14 +52,6 @@ namespace pdxpartyparrot.ggj2020.Tools
             HoldingPlayer.Owner.UIBubble.SetPressedSprite();
 
             return true;
-        }
-
-        public override void EndUse()
-        {
-            // TODO: if we move away from the repair point
-            // then reset the successes to 0
-
-            base.EndUse();
         }
 
         protected override void OnUseToolEffectEnd()
@@ -74,8 +68,6 @@ namespace pdxpartyparrot.ggj2020.Tools
             if(!RepairPoint.IsRepaired) {
                 RepairPoint.Repair();
             }
-
-            _succesfulHits = 0;
         }
 
 #region Attachments

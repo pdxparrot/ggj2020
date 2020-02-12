@@ -43,17 +43,11 @@ namespace pdxpartyparrot.ggj2020.Tools
 
         [SerializeField]
         [ReadOnly]
-        private bool _inUse;
-
-        public bool InUse => _inUse;
-
-        [SerializeField]
-        [ReadOnly]
         [CanBeNull]
-        private Mechanic _holdingPlayer;
+        private MechanicBehavior _holdingPlayer;
 
         [CanBeNull]
-        protected Mechanic HoldingPlayer => _holdingPlayer;
+        protected MechanicBehavior HoldingPlayer => _holdingPlayer;
 
         public bool IsHeld => HoldingPlayer != null;
 
@@ -63,7 +57,17 @@ namespace pdxpartyparrot.ggj2020.Tools
         private RepairPoint _repairPoint;
 
         [CanBeNull]
-        protected RepairPoint RepairPoint => _repairPoint;
+        public RepairPoint RepairPoint => _repairPoint;
+
+        public bool HasRepairPoint => null != _repairPoint;
+
+        public bool CanUse => IsHeld && null != _repairPoint && CanRepair(_repairPoint);
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _inUse;
+
+        public bool InUse => _inUse;
 
         private Rigidbody _rigidbody;
 
@@ -76,10 +80,19 @@ namespace pdxpartyparrot.ggj2020.Tools
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
 
             _useEffect.gameObject.SetActive(false);
+
+            GameManager.Instance.MechanicsCanInteractEvent += MechanicsCanInteractEventHandler;
+        }
+
+        protected virtual void OnDestroy()
+        {
+            if(GameManager.HasInstance) {
+                GameManager.Instance.MechanicsCanInteractEvent -= MechanicsCanInteractEventHandler;
+            }
         }
 #endregion
 
-        public virtual bool Hold(Mechanic player)
+        public bool Hold(MechanicBehavior player)
         {
             if(IsHeld) {
                 return false;
@@ -96,11 +109,13 @@ namespace pdxpartyparrot.ggj2020.Tools
             return true;
         }
 
-        public virtual void Drop()
+        public void Drop()
         {
             if(!IsHeld) {
                 return;
             }
+
+            SetRepairPoint(null);
 
             RemoveAttachment();
 
@@ -116,27 +131,41 @@ namespace pdxpartyparrot.ggj2020.Tools
             _useEffect.gameObject.SetActive(false);
         }
 
-        public bool SetRepairPoint(RepairPoint repairPoint)
+        public bool CanRepair(RepairPoint repairPoint)
         {
+            return null != repairPoint && repairPoint.RepairPointDamageType == DamageType;
+        }
+
+        public virtual bool SetRepairPoint(RepairPoint repairPoint)
+        {
+            if(repairPoint == RepairPoint) {
+                return true;
+            }
+
             if(null != RepairPoint) {
-                return false;
+                RepairPoint.RepairedEvent -= RepairPointRepairedEventHandler;
             }
 
             _repairPoint = repairPoint;
-            _repairPoint.RepairedEvent += RepairPointRepairedEventHandler;
+
+            if(null != RepairPoint) {
+                _repairPoint.RepairedEvent += RepairPointRepairedEventHandler;
+
+                if(HoldingPlayer.CanUseTool) {
+                    ShowBubble();
+                }
+            } else {
+                HoldingPlayer.Owner.UIBubble.HideSprite();
+            }
 
             return true;
         }
 
-        public virtual void TrackThumbStickAxis(Vector2 axis)
-        {
-        }
-
-        public abstract void CanUse();
+        public abstract void ShowBubble();
 
         public virtual bool Use()
         {
-            if(!GameManager.Instance.MechanicsCanInteract || !IsHeld || null == _repairPoint) {
+            if(!IsHeld || !HoldingPlayer.CanUseTool) {
                 return false;
             }
 
@@ -156,6 +185,10 @@ namespace pdxpartyparrot.ggj2020.Tools
             _useEffect.gameObject.SetActive(false);
         }
 
+        public virtual void TrackThumbStickAxis(Vector2 axis)
+        {
+        }
+
         protected virtual void OnUseToolEffectEnd()
         {
         }
@@ -167,11 +200,18 @@ namespace pdxpartyparrot.ggj2020.Tools
 #endregion
 
 #region Events
+        private void MechanicsCanInteractEventHandler(object sender, EventArgs args)
+        {
+            if(IsHeld && HoldingPlayer.CanUseTool) {
+                ShowBubble();
+            }
+        }
+
         private void RepairPointRepairedEventHandler(object sender, EventArgs args)
         {
-            _repairPoint = null;
+            SetRepairPoint(null);
 
-            HoldingPlayer.UseEnded();
+            HoldingPlayer.RepairPointRepaired();
         }
 #endregion
     }

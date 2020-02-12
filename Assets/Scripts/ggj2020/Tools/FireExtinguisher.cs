@@ -24,33 +24,40 @@ namespace pdxpartyparrot.ggj2020.Tools
             _holdTimer.TimesUpEvent += HoldTimerTimesUpEventHandler;
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             _holdTimer.TimesUpEvent -= HoldTimerTimesUpEventHandler;
 
             if(TimeManager.HasInstance) {
                 TimeManager.Instance.RemoveTimer(_holdTimer);
             }
+
+            base.OnDestroy();
         }
 #endregion
 
-        public override void CanUse()
+        public override bool SetRepairPoint(RepairPoint repairPoint)
         {
+            if(!base.SetRepairPoint(repairPoint)) {
+                return false;
+            }
+
+            _holdTimer.Stop();
+
+            return true;
+        }
+
+        public override void ShowBubble()
+        {
+            if(!IsHeld) {
+                return;
+            }
+
             HoldingPlayer.Owner.UIBubble.SetPressedSprite();
         }
 
         public override bool Use()
         {
-            // find a point to repair
-            RepairPoint repairPoint = HoldingPlayer.GetDamagedRepairPoint(DamageType);
-            if(repairPoint == null) {
-                return false;
-            }
-
-            if(!SetRepairPoint(repairPoint)) {
-                return false;
-            }
-
             if(!base.Use()) {
                 return false;
             }

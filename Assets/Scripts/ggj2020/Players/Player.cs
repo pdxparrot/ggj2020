@@ -21,9 +21,9 @@ namespace pdxpartyparrot.ggj2020.Players
         [Space(10)]
 
         [SerializeField]
-        private Mechanic _mechanic;
+        private MechanicBehavior _mechanic;
 
-        public Mechanic Mechanic => _mechanic;
+        public MechanicBehavior Mechanic => _mechanic;
 
         [SerializeField]
         private MechanicModel _mechanicModel;

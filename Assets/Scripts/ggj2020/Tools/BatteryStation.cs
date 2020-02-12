@@ -22,9 +22,9 @@ namespace pdxpartyparrot.ggj2020.Tools
         [SerializeField]
         [ReadOnly]
         [CanBeNull]
-        private Mechanic _usingPlayer;
+        private MechanicBehavior _usingPlayer;
 
-        private readonly HashSet<Mechanic> _succesfulPlayers = new HashSet<Mechanic>();
+        private readonly HashSet<MechanicBehavior> _succesfulPlayers = new HashSet<MechanicBehavior>();
 
 #region Unity Lifecycle
         private void OnTriggerExit(Collider other)
@@ -43,7 +43,7 @@ namespace pdxpartyparrot.ggj2020.Tools
         }
 #endregion
 
-        public bool Use(Mechanic player)
+        public bool Use(MechanicBehavior player)
         {
             if(!GameManager.Instance.MechanicsCanInteract || null != _usingPlayer) {
                 return false;
