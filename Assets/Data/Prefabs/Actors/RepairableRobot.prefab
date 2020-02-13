@@ -3559,17 +3559,17 @@ PrefabInstance:
     - target: {fileID: 7965566925266628214, guid: 41db5dfd8e4407948b7e0746b616ff3d,
         type: 3}
       propertyPath: _animationName
-      value: outro_anim_charge
+      value: outro_anim_nocharge
       objectReference: {fileID: 0}
     - target: {fileID: 7965566925266628214, guid: 41db5dfd8e4407948b7e0746b616ff3d,
         type: 3}
       propertyPath: timeScale
-      value: 0.25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7965566925266628214, guid: 41db5dfd8e4407948b7e0746b616ff3d,
         type: 3}
       propertyPath: loop
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41db5dfd8e4407948b7e0746b616ff3d, type: 3}
