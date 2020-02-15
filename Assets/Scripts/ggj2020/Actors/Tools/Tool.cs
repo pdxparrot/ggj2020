@@ -132,7 +132,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
 
         public bool CanRepair(RepairPoint repairPoint)
         {
-            return null != repairPoint && repairPoint.RepairPointDamageType == DamageType;
+            return null != repairPoint && repairPoint.CurrentDamageType == DamageType;
         }
 
         public virtual bool SetRepairPoint(RepairPoint repairPoint)

@@ -422,7 +422,8 @@ MonoBehaviour:
   _damagedEffectTrigger: {fileID: 3494796904747190336}
   _looseEffectTrigger: {fileID: 4750750942517711631}
   _repairEffectTrigger: {fileID: 1868389956939677588}
-  _damageType: 0
+  _damageType: 3
+  _currentDamageType: 0
   _repairState: 0
 --- !u!65 &3364565841446961596
 BoxCollider:

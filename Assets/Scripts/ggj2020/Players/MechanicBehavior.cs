@@ -133,7 +133,7 @@ namespace pdxpartyparrot.ggj2020.Players
             var interactables = _interactables.GetInteractables<RepairPoint>();
             foreach(IInteractable interactable in interactables) {
                 RepairPoint repairPoint = (RepairPoint)interactable;
-                if(!repairPoint.IsRepaired && repairPoint.RepairPointDamageType == damageType) {
+                if(!repairPoint.IsRepaired && repairPoint.CurrentDamageType == damageType) {
                     return repairPoint;
                 }
             }

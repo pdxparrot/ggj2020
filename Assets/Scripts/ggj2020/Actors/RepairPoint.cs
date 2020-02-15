@@ -1,5 +1,6 @@
 ﻿using System;
 
+using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Util;
@@ -24,14 +25,15 @@ namespace pdxpartyparrot.ggj2020.Actors
             Fire,
             Damaged,
             Loose,
-            //Random,
+            Random,
             //Stacked,
         }
+        private const int DamageTypeCount = 3;
 
         public enum RepairState
         {
-            UnRepaired,
             Repaired,
+            UnRepaired,
         }
 
         public Type InteractableType => GetType();
@@ -55,9 +57,15 @@ namespace pdxpartyparrot.ggj2020.Actors
         [Space(10)]
 
         [SerializeField]
-        private DamageType _damageType = DamageType.Fire;
+        private DamageType _damageType = DamageType.Random;
 
-        public DamageType RepairPointDamageType => _damageType;
+        [SerializeField]
+        [ReadOnly]
+        private DamageType _currentDamageType = DamageType.Fire;
+
+        public DamageType CurrentDamageType => _currentDamageType;
+
+        [Space(10)]
 
         [SerializeField]
         [ReadOnly]
@@ -99,10 +107,28 @@ namespace pdxpartyparrot.ggj2020.Actors
         {
             _repairState = RepairState.UnRepaired;
 
-            // TODO: instead of disabling the entire thing just disable the vfx
             gameObject.SetActive(true);
 
-            switch(RepairPointDamageType)
+            switch(_damageType)
+            {
+            case DamageType.Fire:
+            case DamageType.Damaged:
+            case DamageType.Loose:
+                _currentDamageType = _damageType;
+                break;
+            case DamageType.Random:
+                _currentDamageType = (DamageType)PartyParrotManager.Instance.Random.Next(DamageTypeCount);
+                break;
+            /*case DamageType.Stacked:
+                break;*/
+            }
+
+            InitDamage();
+        }
+
+        private void InitDamage()
+        {
+            switch(_currentDamageType)
             {
             case DamageType.Fire:
                 _fireDamageEffectTrigger.Trigger();
@@ -119,10 +145,9 @@ namespace pdxpartyparrot.ggj2020.Actors
                 _audioSource.clip = GameManager.Instance.GameGameData.RepairableRobotData.LooseAudioClip;
                 _audioSource.Play();
                 break;
-            /*case DamageType.Random:
-                break;*/
-            /*case DamageType.Stacked:
-                break;*/
+            default:
+                Debug.LogError($"Invalid damage type {_currentDamageType}");
+                break;
             }
         }
 
@@ -132,10 +157,9 @@ namespace pdxpartyparrot.ggj2020.Actors
 
             _repairState = RepairState.Repaired;
 
-            // TODO: instead of disabling the entire thing just disable the vfx
-            gameObject.SetActive(false);
-
             StopDamageEffects();
+
+            gameObject.SetActive(false);
 
             //_repairEffectTrigger.Trigger();
 
