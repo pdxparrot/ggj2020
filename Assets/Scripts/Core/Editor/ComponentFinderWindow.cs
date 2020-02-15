@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Util;
 
+using Spine.Unity;
 using TMPro;
 
 using UnityEditor;
@@ -49,6 +50,12 @@ namespace pdxpartyparrot.Core.Editor
 
             // ui
             typeof(TextMeshProUGUI),
+
+            // spine
+#if USE_SPINE
+            typeof(SkeletonAnimation),
+            typeof(SkeletonUtility),
+#endif
         };
 
         private struct ComponentLookupResult
