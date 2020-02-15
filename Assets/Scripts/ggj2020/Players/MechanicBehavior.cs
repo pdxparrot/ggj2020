@@ -71,7 +71,7 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public bool IsUsingTool => HasTool && _heldTool.InUse;
 
-        public bool CanUseTool => GameManager.Instance.MechanicsCanInteract && HasTool && _heldTool.CanUse && !IsUsingTool;
+        public bool CanUseTool => GameManager.Instance.MechanicsCanInteract && !IsOnLadder && HasTool && _heldTool.CanUse && !IsUsingTool;
 #endregion
 
         [Space(10)]
