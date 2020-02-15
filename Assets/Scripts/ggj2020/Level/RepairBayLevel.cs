@@ -4,6 +4,7 @@ using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Level;
 using pdxpartyparrot.ggj2020.Actors;
+using pdxpartyparrot.ggj2020.Players;
 using pdxpartyparrot.ggj2020.Tools;
 
 using UnityEngine;
@@ -16,6 +17,9 @@ namespace pdxpartyparrot.ggj2020.Level
 
         [SerializeField]
         private Transform _toolContainer;
+
+        [SerializeField]
+        private ChargingStation _chargingStation;
 
         [Space(10)]
 
@@ -93,6 +97,15 @@ namespace pdxpartyparrot.ggj2020.Level
         }
 
 #region Events
+        protected override void GameStartServerEventHandler(object sender, EventArgs args)
+        {
+            base.GameStartServerEventHandler(sender, args);
+
+            _chargingStation.gameObject.SetActive(PlayerManager.Instance.Players.Count >= GameManager.Instance.GameGameData.ChargingStationMinPlayers);
+
+            GameManager.Instance.MechanicsCanInteract = false;
+        }
+
         protected override void GameStartClientEventHandler(object sender, EventArgs args)
         {
             base.GameStartClientEventHandler(sender, args);
@@ -102,8 +115,6 @@ namespace pdxpartyparrot.ggj2020.Level
 
         protected override void GameReadyEventHandler(object sender, EventArgs args)
         {
-            GameManager.Instance.MechanicsCanInteract = false;
-
             SpawnPoint spawnpoint = SpawnManager.Instance.GetSpawnPoint(GameManager.Instance.GameGameData.RepairableRobotSpawnTag);
             _repairableRobot = spawnpoint.SpawnNPCPrefab(GameManager.Instance.GameGameData.RepairableRobotPrefab, null, transform).GetComponent<RepairableRobot>();
             _repairableRobot.RepairedEvent += RepairedEventHandler;

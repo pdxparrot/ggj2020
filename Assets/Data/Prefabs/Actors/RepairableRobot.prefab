@@ -1003,7 +1003,6 @@ MonoBehaviour:
   _facingDirection: {x: 1, y: 0, z: 0}
   _manualAnimator: {fileID: 0}
   _repairPointContainer: {fileID: 8186301270934887549}
-  _animationHelper: {fileID: 3844286469459284050}
   _enterRepairBayMoveEffectTrigger: {fileID: 6068512087542430561}
   _enterMoveTween: {fileID: 4706370909871949078}
   _enterRepairBayAnimEffectTrigger: {fileID: 7058271576401251284}
@@ -1014,7 +1013,6 @@ MonoBehaviour:
   _exitRepairBayFailureEffectTrigger: {fileID: 1889134314180390883}
   _currentDamagedParts: 0
   _currentDamageIncreaseChance: 0
-  _chargeLevel: 0
 --- !u!1 &8852682599872701553
 GameObject:
   m_ObjectHideFlags: 0
@@ -2249,6 +2247,11 @@ PrefabInstance:
     - target: {fileID: 3364565841446961596, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
         type: 3}
       propertyPath: m_Center.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3364565841446961596, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
+        type: 3}
+      propertyPath: m_Center.y
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3558700004337948099, guid: e56b59a14bd75314ea7fce4ef1e60fb3,
