@@ -65,7 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _image: {fileID: 4186716923028879670}
   _fadeTo: {r: 0, g: 0, b: 0, a: 1}
-  _transitionTime: 2
+  _transitionTime: 1
   _difference: {r: 0, g: 0, b: 0, a: 0}
   _timeRemaining: 0
 --- !u!1 &3170915500111043800
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _image: {fileID: 4186716923028879670}
   _fadeTo: {r: 0, g: 0, b: 0, a: 0}
-  _transitionTime: 2
+  _transitionTime: 1
   _difference: {r: 0, g: 0, b: 0, a: 0}
   _timeRemaining: 0
 --- !u!1 &7850099574511897416
@@ -298,6 +298,7 @@ MonoBehaviour:
   _levelEnterEffect: {fileID: 4486532643279865468}
   _levelExitEffect: {fileID: 3407587154568138314}
   _toolContainer: {fileID: 4758571280711168819}
+  _chargingStation: {fileID: 0}
   _cameraBounds: {fileID: 0}
   _repairableExit: {fileID: 0}
 --- !u!1 &8000264011814735310
