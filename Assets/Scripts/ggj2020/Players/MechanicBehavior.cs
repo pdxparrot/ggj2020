@@ -6,7 +6,7 @@ using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ggj2020.Actors;
-using pdxpartyparrot.ggj2020.Tools;
+using pdxpartyparrot.ggj2020.Actors.Tools;
 using pdxpartyparrot.ggj2020.World;
 
 using Spine.Unity;

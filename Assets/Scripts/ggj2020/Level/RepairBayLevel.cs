@@ -4,8 +4,8 @@ using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Level;
 using pdxpartyparrot.ggj2020.Actors;
+using pdxpartyparrot.ggj2020.Actors.Tools;
 using pdxpartyparrot.ggj2020.Players;
-using pdxpartyparrot.ggj2020.Tools;
 
 using UnityEngine;
 
