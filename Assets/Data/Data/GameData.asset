@@ -25,7 +25,7 @@ MonoBehaviour:
     type: 3}
   _repairableRobotData: {fileID: 11400000, guid: c0cd17ff7e9e9154da1760e60726b368,
     type: 2}
-  _chargingStationMinPlayers: 3
+  _chargingStationMinPlayers: 5
   _fireExtinguisherHoldTime: 2
   _hammerSuccesfulHits: 5
   _wrenchSuccesfulTurns: 5
