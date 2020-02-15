@@ -39,8 +39,8 @@ namespace pdxpartyparrot.ggj2020.Actors
         [Header("Effects")]
 
         [SerializeField]
-        [FormerlySerializedAs("_enterRepairBayEffectTrigger")]
-        private EffectTrigger _enterRepairBayMoveEffectTrigger;
+        [FormerlySerializedAs("_enterRepairBayMoveEffectTrigger")]
+        private EffectTrigger _enterRepairBayEffectTrigger;
 
         [SerializeField]
         private TweenMove _enterMoveTween;
@@ -52,7 +52,8 @@ namespace pdxpartyparrot.ggj2020.Actors
         private EffectTrigger _repairBayDockedEffect;
 
         [SerializeField]
-        private EffectTrigger _exitRepairBayMoveEffectTrigger;
+        [FormerlySerializedAs("_exitRepairBayMoveEffectTrigger")]
+        private EffectTrigger _exitRepairBayEffectTrigger;
 
         [SerializeField]
         private TweenMove _exitMoveTween;
@@ -181,7 +182,7 @@ namespace pdxpartyparrot.ggj2020.Actors
             _enterMoveTween.From = transform.position;
             _enterMoveTween.To = Vector3.zero;
 
-            _enterRepairBayMoveEffectTrigger.Trigger(() => {
+            _enterRepairBayEffectTrigger.Trigger(() => {
                 _repairBayDockedEffect.Trigger(() => {
                     GameManager.Instance.GameLevelHelper.ChargingStation.EnableUI(true);
 
@@ -199,7 +200,7 @@ namespace pdxpartyparrot.ggj2020.Actors
             _exitMoveTween.From = Vector3.zero;
             _exitMoveTween.To = GameManager.Instance.GameLevelHelper.RepairableExit.position;
 
-            _exitRepairBayMoveEffectTrigger.Trigger(() => {
+            _exitRepairBayEffectTrigger.Trigger(() => {
                 onComplete?.Invoke();
             });
 
@@ -250,7 +251,7 @@ namespace pdxpartyparrot.ggj2020.Actors
                     continue;
                 }
 
-                if(!_enterRepairBayMoveEffectTrigger.IsRunning && !_exitRepairBayMoveEffectTrigger.IsRunning) {
+                if(!_enterRepairBayEffectTrigger.IsRunning && !_exitRepairBayEffectTrigger.IsRunning) {
                     continue;
                 }
 
@@ -303,7 +304,7 @@ namespace pdxpartyparrot.ggj2020.Actors
         {
             ResetDamage();
 
-            _exitRepairBayMoveEffectTrigger.StopTrigger();
+            _exitRepairBayEffectTrigger.StopTrigger();
         }
 
         private void RepairedEventHandler(object sender, EventArgs args)
