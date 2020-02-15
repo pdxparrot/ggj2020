@@ -51,11 +51,30 @@ namespace pdxpartyparrot.ggj2020.Data
 
         [Space(10)]
 
+#region Tools
+        [Header("Tools")]
+
         [SerializeField]
         [Range(1, 5)]
         private int _chargingStationMinPlayers = 3;
 
         public int ChargingStationMinPlayers => _chargingStationMinPlayers;
+
+        [SerializeField]
+        private float _fireExtinguisherHoldTime = 1;
+
+        public float FireExtinguisherHoldTime => _fireExtinguisherHoldTime;
+
+        [SerializeField]
+        private int _hammerSuccesfulHits = 5;
+
+        public int HammerSuccessfulHits => _hammerSuccesfulHits;
+
+        [SerializeField]
+        private int _wrenchSuccesfulTurns = 5;
+
+        public int WrenchSuccessfulTurns => _wrenchSuccesfulTurns;
+#endregion
 
         [Space(10)]
 

@@ -6,8 +6,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
 {
     public sealed class Wrench : Tool
     {
-        [SerializeField]
-        private int _maxSuccesfulTurns = 5;
+        [Space(10)]
 
         [SerializeField]
         [ReadOnly]
@@ -72,7 +71,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
                 _successfulTurns++;
             }
 
-            if(_successfulTurns >= _maxSuccesfulTurns) {
+            if(_successfulTurns >= GameManager.Instance.GameGameData.WrenchSuccessfulTurns) {
                 if(!RepairPoint.IsRepaired) {
                     RepairPoint.Repair();
                 }

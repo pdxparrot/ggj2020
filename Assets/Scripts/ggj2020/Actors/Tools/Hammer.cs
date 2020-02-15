@@ -6,9 +6,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
 {
     public sealed class Hammer : Tool
     {
-        // TODO: move to data
-        [SerializeField]
-        private int _maxSuccesfulHits = 5;
+        [Space(10)]
 
         [SerializeField]
         [ReadOnly]
@@ -60,7 +58,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
             HoldingPlayer.Owner.UIBubble.SetUnpressedSprite();
 
             _succesfulHits++;
-            if(_succesfulHits < _maxSuccesfulHits) {
+            if(_succesfulHits < GameManager.Instance.GameGameData.HammerSuccessfulHits) {
                 return;
             }
 
