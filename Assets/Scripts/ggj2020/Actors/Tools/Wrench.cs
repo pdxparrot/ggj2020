@@ -77,17 +77,5 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
                 }
             }
         }
-
-#region Attachments
-        public override void SetAttachment()
-        {
-            HoldingPlayer.Owner.MechanicModel.SetAttachment("Tool_Wrench", "Tool_Wrench");
-        }
-
-        public override void RemoveAttachment()
-        {
-            HoldingPlayer.Owner.MechanicModel.RemoveAttachment("Tool_Wrench");
-        }
-#endregion
     }
 }

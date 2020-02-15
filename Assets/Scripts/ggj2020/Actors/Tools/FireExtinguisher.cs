@@ -66,17 +66,5 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
 
             base.EndUse();
         }
-
-#region Attachments
-        public override void SetAttachment()
-        {
-            HoldingPlayer.Owner.MechanicModel.SetAttachment("Tool_FireExtinguisher", "Tool_FireExtinguisher");
-        }
-
-        public override void RemoveAttachment()
-        {
-            HoldingPlayer.Owner.MechanicModel.RemoveAttachment("Tool_FireExtinguisher");
-        }
-#endregion
     }
 }

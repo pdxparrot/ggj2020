@@ -32,6 +32,8 @@ Transform:
   m_Children:
   - {fileID: 5610506647295777048}
   - {fileID: 4389277154571534275}
+  - {fileID: 7916934508738881496}
+  - {fileID: 896417521217305759}
   - {fileID: 2780358896272397892}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -79,11 +81,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _model: {fileID: 7166894625463991040}
   _damageType: 0
+  _holdEffect: {fileID: 898890105992322580}
+  _holdAttachmentEffectComponent: {fileID: 1017227745735972792}
+  _dropEffect: {fileID: 7042170343992595413}
+  _dropAttachmentEffectComponent: {fileID: 6968932640104183005}
   _useEffect: {fileID: 4801497442388428355}
-  _inUse: 0
-  _repairPoint: {fileID: 0}
   _holdingPlayer: {fileID: 0}
-  _holdTime: 2
+  _repairPoint: {fileID: 0}
+  _inUse: 0
 --- !u!1 &3479842209757762376
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,6 +169,104 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &3585490651926688651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7916934508738881496}
+  - component: {fileID: 898890105992322580}
+  - component: {fileID: 1017227745735972792}
+  - component: {fileID: 8482033024381561306}
+  - component: {fileID: 3242485805146017070}
+  m_Layer: 18
+  m_Name: Hold Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7916934508738881496
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585490651926688651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8751524723336088016}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &898890105992322580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585490651926688651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d686a2a25b0fa4580b19af290d7bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 1017227745735972792}
+    - {fileID: 8482033024381561306}
+    - {fileID: 3242485805146017070}
+  _isRunning: 0
+  _complete: 0
+--- !u!114 &1017227745735972792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585490651926688651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bea97ab1b9b248be85538983decc36ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skinHelper: {fileID: 0}
+  _slotName: Tool_FireExtinguisher
+  _attachmentName: Tool_FireExtinguisher
+--- !u!114 &8482033024381561306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585490651926688651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad941762fd72c4b44a54d1df65391a99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameObject: {fileID: 7166894625463991040}
+  _active: 0
+--- !u!114 &3242485805146017070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585490651926688651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c2edfa3ec1a49b49947a3975aada6a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 8812016558578853601}
+  _isKinematic: 1
 --- !u!1 &3761590183361353500
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +298,7 @@ Transform:
   m_Children:
   - {fileID: 2434397469551793258}
   m_Father: {fileID: 8751524723336088016}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4801497442388428355
 MonoBehaviour:
@@ -307,6 +410,104 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8132511695716570618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 896417521217305759}
+  - component: {fileID: 7042170343992595413}
+  - component: {fileID: 6968932640104183005}
+  - component: {fileID: 8847436090778437771}
+  - component: {fileID: 1403835813056669799}
+  m_Layer: 18
+  m_Name: Drop Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &896417521217305759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8132511695716570618}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8751524723336088016}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7042170343992595413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8132511695716570618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d686a2a25b0fa4580b19af290d7bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 6968932640104183005}
+    - {fileID: 8847436090778437771}
+    - {fileID: 1403835813056669799}
+  _isRunning: 0
+  _complete: 0
+--- !u!114 &6968932640104183005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8132511695716570618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bea97ab1b9b248be85538983decc36ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skinHelper: {fileID: 0}
+  _slotName: Tool_FireExtinguisher
+  _attachmentName: 
+--- !u!114 &8847436090778437771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8132511695716570618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad941762fd72c4b44a54d1df65391a99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameObject: {fileID: 7166894625463991040}
+  _active: 1
+--- !u!114 &1403835813056669799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8132511695716570618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c2edfa3ec1a49b49947a3975aada6a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 8812016558578853601}
+  _isKinematic: 0
 --- !u!1001 &2082616001437557016
 PrefabInstance:
   m_ObjectHideFlags: 0

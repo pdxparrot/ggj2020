@@ -3,6 +3,7 @@
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Effects;
+using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ggj2020.Players;
@@ -31,6 +32,18 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
 
 #region Effects
         [Header("Effects")]
+
+        [SerializeField]
+        private EffectTrigger _holdEffect;
+
+        [SerializeField]
+        private SpineAttachmentEffectTriggerComponent _holdAttachmentEffectComponent;
+
+        [SerializeField]
+        private EffectTrigger _dropEffect;
+
+        [SerializeField]
+        private SpineAttachmentEffectTriggerComponent _dropAttachmentEffectComponent;
 
         [SerializeField]
         private EffectTrigger _useEffect;
@@ -91,19 +104,28 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
         }
 #endregion
 
+        private void SetHoldingPlayer([CanBeNull] MechanicBehavior player)
+        {
+            _holdingPlayer = player;
+
+            if(null != _holdingPlayer) {
+                _holdAttachmentEffectComponent.SpineSkinHelper = _holdingPlayer.Owner.Behavior.SpineSkinHelper;
+                _dropAttachmentEffectComponent.SpineSkinHelper = _holdingPlayer.Owner.Behavior.SpineSkinHelper;
+            } else {
+                _holdAttachmentEffectComponent.SpineSkinHelper = null;
+                _dropAttachmentEffectComponent.SpineSkinHelper = null;
+            }
+        }
+
         public bool Hold(MechanicBehavior player)
         {
             if(IsHeld) {
                 return false;
             }
 
-            _holdingPlayer = player;
+            SetHoldingPlayer(player);
 
-            _rigidbody.isKinematic = true;
-
-            _model.SetActive(false);
-
-            SetAttachment();
+            _holdEffect.Trigger();
 
             return true;
         }
@@ -116,15 +138,11 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
 
             SetRepairPoint(null);
 
-            RemoveAttachment();
+            _dropEffect.Trigger();
 
             GameManager.Instance.GameLevelHelper.ReclaimTool(this);
 
-            _model.SetActive(true);
-
-            _rigidbody.isKinematic = false;
-
-            _holdingPlayer = null;
+            SetHoldingPlayer(null);
 
             _useEffect.StopTrigger();
             _useEffect.gameObject.SetActive(false);
@@ -191,12 +209,6 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
         protected virtual void OnUseToolEffectEnd()
         {
         }
-
-#region Attachments
-        public abstract void SetAttachment();
-
-        public abstract void RemoveAttachment();
-#endregion
 
 #region Events
         private void MechanicsCanInteractEventHandler(object sender, EventArgs args)

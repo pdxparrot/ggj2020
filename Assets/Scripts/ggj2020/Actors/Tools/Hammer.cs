@@ -66,17 +66,5 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
                 RepairPoint.Repair();
             }
         }
-
-#region Attachments
-        public override void SetAttachment()
-        {
-            HoldingPlayer.Owner.MechanicModel.SetAttachment("Tool_Hammer", "Tool_Hammer");
-        }
-
-        public override void RemoveAttachment()
-        {
-            HoldingPlayer.Owner.MechanicModel.RemoveAttachment("Tool_Hammer");
-        }
-#endregion
     }
 }

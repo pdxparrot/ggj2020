@@ -12,6 +12,12 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         [SerializeField]
         private SpineSkinHelper _skinHelper;
 
+        public SpineSkinHelper SpineSkinHelper
+        {
+            get => _skinHelper;
+            set => _skinHelper = value;
+        }
+
         [SerializeField]
         private string _slotName = "default";
 
@@ -23,7 +29,11 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         public override void OnStart()
         {
-            _skinHelper.SetAttachment(_slotName, _attachmentName);
+            if(string.IsNullOrWhiteSpace(_attachmentName)) {
+                _skinHelper.RemoveAttachment(_slotName);
+            } else {
+                _skinHelper.SetAttachment(_slotName, _attachmentName);
+            }
         }
     }
 }
