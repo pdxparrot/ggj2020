@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 
+using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.UI;
 
@@ -27,6 +28,16 @@ namespace pdxpartyparrot.Game.Menu
             set => _initialSelection = value;
         }
 
+#region Effects
+        [SerializeField]
+        [CanBeNull]
+        private EffectTrigger _enableEffect;
+
+        [SerializeField]
+        [CanBeNull]
+        private EffectTrigger _disableEffect;
+#endregion
+
 #region Unity Lifecycle
         protected virtual void Awake()
         {
@@ -45,10 +56,18 @@ namespace pdxpartyparrot.Game.Menu
             InputManager.Instance.EventSystem.UIModule.submit.action.performed += OnSubmit;
             InputManager.Instance.EventSystem.UIModule.cancel.action.performed += OnCancel;
             InputManager.Instance.EventSystem.UIModule.move.action.performed += OnMove;
+
+            if(null != _enableEffect) {
+                _enableEffect.Trigger();
+            }
         }
 
         protected virtual void OnDisable()
         {
+            if(null != _disableEffect) {
+                _disableEffect.Trigger();
+            }
+
             if(InputManager.HasInstance) {
                 InputManager.Instance.EventSystem.UIModule.move.action.performed -= OnMove;
                 InputManager.Instance.EventSystem.UIModule.cancel.action.performed -= OnCancel;
