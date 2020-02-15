@@ -1,4 +1,6 @@
-﻿using pdxpartyparrot.Core.UI;
+﻿using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.UI;
 
 using TMPro;
 
@@ -25,11 +27,24 @@ namespace pdxpartyparrot.Core.Loading
             set => _progressText.text = value;
         }
 
+        [SerializeField]
+        [CanBeNull]
+        private TextMeshProUGUI _loadingTips;
+
 #region Unity Lifecycle
         private void Awake()
         {
             _canvas.sortingOrder = 9999;
         }
 #endregion
+
+        public void ShowLoadingTip([CanBeNull] string loadingTip)
+        {
+            if(null == _loadingTips || null == loadingTip) {
+                return;
+            }
+
+            _loadingTips.text = loadingTip;
+        }
     }
 }

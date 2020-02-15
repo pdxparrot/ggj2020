@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+
+using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Camera;
+using pdxpartyparrot.Core.Data;
 using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Input;
@@ -87,6 +91,14 @@ namespace pdxpartyparrot.Core.Loading
         private EffectsManager _effectsManagerPrefab;
 #endregion
 
+        [Space(10)]
+
+        [SerializeField]
+        [CanBeNull]
+        private LoadingTipData _loadingTips;
+
+        private ITimer _loadingTipTimer;
+
         protected GameObject ManagersContainer { get; private set; }
 
 #region Unity Lifecycle
@@ -114,6 +126,12 @@ namespace pdxpartyparrot.Core.Loading
             yield return null;
 
             PreCreateManagers();
+            yield return null;
+
+            _loadingTipTimer = TimeManager.Instance.AddTimer();
+            _loadingTipTimer.TimesUpEvent += LoadingTimeTimerTimesUpEventHandler;
+
+            ShowNextLoadingTip();
             yield return null;
 
             CreateManagers();
@@ -206,6 +224,8 @@ namespace pdxpartyparrot.Core.Loading
 
             if(show) {
                 ResetLoadingScreen();
+            } else {
+                _loadingTipTimer.Stop();
             }
         }
 
@@ -213,6 +233,8 @@ namespace pdxpartyparrot.Core.Loading
         {
             SetLoadingScreenPercent(0.0f);
             SetLoadingScreenText("Loading...");
+
+            ShowNextLoadingTip();
         }
 
         public void UpdateLoadingScreen(float percent, string text)
@@ -231,6 +253,24 @@ namespace pdxpartyparrot.Core.Loading
         public void SetLoadingScreenPercent(float percent)
         {
             _loadingScreen.ProgressBar.Percent = Mathf.Clamp01(percent);
+        }
+
+        private void ShowNextLoadingTip()
+        {
+            if(null == _loadingTips) {
+                return;
+            }
+
+            _loadingScreen.ShowLoadingTip(_loadingTips.GetRandomLoadingTip());
+
+            _loadingTipTimer.Start(_loadingTips.LoadingTipRotateSeconds);
+        }
+#endregion
+
+#region Events
+        private void LoadingTimeTimerTimesUpEventHandler(object sender, EventArgs args)
+        {
+            ShowNextLoadingTip();
         }
 #endregion
     }
