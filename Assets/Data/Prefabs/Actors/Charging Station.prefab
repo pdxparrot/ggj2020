@@ -1200,6 +1200,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e5de780a767e24fa0a655ff10679c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _chargingStationOn: {fileID: 3973121359163253897}
+  _chargingStationOff: {fileID: 5032138326712634938}
   _maxSuccesfulHits: 25
   _succesfulHits: 0
   _usingPlayer: {fileID: 0}

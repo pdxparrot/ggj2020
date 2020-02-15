@@ -20,6 +20,12 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         public Type InteractableType => GetType();
 
+        [SerializeField]
+        private GameObject _chargingStationOn;
+
+        [SerializeField]
+        private GameObject _chargingStationOff;
+
         // TODO: move to data
         [SerializeField]
         private int _maxSuccesfulHits = 25;
@@ -57,6 +63,17 @@ namespace pdxpartyparrot.ggj2020.Actors
             _succesfulHits = 0;
         }
 #endregion
+
+        public void Enable(bool enable)
+        {
+            if(enable) {
+                _chargingStationOn.SetActive(true);
+                _chargingStationOff.SetActive(false);
+            } else {
+                _chargingStationOn.SetActive(false);
+                _chargingStationOff.SetActive(true);
+            }
+        }
 
         public bool Use(MechanicBehavior player)
         {

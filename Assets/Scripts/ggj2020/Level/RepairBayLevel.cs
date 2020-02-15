@@ -101,7 +101,7 @@ namespace pdxpartyparrot.ggj2020.Level
         {
             base.GameStartServerEventHandler(sender, args);
 
-            _chargingStation.gameObject.SetActive(PlayerManager.Instance.Players.Count >= GameManager.Instance.GameGameData.ChargingStationMinPlayers);
+            _chargingStation.Enable(PlayerManager.Instance.Players.Count >= GameManager.Instance.GameGameData.ChargingStationMinPlayers);
 
             GameManager.Instance.MechanicsCanInteract = false;
         }
