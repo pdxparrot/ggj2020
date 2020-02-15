@@ -23,6 +23,11 @@ namespace pdxpartyparrot.Game.Data
 
             public string Title => _title;
 
+            [SerializeField]
+            private bool _allowInContributorString = true;
+
+            public bool AllowInContributorString => _allowInContributorString;
+
             // TODO: this can't be a ReorderableListString for some reason :(
             // the UI treats all of the sub-lists as the same list, not sure why
             [SerializeField]
@@ -48,18 +53,29 @@ namespace pdxpartyparrot.Game.Data
         [TextArea]
         private string _postAmble;
 
-        [CanBeNull]
-        public string GetRandomContributor()
+        [Space(10)]
+
+        [SerializeField]
+        private string _contributorString = "A {credit} Game";
+
+        public string GetContributorString()
         {
             // TODO: move this allocation out of here
             HashSet<string> contributors = new HashSet<string>();
             foreach(Credits credits in _credits.Items) {
+                if(!credits.AllowInContributorString) {
+                    continue;
+                }
+
                 foreach(string contributor in credits.Contributors) {
                     contributors.Add(contributor);
                 }
             }
 
-            return contributors.GetRandomEntry();
+            // TODO: handle A vs An if we can
+
+            string credit = contributors.GetRandomEntry();
+            return null == credit ? _contributorString : _contributorString.Replace("{credit}", credit);
         }
 
         public override string ToString()

@@ -35,6 +35,8 @@ namespace pdxpartyparrot.ggj2020
         // only valid on the client
         public GameViewer Viewer { get; private set; }
 
+        [Space(10)]
+
         [SerializeField]
         [ReadOnly]
         private bool _mechanicsCanInteract;

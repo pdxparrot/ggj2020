@@ -26,6 +26,8 @@ namespace pdxpartyparrot.Game
 
         GameData GameData { get; }
 
+        CreditsData CreditsData { get; }
+
         bool IsGameReady { get; }
 
         bool IsGameOver { get; }
@@ -66,12 +68,21 @@ namespace pdxpartyparrot.Game
         public GameData GameData => _gameData;
 
         [SerializeField]
+        private CreditsData _creditsData;
+
+        public CreditsData CreditsData => _creditsData;
+
+        [Space(10)]
+
+        [SerializeField]
         [ReadOnly]
         [CanBeNull]
         private LevelHelper _levelHelper;
 
         [CanBeNull]
         public LevelHelper LevelHelper => _levelHelper;
+
+        [Space(10)]
 
         [SerializeField]
         [ReadOnly]

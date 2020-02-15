@@ -1,4 +1,4 @@
-﻿using pdxpartyparrot.Game.Data;
+﻿using pdxpartyparrot.Game.State;
 
 using TMPro;
 
@@ -9,9 +9,6 @@ namespace pdxpartyparrot.Game.Menu
     public sealed class CreditsMenu : MenuPanel
     {
         [SerializeField]
-        private CreditsData _creditsData;
-
-        [SerializeField]
         private TextMeshProUGUI _creditsText;
 
 #region Unity Lifecycle
@@ -20,7 +17,7 @@ namespace pdxpartyparrot.Game.Menu
             base.Awake();
 
             _creditsText.richText = true;
-            _creditsText.text = _creditsData.ToString();
+            _creditsText.text = GameStateManager.Instance.GameManager.CreditsData.ToString();
         }
 #endregion
     }

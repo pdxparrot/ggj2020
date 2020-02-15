@@ -16,28 +16,36 @@ MonoBehaviour:
   _credits:
     _items:
     - _title: Animation
+      _allowInContributorString: 1
       _contributors:
       - Allyson Willsey
     - _title: Art - Robot Design
+      _allowInContributorString: 1
       _contributors:
       - Jessica Clark
     - _title: Music and SFX
+      _allowInContributorString: 1
       _contributors:
       - Jesse Clark
     - _title: Programming
+      _allowInContributorString: 1
       _contributors:
       - Shane Lillie
       - Luis Garcia
     - _title: VFX
+      _allowInContributorString: 1
       _contributors:
       - Taylor Lane
     - _title: Unity Generalist
+      _allowInContributorString: 1
       _contributors:
       - Tien Tam
     - _title: Special Thanks
+      _allowInContributorString: 0
       _contributors:
       - 1001fonts.com & ShyFoundry.com for
       - SF Caherilidae Font
       - agonz.oliveira@gmail.com for
       - Ailerons font
   _postAmble: <link="pigsquad">http://www.pigsquad.com</link>
+  _contributorString: A {credit} Game

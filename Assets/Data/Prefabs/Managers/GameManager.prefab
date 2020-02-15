@@ -44,7 +44,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameData: {fileID: 11400000, guid: db6908c51bcd1224c956b848f1bd7b6b, type: 2}
+  _creditsData: {fileID: 11400000, guid: 200c8e82640b4ec418ff497432515496, type: 2}
   _levelHelper: {fileID: 0}
   _isGameReady: 0
   _isGameOver: 0
   _transitionToHighScores: 0
+  _mechanicsCanInteract: 0
+  _repairSuccesses: 0
+  _repairFailures: 0
