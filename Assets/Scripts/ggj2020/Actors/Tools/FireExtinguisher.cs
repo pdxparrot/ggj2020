@@ -1,17 +1,9 @@
-﻿using System;
-
-using pdxpartyparrot.Core.Time;
-
-using UnityEngine;
+﻿using pdxpartyparrot.Core.Time;
 
 namespace pdxpartyparrot.ggj2020.Actors.Tools
 {
     public sealed class FireExtinguisher : Tool
     {
-        // TODO: move to data
-        [SerializeField]
-        private float _holdTime = 1;
-
         private ITimer _holdTimer;
 
 #region Unity Lifecycle
@@ -20,13 +12,15 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
             base.Awake();
 
             _holdTimer = TimeManager.Instance.AddTimer();
-            _holdTimer.TimesUpEvent += HoldTimerTimesUpEventHandler;
+            _holdTimer.TimesUpEvent += (sender, args) => {
+                if(!RepairPoint.IsRepaired) {
+                    RepairPoint.Repair();
+                }
+            };
         }
 
         protected override void OnDestroy()
         {
-            _holdTimer.TimesUpEvent -= HoldTimerTimesUpEventHandler;
-
             if(TimeManager.HasInstance) {
                 TimeManager.Instance.RemoveTimer(_holdTimer);
             }
@@ -61,7 +55,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
                 return false;
             }
 
-            _holdTimer.Start(_holdTime);
+            _holdTimer.Start(GameManager.Instance.GameGameData.FireExtinguisherHoldTime);
 
             return true;
         }
@@ -82,15 +76,6 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
         public override void RemoveAttachment()
         {
             HoldingPlayer.Owner.MechanicModel.RemoveAttachment("Tool_FireExtinguisher");
-        }
-#endregion
-
-#region Events
-        private void HoldTimerTimesUpEventHandler(object sender, EventArgs args)
-        {
-            if(!RepairPoint.IsRepaired) {
-                RepairPoint.Repair();
-            }
         }
 #endregion
     }

@@ -1172,6 +1172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _chargingStationOn: {fileID: 3973121359163253897}
   _chargingStationOff: {fileID: 5032138326712634938}
+  _chargingStationUI: {fileID: 2530265451433661863}
   _maxSuccesfulHits: 25
   _succesfulHits: 0
   _usingPlayer: {fileID: 0}
