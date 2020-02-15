@@ -26,6 +26,9 @@ namespace pdxpartyparrot.ggj2020.Actors
         [SerializeField]
         private GameObject _chargingStationOff;
 
+        [SerializeField]
+        private GameObject _chargingStationUI;
+
         // TODO: move to data
         [SerializeField]
         private int _maxSuccesfulHits = 25;
@@ -73,6 +76,11 @@ namespace pdxpartyparrot.ggj2020.Actors
                 _chargingStationOn.SetActive(false);
                 _chargingStationOff.SetActive(true);
             }
+        }
+
+        public void EnableUI(bool enable)
+        {
+            _chargingStationUI.SetActive(enable);
         }
 
         public bool Use(MechanicBehavior player)

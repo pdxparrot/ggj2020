@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.World;
@@ -20,6 +20,8 @@ namespace pdxpartyparrot.ggj2020.Level
 
         [SerializeField]
         private ChargingStation _chargingStation;
+
+        public ChargingStation ChargingStation => _chargingStation;
 
         [Space(10)]
 
@@ -101,14 +103,14 @@ namespace pdxpartyparrot.ggj2020.Level
         {
             base.GameStartServerEventHandler(sender, args);
 
-            _chargingStation.Enable(PlayerManager.Instance.Players.Count >= GameManager.Instance.GameGameData.ChargingStationMinPlayers);
-
             GameManager.Instance.MechanicsCanInteract = false;
         }
 
         protected override void GameStartClientEventHandler(object sender, EventArgs args)
         {
             base.GameStartClientEventHandler(sender, args);
+
+            _chargingStation.Enable(PlayerManager.Instance.Players.Count >= GameManager.Instance.GameGameData.ChargingStationMinPlayers);
 
             GameManager.Instance.Viewer.SetBounds(_cameraBounds);
         }
