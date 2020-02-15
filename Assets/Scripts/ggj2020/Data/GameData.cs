@@ -52,7 +52,7 @@ namespace pdxpartyparrot.ggj2020.Data
         [Space(10)]
 
         [SerializeField]
-        [Range(1, 4)]
+        [Range(1, 5)]
         private int _chargingStationMinPlayers = 3;
 
         public int ChargingStationMinPlayers => _chargingStationMinPlayers;
