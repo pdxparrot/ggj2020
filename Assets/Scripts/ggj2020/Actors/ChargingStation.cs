@@ -9,7 +9,7 @@ using pdxpartyparrot.ggj2020.Players;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.ggj2020.Tools
+namespace pdxpartyparrot.ggj2020.Actors
 {
     // TODO: make this an actor
     [RequireComponent(typeof(Rigidbody))]
