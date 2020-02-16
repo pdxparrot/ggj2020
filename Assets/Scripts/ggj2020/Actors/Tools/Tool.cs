@@ -172,7 +172,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
                     ShowBubble();
                 }
             } else {
-                HoldingPlayer.Owner.UIBubble.HideSprite();
+                HoldingPlayer.UIBubble.HideSprite();
             }
 
             return true;

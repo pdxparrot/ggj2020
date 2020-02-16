@@ -46,7 +46,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
                 return;
             }
 
-            HoldingPlayer.Owner.UIBubble.SetPressedSprite();
+            HoldingPlayer.UIBubble.SetPressedSprite();
         }
 
         public override bool Use()

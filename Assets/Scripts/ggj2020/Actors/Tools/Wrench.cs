@@ -34,9 +34,9 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
             }
 
             if(_lastTurnAxis == 1) {
-                HoldingPlayer.Owner.UIBubble.SetThumbLeft();
+                HoldingPlayer.UIBubble.SetThumbLeft();
             } else {
-                HoldingPlayer.Owner.UIBubble.SetThumbRight();
+                HoldingPlayer.UIBubble.SetThumbRight();
             }
         }
 
@@ -47,7 +47,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
             }
 
             _lastTurnAxis = 1;
-            HoldingPlayer.Owner.UIBubble.SetThumbLeft();
+            HoldingPlayer.UIBubble.SetThumbLeft();
 
             return true;
         }
@@ -63,10 +63,10 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
         {
             if((axis.x >= 0.5f || axis.y >= 0.5f) && _lastTurnAxis != 1) {
                 _lastTurnAxis = 1;
-                HoldingPlayer.Owner.UIBubble.SetThumbLeft();
+                HoldingPlayer.UIBubble.SetThumbLeft();
             } else if ((axis.x <= -0.5f || axis.y <= -0.5f) && _lastTurnAxis != -1) {
                 _lastTurnAxis = -1;
-                HoldingPlayer.Owner.UIBubble.SetThumbRight();
+                HoldingPlayer.UIBubble.SetThumbRight();
 
                 _successfulTurns++;
             }

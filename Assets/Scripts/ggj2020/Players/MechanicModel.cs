@@ -11,15 +11,5 @@ namespace pdxpartyparrot.ggj2020.Players
         {
             _owner.Behavior.SpineSkinHelper.SetSkin(playerControllerId);
         }
-
-        public void SetAttachment(string slotName, string attachmentName)
-        {
-            _owner.Behavior.SpineSkinHelper.SetAttachment(slotName, attachmentName);
-        }
-
-        public void RemoveAttachment(string slotName)
-        {
-            _owner.Behavior.SpineSkinHelper.RemoveAttachment(slotName);
-        }
     }
 }

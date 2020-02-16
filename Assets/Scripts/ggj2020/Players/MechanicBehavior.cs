@@ -7,6 +7,7 @@ using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ggj2020.Actors;
 using pdxpartyparrot.ggj2020.Actors.Tools;
+using pdxpartyparrot.ggj2020.UI;
 using pdxpartyparrot.ggj2020.World;
 
 using Spine.Unity;
@@ -23,9 +24,6 @@ namespace pdxpartyparrot.ggj2020.Players
         private Player _owner;
 
         public Player Owner => _owner;
-
-        [SerializeField]
-        private BoneFollower _toolAttachment;
 
         [Space(10)]
 
@@ -63,6 +61,9 @@ namespace pdxpartyparrot.ggj2020.Players
 
 #region Tool
         [SerializeField]
+        private BoneFollower _toolAttachment;
+
+        [SerializeField]
         [ReadOnly]
         [CanBeNull]
         private Tool _heldTool;
@@ -72,6 +73,17 @@ namespace pdxpartyparrot.ggj2020.Players
         public bool IsUsingTool => HasTool && _heldTool.InUse;
 
         public bool CanUseTool => GameManager.Instance.MechanicsCanInteract && !IsOnLadder && HasTool && _heldTool.CanUse && !IsUsingTool;
+#endregion
+
+        [Space(10)]
+
+#region UI
+        [Header("UI")]
+
+        [SerializeField]
+        private UIBubble _uiBubble;
+
+        public UIBubble UIBubble => _uiBubble;
 #endregion
 
         [Space(10)]
@@ -98,7 +110,7 @@ namespace pdxpartyparrot.ggj2020.Players
             _interactables.InteractableAddedEvent += InteractableAddedEventHandler;
             _interactables.InteractableRemovedEvent += InteractableRemovedEventHandler;
 
-            Owner.UIBubble.HideSprite();
+            _uiBubble.HideSprite();
 
             GameManager.Instance.MechanicsCanInteractEvent += MechanicsCanInteractEventHandler;
         }
@@ -194,7 +206,7 @@ namespace pdxpartyparrot.ggj2020.Players
             _interactables.AddInteractable(_heldTool);
             _heldTool = null;
 
-            Owner.UIBubble.HideSprite();
+            _uiBubble.HideSprite();
 
             _dropToolEffect.Trigger();
         }
@@ -248,7 +260,7 @@ namespace pdxpartyparrot.ggj2020.Players
         private void MechanicsCanInteractEventHandler(object sender, EventArgs args)
         {
             if(!GameManager.Instance.MechanicsCanInteract) {
-                Owner.UIBubble.HideSprite();
+                _uiBubble.HideSprite();
             }
         }
 

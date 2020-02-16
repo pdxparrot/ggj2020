@@ -30,9 +30,9 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
             }
 
             if(InUse) {
-                HoldingPlayer.Owner.UIBubble.SetPressedSprite();
+                HoldingPlayer.UIBubble.SetPressedSprite();
             } else {
-                HoldingPlayer.Owner.UIBubble.SetUnpressedSprite();
+                HoldingPlayer.UIBubble.SetUnpressedSprite();
             }
         }
 
@@ -46,7 +46,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
                 return false;
             }
 
-            HoldingPlayer.Owner.UIBubble.SetPressedSprite();
+            HoldingPlayer.UIBubble.SetPressedSprite();
 
             return true;
         }
@@ -55,7 +55,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
         {
             base.OnUseToolEffectEnd();
 
-            HoldingPlayer.Owner.UIBubble.SetUnpressedSprite();
+            HoldingPlayer.UIBubble.SetUnpressedSprite();
 
             _succesfulHits++;
             if(_succesfulHits < GameManager.Instance.GameGameData.HammerSuccessfulHits) {
