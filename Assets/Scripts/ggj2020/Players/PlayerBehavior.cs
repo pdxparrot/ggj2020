@@ -1,8 +1,5 @@
-using System;
-
 using pdxpartyparrot.Core.Data.Actors.Components;
 using pdxpartyparrot.Core.Effects;
-using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.ggj2020.Data.Players;
 
 using UnityEngine;
@@ -19,11 +16,8 @@ namespace pdxpartyparrot.ggj2020.Players
 
         [Space(10)]
 
-        [SerializeField]
-        private EffectTrigger _robotImpuleEffectTrigger;
-
-        [SerializeField]
-        private RumbleEffectTriggerComponent _rumbleEffect;
+#region Effects
+        [Header("Player Effects")]
 
         [SerializeField]
         private EffectTrigger _idleWithToolEffect;
@@ -46,23 +40,6 @@ namespace pdxpartyparrot.ggj2020.Players
         protected override EffectTrigger MovingEffectTrigger => GamePlayerOwner.Mechanic.IsOnLadder
                                                         ? (GamePlayerOwner.Mechanic.HasTool ? _climbWithToolEffectTrigger : _climbLadderEffectTrigger)
                                                         : (GamePlayerOwner.Mechanic.HasTool ? _runWithToolEffect : base.MovingEffectTrigger);
-
-#region Unity Lifecycle
-        protected override void Awake()
-        {
-            base.Awake();
-
-            GameManager.Instance.RobotImpulseEvent += RobotImpulseEventHandler;
-        }
-
-        protected override void OnDestroy()
-        {
-            if(GameManager.HasInstance) {
-                GameManager.Instance.RobotImpulseEvent -= RobotImpulseEventHandler;
-            }
-
-            base.OnDestroy();
-        }
 #endregion
 
         public override void Initialize(ActorBehaviorComponentData behaviorData)
@@ -71,8 +48,6 @@ namespace pdxpartyparrot.ggj2020.Players
             Assert.IsTrue(behaviorData is PlayerBehaviorData);
 
             base.Initialize(behaviorData);
-
-            _rumbleEffect.PlayerInput = GamePlayerOwner.GamePlayerInput.InputHelper;
         }
 
         protected override void PhysicsUpdate(float dt)
@@ -86,19 +61,5 @@ namespace pdxpartyparrot.ggj2020.Players
                 Owner.Movement.Teleport(pos);
             }
         }
-
-#region Events
-        public override bool OnDeSpawn()
-        {
-            _robotImpuleEffectTrigger.StopTrigger();
-
-            return base.OnDeSpawn();
-        }
-
-        private void RobotImpulseEventHandler(object sender, EventArgs args)
-        {
-            _robotImpuleEffectTrigger.Trigger();
-        }
-#endregion
     }
 }

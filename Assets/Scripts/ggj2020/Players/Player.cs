@@ -59,6 +59,7 @@ namespace pdxpartyparrot.ggj2020.Players
 
             PlayerViewer = GameManager.Instance.Viewer;
 
+            _mechanic.Initialize();
             _mechanicModel.Initialize(NetworkPlayer.ControllerId);
 
             return true;
@@ -103,6 +104,8 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public override void OnDeSpawn()
         {
+            _mechanic.OnDeSpawn();
+
             _spawnpoint.Release();
             _spawnpoint = null;
 

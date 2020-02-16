@@ -478,6 +478,8 @@ MonoBehaviour:
   _pickupToolEffect: {fileID: 3976977114511096063}
   _dropToolEffect: {fileID: 2748718958486531674}
   _useToolEffect: {fileID: 4766913535688855161}
+  _robotImpuleEffectTrigger: {fileID: 8026467053545117366}
+  _rumbleEffect: {fileID: 8181390603653255222}
 --- !u!114 &6146985202594885845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -510,8 +512,6 @@ MonoBehaviour:
   _idleEffect: {fileID: 6654632513889246984}
   _movingEffectTrigger: {fileID: 5203347649405305559}
   _moveDirection: {x: 0, y: 0, z: 0}
-  _robotImpuleEffectTrigger: {fileID: 8026467053545117366}
-  _rumbleEffect: {fileID: 8181390603653255222}
   _idleWithToolEffect: {fileID: 7793024908042526901}
   _runWithToolEffect: {fileID: 1084806188700105175}
   _climbLadderEffectTrigger: {fileID: 1057619748909458248}

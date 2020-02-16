@@ -3,6 +3,7 @@ using System;
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Effects;
+using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ggj2020.Actors;
@@ -99,6 +100,12 @@ namespace pdxpartyparrot.ggj2020.Players
 
         [SerializeField]
         private EffectTrigger _useToolEffect;
+
+        [SerializeField]
+        private EffectTrigger _robotImpuleEffectTrigger;
+
+        [SerializeField]
+        private RumbleEffectTriggerComponent _rumbleEffect;
 #endregion
 
         private Interactables _interactables;
@@ -113,15 +120,22 @@ namespace pdxpartyparrot.ggj2020.Players
             _uiBubble.HideSprite();
 
             GameManager.Instance.MechanicsCanInteractEvent += MechanicsCanInteractEventHandler;
+            GameManager.Instance.RobotImpulseEvent += RobotImpulseEventHandler;
         }
 
         private void OnDestroy()
         {
             if(GameManager.HasInstance) {
+                GameManager.Instance.RobotImpulseEvent -= RobotImpulseEventHandler;
                 GameManager.Instance.MechanicsCanInteractEvent -= MechanicsCanInteractEventHandler;
             }
         }
 #endregion
+
+        public void Initialize()
+        {
+            _rumbleEffect.PlayerInput = Owner.GamePlayerInput.InputHelper;
+        }
 
 #region Ladder
         public void HandleLadderInput()
@@ -257,6 +271,18 @@ namespace pdxpartyparrot.ggj2020.Players
 #endregion
 
 #region Events
+        public bool OnDeSpawn()
+        {
+            _robotImpuleEffectTrigger.StopTrigger();
+
+            return true;
+        }
+
+        private void RobotImpulseEventHandler(object sender, EventArgs args)
+        {
+            _robotImpuleEffectTrigger.Trigger();
+        }
+
         private void MechanicsCanInteractEventHandler(object sender, EventArgs args)
         {
             if(!GameManager.Instance.MechanicsCanInteract) {
@@ -269,6 +295,7 @@ namespace pdxpartyparrot.ggj2020.Players
             Ladder ladder = args.Interactable as Ladder;
             if(!CanUseLadder && null != ladder) {
                 CanUseLadder = true;
+                return;
             }
 
             if(HasTool && !_heldTool.HasRepairPoint) {
