@@ -11,6 +11,12 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
 {
     public sealed class Wrench : Tool
     {
+        private enum WrenchDirection
+        {
+            Left,
+            Right
+        }
+
         [Space(10)]
 
         [SerializeField]
@@ -22,8 +28,12 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
         [Space(10)]
 
         [SerializeField]
+        [Range(0.1f, 0.9f)]
+        private float _turnAxisAmount = 0.9f;
+
+        [SerializeField]
         [ReadOnly]
-        private int _lastTurnAxis = 1;
+        private WrenchDirection _lastTurnDirection = WrenchDirection.Right;
 
         [SerializeField]
         [ReadOnly]
@@ -57,7 +67,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
                 return;
             }
 
-            if(_lastTurnAxis == 1) {
+            if(_lastTurnDirection == WrenchDirection.Right) {
                 HoldingPlayer.ToolBubble.ShowThumbLeft();
             } else {
                 HoldingPlayer.ToolBubble.ShowThumbRight();
@@ -70,7 +80,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
                 return false;
             }
 
-            _lastTurnAxis = 1;
+            _lastTurnDirection = WrenchDirection.Right;
             HoldingPlayer.ToolBubble.ShowThumbLeft();
 
             return true;
@@ -85,13 +95,13 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
 
         public override void TrackThumbStickAxis(Vector2 axis)
         {
-            if((axis.x >= 0.5f || axis.y >= 0.5f) && _lastTurnAxis != 1) {
-                _lastTurnAxis = 1;
+            if(axis.x >= _turnAxisAmount && _lastTurnDirection == WrenchDirection.Left) {
+                _lastTurnDirection = WrenchDirection.Right;
                 HoldingPlayer.ToolBubble.ShowThumbLeft();
 
                 _turnEffectTrigger.Trigger();
-            } else if ((axis.x <= -0.5f || axis.y <= -0.5f) && _lastTurnAxis != -1) {
-                _lastTurnAxis = -1;
+            } else if(axis.x <= -_turnAxisAmount && _lastTurnDirection == WrenchDirection.Right) {
+                _lastTurnDirection = WrenchDirection.Left;
                 HoldingPlayer.ToolBubble.ShowThumbRight();
 
                 _turnEffectTrigger.Trigger();
