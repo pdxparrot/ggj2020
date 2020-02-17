@@ -204,7 +204,7 @@ namespace pdxpartyparrot.Core.Audio
             // init our audio sources
             InitSFXAudioMixerGroup(_oneShotAudioSource);
 
-            InitAudioMixerGroup(_stingerAudioSource, _audioData.MusicMixerGroupName);
+            InitSFXAudioMixerGroup(_stingerAudioSource);
             _stingerAudioSource.loop = false;
 
             InitAudioMixerGroup(_music1AudioSource, _audioData.MusicMixerGroupName);
@@ -213,7 +213,7 @@ namespace pdxpartyparrot.Core.Audio
             InitAudioMixerGroup(_music2AudioSource, _audioData.MusicMixerGroupName);
             _music2AudioSource.loop = true;
 
-            InitAudioMixerGroup(_ambientAudioSource, _audioData.AmbientMixerGroupName);
+            InitAmbientAudioMixerGroup(_ambientAudioSource);
             _ambientAudioSource.loop = true;
 
             // this ensures we've loaded the volumes from the config
@@ -234,8 +234,7 @@ namespace pdxpartyparrot.Core.Audio
 
         protected override void OnDestroy()
         {
-            StopAmbient();
-            StopAllMusic();
+            StopAllAudio();
 
             if(PartyParrotManager.HasInstance) {
                 PartyParrotManager.Instance.PauseEvent -= PauseEventHandler;
@@ -280,8 +279,6 @@ namespace pdxpartyparrot.Core.Audio
 #region Stingers
         public void PlayStinger(AudioClip stingerAudioClip)
         {
-            StopAllMusic();
-
             _stingerAudioSource.clip = stingerAudioClip;
             _stingerAudioSource.Play();
         }
