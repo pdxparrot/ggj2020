@@ -269,7 +269,7 @@ MonoBehaviour:
   _lifeCardPrefab: {fileID: 3910801058976382889, guid: f8cbff8f185420541a1b329c65f5b33b,
     type: 3}
   _lifeContainer: {fileID: 3923321388687808562}
-  _currentFailure: 0
+  _successText: {fileID: 1272356619104246590}
 --- !u!1 &1353613811448075767
 GameObject:
   m_ObjectHideFlags: 0
@@ -2632,7 +2632,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 57.75
+  m_fontSize: 49.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

@@ -1,7 +1,6 @@
 ﻿using System;
 
 using pdxpartyparrot.Core.UI;
-using pdxpartyparrot.Core.Util;
 
 using TMPro;
 
@@ -21,22 +20,21 @@ namespace pdxpartyparrot.ggj2020.UI
         [SerializeField]
         private Transform _lifeContainer;
 
-        private LifeCard[] _lifeCards;
-
         [SerializeField]
-        [ReadOnly]
-        private int _currentFailure;
+        private TextMeshProUGUI _successText;
+
+        private LifeCard[] _lifeCards;
 
 #region Unity Lifecycle
         private void Awake()
         {
+            GameManager.Instance.RepairSuccessEvent += RepairSuccessEventHandler;
             GameManager.Instance.RepairFailureEvent += RepairFailureEventHandler;
 
             _lifeCards = new LifeCard[GameManager.Instance.GameGameData.MaxFailures];
             for(int i=0; i<_lifeCards.Length; ++i) {
                 _lifeCards[i] = Instantiate(_lifeCardPrefab, _lifeContainer);
             }
-            _currentFailure = 0;
         }
 
         private void OnDestroy()
@@ -55,10 +53,14 @@ namespace pdxpartyparrot.ggj2020.UI
 #endregion
 
 #region Events
+        private void RepairSuccessEventHandler(object sender, EventArgs args)
+        {
+            _successText.text = $"{GameManager.Instance.RepairSuccesses:00}";
+        }
+
         private void RepairFailureEventHandler(object sender, EventArgs args)
         {
-            _lifeCards[_currentFailure].Fail();
-            _currentFailure++;
+            _lifeCards[GameManager.Instance.RepairFailures - 1].Fail();
         }
 #endregion
     }
