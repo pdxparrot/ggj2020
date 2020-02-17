@@ -12,6 +12,8 @@ namespace pdxpartyparrot.Game.Characters
 {
     public abstract class CharacterFlightMovement3D : ActorMovementComponent3D, ICharacterMovement
     {
+        public CharacterBehavior CharacterBehavior => (CharacterBehavior)Owner.Behavior;
+
         [SerializeField]
         private CharacterFlightMovementData _data;
 
@@ -30,7 +32,7 @@ namespace pdxpartyparrot.Game.Characters
 
         public Vector3 BankForce => _bankForce;
 
-        public float Speed => Owner.CanMove() ? 0.0f : (PartyParrotManager.Instance.IsPaused ? PauseState.Velocity.magnitude : Velocity.magnitude);
+        public float Speed => CharacterBehavior.CanMove ? 0.0f : (PartyParrotManager.Instance.IsPaused ? PauseState.Velocity.magnitude : Velocity.magnitude);
 
         public float Altitude => Position.y;
 #endregion

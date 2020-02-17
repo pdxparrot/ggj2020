@@ -208,7 +208,9 @@ namespace pdxpartyparrot.Core.Actors
             RunOnComponents(c => c.OnSetFacing(FacingDirection));
         }
 
-        public bool CanMove()
+        // TODO: when character behavior components merge over to actor components
+        // then all of the "can move" decisions should move into this
+        /*public bool CanMove()
         {
             return CanMove(true);
         }
@@ -228,7 +230,7 @@ namespace pdxpartyparrot.Core.Actors
             }
 
             return true;
-        }
+        }*/
 
         // TODO: would be better if we id radius (x) and height (y) separately
         public bool Collides(Actor other, float distance=float.Epsilon)
