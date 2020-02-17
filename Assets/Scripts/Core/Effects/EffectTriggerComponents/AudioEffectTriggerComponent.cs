@@ -4,6 +4,7 @@ using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Time;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 {
@@ -30,23 +31,32 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         }
 
         [SerializeField]
+        private bool _loop;
+
+        [SerializeField]
         private bool _waitForComplete;
 
         public override bool WaitForComplete => _waitForComplete;
 
-        public override bool IsDone => (null == _audioSource || !_audioSource.isPlaying) && !_audioTimer.IsRunning;
+        public override bool IsDone => (null == _audioSource || !_audioSource.isPlaying) && (null == _audioTimer || !_audioTimer.IsRunning);
 
+        [CanBeNull]
         private ITimer _audioTimer;
 
 #region Unity Lifecycle
         private void Awake()
         {
-            _audioTimer = TimeManager.Instance.AddTimer();
+            if(_loop) {
+                Assert.IsFalse(_waitForComplete);
+                Assert.IsNotNull(_audioSource);
+            } else {
+                _audioTimer = TimeManager.Instance.AddTimer();
+            }
         }
 
         private void OnDestroy()
         {
-            if(TimeManager.HasInstance) {
+            if(null != _audioTimer && TimeManager.HasInstance) {
                 TimeManager.Instance.RemoveTimer(_audioTimer);
             }
         }
@@ -70,12 +80,15 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
             if(EffectsManager.Instance.EnableAudio) {
                 if(null == _audioSource) {
                     AudioManager.Instance.PlayOneShot(_audioClip);
-                    _audioTimer.Start(_audioClip.length);
+                    if(null != _audioTimer) {
+                        _audioTimer.Start(_audioClip.length);
+                    }
                 } else {
                     _audioSource.clip = _audioClip;
+                    _audioSource.loop = _loop;
                     _audioSource.Play();
                 }
-            } else {
+            } else if(null != _audioTimer) {
                 _audioTimer.Start(_audioClip.length);
             }
         }
@@ -85,7 +98,10 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
             if(null != _audioSource) {
                 _audioSource.Stop();
             }
-            _audioTimer.Stop();
+
+            if(null != _audioTimer) {
+                _audioTimer.Stop();
+            }
         }
     }
 }

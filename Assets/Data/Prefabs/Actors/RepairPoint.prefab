@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5318524101165217869}
   - component: {fileID: 4750750942517711631}
   - component: {fileID: 5917260705357168258}
+  - component: {fileID: 5460006017084577945}
   m_Layer: 19
   m_Name: Loose Damage Effect
   m_TagString: Untagged
@@ -50,6 +51,7 @@ MonoBehaviour:
   _components:
     _items:
     - {fileID: 5917260705357168258}
+    - {fileID: 5460006017084577945}
   _isRunning: 0
   _complete: 0
 --- !u!114 &5917260705357168258
@@ -68,6 +70,22 @@ MonoBehaviour:
   _loop: 1
   _waitForComplete: 0
   _clearOnStop: 1
+--- !u!114 &5460006017084577945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090783103476186560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e30a58e0ff991418528db3f52f3439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: c472be7528a381f43872c061124402c0, type: 3}
+  _audioSource: {fileID: 5056821147568844013}
+  _loop: 1
+  _waitForComplete: 0
 --- !u!1 &4014047200212892896
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,6 +165,7 @@ GameObject:
   - component: {fileID: 5177322501180487650}
   - component: {fileID: 2188932221086374278}
   - component: {fileID: 7170717495588363478}
+  - component: {fileID: 8596795261285920606}
   m_Layer: 19
   m_Name: Fire Damage Effect
   m_TagString: Untagged
@@ -186,6 +205,7 @@ MonoBehaviour:
   _components:
     _items:
     - {fileID: 7170717495588363478}
+    - {fileID: 8596795261285920606}
   _isRunning: 0
   _complete: 0
 --- !u!114 &7170717495588363478
@@ -204,6 +224,22 @@ MonoBehaviour:
   _loop: 1
   _waitForComplete: 0
   _clearOnStop: 1
+--- !u!114 &8596795261285920606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4868647854976279400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e30a58e0ff991418528db3f52f3439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: da47e41712d7fae4cad6d9ceb33ec666, type: 3}
+  _audioSource: {fileID: 5056821147568844013}
+  _loop: 1
+  _waitForComplete: 0
 --- !u!1 &5098832288785590059
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,6 +251,7 @@ GameObject:
   - component: {fileID: 7538119380867375869}
   - component: {fileID: 3494796904747190336}
   - component: {fileID: 565503918735661207}
+  - component: {fileID: 3044996034592898215}
   m_Layer: 19
   m_Name: Damaged Damage Effect
   m_TagString: Untagged
@@ -272,6 +309,22 @@ MonoBehaviour:
   _loop: 1
   _waitForComplete: 0
   _clearOnStop: 1
+--- !u!114 &3044996034592898215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5098832288785590059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e30a58e0ff991418528db3f52f3439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 0}
+  _audioSource: {fileID: 5056821147568844013}
+  _loop: 1
+  _waitForComplete: 0
 --- !u!1 &6406167814278837835
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,15 +590,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fc55b3e87ca06f48bff780f761b6256, type: 3}
---- !u!198 &5163837832894721085 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8030210584875358518, guid: 3fc55b3e87ca06f48bff780f761b6256,
-    type: 3}
-  m_PrefabInstance: {fileID: 2943290224739513611}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2570031605321751482 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 824788741716487857, guid: 3fc55b3e87ca06f48bff780f761b6256,
+    type: 3}
+  m_PrefabInstance: {fileID: 2943290224739513611}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5163837832894721085 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8030210584875358518, guid: 3fc55b3e87ca06f48bff780f761b6256,
     type: 3}
   m_PrefabInstance: {fileID: 2943290224739513611}
   m_PrefabAsset: {fileID: 0}
@@ -830,15 +883,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ea8d13a28f66d54382722c0eaf3d654, type: 3}
---- !u!4 &8444337006392217071 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1123507657706239875, guid: 2ea8d13a28f66d54382722c0eaf3d654,
-    type: 3}
-  m_PrefabInstance: {fileID: 8838260974440118892}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &1239469299696073320 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 7752020169317253124, guid: 2ea8d13a28f66d54382722c0eaf3d654,
+    type: 3}
+  m_PrefabInstance: {fileID: 8838260974440118892}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8444337006392217071 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1123507657706239875, guid: 2ea8d13a28f66d54382722c0eaf3d654,
     type: 3}
   m_PrefabInstance: {fileID: 8838260974440118892}
   m_PrefabAsset: {fileID: 0}

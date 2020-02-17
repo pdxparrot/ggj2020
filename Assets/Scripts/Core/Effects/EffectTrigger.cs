@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -42,6 +42,11 @@ namespace pdxpartyparrot.Core.Effects
         private void Awake()
         {
             RunOnComponents(c => c.Initialize(this));
+        }
+
+        private void OnDisable()
+        {
+            KillTrigger();
         }
 
         private void Update()
@@ -152,7 +157,7 @@ namespace pdxpartyparrot.Core.Effects
                             c.OnStop();
                         }
                     });
-                        
+
                     break;
                 }
 

@@ -1,7 +1,10 @@
 ﻿using pdxpartyparrot.Core.Time;
 
+using UnityEngine;
+
 namespace pdxpartyparrot.ggj2020.Actors.Tools
 {
+    [RequireComponent(typeof(AudioSource))]
     public sealed class FireExtinguisher : Tool
     {
         private ITimer _holdTimer;
@@ -10,6 +13,9 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
         protected override void Awake()
         {
             base.Awake();
+
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.spatialBlend = 0.0f;
 
             _holdTimer = TimeManager.Instance.AddTimer();
             _holdTimer.TimesUpEvent += (sender, args) => {
