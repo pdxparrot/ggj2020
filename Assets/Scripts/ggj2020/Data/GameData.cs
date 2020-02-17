@@ -74,6 +74,11 @@ namespace pdxpartyparrot.ggj2020.Data
         private int _wrenchSuccesfulTurns = 5;
 
         public int WrenchSuccessfulTurns => _wrenchSuccesfulTurns;
+
+        [SerializeField]
+        private int _chargeTime = 3;
+
+        public int ChargeTime => _chargeTime;
 #endregion
 
         [Space(10)]

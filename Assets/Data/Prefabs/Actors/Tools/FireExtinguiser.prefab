@@ -612,7 +612,7 @@ MonoBehaviour:
     _lowFrequency: 0.25
     _highFrequency: 0.25
   _playerInput: {fileID: 0}
-  _waitForComplete: 1
+  _waitForComplete: 0
   _isPlaying: 0
 --- !u!1 &7166894625463991040
 GameObject:

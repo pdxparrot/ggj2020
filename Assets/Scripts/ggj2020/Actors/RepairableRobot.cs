@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -180,8 +180,6 @@ namespace pdxpartyparrot.ggj2020.Actors
 
             _enterRepairBayEffectTrigger.Trigger(() => {
                 _repairBayDockedEffect.Trigger(() => {
-                    GameManager.Instance.GameLevelHelper.ChargingStation.EnableUI(true);
-
                     onComplete?.Invoke();
                 });
             });
@@ -205,8 +203,6 @@ namespace pdxpartyparrot.ggj2020.Actors
             } else {
                 _exitRepairBayFailureEffectTrigger.Trigger();
             }
-
-            GameManager.Instance.GameLevelHelper.ChargingStation.EnableUI(false);
         }
 
         private void InitDamage()

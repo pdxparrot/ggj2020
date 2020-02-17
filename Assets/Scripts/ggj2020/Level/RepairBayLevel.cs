@@ -21,8 +21,6 @@ namespace pdxpartyparrot.ggj2020.Level
         [SerializeField]
         private ChargingStation _chargingStation;
 
-        public ChargingStation ChargingStation => _chargingStation;
-
         [Space(10)]
 
         [SerializeField]
@@ -51,10 +49,14 @@ namespace pdxpartyparrot.ggj2020.Level
 
             _respawnTimer = TimeManager.Instance.AddTimer();
             _respawnTimer.TimesUpEvent += RespawnRobotEventHandler;
+
+            _chargingStation.ChargeCompleteEvent += ChargeCompleteEventHandler;
         }
 
         protected override void OnDestroy()
         {
+            _chargingStation.ChargeCompleteEvent -= ChargeCompleteEventHandler;
+
             _repairableRobot.RepairedEvent -= RepairedEventHandler;
             Destroy(_repairableRobot);
 
@@ -76,6 +78,8 @@ namespace pdxpartyparrot.ggj2020.Level
         {
             GameManager.Instance.MechanicsCanInteract = false;
 
+            _chargingStation.EnableUI(false);
+
             _repairableRobot.ExitRepairBay(success, () => {
                 _repairableRobot.DeSpawn();
 
@@ -91,11 +95,24 @@ namespace pdxpartyparrot.ggj2020.Level
             // this will init the timer UI correctly
             _timer.SecondsRemaining = GameManager.Instance.GameGameData.RepairTime;
 
+            _chargingStation.ResetCharge();
+
             _repairableRobot.EnterRepairBay(() => {
+                _chargingStation.EnableUI(true);
+
                 GameManager.Instance.MechanicsCanInteract = true;
 
                 _timer.Start(GameManager.Instance.GameGameData.RepairTime);
             });
+        }
+
+        private void FullyRepaired()
+        {
+            _timer.Stop();
+
+            GameManager.Instance.RepairSuccess(1.0f);
+
+            NextRobot(true);
         }
 
 #region Events
@@ -130,7 +147,7 @@ namespace pdxpartyparrot.ggj2020.Level
             Debug.Log("Times up!");
 
             float repairPercent = _repairableRobot.GetRepairPercent();
-            bool success = repairPercent >= GameManager.Instance.GameGameData.PassingRepairPercent;
+            bool success = _chargingStation.IsCharged && repairPercent >= GameManager.Instance.GameGameData.PassingRepairPercent;
             if(!success) {
                 if(!GameManager.Instance.RepairFailure(repairPercent)) {
                     return;
@@ -150,15 +167,28 @@ namespace pdxpartyparrot.ggj2020.Level
             EnterRobot();
         }
 
+        private void ChargeCompleteEventHandler(object sender, EventArgs args)
+        {
+            Debug.Log("Robot fully charged!");
+
+            if(!_repairableRobot.IsRepaired()) {
+                Debug.Log("Robot waiting to be repaired...");
+                return;
+            }
+
+            FullyRepaired();
+        }
+
         private void RepairedEventHandler(object sender, EventArgs args)
         {
             Debug.Log("Robot fully repaired!");
 
-            _timer.Stop();
+            if(!_chargingStation.IsCharged) {
+                Debug.Log("Robot waiting to be charged...");
+                return;
+            }
 
-            GameManager.Instance.RepairSuccess(1.0f);
-
-            NextRobot(true);
+            FullyRepaired();
         }
 #endregion
     }

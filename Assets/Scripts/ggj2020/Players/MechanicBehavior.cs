@@ -173,6 +173,11 @@ namespace pdxpartyparrot.ggj2020.Players
                 return;
             }
 
+            ChargingStation chargingStation = _interactables.GetRandomInteractable<ChargingStation>();
+            if(null != chargingStation && UseChargingStation(chargingStation)) {
+                return;
+            }
+
             Tool tool = _interactables.GetRandomInteractable<Tool>();
             if(null == tool) {
                 return;
@@ -194,6 +199,17 @@ namespace pdxpartyparrot.ggj2020.Players
             }
 
             _pickupToolEffect.Trigger();
+        }
+
+        private bool UseChargingStation(ChargingStation chargingStation)
+        {
+            if(!chargingStation.Use(this)) {
+                return false;
+            }
+
+            _interactables.RemoveInteractable(chargingStation);
+
+            return true;
         }
 
         private bool UseTool()
