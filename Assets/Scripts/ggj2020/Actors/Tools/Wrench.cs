@@ -58,9 +58,9 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
             }
 
             if(_lastTurnAxis == 1) {
-                HoldingPlayer.UIBubble.SetThumbLeft();
+                HoldingPlayer.ToolBubble.ShowThumbLeft();
             } else {
-                HoldingPlayer.UIBubble.SetThumbRight();
+                HoldingPlayer.ToolBubble.ShowThumbRight();
             }
         }
 
@@ -71,7 +71,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
             }
 
             _lastTurnAxis = 1;
-            HoldingPlayer.UIBubble.SetThumbLeft();
+            HoldingPlayer.ToolBubble.ShowThumbLeft();
 
             return true;
         }
@@ -87,12 +87,12 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
         {
             if((axis.x >= 0.5f || axis.y >= 0.5f) && _lastTurnAxis != 1) {
                 _lastTurnAxis = 1;
-                HoldingPlayer.UIBubble.SetThumbLeft();
+                HoldingPlayer.ToolBubble.ShowThumbLeft();
 
                 _turnEffectTrigger.Trigger();
             } else if ((axis.x <= -0.5f || axis.y <= -0.5f) && _lastTurnAxis != -1) {
                 _lastTurnAxis = -1;
-                HoldingPlayer.UIBubble.SetThumbRight();
+                HoldingPlayer.ToolBubble.ShowThumbRight();
 
                 _turnEffectTrigger.Trigger();
 

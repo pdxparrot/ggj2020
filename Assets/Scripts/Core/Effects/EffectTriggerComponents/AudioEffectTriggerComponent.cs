@@ -8,6 +8,7 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 {
+    // TODO: rename SFXEffectTriggerComponent
     public class AudioEffectTriggerComponent : EffectTriggerComponent
     {
         [SerializeField]

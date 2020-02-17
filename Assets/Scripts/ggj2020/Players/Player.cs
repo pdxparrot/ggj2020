@@ -74,6 +74,10 @@ namespace pdxpartyparrot.ggj2020.Players
                 return false;
             }
 
+            if(!_mechanic.OnSpawn(spawnpoint)) {
+                return false;
+            }
+
             if(!spawnpoint.Acquire(this)) {
                 return false;
             }

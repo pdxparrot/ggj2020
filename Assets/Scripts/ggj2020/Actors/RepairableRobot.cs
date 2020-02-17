@@ -76,13 +76,6 @@ namespace pdxpartyparrot.ggj2020.Actors
         [ReadOnly]
         private int _currentDamageIncreaseChance;
 
-        // TODO: this should be split into a factor per-player
-        /*[SerializeField]
-        [ReadOnly]
-        private float _chargeLevel;
-
-        public float ChargeLevel => _chargeLevel;*/
-
         private readonly List<RepairPoint> _repairPoints = new List<RepairPoint>();
         //private readonly List<RepairPoint> _stackedRepairPoints = new List<RepairPoint>();
 

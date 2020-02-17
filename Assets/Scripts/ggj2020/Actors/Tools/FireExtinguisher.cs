@@ -76,7 +76,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
                 return;
             }
 
-            HoldingPlayer.UIBubble.SetPressedSprite();
+            HoldingPlayer.ToolBubble.ShowPressedSprite();
         }
 
         public override void Drop()

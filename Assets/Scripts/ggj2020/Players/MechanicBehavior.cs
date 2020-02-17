@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ggj2020.Actors;
 using pdxpartyparrot.ggj2020.Actors.Tools;
@@ -82,9 +83,9 @@ namespace pdxpartyparrot.ggj2020.Players
         [Header("UI")]
 
         [SerializeField]
-        private UIBubble _uiBubble;
+        private ToolBubble _toolBubble;
 
-        public UIBubble UIBubble => _uiBubble;
+        public ToolBubble ToolBubble => _toolBubble;
 #endregion
 
         [Space(10)]
@@ -117,7 +118,7 @@ namespace pdxpartyparrot.ggj2020.Players
             _interactables.InteractableAddedEvent += InteractableAddedEventHandler;
             _interactables.InteractableRemovedEvent += InteractableRemovedEventHandler;
 
-            _uiBubble.HideSprite();
+            ToolBubble.Hide();
 
             GameManager.Instance.MechanicsCanInteractEvent += MechanicsCanInteractEventHandler;
             GameManager.Instance.RobotImpulseEvent += RobotImpulseEventHandler;
@@ -220,7 +221,7 @@ namespace pdxpartyparrot.ggj2020.Players
             _interactables.AddInteractable(_heldTool);
             _heldTool = null;
 
-            _uiBubble.HideSprite();
+            ToolBubble.Hide();
 
             _dropToolEffect.Trigger();
         }
@@ -271,6 +272,13 @@ namespace pdxpartyparrot.ggj2020.Players
 #endregion
 
 #region Events
+        public bool OnSpawn(SpawnPoint spawnpoint)
+        {
+            ToolBubble.Hide();
+
+            return true;
+        }
+
         public bool OnDeSpawn()
         {
             _robotImpuleEffectTrigger.StopTrigger();
@@ -286,7 +294,7 @@ namespace pdxpartyparrot.ggj2020.Players
         private void MechanicsCanInteractEventHandler(object sender, EventArgs args)
         {
             if(!GameManager.Instance.MechanicsCanInteract) {
-                _uiBubble.HideSprite();
+                ToolBubble.Hide();
             }
         }
 
