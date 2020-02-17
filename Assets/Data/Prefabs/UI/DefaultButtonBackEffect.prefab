@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4455200316131754114}
   - component: {fileID: 8825603261506473918}
   m_Layer: 0
-  m_Name: DefaultButtonClickEffect
+  m_Name: DefaultButtonBackEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66e30a58e0ff991418528db3f52f3439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioClip: {fileID: 8300000, guid: 74a2a862d62a3d7458a384acafcb8142, type: 3}
+  _audioClip: {fileID: 8300000, guid: 616ec5c60ad5fd84aa8a092cf457a318, type: 3}
   _audioSource: {fileID: 0}
+  _loop: 0
   _waitForComplete: 0

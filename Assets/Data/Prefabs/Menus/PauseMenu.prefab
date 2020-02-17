@@ -61,6 +61,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _owner: {fileID: 1478465781563665086}
   _initialSelection: {fileID: 1144593182577460370}
+  _enableEffect: {fileID: 0}
+  _disableEffect: {fileID: 0}
   _settingsMenu: {fileID: 5818770070690711988}
 --- !u!1 &1227596862219966187
 GameObject:
@@ -108,6 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 71105409954283614}
   _mainPanel: {fileID: 4874844484413115172}
+  _creditTitleText: {fileID: 0}
   _currentPanel: {fileID: 0}
 --- !u!1 &1384391808034687756
 GameObject:
@@ -553,7 +556,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverEffectTrigger: {fileID: 0}
-  _clickEffectTrigger: {fileID: 0}
+  _submitEffectTrigger: {fileID: 0}
+  _backEffectTrigger: {fileID: 0}
+  _isBackButton: 0
 --- !u!114 &3331184941874501352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -718,7 +723,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverEffectTrigger: {fileID: 0}
-  _clickEffectTrigger: {fileID: 0}
+  _submitEffectTrigger: {fileID: 0}
+  _backEffectTrigger: {fileID: 0}
+  _isBackButton: 1
 --- !u!114 &5700814902281497397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,7 +1073,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverEffectTrigger: {fileID: 0}
-  _clickEffectTrigger: {fileID: 0}
+  _submitEffectTrigger: {fileID: 0}
+  _backEffectTrigger: {fileID: 0}
+  _isBackButton: 0
 --- !u!114 &762448769487773890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1651,7 +1660,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 67.95
+  m_fontSize: 66.7
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1807,7 +1816,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 40.15
+  m_fontSize: 39.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1986,7 +1995,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverEffectTrigger: {fileID: 0}
-  _clickEffectTrigger: {fileID: 0}
+  _submitEffectTrigger: {fileID: 0}
+  _backEffectTrigger: {fileID: 0}
+  _isBackButton: 0
 --- !u!114 &4867051905440011365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2188,7 +2199,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverEffectTrigger: {fileID: 0}
-  _clickEffectTrigger: {fileID: 0}
+  _submitEffectTrigger: {fileID: 0}
+  _backEffectTrigger: {fileID: 0}
+  _isBackButton: 1
 --- !u!114 &2040909971051433523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2407,6 +2420,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _owner: {fileID: 1478465781563665086}
   _initialSelection: {fileID: 6290616793573137784}
+  _enableEffect: {fileID: 0}
+  _disableEffect: {fileID: 0}
 --- !u!1 &8613111542231507274
 GameObject:
   m_ObjectHideFlags: 0

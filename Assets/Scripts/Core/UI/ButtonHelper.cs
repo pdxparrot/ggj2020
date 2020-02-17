@@ -4,6 +4,7 @@ using pdxpartyparrot.Core.Effects;
 
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace pdxpartyparrot.Core.UI
@@ -18,8 +19,18 @@ namespace pdxpartyparrot.Core.UI
         private EffectTrigger _hoverEffectTrigger;
 
         [SerializeField]
+        [FormerlySerializedAs("_clickEffectTrigger")]
         [CanBeNull]
-        private EffectTrigger _clickEffectTrigger;
+        private EffectTrigger _submitEffectTrigger;
+
+        [SerializeField]
+        [CanBeNull]
+        private EffectTrigger _backEffectTrigger;
+
+        [SerializeField]
+        private bool _isBackButton;
+
+        private EffectTrigger ClickEffectTrigger => _isBackButton ? _backEffectTrigger : _submitEffectTrigger;
 
         private Button _button;
 
@@ -48,10 +59,13 @@ namespace pdxpartyparrot.Core.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if(null != _clickEffectTrigger) {
-                _clickEffectTrigger.Trigger();
-            } else if(null != UIManager.Instance.DefaultButtonClickEffectTrigger) {
-                UIManager.Instance.DefaultButtonClickEffectTrigger.Trigger();
+            if(null != ClickEffectTrigger) {
+                ClickEffectTrigger.Trigger();
+            } else {
+                EffectTrigger clickEffectTrigger = UIManager.Instance.GetDefaultButtonClickEffectTrigger(_isBackButton);
+                if(null != clickEffectTrigger) {
+                    clickEffectTrigger.Trigger();
+                }
             }
         }
 #endregion

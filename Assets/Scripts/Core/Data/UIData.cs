@@ -7,6 +7,7 @@ using pdxpartyparrot.Core.Effects;
 using TMPro;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.Core.Data
 {
@@ -26,16 +27,24 @@ namespace pdxpartyparrot.Core.Data
 
         [SerializeField]
         [CanBeNull]
-        private EffectTrigger _defaultButtonClickEffectPrefab;
-
-        [CanBeNull]
-        public EffectTrigger DefaultButtonClickEffectTrigger => _defaultButtonClickEffectPrefab;
-
-        [SerializeField]
-        [CanBeNull]
         private EffectTrigger _defaultButtonHoverEffectPrefab;
 
         [CanBeNull]
         public EffectTrigger DefaultButtonHoverEffectTriggerPrefab => _defaultButtonHoverEffectPrefab;
+
+        [SerializeField]
+        [FormerlySerializedAs("_defaultButtonClickEffectPrefab")]
+        [CanBeNull]
+        private EffectTrigger _defaultButtonSubmitEffectPrefab;
+
+        [CanBeNull]
+        public EffectTrigger DefaultButtonSubmitEffectTriggerPrefab => _defaultButtonSubmitEffectPrefab;
+
+        [SerializeField]
+        [CanBeNull]
+        private EffectTrigger _defaultButtonBackEffectPrefab;
+
+        [CanBeNull]
+        public EffectTrigger DefaultButtonBackEffectTriggerPrefab => _defaultButtonBackEffectPrefab;
     }
 }

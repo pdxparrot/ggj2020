@@ -116,7 +116,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverEffectTrigger: {fileID: 0}
-  _clickEffectTrigger: {fileID: 0}
+  _submitEffectTrigger: {fileID: 0}
+  _backEffectTrigger: {fileID: 0}
+  _isBackButton: 0
 --- !u!114 &24121021922689590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,7 +508,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverEffectTrigger: {fileID: 0}
-  _clickEffectTrigger: {fileID: 0}
+  _submitEffectTrigger: {fileID: 0}
+  _backEffectTrigger: {fileID: 0}
+  _isBackButton: 0
 --- !u!114 &24121022893108897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1100,7 +1104,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverEffectTrigger: {fileID: 0}
-  _clickEffectTrigger: {fileID: 0}
+  _submitEffectTrigger: {fileID: 0}
+  _backEffectTrigger: {fileID: 0}
+  _isBackButton: 1
 --- !u!114 &24121023091669935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1495,7 +1501,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverEffectTrigger: {fileID: 0}
-  _clickEffectTrigger: {fileID: 0}
+  _submitEffectTrigger: {fileID: 0}
+  _backEffectTrigger: {fileID: 0}
+  _isBackButton: 0
 --- !u!114 &24121023386306775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1969,7 +1977,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverEffectTrigger: {fileID: 0}
-  _clickEffectTrigger: {fileID: 0}
+  _submitEffectTrigger: {fileID: 0}
+  _backEffectTrigger: {fileID: 0}
+  _isBackButton: 0
 --- !u!114 &6002239470209295469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7256,7 +7266,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverEffectTrigger: {fileID: 0}
-  _clickEffectTrigger: {fileID: 0}
+  _submitEffectTrigger: {fileID: 0}
+  _backEffectTrigger: {fileID: 0}
+  _isBackButton: 1
 --- !u!114 &3262075384253848492
 MonoBehaviour:
   m_ObjectHideFlags: 0

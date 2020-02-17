@@ -27,7 +27,10 @@ namespace pdxpartyparrot.Core.UI
         public EffectTrigger DefaultButtonHoverEffectTrigger { get; private set; }
 
         [CanBeNull]
-        public EffectTrigger DefaultButtonClickEffectTrigger { get; private set; }
+        public EffectTrigger DefaultButtonSubmitEffectTrigger { get; private set; }
+
+        [CanBeNull]
+        public EffectTrigger DefaultButtonBackEffectTrigger { get; private set; }
 #endregion
 
         private readonly Dictionary<string, UIObject> _uiObjects = new Dictionary<string, UIObject>();
@@ -47,9 +50,19 @@ namespace pdxpartyparrot.Core.UI
                 DefaultButtonHoverEffectTrigger = Instantiate(_data.DefaultButtonHoverEffectTriggerPrefab, transform);
             }
 
-            if(null != _data.DefaultButtonClickEffectTrigger) {
-                DefaultButtonClickEffectTrigger = Instantiate(_data.DefaultButtonClickEffectTrigger, transform);
+            if(null != _data.DefaultButtonSubmitEffectTriggerPrefab) {
+                DefaultButtonSubmitEffectTrigger = Instantiate(_data.DefaultButtonSubmitEffectTriggerPrefab, transform);
             }
+
+            if(null != _data.DefaultButtonBackEffectTriggerPrefab) {
+                DefaultButtonBackEffectTrigger = Instantiate(_data.DefaultButtonBackEffectTriggerPrefab, transform);
+            }
+        }
+
+        [CanBeNull]
+        public EffectTrigger GetDefaultButtonClickEffectTrigger(bool isBackButton)
+        {
+            return isBackButton ? DefaultButtonBackEffectTrigger : DefaultButtonSubmitEffectTrigger;
         }
 
 #region UI Objects
