@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
+using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ggj2020.Players;
@@ -21,6 +22,7 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         public Type InteractableType => GetType();
 
+#region Art
         [SerializeField]
         private GameObject _chargingStationOn;
 
@@ -29,19 +31,25 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         [SerializeField]
         private GameObject _chargingStationUI;
+#endregion
 
-        // TODO: move to data
-        [SerializeField]
-        private int _maxSuccesfulHits = 25;
+        [Space(10)]
 
+#region Effects
         [SerializeField]
-        [ReadOnly]
-        private int _succesfulHits;
+        private RumbleEffectTriggerComponent _useRumbleEffectTriggerComponent;
+#endregion
+
+        [Space(10)]
 
         [SerializeField]
         [ReadOnly]
         [CanBeNull]
         private MechanicBehavior _usingPlayer;
+
+        public bool IsInUse => _usingPlayer != null;
+
+        [Space(10)]
 
         private readonly HashSet<MechanicBehavior> _succesfulPlayers = new HashSet<MechanicBehavior>();
 
@@ -53,21 +61,6 @@ namespace pdxpartyparrot.ggj2020.Actors
 
             AudioSource audioSource = GetComponent<AudioSource>();
             audioSource.spatialBlend = 0.0f;
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            Player player = other.gameObject.GetComponent<Player>();
-            if(null == player) {
-                return;
-            }
-
-            if(_usingPlayer == player.Mechanic) {
-                _usingPlayer = null;
-                return;
-            }
-
-            _succesfulHits = 0;
         }
 #endregion
 
@@ -87,19 +80,31 @@ namespace pdxpartyparrot.ggj2020.Actors
             _chargingStationUI.SetActive(enable);
         }
 
+        public void Reset()
+        {
+            _succesfulPlayers.Clear();
+        }
+
+        private void SetUsingPlayer(MechanicBehavior player)
+        {
+            _usingPlayer = player;
+
+            if(null != _usingPlayer) {
+                _useRumbleEffectTriggerComponent.PlayerInput = _usingPlayer.Owner.GamePlayerInput.InputHelper;
+            } else {
+                _useRumbleEffectTriggerComponent.PlayerInput = null;
+            }
+        }
+
         public bool Use(MechanicBehavior player)
         {
-            if(!GameManager.Instance.MechanicsCanInteract || null != _usingPlayer) {
+            if(!GameManager.Instance.MechanicsCanInteract || IsInUse || _succesfulPlayers.Contains(player)) {
                 return false;
             }
 
-            _usingPlayer = player;
+            SetUsingPlayer(player);
 
-            _succesfulHits++;
-            if(_succesfulHits >= _maxSuccesfulHits) {
-                _succesfulPlayers.Add(_usingPlayer);
-                _usingPlayer = null;
-            }
+            // TODO: other things
 
             return true;
         }

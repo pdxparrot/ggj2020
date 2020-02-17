@@ -98,6 +98,94 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: -7411329915751972156}
   _isKinematic: 1
+--- !u!1 &2767053564741357176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3241368549347256645}
+  - component: {fileID: 4280532948747279315}
+  - component: {fileID: 3987707554260550276}
+  - component: {fileID: 5933923192291095035}
+  m_Layer: 18
+  m_Name: Turn Use Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3241368549347256645
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2767053564741357176}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8226726933498525863}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4280532948747279315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2767053564741357176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d686a2a25b0fa4580b19af290d7bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 3987707554260550276}
+    - {fileID: 5933923192291095035}
+  _isRunning: 0
+  _complete: 0
+--- !u!114 &3987707554260550276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2767053564741357176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e30a58e0ff991418528db3f52f3439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: fb9b8e07e8f05294dbbd5aa08fb30a90, type: 3}
+  _audioSource: {fileID: 5679719707443506072}
+  _loop: 0
+  _waitForComplete: 0
+--- !u!114 &5933923192291095035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2767053564741357176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2934e8b95b10b5d4eab71d3ab1563751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rumbleConfig:
+    _seconds: 0.1
+    _lowFrequency: 0.5
+    _highFrequency: 0.5
+  _playerInput: {fileID: 0}
+  _waitForComplete: 0
+  _isPlaying: 0
 --- !u!1 &2832158486132847796
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,6 +463,7 @@ Transform:
   - {fileID: 1658021661274933289}
   - {fileID: 7790095764322620627}
   - {fileID: 4756436049518164859}
+  - {fileID: 3241368549347256645}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -522,9 +611,12 @@ MonoBehaviour:
   _dropEffect: {fileID: 2879151350379001720}
   _dropAttachmentEffectComponent: {fileID: 2779726462812329328}
   _useEffect: {fileID: 4493597088425356907}
+  _useRumbleEffectTriggerComponent: {fileID: 0}
   _holdingPlayer: {fileID: 0}
   _repairPoint: {fileID: 0}
   _inUse: 0
+  _turnEffectTrigger: {fileID: 4280532948747279315}
+  _turnRumbleEffectTriggerComponent: {fileID: 5933923192291095035}
   _lastTurnAxis: 1
   _successfulTurns: 0
 --- !u!1 &9063892095010551941

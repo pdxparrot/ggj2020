@@ -36,6 +36,7 @@ Transform:
   - {fileID: 7916934508738881496}
   - {fileID: 896417521217305759}
   - {fileID: 2780358896272397892}
+  - {fileID: 8686325162999622902}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -183,9 +184,12 @@ MonoBehaviour:
   _dropEffect: {fileID: 7042170343992595413}
   _dropAttachmentEffectComponent: {fileID: 6968932640104183005}
   _useEffect: {fileID: 4801497442388428355}
+  _useRumbleEffectTriggerComponent: {fileID: 5296475352699571293}
   _holdingPlayer: {fileID: 0}
   _repairPoint: {fileID: 0}
   _inUse: 0
+  _loopingRumbleEffectTrigger: {fileID: 6423163703249436471}
+  _loopingRumbleEffectTriggerComponent: {fileID: 680028288428049849}
 --- !u!1 &3479842209757762376
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +380,7 @@ GameObject:
   - component: {fileID: 4801497442388428355}
   - component: {fileID: 834000688784595957}
   - component: {fileID: 2040373593418569896}
+  - component: {fileID: 5296475352699571293}
   m_Layer: 17
   m_Name: Use Effect
   m_TagString: Untagged
@@ -418,6 +423,7 @@ MonoBehaviour:
     _items:
     - {fileID: 834000688784595957}
     - {fileID: 2040373593418569896}
+    - {fileID: 5296475352699571293}
   _isRunning: 0
   _complete: 0
 --- !u!114 &834000688784595957
@@ -452,6 +458,25 @@ MonoBehaviour:
   _audioSource: {fileID: 924136989500165098}
   _loop: 0
   _waitForComplete: 1
+--- !u!114 &5296475352699571293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3761590183361353500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2934e8b95b10b5d4eab71d3ab1563751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rumbleConfig:
+    _seconds: 0.5
+    _lowFrequency: 0.5
+    _highFrequency: 0.5
+  _playerInput: {fileID: 0}
+  _waitForComplete: 0
+  _isPlaying: 0
 --- !u!1 &4325749752209839571
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,6 +544,76 @@ MonoBehaviour:
   _audioSource: {fileID: 924136989500165098}
   _loop: 1
   _waitForComplete: 0
+--- !u!1 &4945031124256575834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8686325162999622902}
+  - component: {fileID: 6423163703249436471}
+  - component: {fileID: 680028288428049849}
+  m_Layer: 18
+  m_Name: Looping Use Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8686325162999622902
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945031124256575834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8751524723336088016}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6423163703249436471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945031124256575834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d686a2a25b0fa4580b19af290d7bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items:
+    - {fileID: 680028288428049849}
+  _isRunning: 0
+  _complete: 0
+--- !u!114 &680028288428049849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945031124256575834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2934e8b95b10b5d4eab71d3ab1563751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rumbleConfig:
+    _seconds: 0.5
+    _lowFrequency: 0.25
+    _highFrequency: 0.25
+  _playerInput: {fileID: 0}
+  _waitForComplete: 1
+  _isPlaying: 0
 --- !u!1 &7166894625463991040
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,15 +871,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f1e34fcf6e95cd44a2c28f1f8c8c46c, type: 3}
---- !u!4 &2434397469551793258 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4408539844868076914, guid: 3f1e34fcf6e95cd44a2c28f1f8c8c46c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2082616001437557016}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &4796586006139798420 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 6806651763608281740, guid: 3f1e34fcf6e95cd44a2c28f1f8c8c46c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2082616001437557016}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2434397469551793258 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4408539844868076914, guid: 3f1e34fcf6e95cd44a2c28f1f8c8c46c,
     type: 3}
   m_PrefabInstance: {fileID: 2082616001437557016}
   m_PrefabAsset: {fileID: 0}

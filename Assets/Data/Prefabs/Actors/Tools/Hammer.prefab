@@ -281,6 +281,7 @@ MonoBehaviour:
   _dropEffect: {fileID: 2118005580814587871}
   _dropAttachmentEffectComponent: {fileID: 3785682868862274747}
   _useEffect: {fileID: 7056873217786810128}
+  _useRumbleEffectTriggerComponent: {fileID: 4105123055863511682}
   _holdingPlayer: {fileID: 0}
   _repairPoint: {fileID: 0}
   _inUse: 0
@@ -327,6 +328,8 @@ GameObject:
   - component: {fileID: 3242677479898879336}
   - component: {fileID: 7056873217786810128}
   - component: {fileID: 6081621077162409620}
+  - component: {fileID: 8891877133218744331}
+  - component: {fileID: 4105123055863511682}
   m_Layer: 17
   m_Name: Use Effect
   m_TagString: Untagged
@@ -366,6 +369,8 @@ MonoBehaviour:
   _components:
     _items:
     - {fileID: 6081621077162409620}
+    - {fileID: 8891877133218744331}
+    - {fileID: 4105123055863511682}
   _isRunning: 0
   _complete: 0
 --- !u!114 &6081621077162409620
@@ -384,6 +389,41 @@ MonoBehaviour:
   _loop: 0
   _waitForComplete: 0
   _clearOnStop: 1
+--- !u!114 &8891877133218744331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7064362466413816876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e30a58e0ff991418528db3f52f3439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: ea9049b5474351245b2a7032179a6544, type: 3}
+  _audioSource: {fileID: 6752809502440225935}
+  _loop: 0
+  _waitForComplete: 0
+--- !u!114 &4105123055863511682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7064362466413816876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2934e8b95b10b5d4eab71d3ab1563751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rumbleConfig:
+    _seconds: 0.1
+    _lowFrequency: 0.5
+    _highFrequency: 0.5
+  _playerInput: {fileID: 0}
+  _waitForComplete: 0
+  _isPlaying: 0
 --- !u!1 &7669975374327047269
 GameObject:
   m_ObjectHideFlags: 0

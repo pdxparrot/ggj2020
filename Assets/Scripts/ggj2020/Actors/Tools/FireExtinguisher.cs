@@ -1,10 +1,29 @@
-﻿using pdxpartyparrot.Core.Time;
+﻿using System.Collections;
+
+using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Effects;
+using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
+using pdxpartyparrot.Core.Time;
+using pdxpartyparrot.ggj2020.Players;
+
+using UnityEngine;
 
 namespace pdxpartyparrot.ggj2020.Actors.Tools
 {
     public sealed class FireExtinguisher : Tool
     {
+        [Space(10)]
+
+        [SerializeField]
+        private EffectTrigger _loopingRumbleEffectTrigger;
+
+        [SerializeField]
+        private RumbleEffectTriggerComponent _loopingRumbleEffectTriggerComponent;
+
         private ITimer _holdTimer;
+
+        private Coroutine _holdRoutine;
 
 #region Unity Lifecycle
         protected override void Awake()
@@ -29,6 +48,17 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
         }
 #endregion
 
+        protected override void SetHoldingPlayer([CanBeNull] MechanicBehavior player)
+        {
+            base.SetHoldingPlayer(player);
+
+            if(null != HoldingPlayer) {
+                _loopingRumbleEffectTriggerComponent.PlayerInput = HoldingPlayer.Owner.GamePlayerInput.InputHelper;
+            } else {
+                _loopingRumbleEffectTriggerComponent.PlayerInput = null;
+            }
+        }
+
         public override bool SetRepairPoint(RepairPoint repairPoint)
         {
             if(!base.SetRepairPoint(repairPoint)) {
@@ -49,6 +79,16 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
             HoldingPlayer.UIBubble.SetPressedSprite();
         }
 
+        public override void Drop()
+        {
+            if(null != _holdRoutine) {
+                StopCoroutine(_holdRoutine);
+            }
+            _holdRoutine = null;
+
+            base.Drop();
+        }
+
         public override bool Use()
         {
             if(!base.Use()) {
@@ -57,6 +97,8 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
 
             _holdTimer.Start(GameManager.Instance.GameGameData.FireExtinguisherHoldTime);
 
+            _holdRoutine = StartCoroutine(HoldRoutine());
+
             return true;
         }
 
@@ -64,7 +106,22 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
         {
             _holdTimer.Stop();
 
+            if(null != _holdRoutine) {
+                StopCoroutine(_holdRoutine);
+            }
+            _holdRoutine = null;
+
             base.EndUse();
+        }
+
+        private IEnumerator HoldRoutine()
+        {
+            WaitForSeconds wait = new WaitForSeconds(0.5f);
+            while(true) {
+                yield return wait;
+
+                _loopingRumbleEffectTrigger.Trigger();
+            }
         }
     }
 }

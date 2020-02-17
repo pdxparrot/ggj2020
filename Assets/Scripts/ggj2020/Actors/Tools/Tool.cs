@@ -50,6 +50,10 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
         private EffectTrigger _useEffect;
 
         protected EffectTrigger UseEffect => _useEffect;
+
+        [SerializeField]
+        [CanBeNull]
+        private RumbleEffectTriggerComponent _useRumbleEffectTriggerComponent;
 #endregion
 
         [Space(10)]
@@ -108,16 +112,24 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
         }
 #endregion
 
-        private void SetHoldingPlayer([CanBeNull] MechanicBehavior player)
+        protected virtual void SetHoldingPlayer([CanBeNull] MechanicBehavior player)
         {
             _holdingPlayer = player;
 
             if(null != _holdingPlayer) {
                 _holdAttachmentEffectComponent.SpineSkinHelper = _holdingPlayer.Owner.Behavior.SpineSkinHelper;
                 _dropAttachmentEffectComponent.SpineSkinHelper = _holdingPlayer.Owner.Behavior.SpineSkinHelper;
+
+                if(null != _useRumbleEffectTriggerComponent) {
+                    _useRumbleEffectTriggerComponent.PlayerInput = _holdingPlayer.Owner.GamePlayerInput.InputHelper;
+                }
             } else {
                 _holdAttachmentEffectComponent.SpineSkinHelper = null;
                 _dropAttachmentEffectComponent.SpineSkinHelper = null;
+
+                if(null != _useRumbleEffectTriggerComponent) {
+                    _useRumbleEffectTriggerComponent.PlayerInput = null;
+                }
             }
         }
 
@@ -134,7 +146,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
             return true;
         }
 
-        public void Drop()
+        public virtual void Drop()
         {
             if(!IsHeld) {
                 return;

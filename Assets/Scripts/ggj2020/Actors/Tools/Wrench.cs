@@ -1,4 +1,9 @@
-﻿using pdxpartyparrot.Core.Util;
+﻿using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.Effects;
+using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
+using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2020.Players;
 
 using UnityEngine;
 
@@ -9,12 +14,31 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
         [Space(10)]
 
         [SerializeField]
+        private EffectTrigger _turnEffectTrigger;
+
+        [SerializeField]
+        private RumbleEffectTriggerComponent _turnRumbleEffectTriggerComponent;
+
+        [Space(10)]
+
+        [SerializeField]
         [ReadOnly]
         private int _lastTurnAxis = 1;
 
         [SerializeField]
         [ReadOnly]
         private int _successfulTurns;
+
+        protected override void SetHoldingPlayer([CanBeNull] MechanicBehavior player)
+        {
+            base.SetHoldingPlayer(player);
+
+            if(null != HoldingPlayer) {
+                _turnRumbleEffectTriggerComponent.PlayerInput = HoldingPlayer.Owner.GamePlayerInput.InputHelper;
+            } else {
+                _turnRumbleEffectTriggerComponent.PlayerInput = null;
+            }
+        }
 
         public override bool SetRepairPoint(RepairPoint repairPoint)
         {
@@ -64,9 +88,13 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
             if((axis.x >= 0.5f || axis.y >= 0.5f) && _lastTurnAxis != 1) {
                 _lastTurnAxis = 1;
                 HoldingPlayer.UIBubble.SetThumbLeft();
+
+                _turnEffectTrigger.Trigger();
             } else if ((axis.x <= -0.5f || axis.y <= -0.5f) && _lastTurnAxis != -1) {
                 _lastTurnAxis = -1;
                 HoldingPlayer.UIBubble.SetThumbRight();
+
+                _turnEffectTrigger.Trigger();
 
                 _successfulTurns++;
             }
