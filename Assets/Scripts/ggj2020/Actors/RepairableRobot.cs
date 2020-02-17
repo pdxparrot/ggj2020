@@ -19,6 +19,7 @@ using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.ggj2020.Actors
 {
+    [RequireComponent(typeof(AudioSource))]
     [RequireComponent(typeof(CinemachineImpulseSource))]
     public sealed class RepairableRobot : Actor3D
     {
@@ -96,6 +97,9 @@ namespace pdxpartyparrot.ggj2020.Actors
 
             Rigidbody.isKinematic = true;
             Rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.spatialBlend = 0.0f;
 
             _impulseSource = GetComponent<CinemachineImpulseSource>();
 

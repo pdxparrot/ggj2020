@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8751524723336088016}
   - component: {fileID: 1911381338933602262}
   - component: {fileID: 8812016558578853601}
-  - component: {fileID: 3767036885450672259}
   - component: {fileID: 924136989500165098}
+  - component: {fileID: 3767036885450672259}
   m_Layer: 18
   m_Name: FireExtinguiser
   m_TagString: Untagged
@@ -68,28 +68,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3767036885450672259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2543270610343901840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a4e19352be5d54469cc47710ea00adf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _model: {fileID: 7166894625463991040}
-  _damageType: 0
-  _holdEffect: {fileID: 898890105992322580}
-  _holdAttachmentEffectComponent: {fileID: 1017227745735972792}
-  _dropEffect: {fileID: 7042170343992595413}
-  _dropAttachmentEffectComponent: {fileID: 6968932640104183005}
-  _useEffect: {fileID: 4801497442388428355}
-  _holdingPlayer: {fileID: 0}
-  _repairPoint: {fileID: 0}
-  _inUse: 0
 --- !u!82 &924136989500165098
 AudioSource:
   m_ObjectHideFlags: 0
@@ -186,6 +164,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3767036885450672259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2543270610343901840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a4e19352be5d54469cc47710ea00adf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _model: {fileID: 7166894625463991040}
+  _damageType: 0
+  _holdEffect: {fileID: 898890105992322580}
+  _holdAttachmentEffectComponent: {fileID: 1017227745735972792}
+  _dropEffect: {fileID: 7042170343992595413}
+  _dropAttachmentEffectComponent: {fileID: 6968932640104183005}
+  _useEffect: {fileID: 4801497442388428355}
+  _holdingPlayer: {fileID: 0}
+  _repairPoint: {fileID: 0}
+  _inUse: 0
 --- !u!1 &3479842209757762376
 GameObject:
   m_ObjectHideFlags: 0

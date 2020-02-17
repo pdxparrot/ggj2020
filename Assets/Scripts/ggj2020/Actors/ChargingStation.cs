@@ -14,6 +14,7 @@ namespace pdxpartyparrot.ggj2020.Actors
     // TODO: make this an actor
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(AudioSource))]
     public sealed class ChargingStation : MonoBehaviour, IInteractable
     {
         public bool CanInteract => true;
@@ -49,6 +50,9 @@ namespace pdxpartyparrot.ggj2020.Actors
         {
             GetComponent<Rigidbody>().isKinematic = true;
             GetComponent<Collider>().isTrigger = true;
+
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.spatialBlend = 0.0f;
         }
 
         private void OnTriggerExit(Collider other)

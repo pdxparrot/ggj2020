@@ -8,6 +8,7 @@ using pdxpartyparrot.Core.Animation;
 using Spine;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 {
@@ -74,6 +75,15 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         [CanBeNull]
         private TrackEntry _trackEntry;
+
+#region Unity Lifecycle
+        private void Awake()
+        {
+            if(Loop) {
+                Assert.IsFalse(_waitForComplete);
+            }
+        }
+#endregion
 
         public override void OnStart()
         {

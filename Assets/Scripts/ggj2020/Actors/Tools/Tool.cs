@@ -14,6 +14,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
 {
     // TODO: make this an actor
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(AudioSource))]
     public abstract class Tool : MonoBehaviour, IInteractable
     {
         public bool CanInteract => !IsHeld;
@@ -90,6 +91,9 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
             _rigidbody.useGravity = true;
             _rigidbody.isKinematic = false;
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.spatialBlend = 0.0f;
 
             _useEffect.gameObject.SetActive(false);
 

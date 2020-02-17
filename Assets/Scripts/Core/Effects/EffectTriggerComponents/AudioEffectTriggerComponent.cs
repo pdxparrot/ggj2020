@@ -36,7 +36,8 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         [SerializeField]
         private bool _waitForComplete;
 
-        public override bool WaitForComplete => _waitForComplete;
+        // don't wait for complete if the audio should loop
+        public override bool WaitForComplete => !_loop && _waitForComplete;
 
         public override bool IsDone => (null == _audioSource || !_audioSource.isPlaying) && (null == _audioTimer || !_audioTimer.IsRunning);
 
