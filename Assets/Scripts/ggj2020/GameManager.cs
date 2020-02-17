@@ -128,9 +128,9 @@ namespace pdxpartyparrot.ggj2020
             RepairSuccessEvent?.Invoke(this, EventArgs.Empty);
         }
 
-        public bool RepairFailure(float repairPercent)
+        public bool RepairFailure(bool isCharged, float repairPercent)
         {
-            Debug.Log($"Repair failure {repairPercent} of {GameGameData.PassingRepairPercent}");
+            Debug.Log($"Repair failure {repairPercent} of {GameGameData.PassingRepairPercent} robot is {(!isCharged ? "not" : "")} charged");
 
             _repairFailures++;
 

@@ -70,11 +70,22 @@ namespace pdxpartyparrot.ggj2020.Players
         [CanBeNull]
         private Tool _heldTool;
 
-        public bool HasTool => _heldTool != null;
+        public bool IsHoldingTool => _heldTool != null;
 
-        public bool IsUsingTool => HasTool && _heldTool.InUse;
+        public bool CanPickupTool => !IsOnLadder && !IsUsingChargingStation && !IsHoldingTool;
 
-        public bool CanUseTool => GameManager.Instance.MechanicsCanInteract && !IsOnLadder && HasTool && _heldTool.CanUse && !IsUsingTool;
+        public bool IsUsingTool => IsHoldingTool && _heldTool.InUse;
+
+        public bool CanUseTool => GameManager.Instance.MechanicsCanInteract && !IsOnLadder && !IsUsingChargingStation && IsHoldingTool && _heldTool.CanUse && !IsUsingTool;
+
+        [SerializeField]
+        [ReadOnly]
+        [CanBeNull]
+        private ChargingStation _usingChargingStation;
+
+        public bool IsUsingChargingStation => _usingChargingStation != null;
+
+        public bool CanUseChargingStation => GameManager.Instance.MechanicsCanInteract && !IsOnLadder && !IsUsingChargingStation && !IsHoldingTool;
 #endregion
 
         [Space(10)]
@@ -101,6 +112,9 @@ namespace pdxpartyparrot.ggj2020.Players
 
         [SerializeField]
         private EffectTrigger _useToolEffect;
+
+        [SerializeField]
+        private EffectTrigger _useChargingStationEffect;
 
         [SerializeField]
         private EffectTrigger _robotImpuleEffectTrigger;
@@ -154,7 +168,6 @@ namespace pdxpartyparrot.ggj2020.Players
         }
 #endregion
 
-#region Tool
         private RepairPoint GetDamagedRepairPoint(RepairPoint.DamageType damageType)
         {
             var interactables = _interactables.GetInteractables<RepairPoint>();
@@ -167,14 +180,10 @@ namespace pdxpartyparrot.ggj2020.Players
             return null;
         }
 
+#region Tool
         private void PickupTool()
         {
-            if(HasTool) {
-                return;
-            }
-
-            ChargingStation chargingStation = _interactables.GetRandomInteractable<ChargingStation>();
-            if(null != chargingStation && UseChargingStation(chargingStation)) {
+            if(!CanPickupTool) {
                 return;
             }
 
@@ -201,17 +210,6 @@ namespace pdxpartyparrot.ggj2020.Players
             _pickupToolEffect.Trigger();
         }
 
-        private bool UseChargingStation(ChargingStation chargingStation)
-        {
-            if(!chargingStation.Use(this)) {
-                return false;
-            }
-
-            _interactables.RemoveInteractable(chargingStation);
-
-            return true;
-        }
-
         private bool UseTool()
         {
             if(!CanUseTool) {
@@ -226,9 +224,19 @@ namespace pdxpartyparrot.ggj2020.Players
             return true;
         }
 
+        private void EndUseTool()
+        {
+            if(!IsUsingTool) {
+                return;
+            }
+
+            _heldTool.EndUse();
+            Owner.Behavior.SpineAnimationHelper.SetEmptyAnimation(1);
+        }
+
         public void DropTool()
         {
-            if(!HasTool || IsUsingTool) {
+            if(!IsHoldingTool || IsUsingTool) {
                 return;
             }
 
@@ -259,8 +267,56 @@ namespace pdxpartyparrot.ggj2020.Players
                 return true;
             }
 
+            if(UseChargingStation()) {
+                return true;
+            }
+
             PickupTool();
             return false;
+        }
+
+        private bool UseChargingStation()
+        {
+            if(!CanUseChargingStation) {
+                return false;
+            }
+
+            ChargingStation chargingStation = _interactables.GetRandomInteractable<ChargingStation>();
+            if(null == chargingStation) {
+                return false;
+            }
+
+            if(!chargingStation.Use(this)) {
+                return false;
+            }
+
+            _interactables.RemoveInteractable(chargingStation);
+
+            _usingChargingStation = chargingStation;
+
+            _useChargingStationEffect.Trigger();
+
+            return true;
+        }
+
+        public void EndUseChargingStation()
+        {
+            if(!IsUsingChargingStation) {
+                return;
+            }
+
+            _useChargingStationEffect.StopTrigger();
+
+            Owner.Behavior.SpineAnimationHelper.SetEmptyAnimation(1);
+
+            // TODO: when tools are actors this check can be done less stupid
+            // (and ideally could be built into the interactables, but that would require them to work with Actors only)
+            if(Owner.Collides(_usingChargingStation.transform.position, 3.0f)) {
+                _interactables.AddInteractable(_usingChargingStation);
+            }
+
+            _usingChargingStation.EndUse();
+            _usingChargingStation = null;
         }
 
         public void TrackThumbStickAxis(Vector2 axis)
@@ -274,19 +330,16 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public void UseEnded()
         {
-            if(!IsUsingTool) {
-                return;
-            }
+            EndUseChargingStation();
 
-            _heldTool.EndUse();
-            Owner.Behavior.SpineAnimationHelper.SetEmptyAnimation(1);
+            EndUseTool();
         }
 
         public void RepairPointRepaired()
         {
             UseEnded();
 
-            if(HasTool && !_heldTool.HasRepairPoint) {
+            if(IsHoldingTool && !_heldTool.HasRepairPoint) {
                 RepairPoint repairPoint = GetDamagedRepairPoint(_heldTool.DamageType);
                 _heldTool.SetRepairPoint(repairPoint);
             }
@@ -328,7 +381,7 @@ namespace pdxpartyparrot.ggj2020.Players
                 return;
             }
 
-            if(HasTool && !_heldTool.HasRepairPoint) {
+            if(IsHoldingTool && !_heldTool.HasRepairPoint) {
                 RepairPoint repairPoint = args.Interactable as RepairPoint;
                 if(_heldTool.CanRepair(repairPoint)) {
                     _heldTool.SetRepairPoint(repairPoint);
@@ -344,7 +397,7 @@ namespace pdxpartyparrot.ggj2020.Players
                 return;
             }
 
-            if(HasTool && _heldTool.HasRepairPoint) {
+            if(IsHoldingTool && _heldTool.HasRepairPoint) {
                 RepairPoint repairPoint = args.Interactable as RepairPoint;
                 if(null != repairPoint && _heldTool.RepairPoint == repairPoint) {
                     repairPoint = GetDamagedRepairPoint(_heldTool.DamageType);

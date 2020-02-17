@@ -34,13 +34,15 @@ namespace pdxpartyparrot.ggj2020.Players
         private EffectTrigger _climbWithToolEffectTrigger;
 
         protected override EffectTrigger IdleEffect => GamePlayerOwner.Mechanic.IsOnLadder
-                                                ? (GamePlayerOwner.Mechanic.HasTool ? _climbWithToolEffectTrigger : _climbLadderEffectTrigger)
-                                                : (GamePlayerOwner.Mechanic.HasTool ? _idleWithToolEffect : base.IdleEffect);
+                                                ? (GamePlayerOwner.Mechanic.IsHoldingTool ? _climbWithToolEffectTrigger : _climbLadderEffectTrigger)
+                                                : (GamePlayerOwner.Mechanic.IsHoldingTool ? _idleWithToolEffect : base.IdleEffect);
 
         protected override EffectTrigger MovingEffectTrigger => GamePlayerOwner.Mechanic.IsOnLadder
-                                                        ? (GamePlayerOwner.Mechanic.HasTool ? _climbWithToolEffectTrigger : _climbLadderEffectTrigger)
-                                                        : (GamePlayerOwner.Mechanic.HasTool ? _runWithToolEffect : base.MovingEffectTrigger);
+                                                        ? (GamePlayerOwner.Mechanic.IsHoldingTool ? _climbWithToolEffectTrigger : _climbLadderEffectTrigger)
+                                                        : (GamePlayerOwner.Mechanic.IsHoldingTool ? _runWithToolEffect : base.MovingEffectTrigger);
 #endregion
+
+        public override bool CanMove => base.CanMove && !GamePlayerOwner.Mechanic.IsUsingTool && !GamePlayerOwner.Mechanic.IsUsingChargingStation;
 
         public override void Initialize(ActorBehaviorComponentData behaviorData)
         {

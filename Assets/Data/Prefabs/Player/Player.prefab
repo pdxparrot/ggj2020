@@ -324,6 +324,7 @@ Transform:
   - {fileID: 8467862053684553593}
   - {fileID: 6714628301895574286}
   - {fileID: 3764598117227284433}
+  - {fileID: 5780404299996512518}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -474,11 +475,12 @@ MonoBehaviour:
   _isOnLadder: 0
   _toolAttachment: {fileID: 6346126699756507838}
   _heldTool: {fileID: 0}
-  _uiBubble: {fileID: 0}
+  _usingChargingStation: {fileID: 0}
   _toolBubble: {fileID: 5218544717425484159}
   _pickupToolEffect: {fileID: 3976977114511096063}
   _dropToolEffect: {fileID: 2748718958486531674}
   _useToolEffect: {fileID: 4766913535688855161}
+  _useChargingStationEffect: {fileID: 3021155325673485112}
   _robotImpuleEffectTrigger: {fileID: 8026467053545117366}
   _rumbleEffect: {fileID: 8181390603653255222}
 --- !u!114 &6146985202594885845
@@ -1089,6 +1091,55 @@ MonoBehaviour:
   _loop: 1
   _trackStartTime: 0
   _waitForComplete: 0
+--- !u!1 &6028270029334998138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5780404299996512518}
+  - component: {fileID: 3021155325673485112}
+  m_Layer: 12
+  m_Name: Use Charging Station Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5780404299996512518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6028270029334998138}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4641550101237627408}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3021155325673485112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6028270029334998138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d686a2a25b0fa4580b19af290d7bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerOnComplete:
+    _items: []
+  _components:
+    _items: []
+  _isRunning: 0
+  _complete: 0
 --- !u!1 &6437306080391188152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,6 +1507,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 869c172c3d8d6684c9aaf5584c27f2ab, type: 3}
+--- !u!4 &1009640213979453490 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2365127118623819741, guid: 869c172c3d8d6684c9aaf5584c27f2ab,
+    type: 3}
+  m_PrefabInstance: {fileID: 3373311542694420463}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &866938173472370235 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2510637311823016404, guid: 869c172c3d8d6684c9aaf5584c27f2ab,
@@ -1468,12 +1525,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1009640213979453490 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2365127118623819741, guid: 869c172c3d8d6684c9aaf5584c27f2ab,
-    type: 3}
-  m_PrefabInstance: {fileID: 3373311542694420463}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7417785094761412160
 PrefabInstance:
   m_ObjectHideFlags: 0

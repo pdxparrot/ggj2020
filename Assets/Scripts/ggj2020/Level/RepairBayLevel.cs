@@ -149,7 +149,7 @@ namespace pdxpartyparrot.ggj2020.Level
             float repairPercent = _repairableRobot.GetRepairPercent();
             bool success = _chargingStation.IsCharged && repairPercent >= GameManager.Instance.GameGameData.PassingRepairPercent;
             if(!success) {
-                if(!GameManager.Instance.RepairFailure(repairPercent)) {
+                if(!GameManager.Instance.RepairFailure(_chargingStation.IsCharged, repairPercent)) {
                     return;
                 }
             } else {

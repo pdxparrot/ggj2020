@@ -124,6 +124,8 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         public void ResetCharge()
         {
+            Debug.Log("Resetting charge");
+
             _succesfulPlayers.Clear();
         }
 
@@ -170,9 +172,6 @@ namespace pdxpartyparrot.ggj2020.Actors
             _holdRoutine = null;
 
             _useEffect.StopTrigger();
-            _useEffect.gameObject.SetActive(false);
-
-            // TODO: inform the player
 
             _usingPlayer = null;
         }
@@ -197,9 +196,11 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         private void ChargeTimerTimesUpEventHandler(object sender, EventArgs args)
         {
+            Debug.Log("Successful charge!");
+
             _succesfulPlayers.Add(_usingPlayer);
 
-            EndUse();
+            _usingPlayer.EndUseChargingStation();
 
             if(IsCharged) {
                 _chargeCompleteEffect.Trigger();
