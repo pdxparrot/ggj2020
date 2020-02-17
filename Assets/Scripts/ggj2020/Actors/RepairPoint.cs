@@ -79,8 +79,7 @@ namespace pdxpartyparrot.ggj2020.Actors
 #region Unity Lifecycle
         private void Awake()
         {
-            AudioSource audioSource = GetComponent<AudioSource>();
-            audioSource.spatialBlend = 0.0f;
+            GetComponent<AudioSource>().spatialBlend = 0.0f;
         }
 #endregion
 

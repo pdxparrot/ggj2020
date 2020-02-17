@@ -58,9 +58,7 @@ namespace pdxpartyparrot.ggj2020.Actors
         {
             GetComponent<Rigidbody>().isKinematic = true;
             GetComponent<Collider>().isTrigger = true;
-
-            AudioSource audioSource = GetComponent<AudioSource>();
-            audioSource.spatialBlend = 0.0f;
+            GetComponent<AudioSource>().spatialBlend = 0.0f;
         }
 #endregion
 

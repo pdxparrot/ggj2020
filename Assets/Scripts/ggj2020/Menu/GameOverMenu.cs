@@ -8,7 +8,7 @@ namespace pdxpartyparrot.ggj2020.Menu
 #region Event Handlers
         public override void OnDone()
         {
-            HighScoreManager.Instance.AddHighScore(InitialInputMenu.GetInitials(), GameManager.Instance.RepairSuccesses, PlayerManager.Instance.Players.Count);
+            HighScoreManager.Instance.AddHighScore(InitialInputMenu.GetInitials(), GameManager.Instance.RepairSuccesses, PlayerManager.Instance.PlayerCount);
 
             GameManager.Instance.TransitionToHighScores = true;
 

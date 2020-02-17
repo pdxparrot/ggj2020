@@ -217,8 +217,14 @@ namespace pdxpartyparrot.ggj2020.Players
             }
 
             _heldTool.Drop();
+            _heldTool.transform.position = Owner.Movement.Position;
 
-            _interactables.AddInteractable(_heldTool);
+            // TODO: when tools are actors this check can be done less stupid
+            // (and ideally could be built into the interactables, but that would require them to work with Actors only)
+            if(Owner.Collides(_heldTool.transform.position, 3.0f)) {
+                _interactables.AddInteractable(_heldTool);
+            }
+
             _heldTool = null;
 
             ToolBubble.Hide();

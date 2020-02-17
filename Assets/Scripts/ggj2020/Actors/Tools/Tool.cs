@@ -96,8 +96,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
             _rigidbody.isKinematic = false;
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
 
-            AudioSource audioSource = GetComponent<AudioSource>();
-            audioSource.spatialBlend = 0.0f;
+            GetComponent<AudioSource>().spatialBlend = 0.0f;
 
             _useEffect.gameObject.SetActive(false);
 

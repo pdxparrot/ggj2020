@@ -235,11 +235,17 @@ namespace pdxpartyparrot.Core.Actors
         // TODO: would be better if we id radius (x) and height (y) separately
         public bool Collides(Actor other, float distance=float.Epsilon)
         {
-            Vector3 offset = null != Movement && null != other.Movement
-                            ? other.Movement.Position - Movement.Position
-                            :  other.transform.position - transform.position;
+            Vector3 opos = null != other.Movement ? other.Movement.Position : other.transform.position;
+            return Collides(opos, other.Radius, distance);
+        }
 
-            float r = other.Radius + Radius;
+        // TODO: would be better if we id radius (x) and height (y) separately
+        public bool Collides(Vector3 opos, float radius, float distance=float.Epsilon)
+        {
+            Vector3 pos = null != Movement ? Movement.Position : transform.position;
+            Vector3 offset = opos - pos;
+
+            float r = radius + Radius;
             float d = r * r;
             return offset.sqrMagnitude < d;
         }

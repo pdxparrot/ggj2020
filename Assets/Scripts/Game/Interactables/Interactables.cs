@@ -30,6 +30,7 @@ namespace pdxpartyparrot.Game.Interactables
         }
 #endregion
 
+        // NOTE: this doesn't check to see if the interactable actually collides with us
         public bool AddInteractable(IInteractable interactable)
         {
             if(null == interactable || !interactable.CanInteract) {

@@ -110,7 +110,7 @@ namespace pdxpartyparrot.ggj2020.Level
         {
             base.GameStartClientEventHandler(sender, args);
 
-            _chargingStation.Enable(PlayerManager.Instance.Players.Count >= GameManager.Instance.GameGameData.ChargingStationMinPlayers);
+            _chargingStation.Enable(PlayerManager.Instance.PlayerCount >= GameManager.Instance.GameGameData.ChargingStationMinPlayers);
             _chargingStation.EnableUI(false);
 
             GameManager.Instance.Viewer.SetBounds(_cameraBounds);

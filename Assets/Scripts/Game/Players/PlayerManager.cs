@@ -64,6 +64,8 @@ namespace pdxpartyparrot.Game.Players
 
         public IReadOnlyCollection<IPlayer> Players => _players;
 
+        public int PlayerCount => Players.Count;
+
         private GameObject _playerContainer;
 
         private DebugMenuNode _debugMenuNode;
@@ -169,7 +171,7 @@ namespace pdxpartyparrot.Game.Players
         // TODO: figure out how to even do this
         public void DespawnPlayers()
         {
-            if(Players.Count < 1) {
+            if(PlayerCount < 1) {
                 return;
             }
 
