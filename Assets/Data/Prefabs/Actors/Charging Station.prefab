@@ -1438,8 +1438,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e5de780a767e24fa0a655ff10679c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animateTime: 1
   _chargingStationOn: {fileID: 3973121359163253897}
   _chargingStationOff: {fileID: 5032138326712634938}
+  _robotIcon: {fileID: 5624257583968380855}
+  _batteryIcon: {fileID: 1902770588603335022}
+  _playerInteractUI: {fileID: 3550497569381946423}
+  _enabledUI: 0
   _chargingStationUI: {fileID: 2530265451433661863}
   _useEffect: {fileID: 7477282131876747643}
   _loopingRumbleEffectTrigger: {fileID: 6552302390988330669}
