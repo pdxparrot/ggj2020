@@ -38,14 +38,16 @@ namespace pdxpartyparrot.Core.UI
         {
             _camera.clearFlags = CameraClearFlags.Color;
             _camera.backgroundColor = Color.black;
-            _camera.cullingMask = 0;
+            _camera.cullingMask = -1;
             _camera.orthographic = true;
             _camera.useOcclusionCulling = false;
 
             _videoPlayer = _camera.gameObject.AddComponent<VideoPlayer>();
             _videoPlayer.playOnAwake = false;
+            _videoPlayer.waitForFirstFrame = false;
             _videoPlayer.renderMode = VideoRenderMode.CameraNearPlane;
             _videoPlayer.isLooping = false;
+            _videoPlayer.errorReceived += ErrorReceivedEventHandler;
         }
 
         private void OnDestroy()
@@ -58,7 +60,6 @@ namespace pdxpartyparrot.Core.UI
             PlayNextSplashScreen();
         }
 #endregion
-
 
         private void PlayNextSplashScreen()
         {
@@ -75,20 +76,38 @@ namespace pdxpartyparrot.Core.UI
 
             // config the volume for each track
             _videoPlayer.SetDirectAudioVolume(0, 1.0f);
-            for(ushort i=0; i<config.volume.Length; ++i) {
+            for(ushort i=0; i<config.volume.Length && i<_videoPlayer.audioTrackCount; ++i) {
                 _videoPlayer.SetDirectAudioVolume(i, config.volume[i]);
             }
 
-            void EventHandler(VideoPlayer vp)
-            {
-                _videoPlayer.loopPointReached -= EventHandler;
-
-                _currentSplashScreen++;
-                PlayNextSplashScreen();
-            }
-
-            _videoPlayer.loopPointReached += EventHandler;
-            _videoPlayer.Play();
+            // prepare the clip
+            _videoPlayer.prepareCompleted += PrepareCompletedEventHandler;
+            _videoPlayer.Prepare();
         }
+
+#region Events
+        private void ErrorReceivedEventHandler(VideoPlayer source, string message)
+        {
+            Debug.LogError($"Video player received error: {message}");
+        }
+
+        private void PrepareCompletedEventHandler(VideoPlayer source)
+        {
+            source.prepareCompleted -= PrepareCompletedEventHandler;
+
+            // ready, play the clip
+            source.loopPointReached += LoopPointReachedEventHandler;
+            source.Play();
+        }
+
+        private void LoopPointReachedEventHandler(VideoPlayer source)
+        {
+            source.loopPointReached -= LoopPointReachedEventHandler;
+
+            // loop to the next splash
+            _currentSplashScreen++;
+            PlayNextSplashScreen();
+        }
+#endregion
     }
 }

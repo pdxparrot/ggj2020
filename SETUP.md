@@ -418,11 +418,6 @@
   * The only object in the scene should be the Main Camera
 * Setup the camera in the scene
   * Set the Tag to Untagged
-  * Clear Flags: Solid Color
-  * Background: Opaque Black
-  * Culling Mask: Nothing
-  * Projection: Orthographic
-  * Uncheck Occlusion Culling
   * Disable HDR
   * Disable MSAA
   * Leave the Audio Listener attached to the camera for audio to work
