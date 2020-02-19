@@ -49,6 +49,10 @@ namespace pdxpartyparrot.Core.DebugMenu
 
         [SerializeField]
         [ReadOnly]
+        private bool _showScreen;
+
+        [SerializeField]
+        [ReadOnly]
         private bool _showRendering;
 
         [SerializeField]
@@ -90,6 +94,7 @@ namespace pdxpartyparrot.Core.DebugMenu
             ResetFrameStats();
 
 #if !UNITY_EDITOR
+            _showScreen = true;
             _showRendering = true;
             _showMemory = true;
 #endif
@@ -231,6 +236,16 @@ namespace pdxpartyparrot.Core.DebugMenu
             if(null == _currentNode) {
                 GUILayout.Label($"Unity version: {Application.unityVersion}");
                 GUILayout.Label($"Random seed: {PartyParrotManager.Instance.RandomSeed}");
+
+                _showScreen = GUIUtils.Foldout(_showScreen, "Screen");
+                if(_showScreen) {
+                    GUILayout.BeginVertical(GUI.skin.box);
+                        GUILayout.Label($"Current Resolution: {Screen.currentResolution} ({Screen.width} x {Screen.height})");
+                        GUILayout.Label($"Fullscreen: {Screen.fullScreen}");
+                        GUILayout.Label($"DPI: {Screen.dpi}");
+                        GUILayout.Label($"Orientation: {Screen.orientation}");
+                    GUILayout.EndVertical();
+                }
 
                 _showRendering = GUIUtils.Foldout(_showRendering, "Rendering");
                 if(_showRendering) {
