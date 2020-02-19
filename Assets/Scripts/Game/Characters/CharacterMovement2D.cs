@@ -70,6 +70,7 @@ namespace pdxpartyparrot.Game.Characters
             base.InitRigidbody(behaviorData);
 
             RigidBody.isKinematic = behaviorData.IsKinematic;
+            RigidBody.gravityScale = behaviorData.IsKinematic ? 0.0f : 1.0f;
             RigidBody.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             RigidBody.interpolation = RigidbodyInterpolation2D.Interpolate;
         }

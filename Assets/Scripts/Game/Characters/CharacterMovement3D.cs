@@ -75,7 +75,6 @@ namespace pdxpartyparrot.Game.Characters
 
             RigidBody.isKinematic = behaviorData.IsKinematic;
             RigidBody.useGravity = !behaviorData.IsKinematic;
-            //RigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             RigidBody.detectCollisions = true;
             RigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
             RigidBody.interpolation = RigidbodyInterpolation.Interpolate;
