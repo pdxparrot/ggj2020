@@ -9,6 +9,8 @@ using UnityEngine.Assertions;
 
 namespace pdxpartyparrot.Core.Camera
 {
+    // https://blogs.unity3d.com/2018/07/17/cinemachine-for-2d-tips-and-tricks/
+
     [RequireComponent(typeof(CinemachineVirtualCamera))]
     [RequireComponent(typeof(CinemachineImpulseListener))]
     public class CinemachineViewer : Viewer
