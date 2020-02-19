@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
+using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.Actors.Components;
 using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Data.Actors.Components;
@@ -105,7 +106,7 @@ namespace pdxpartyparrot.Game.Characters
             get
             {
                 // TODO: make this configurable
-                if(!GameStateManager.Instance.GameManager.IsGameReady || GameStateManager.Instance.GameManager.IsGameOver) {
+                if(PartyParrotManager.Instance.IsPaused || !GameStateManager.Instance.GameManager.IsGameReady || GameStateManager.Instance.GameManager.IsGameOver) {
                     return false;
                 }
 
