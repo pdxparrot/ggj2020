@@ -103,8 +103,11 @@ namespace pdxpartyparrot.Core.Actors.Components
 
         public virtual void Initialize(ActorBehaviorComponentData behaviorData)
         {
+            ResetFromData(behaviorData);
+
             Rotation = Quaternion.identity;
             Velocity = Vector3.zero;
+
             ResetAngularVelocity();
         }
 
