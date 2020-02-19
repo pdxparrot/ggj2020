@@ -105,15 +105,12 @@ namespace pdxpartyparrot.Game.Players.Input
             InitDebugMenu();
         }
 
+        // TODO: fix the naming conflict between these
+        protected bool InputAllowed => InputEnabled && Application.isFocused;
+
         protected virtual bool IsInputAllowed(InputAction.CallbackContext ctx)
         {
-            // no input unless input is enabled
-            if(!InputEnabled) {
-                return false;
-            }
-
-            // no input unless we have focus
-            if(!Application.isFocused) {
+            if(!InputAllowed) {
                 return false;
             }
 

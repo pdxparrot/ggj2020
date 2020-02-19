@@ -57,7 +57,7 @@ namespace pdxpartyparrot.Game.Players.Input
 
         protected virtual void DoPollMove()	
         {	
-            if(null == _moveAction) {	
+            if(!InputAllowed || null == _moveAction) {	
                 return;	
             }
 
@@ -66,7 +66,7 @@ namespace pdxpartyparrot.Game.Players.Input
 
         protected virtual void DoPollLook()	
         {	
-            if(null == _lookAction) {	
+            if(!InputAllowed || null == _lookAction) {	
                 return;	
             }	
 

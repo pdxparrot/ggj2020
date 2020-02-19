@@ -220,6 +220,8 @@ namespace pdxpartyparrot.ggj2020.Players
                 return false;
             }
 
+            Owner.Rigidbody.isKinematic = true;
+
             _useToolEffect.Trigger();
             return true;
         }
@@ -230,7 +232,10 @@ namespace pdxpartyparrot.ggj2020.Players
                 return;
             }
 
+            Owner.Movement.IsKinematic = false;
+
             _heldTool.EndUse();
+
             Owner.Behavior.SpineAnimationHelper.SetEmptyAnimation(1);
         }
 
@@ -294,6 +299,8 @@ namespace pdxpartyparrot.ggj2020.Players
 
             _usingChargingStation = chargingStation;
 
+            Owner.Movement.IsKinematic = true;
+
             _useChargingStationEffect.Trigger();
 
             return true;
@@ -304,6 +311,8 @@ namespace pdxpartyparrot.ggj2020.Players
             if(!IsUsingChargingStation) {
                 return;
             }
+
+            Owner.Movement.IsKinematic = false;
 
             _useChargingStationEffect.StopTrigger();
 
