@@ -285,6 +285,7 @@ MonoBehaviour:
   _holdingPlayer: {fileID: 0}
   _repairPoint: {fileID: 0}
   _inUse: 0
+  _delayEffectTriggerComponent: {fileID: 8260837200081054574}
   _succesfulHits: 0
 --- !u!1 &5803791752801032210
 GameObject:
@@ -330,6 +331,7 @@ GameObject:
   - component: {fileID: 6081621077162409620}
   - component: {fileID: 8891877133218744331}
   - component: {fileID: 4105123055863511682}
+  - component: {fileID: 8260837200081054574}
   m_Layer: 17
   m_Name: Use Effect
   m_TagString: Untagged
@@ -371,6 +373,7 @@ MonoBehaviour:
     - {fileID: 6081621077162409620}
     - {fileID: 8891877133218744331}
     - {fileID: 4105123055863511682}
+    - {fileID: 8260837200081054574}
   _isRunning: 0
   _complete: 0
 --- !u!114 &6081621077162409620
@@ -424,6 +427,21 @@ MonoBehaviour:
   _playerInput: {fileID: 0}
   _waitForComplete: 0
   _isPlaying: 0
+--- !u!114 &8260837200081054574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7064362466413816876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15468e94040d289438f6f6f0835df851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _seconds: 1
+  _waitForComplete: 1
+  _isWaiting: 0
 --- !u!1 &7669975374327047269
 GameObject:
   m_ObjectHideFlags: 0

@@ -117,6 +117,9 @@ namespace pdxpartyparrot.ggj2020.Actors
                 break;*/
             }
 
+            // TODO: make overrides something we can do from the debug menu
+            //_currentDamageType = DamageType.Damaged;
+
             InitDamage();
         }
 

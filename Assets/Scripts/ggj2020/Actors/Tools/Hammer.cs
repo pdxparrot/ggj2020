@@ -1,4 +1,5 @@
-﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
@@ -9,8 +10,20 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
         [Space(10)]
 
         [SerializeField]
+        private DelayEffectTriggerComponent _delayEffectTriggerComponent;
+
+        [SerializeField]
         [ReadOnly]
         private int _succesfulHits;
+
+#region Unity Lifecycle
+        protected override void Awake()
+        {
+            base.Awake();
+
+            _delayEffectTriggerComponent.Seconds = GameManager.Instance.GameGameData.HammerCooldown;
+        }
+#endregion
 
         public override bool SetRepairPoint(RepairPoint repairPoint)
         {
@@ -30,9 +43,9 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
             }
 
             if(InUse) {
-                HoldingPlayer.ToolBubble.ShowPressedSprite();
+                HoldingPlayer.ToolBubble.ShowPressedButton();
             } else {
-                HoldingPlayer.ToolBubble.ShowUnpressedSprite();
+                HoldingPlayer.ToolBubble.ShowUnpressedButton();
             }
         }
 
@@ -46,16 +59,23 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
                 return false;
             }
 
-            HoldingPlayer.ToolBubble.ShowPressedSprite();
+            HoldingPlayer.ToolBubble.ShowPressedButton();
 
             return true;
+        }
+
+        public override void EndUse()
+        {
+            // ignore everything the base tool does for this
         }
 
         protected override void OnUseToolEffectEnd()
         {
             base.OnUseToolEffectEnd();
 
-            HoldingPlayer.ToolBubble.ShowUnpressedSprite();
+            base.EndUse();
+
+            HoldingPlayer.ToolBubble.ShowUnpressedButton();
 
             _succesfulHits++;
             if(_succesfulHits < GameManager.Instance.GameGameData.HammerSuccessfulHits) {

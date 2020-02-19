@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 
 using JetBrains.Annotations;
 
@@ -77,7 +77,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
                 return;
             }
 
-            HoldingPlayer.ToolBubble.ShowPressedSprite();
+            HoldingPlayer.ToolBubble.ShowPressedButton();
         }
 
         public override void Drop()

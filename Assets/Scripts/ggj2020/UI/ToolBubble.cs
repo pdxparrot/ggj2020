@@ -20,6 +20,8 @@ namespace pdxpartyparrot.ggj2020.UI
         {
             Hide();
 
+            //Debug.Log("Showing thumb left bubble");
+
             pressedButtonAndThumb.SetActive(true);
         }
 
@@ -27,25 +29,33 @@ namespace pdxpartyparrot.ggj2020.UI
         {
             Hide();
 
+            //Debug.Log("Showing thumb right bubble");
+
             pressedButtonAndThumbRight.SetActive(true);
         }
 
-        public void ShowPressedSprite()
+        public void ShowPressedButton()
         {
             Hide();
+
+            //Debug.Log("Showing pressed button bubble");
 
             pressedButton.SetActive(true);
         }
 
-        public void ShowUnpressedSprite()
+        public void ShowUnpressedButton()
         {
             Hide();
+
+            //Debug.Log("Showing unpressed button bubble");
 
             unpressedButton.SetActive(true);
         }
 
         public void Hide()
         {
+            //Debug.Log("Hiding bubble");
+
             pressedButton.SetActive(false);
             unpressedButton.SetActive(false);
             pressedButtonAndThumb.SetActive(false);

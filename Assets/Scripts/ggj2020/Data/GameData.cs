@@ -66,6 +66,11 @@ namespace pdxpartyparrot.ggj2020.Data
         public float FireExtinguisherHoldTime => _fireExtinguisherHoldTime;
 
         [SerializeField]
+        private float _hammerCooldown = 0.5f;
+
+        public float HammerCooldown => _hammerCooldown;
+
+        [SerializeField]
         private int _hammerSuccesfulHits = 5;
 
         public int HammerSuccessfulHits => _hammerSuccesfulHits;

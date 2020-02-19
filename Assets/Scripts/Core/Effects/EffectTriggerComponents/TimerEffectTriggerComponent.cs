@@ -1,4 +1,5 @@
 ﻿using pdxpartyparrot.Core.Time;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
@@ -9,9 +10,14 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         [SerializeField]
         private float _seconds;
 
+        // always wait for this to complete
+        [SerializeField]
+        [ReadOnly]
+        private bool _waitForComplete = true;
+
         private ITimer _timer;
 
-        public override bool WaitForComplete => true;
+        public override bool WaitForComplete => _waitForComplete;
 
         public override bool IsDone => !_timer.IsRunning;
 
