@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
+using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Time;
@@ -235,6 +236,10 @@ namespace pdxpartyparrot.ggj2020.Actors
             WaitForSeconds wait = new WaitForSeconds(0.5f);
             while(true) {
                 yield return wait;
+
+                if(PartyParrotManager.Instance.IsPaused) {
+                    continue;
+                }
 
                 _loopingRumbleEffectTrigger.Trigger();
             }
