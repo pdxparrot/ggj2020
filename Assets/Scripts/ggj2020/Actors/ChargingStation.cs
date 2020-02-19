@@ -106,7 +106,11 @@ namespace pdxpartyparrot.ggj2020.Actors
 #region Unity Lifecycle
         private void Awake()
         {
-            GetComponent<Rigidbody>().isKinematic = true;
+            // TODO: this should come from an actor data object for this
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.isKinematic = true;
+            rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+
             GetComponent<Collider>().isTrigger = true;
             GetComponent<AudioSource>().spatialBlend = 0.0f;
 

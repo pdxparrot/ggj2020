@@ -18,6 +18,7 @@ namespace pdxpartyparrot.ggj2020.World
         {
             base.Awake();
 
+            // TODO: this should come from an actor data object for this
             Rigidbody.isKinematic = true;
             Collider.isTrigger = true;
         }

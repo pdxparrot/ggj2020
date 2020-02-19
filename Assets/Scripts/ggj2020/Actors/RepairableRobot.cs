@@ -88,6 +88,7 @@ namespace pdxpartyparrot.ggj2020.Actors
         {
             base.Awake();
 
+            // TODO: this should come from an actor data object for this
             Rigidbody.isKinematic = true;
             Rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
 

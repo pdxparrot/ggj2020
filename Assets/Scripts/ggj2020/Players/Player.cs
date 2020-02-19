@@ -38,8 +38,6 @@ namespace pdxpartyparrot.ggj2020.Players
 
             Assert.IsTrue(PlayerInputHandler is PlayerInputHandler);
 
-            Rigidbody.useGravity = true;
-            Rigidbody.isKinematic = false;
             Rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
         }
 #endregion

@@ -91,6 +91,7 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
 #region Unity Lifecycle
         protected virtual void Awake()
         {
+            // TODO: this should come from an actor data object for this
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.useGravity = true;
             _rigidbody.isKinematic = false;
