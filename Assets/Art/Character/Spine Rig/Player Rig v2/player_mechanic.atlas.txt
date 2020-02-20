@@ -1,0 +1,132 @@
+
+player_mechanic.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+AnkleL
+  rotate: true
+  xy: 1989, 1527
+  size: 41, 53
+  orig: 41, 53
+  offset: 0, 0
+  index: -1
+AnkleR
+  rotate: true
+  xy: 1989, 1570
+  size: 42, 53
+  orig: 42, 55
+  offset: 0, 1
+  index: -1
+ArmL
+  rotate: false
+  xy: 1854, 1563
+  size: 133, 110
+  orig: 134, 110
+  offset: 1, 0
+  index: -1
+ArmR
+  rotate: false
+  xy: 1854, 1782
+  size: 153, 136
+  orig: 153, 137
+  offset: 0, 1
+  index: -1
+Body
+  rotate: true
+  xy: 2, 931
+  size: 234, 364
+  orig: 234, 364
+  offset: 0, 0
+  index: -1
+Body_Back
+  rotate: true
+  xy: 368, 933
+  size: 232, 361
+  orig: 234, 364
+  offset: 1, 2
+  index: -1
+FootL
+  rotate: true
+  xy: 2009, 1832
+  size: 86, 36
+  orig: 87, 36
+  offset: 1, 0
+  index: -1
+FootR
+  rotate: true
+  xy: 1989, 1614
+  size: 59, 44
+  orig: 59, 46
+  offset: 0, 1
+  index: -1
+HandL
+  rotate: false
+  xy: 1854, 1405
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+HandR
+  rotate: false
+  xy: 1966, 1451
+  size: 75, 74
+  orig: 76, 74
+  offset: 0, 0
+  index: -1
+Head
+  rotate: false
+  xy: 2, 1167
+  size: 981, 878
+  orig: 981, 878
+  offset: 0, 0
+  index: -1
+Head_Back
+  rotate: false
+  xy: 985, 1200
+  size: 867, 845
+  orig: 867, 845
+  offset: 0, 0
+  index: -1
+LegL
+  rotate: true
+  xy: 1854, 1920
+  size: 125, 176
+  orig: 126, 178
+  offset: 1, 0
+  index: -1
+LegR
+  rotate: true
+  xy: 1854, 1675
+  size: 105, 186
+  orig: 106, 186
+  offset: 1, 0
+  index: -1
+Tool_FireExtinguisher
+  rotate: false
+  xy: 1487, 758
+  size: 427, 235
+  orig: 512, 512
+  offset: 82, 139
+  index: -1
+Tool_Hammer
+  rotate: false
+  xy: 985, 978
+  size: 500, 220
+  orig: 512, 512
+  offset: 6, 146
+  index: -1
+Tool_Wrench
+  rotate: false
+  xy: 1487, 995
+  size: 506, 203
+  orig: 512, 512
+  offset: 4, 144
+  index: -1
+Zipper
+  rotate: true
+  xy: 1854, 1472
+  size: 89, 110
+  orig: 90, 110
+  offset: 0, 0
+  index: -1
