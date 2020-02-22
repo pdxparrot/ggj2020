@@ -1806,6 +1806,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 648133264100927583, guid: 28d8b18318f8db0479133b34b568ed11,
+        type: 3}
+      propertyPath: _animationName
+      value: idle_static
+      objectReference: {fileID: 0}
     - target: {fileID: 1439921588693706959, guid: 28d8b18318f8db0479133b34b568ed11,
         type: 3}
       propertyPath: m_LocalPosition.x
