@@ -193,11 +193,17 @@ namespace pdxpartyparrot.ggj2020.Players
                 return;
             }
 
-            if(IsHoldingTool && !CanUseTool) {
-                ToolBubble.Hide();
+            if(IsHoldingTool) {
+                if(CanUseTool) {
+                    _heldTool.ShowBubble();
+                } else {
+                    ToolBubble.Hide();
+                }
                 return;
             }
 
+            // this check will prevent us showing the charging station bubble
+            // when we'd actually pick up a tool if we tried to use it
             if(_interactables.HasInteractables<Tool>()) {
                 ToolBubble.Hide();
                 return;
