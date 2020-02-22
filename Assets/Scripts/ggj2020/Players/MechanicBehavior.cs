@@ -15,6 +15,7 @@ using pdxpartyparrot.ggj2020.World;
 using Spine.Unity;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.ggj2020.Players
 {
@@ -83,7 +84,11 @@ namespace pdxpartyparrot.ggj2020.Players
         [CanBeNull]
         private ChargingStation _usingChargingStation;
 
-        public bool IsUsingChargingStation => _usingChargingStation != null;
+        [SerializeField]
+        [ReadOnly]
+        private bool _failUsingChargingStation;
+
+        public bool IsUsingChargingStation => _usingChargingStation != null || _failUsingChargingStation;
 
         public bool CanUseChargingStation => GameManager.Instance.MechanicsCanInteract && !IsOnLadder && !IsUsingChargingStation && !IsHoldingTool;
 #endregion
@@ -114,7 +119,11 @@ namespace pdxpartyparrot.ggj2020.Players
         private EffectTrigger _useToolEffect;
 
         [SerializeField]
-        private EffectTrigger _useChargingStationEffect;
+        [FormerlySerializedAs("_useChargingStationEffect")]
+        private EffectTrigger _useChargingStationSuccessEffect;
+
+        [SerializeField]
+        private EffectTrigger _useChargingStationFailEffect;
 
         [SerializeField]
         private EffectTrigger _robotImpuleEffectTrigger;
@@ -160,6 +169,7 @@ namespace pdxpartyparrot.ggj2020.Players
             }
 
             if(IsOnLadder) {
+                // TODO: trigger either moving or idle effect
                 IsOnLadder = false;
             } else if(CanUseLadder) {
                 Owner.GamePlayerBehavior.ClimbLadderEffectTrigger.Trigger();
@@ -236,6 +246,7 @@ namespace pdxpartyparrot.ggj2020.Players
 
             _heldTool.EndUse();
 
+            _useToolEffect.StopTrigger();
             Owner.Behavior.SpineAnimationHelper.SetEmptyAnimation(1);
         }
 
@@ -292,6 +303,10 @@ namespace pdxpartyparrot.ggj2020.Players
             }
 
             if(!chargingStation.Use(this)) {
+                _failUsingChargingStation = true;
+                _useChargingStationFailEffect.Trigger(() => {
+                    _failUsingChargingStation = false;
+                });
                 return false;
             }
 
@@ -301,21 +316,20 @@ namespace pdxpartyparrot.ggj2020.Players
 
             Owner.Movement.IsKinematic = true;
 
-            _useChargingStationEffect.Trigger();
+            _useChargingStationSuccessEffect.Trigger();
 
             return true;
         }
 
         public void EndUseChargingStation()
         {
-            if(!IsUsingChargingStation) {
+            if(null == _usingChargingStation) {
                 return;
             }
 
             Owner.Movement.IsKinematic = false;
 
-            _useChargingStationEffect.StopTrigger();
-
+            _useChargingStationSuccessEffect.StopTrigger();
             Owner.Behavior.SpineAnimationHelper.SetEmptyAnimation(1);
 
             // TODO: when tools are actors this check can be done less stupid
