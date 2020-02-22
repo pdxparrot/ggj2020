@@ -619,6 +619,7 @@ GameObject:
   m_Component:
   - component: {fileID: 845092531239295731}
   - component: {fileID: 7477282131876747643}
+  - component: {fileID: 7035356338172906181}
   m_Layer: 18
   m_Name: Use Effect
   m_TagString: Untagged
@@ -655,9 +656,26 @@ MonoBehaviour:
   _triggerOnComplete:
     _items: []
   _components:
-    _items: []
+    _items:
+    - {fileID: 7035356338172906181}
   _isRunning: 0
   _complete: 0
+--- !u!114 &7035356338172906181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3131379440574264378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e30a58e0ff991418528db3f52f3439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: 5bfd6159fed49ee449d485849341920f, type: 3}
+  _audioSource: {fileID: 2563746658909436578}
+  _loop: 1
+  _waitForComplete: 0
 --- !u!1 &3392776769963545350
 GameObject:
   m_ObjectHideFlags: 0

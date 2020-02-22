@@ -14,7 +14,7 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         public override bool WaitForComplete => _waitForComplete;
 
-        public override bool IsDone => !AudioManager.Instance.IsStingerPlaying;
+        public override bool IsDone => !AudioManager.HasInstance || !AudioManager.Instance.IsStingerPlaying;
 
         public override void OnStart()
         {
