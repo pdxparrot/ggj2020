@@ -30,7 +30,7 @@ MonoBehaviour:
   _hammerCooldown: 0.5
   _hammerSuccesfulHits: 5
   _wrenchSuccesfulTurns: 5
-  _chargeTimePerPlayerCount: 08000000060000000300000003000000
+  _chargeTimePerPlayerCount: 06000000040000000300000003000000
   _repairableRobotSpawnTag: repairable_robot
   _playerFighterSpawnTag: player_fighter
   _npcFighterSpawnTag: npc_fighter
