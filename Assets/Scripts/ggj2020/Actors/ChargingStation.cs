@@ -71,7 +71,11 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         public bool IsInUse => _usingPlayer != null;
 
+        public bool IsCharging => !IsCharged && _succesfulPlayers.Count > 0;
+
         public bool IsCharged => !_enabled || _succesfulPlayers.Count >= PlayerManager.Instance.PlayerCount;
+
+        public float ChargePercent => PlayerManager.Instance.PlayerCount == 0 ? 0.0f : _succesfulPlayers.Count / (float)PlayerManager.Instance.PlayerCount;
 
         private ITimer _holdTimer;
 
@@ -133,6 +137,9 @@ namespace pdxpartyparrot.ggj2020.Actors
             Debug.Log("Resetting charge");
 
             _succesfulPlayers.Clear();
+
+            _chargingStationUI.SetUI(ChargingStationUI.EnabledUI.Robot);
+            _chargingStationUI.UpdateCharge();
         }
 
         public bool CanUse(MechanicBehavior player)
@@ -215,6 +222,8 @@ namespace pdxpartyparrot.ggj2020.Actors
             _succesfulPlayers.Add(_usingPlayer);
 
             _usingPlayer.EndUseChargingStation();
+
+            _chargingStationUI.UpdateCharge();
 
             if(IsCharged) {
                 _chargeCompleteEffect.Trigger();

@@ -3,6 +3,7 @@
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace pdxpartyparrot.ggj2020.UI
 {
@@ -25,42 +26,73 @@ namespace pdxpartyparrot.ggj2020.UI
         private GameObject _batteryIcon;
 
         [SerializeField]
-        private GameObject _playerInteractUI;
+        private GameObject _batteryChargingIcon;
+
+        [SerializeField]
+        private Image _batteryChargeLevel;
+
+        [SerializeField]
+        private GameObject _nextPlayerIcon;
 
         [SerializeField]
         [ReadOnly]
         private EnabledUI _enabledUI = EnabledUI.Robot;
 
+        private Coroutine _animateRoutine;
+
 #region Unity Lifecycle
-        private void Awake()
+        private void OnEnable()
         {
-            StartCoroutine(AnimateRoutine());
+            _animateRoutine = StartCoroutine(AnimateRoutine());
+        }
+
+        private void OnDisable()
+        {
+            StopCoroutine(_animateRoutine);
+            _animateRoutine = null;
         }
 #endregion
 
+        public void UpdateCharge()
+        {
+            _batteryChargeLevel.fillAmount = GameManager.Instance.GameLevelHelper.ChargingStation.ChargePercent;
+        }
+
         public void SetUI(EnabledUI enabledUI)
         {
+            bool charged = GameManager.Instance.GameLevelHelper.ChargingStation.IsCharged;
+            bool charging = GameManager.Instance.GameLevelHelper.ChargingStation.IsCharging;
+
             _enabledUI = enabledUI;
             switch(_enabledUI)
             {
             case EnabledUI.PlayerInteract:
                 _robotIcon.SetActive(false);
+                _nextPlayerIcon.SetActive(false);
+
                 _batteryIcon.SetActive(false);
-                _playerInteractUI.SetActive(true);
+                _batteryChargingIcon.SetActive(true);
                 break;
             case EnabledUI.Robot:
-                _robotIcon.SetActive(true);
+                _robotIcon.SetActive(!charged && !charging);
+                _nextPlayerIcon.SetActive(!charged && charging);
+
                 _batteryIcon.SetActive(false);
-                _playerInteractUI.SetActive(false);
+                _batteryChargingIcon.SetActive(charged);
                 break;
             case EnabledUI.Battery:
                 _robotIcon.SetActive(false);
-                _batteryIcon.SetActive(true);
-                _playerInteractUI.SetActive(false);
+                _nextPlayerIcon.SetActive(false);
+
+                _batteryIcon.SetActive(!charged && !charging);
+                _batteryChargingIcon.SetActive(charged || charging);
                 break;
             }
         }
 
+        // TODO: instead of using a coroutine
+        // a timer that tirggers off SetUI would make more sense
+        // because we get weird animation timings with a constant routine
         private IEnumerator AnimateRoutine()
         {
             WaitForSeconds wait = new WaitForSeconds(_animateTime);
@@ -70,6 +102,7 @@ namespace pdxpartyparrot.ggj2020.UI
                 switch(_enabledUI)
                 {
                 case EnabledUI.PlayerInteract:
+                    // don't swap animations while the player is interacting
                     break;
                 case EnabledUI.Robot:
                     SetUI(EnabledUI.Battery);
