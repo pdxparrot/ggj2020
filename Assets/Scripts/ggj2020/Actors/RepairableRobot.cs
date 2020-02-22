@@ -64,6 +64,17 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         [SerializeField]
         private EffectTrigger _exitRepairBayFailureEffectTrigger;
+
+        [SerializeField]
+        private EffectTrigger _chargingEffectTrigger;
+
+        [SerializeField]
+        private EffectTrigger _idleChargedEffectTrigger;
+
+        [SerializeField]
+        private EffectTrigger _idleUnchargedEffectTrigger;
+
+        protected EffectTrigger IdleEffect => GameManager.Instance.GameLevelHelper.ChargingStation.IsCharged ? _idleChargedEffectTrigger : _idleUnchargedEffectTrigger;
 #endregion
 
         [Space(10)]
@@ -191,6 +202,7 @@ namespace pdxpartyparrot.ggj2020.Actors
                 _enterRepairBayEffectTrigger.KillTrigger();
 
                 _repairBayDockedEffect.Trigger(() => {
+                    IdleEffect.Trigger();
                     onComplete?.Invoke();
                 });
             });
@@ -313,12 +325,14 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         private void StartUseChargingStationEventHandler(object sender, EventArgs args)
         {
-            // TODO: trigger an effect
+            _chargingEffectTrigger.Trigger();
         }
 
         private void EndUseChargingStationEventHandler(object sender, EventArgs args)
         {
-            // TODO: trigger an effect
+            _chargingEffectTrigger.StopTrigger();
+
+            IdleEffect.Trigger();
         }
 
         private void RepairedEventHandler(object sender, EventArgs args)

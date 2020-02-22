@@ -22,6 +22,8 @@ namespace pdxpartyparrot.ggj2020.Level
         [SerializeField]
         private ChargingStation _chargingStation;
 
+        public ChargingStation ChargingStation => _chargingStation;
+
         [SerializeField]
         private BackgroundRobot _npcRobot;
 
