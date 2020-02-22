@@ -6,6 +6,7 @@ using pdxpartyparrot.Game.Level;
 using pdxpartyparrot.ggj2020.Actors;
 using pdxpartyparrot.ggj2020.Actors.Tools;
 using pdxpartyparrot.ggj2020.Players;
+using pdxpartyparrot.ggj2020.UI;
 
 using UnityEngine;
 
@@ -133,10 +134,15 @@ namespace pdxpartyparrot.ggj2020.Level
         {
             base.GameStartClientEventHandler(sender, args);
 
-            _chargingStation.Enable(PlayerManager.Instance.PlayerCount >= GameManager.Instance.GameGameData.ChargingStationMinPlayers);
+            bool enableChargingStation = PlayerManager.Instance.PlayerCount >= GameManager.Instance.GameGameData.ChargingStationMinPlayers;
+
+            _chargingStation.Enable(enableChargingStation);
             _chargingStation.EnableUI(false);
 
             GameManager.Instance.Viewer.SetBounds(_cameraBounds);
+
+            GameUIManager.Instance.GameGameUI.EnableChargingStationIntroUI(enableChargingStation);
+            GameUIManager.Instance.GameGameUI.ShowIntroUI();
         }
 
         protected override void GameReadyEventHandler(object sender, EventArgs args)
