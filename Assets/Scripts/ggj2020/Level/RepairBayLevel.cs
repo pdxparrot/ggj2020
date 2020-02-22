@@ -9,6 +9,7 @@ using pdxpartyparrot.ggj2020.Players;
 using pdxpartyparrot.ggj2020.UI;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.ggj2020.Level
 {
@@ -24,11 +25,15 @@ namespace pdxpartyparrot.ggj2020.Level
 
         public ChargingStation ChargingStation => _chargingStation;
 
-        [SerializeField]
-        private BackgroundRobot _npcRobot;
+        [Space(10)]
 
         [SerializeField]
-        private BackgroundRobot _playerRobot;
+        [FormerlySerializedAs("_npcRobot")]
+        private BackgroundRobot _npcBackgroundRobot;
+
+        [SerializeField]
+        [FormerlySerializedAs("_playerRobot")]
+        private BackgroundRobot _playerBackgroundRobot;
 
         [Space(10)]
 
@@ -83,6 +88,17 @@ namespace pdxpartyparrot.ggj2020.Level
             tool.transform.SetParent(_toolContainer);
         }
 
+        private void StartBackgroundBattle(bool playerWins)
+        {
+            if(playerWins) {
+                _playerBackgroundRobot.Win();
+                _npcBackgroundRobot.Lose();
+            } else {
+                _playerBackgroundRobot.Lose();
+                _npcBackgroundRobot.Win();
+            }
+        }
+
         private void NextRobot(bool success)
         {
             GameManager.Instance.MechanicsCanInteract = false;
@@ -92,9 +108,8 @@ namespace pdxpartyparrot.ggj2020.Level
             _repairableRobot.ExitRepairBay(success, () => {
                 _repairableRobot.DeSpawn();
 
-                // TODO: kick off the next background battle
+                StartBackgroundBattle(success);
 
-                // TODO: really this should go after the background battle finishes or is close to finishing
                 _respawnTimer.Start(GameManager.Instance.GameGameData.RobotRespawnRate);
             });
         }
@@ -149,6 +164,9 @@ namespace pdxpartyparrot.ggj2020.Level
 
         protected override void GameReadyEventHandler(object sender, EventArgs args)
         {
+            _playerBackgroundRobot.Idle();
+            _npcBackgroundRobot.Idle();
+
             SpawnPoint spawnpoint = SpawnManager.Instance.GetSpawnPoint(GameManager.Instance.GameGameData.RepairableRobotSpawnTag);
             _repairableRobot = spawnpoint.SpawnNPCPrefab(GameManager.Instance.GameGameData.RepairableRobotPrefab, null, transform).GetComponent<RepairableRobot>();
             _repairableRobot.RepairedEvent += RepairedEventHandler;
