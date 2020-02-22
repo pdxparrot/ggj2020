@@ -11,6 +11,7 @@ using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Interactables;
 using pdxpartyparrot.ggj2020.Players;
+using pdxpartyparrot.ggj2020.UI;
 
 using UnityEngine;
 
@@ -26,43 +27,9 @@ namespace pdxpartyparrot.ggj2020.Actors
         public event EventHandler<EventArgs> ChargeCompleteEvent;
 #endregion
 
-        private enum EnabledUI
-        {
-            Robot,
-            Battery,
-            PlayerInteract,
-        }
-
         public bool CanInteract => true;
 
         public Type InteractableType => GetType();
-
-#region Art
-        [SerializeField]
-        private float _animateTime = 1.0f;
-
-        [SerializeField]
-        private GameObject _chargingStationOn;
-
-        [SerializeField]
-        private GameObject _chargingStationOff;
-
-        [SerializeField]
-        private GameObject _robotIcon;
-
-        [SerializeField]
-        private GameObject _batteryIcon;
-
-        [SerializeField]
-        private GameObject _playerInteractUI;
-
-        [SerializeField]
-        [ReadOnly]
-        private EnabledUI _enabledUI = EnabledUI.Robot;
-
-        [SerializeField]
-        private GameObject _chargingStationUI;
-#endregion
 
         [Space(10)]
 
@@ -81,6 +48,15 @@ namespace pdxpartyparrot.ggj2020.Actors
 #endregion
 
         [Space(10)]
+
+        [SerializeField]
+        private GameObject _chargingStationOn;
+
+        [SerializeField]
+        private GameObject _chargingStationOff;
+
+        [SerializeField]
+        private ChargingStationUI _chargingStationUI;
 
         [SerializeField]
         [ReadOnly]
@@ -118,8 +94,6 @@ namespace pdxpartyparrot.ggj2020.Actors
             _holdTimer.TimesUpEvent += ChargeTimerTimesUpEventHandler;
 
             GameManager.Instance.MechanicsCanInteractEvent += MechanicsCanInteractEventHandler;
-
-            StartCoroutine(AnimateRoutine());
         }
 
         private void OnDestroy()
@@ -142,7 +116,7 @@ namespace pdxpartyparrot.ggj2020.Actors
                 _chargingStationOn.SetActive(true);
                 _chargingStationOff.SetActive(false);
 
-                SetUI(EnabledUI.Robot);
+                _chargingStationUI.SetUI(ChargingStationUI.EnabledUI.Robot);
             } else {
                 _chargingStationOn.SetActive(false);
                 _chargingStationOff.SetActive(true);
@@ -151,30 +125,7 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         public void EnableUI(bool enable)
         {
-            _chargingStationUI.SetActive(enable);
-        }
-
-        private void SetUI(EnabledUI enabledUI)
-        {
-            _enabledUI = enabledUI;
-            switch(_enabledUI)
-            {
-            case EnabledUI.PlayerInteract:
-                _robotIcon.SetActive(false);
-                _batteryIcon.SetActive(false);
-                _playerInteractUI.SetActive(true);
-                break;
-            case EnabledUI.Robot:
-                _robotIcon.SetActive(true);
-                _batteryIcon.SetActive(false);
-                _playerInteractUI.SetActive(false);
-                break;
-            case EnabledUI.Battery:
-                _robotIcon.SetActive(false);
-                _batteryIcon.SetActive(true);
-                _playerInteractUI.SetActive(false);
-                break;
-            }
+            _chargingStationUI.gameObject.SetActive(enable);
         }
 
         public void ResetCharge()
@@ -214,7 +165,7 @@ namespace pdxpartyparrot.ggj2020.Actors
 
             _holdRoutine = StartCoroutine(HoldRoutine());
 
-            SetUI(EnabledUI.PlayerInteract);
+            _chargingStationUI.SetUI(ChargingStationUI.EnabledUI.PlayerInteract);
 
             return true;
         }
@@ -232,7 +183,7 @@ namespace pdxpartyparrot.ggj2020.Actors
 
             _usingPlayer = null;
 
-            SetUI(EnabledUI.Robot);
+            _chargingStationUI.SetUI(ChargingStationUI.EnabledUI.Robot);
         }
 
         private IEnumerator HoldRoutine()
@@ -246,26 +197,6 @@ namespace pdxpartyparrot.ggj2020.Actors
                 }
 
                 _loopingRumbleEffectTrigger.Trigger();
-            }
-        }
-
-        private IEnumerator AnimateRoutine()
-        {
-            WaitForSeconds wait = new WaitForSeconds(_animateTime);
-            while(true) {
-                yield return wait;
-
-                switch(_enabledUI)
-                {
-                case EnabledUI.PlayerInteract:
-                    break;
-                case EnabledUI.Robot:
-                    SetUI(EnabledUI.Battery);
-                    break;
-                case EnabledUI.Battery:
-                    SetUI(EnabledUI.Robot);
-                    break;
-                }
             }
         }
 

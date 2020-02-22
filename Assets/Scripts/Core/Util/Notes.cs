@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Core.Editor.Util
+namespace pdxpartyparrot.Core.Editor.Util
 {
     public class Notes : MonoBehaviour
     {
