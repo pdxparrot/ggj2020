@@ -318,6 +318,8 @@ namespace pdxpartyparrot.ggj2020.Players
 
             _useChargingStationSuccessEffect.Trigger();
 
+            GameManager.Instance.StartUseChargingStation();
+
             return true;
         }
 
@@ -340,6 +342,8 @@ namespace pdxpartyparrot.ggj2020.Players
 
             _usingChargingStation.EndUse();
             _usingChargingStation = null;
+
+            GameManager.Instance.EndUseChargingStation();
         }
 
         public void TrackThumbStickAxis(Vector2 axis)

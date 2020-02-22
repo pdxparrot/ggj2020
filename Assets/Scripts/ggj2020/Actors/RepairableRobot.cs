@@ -104,10 +104,18 @@ namespace pdxpartyparrot.ggj2020.Actors
                 // TODO: stacked damage goes in its own bucket
                 _repairPoints.Add(repairPoint);
             }
+
+            GameManager.Instance.StartUseChargingStationEvent += StartUseChargingStationEventHandler;
+            GameManager.Instance.EndUseChargingStationEvent += EndUseChargingStationEventHandler;
         }
 
         protected override void OnDestroy()
         {
+            if(GameManager.HasInstance) {
+                GameManager.Instance.EndUseChargingStationEvent -= EndUseChargingStationEventHandler;
+                GameManager.Instance.StartUseChargingStationEvent -= StartUseChargingStationEventHandler;
+            }
+
             /*foreach(RepairPoint repairPoint in _stackedRepairPoints) {
                 repairPoint.RepairedEvent -= RepairedEventHandler;
             }*/
@@ -298,6 +306,16 @@ namespace pdxpartyparrot.ggj2020.Actors
             ResetDamage();
 
             _exitRepairBayEffectTrigger.StopTrigger();
+        }
+
+        private void StartUseChargingStationEventHandler(object sender, EventArgs args)
+        {
+            // TODO: trigger an effect
+        }
+
+        private void EndUseChargingStationEventHandler(object sender, EventArgs args)
+        {
+            // TODO: trigger an effect
         }
 
         private void RepairedEventHandler(object sender, EventArgs args)

@@ -24,6 +24,9 @@ namespace pdxpartyparrot.ggj2020
         public event EventHandler<EventArgs> RepairFailureEvent;
 
         public event EventHandler<EventArgs> RobotImpulseEvent;
+
+        public event EventHandler<EventArgs> StartUseChargingStationEvent;
+        public event EventHandler<EventArgs> EndUseChargingStationEvent;
 #endregion
 
         public GameData GameGameData => (GameData)GameData;
@@ -117,6 +120,16 @@ namespace pdxpartyparrot.ggj2020
         public void RobotImpulse()
         {
             RobotImpulseEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void StartUseChargingStation()
+        {
+            StartUseChargingStationEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void EndUseChargingStation()
+        {
+            EndUseChargingStationEvent?.Invoke(this, EventArgs.Empty);
         }
 
         public void RepairSuccess(float repairPercent)
