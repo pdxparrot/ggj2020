@@ -13,13 +13,16 @@ namespace pdxpartyparrot.ggj2020.Actors
 
 #region Effects
         [SerializeField]
-        private EffectTrigger _idleEffectTrigger;
+        private EffectTrigger _introEffectTrigger;
 
         [SerializeField]
         private EffectTrigger _winEffectTrigger;
 
         [SerializeField]
-        private EffectTrigger _loseEffectTrigger;
+        private EffectTrigger _loseChargedEffectTrigger;
+
+        [SerializeField]
+        private EffectTrigger _loseNoChargeEffectTrigger;
 #endregion
 
 #region Unity Lifecycle
@@ -30,24 +33,24 @@ namespace pdxpartyparrot.ggj2020.Actors
             // TODO: this should come from an actor data object for this
             Rigidbody.isKinematic = true;
             Rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+
+            Model.gameObject.SetActive(false);
         }
 #endregion
 
-        public void Idle()
+        public void BeginFight(bool success, bool isCharged)
         {
-            _idleEffectTrigger.Trigger();
-        }
-
-        public void Win()
-        {
-            Debug.Log($"Background robot {name} wins!");
-            _winEffectTrigger.Trigger(Idle);
-        }
-
-        public void Lose()
-        {
-            Debug.Log($"Background robot {name} loses!");
-            _loseEffectTrigger.Trigger(Idle);
+            _introEffectTrigger.Trigger(() => {
+                if(success) {
+                    _winEffectTrigger.Trigger();
+                } else {
+                    if(isCharged) {
+                        _loseChargedEffectTrigger.Trigger();
+                    } else {
+                        _loseNoChargeEffectTrigger.Trigger();
+                    }
+                }
+            });
         }
     }
 }

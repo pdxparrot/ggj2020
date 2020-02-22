@@ -82,15 +82,6 @@ namespace pdxpartyparrot.ggj2020.Level
             tool.transform.SetParent(_toolContainer);
         }
 
-        private void StartBackgroundBattle(bool playerWins)
-        {
-            if(playerWins) {
-                _backgroundRobot.Win();
-            } else {
-                _backgroundRobot.Lose();
-            }
-        }
-
         private void NextRobot(bool success)
         {
             GameManager.Instance.MechanicsCanInteract = false;
@@ -100,7 +91,7 @@ namespace pdxpartyparrot.ggj2020.Level
             _repairableRobot.ExitRepairBay(success, () => {
                 _repairableRobot.DeSpawn();
 
-                StartBackgroundBattle(success);
+                _backgroundRobot.BeginFight(success, _chargingStation.IsCharged);
 
                 _respawnTimer.Start(GameManager.Instance.GameGameData.RobotRespawnRate);
             });
@@ -156,8 +147,6 @@ namespace pdxpartyparrot.ggj2020.Level
 
         protected override void GameReadyEventHandler(object sender, EventArgs args)
         {
-            _backgroundRobot.Idle();
-
             SpawnPoint spawnpoint = SpawnManager.Instance.GetSpawnPoint(GameManager.Instance.GameGameData.RepairableRobotSpawnTag);
             _repairableRobot = spawnpoint.SpawnNPCPrefab(GameManager.Instance.GameGameData.RepairableRobotPrefab, null, transform).GetComponent<RepairableRobot>();
             _repairableRobot.RepairedEvent += RepairedEventHandler;
