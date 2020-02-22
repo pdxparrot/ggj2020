@@ -188,6 +188,8 @@ namespace pdxpartyparrot.ggj2020.Actors
             _enterMoveTween.To = Vector3.zero;
 
             _enterRepairBayEffectTrigger.Trigger(() => {
+                _enterRepairBayEffectTrigger.KillTrigger();
+
                 _repairBayDockedEffect.Trigger(() => {
                     onComplete?.Invoke();
                 });
@@ -204,6 +206,7 @@ namespace pdxpartyparrot.ggj2020.Actors
             _exitMoveTween.To = GameManager.Instance.GameLevelHelper.RepairableExit.position;
 
             _exitRepairBayEffectTrigger.Trigger(() => {
+                _exitRepairBayEffectTrigger.KillTrigger();
                 onComplete?.Invoke();
             });
 

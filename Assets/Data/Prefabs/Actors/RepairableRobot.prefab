@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioClip: {fileID: 8300000, guid: 8b32fbe7bfafdc240953e8d34b6c2379, type: 3}
-  _audioSource: {fileID: 4465895190632743383}
+  _audioSource: {fileID: 0}
   _loop: 0
   _waitForComplete: 0
 --- !u!1 &1039189556108033911
@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioClip: {fileID: 8300000, guid: b5ddade621e5a844f84bf1cc87ecf197, type: 3}
-  _audioSource: {fileID: 4465895190632743383}
+  _audioSource: {fileID: 0}
   _loop: 0
   _waitForComplete: 0
 --- !u!1 &1694430821910555896
@@ -387,9 +387,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioClip: {fileID: 8300000, guid: 8b32fbe7bfafdc240953e8d34b6c2379, type: 3}
-  _audioSource: {fileID: 4465895190632743383}
+  _audioSource: {fileID: 0}
   _loop: 0
-  _waitForComplete: 1
+  _waitForComplete: 0
 --- !u!1 &1849855140735761234
 GameObject:
   m_ObjectHideFlags: 0
