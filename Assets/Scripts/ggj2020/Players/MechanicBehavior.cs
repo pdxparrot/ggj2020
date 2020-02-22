@@ -169,10 +169,8 @@ namespace pdxpartyparrot.ggj2020.Players
             }
 
             if(IsOnLadder) {
-                // TODO: trigger either moving or idle effect
                 IsOnLadder = false;
             } else if(CanUseLadder) {
-                Owner.GamePlayerBehavior.ClimbLadderEffectTrigger.Trigger();
                 IsOnLadder = true;
             }
         }

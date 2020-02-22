@@ -114,7 +114,14 @@ namespace pdxpartyparrot.Core.Actors.Components
         public override bool IsKinematic
         {
             get => _rigidbody.isKinematic;
-            set => _rigidbody.isKinematic = value;
+            set
+            {
+                bool changed = _rigidbody.isKinematic != value;
+                _rigidbody.isKinematic = value;
+                if(changed && null != Owner) {
+                    Owner.MoveStateChanged();
+                }
+            }
         }
 
         public override bool UseGravity

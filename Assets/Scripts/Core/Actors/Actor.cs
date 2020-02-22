@@ -77,14 +77,12 @@ namespace pdxpartyparrot.Core.Actors
         public bool IsMoving
         {
             get => _isMoving;
-
             set
             {
-                bool wasMoving = _isMoving;
+                bool changed = IsMoving != value;
                 _isMoving = value;
-
-                if(wasMoving != _isMoving) {
-                    OnMoveStateChanged();
+                if(changed) {
+                    MoveStateChanged();
                 }
             }
         }
@@ -206,6 +204,13 @@ namespace pdxpartyparrot.Core.Actors
             FacingDirection = direction.normalized;
 
             RunOnComponents(c => c.OnSetFacing(FacingDirection));
+        }
+
+        // notifies the actor of an external movement state change
+        // (useful to force the idle / moving trigger)
+        public void MoveStateChanged()
+        {
+            OnMoveStateChanged();
         }
 
         // TODO: when character behavior components merge over to actor components

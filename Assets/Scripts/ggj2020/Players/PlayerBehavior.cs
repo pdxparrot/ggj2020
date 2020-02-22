@@ -28,8 +28,6 @@ namespace pdxpartyparrot.ggj2020.Players
         [SerializeField]
         private EffectTrigger _climbLadderEffectTrigger;
 
-        public EffectTrigger ClimbLadderEffectTrigger => _climbLadderEffectTrigger;
-
         [SerializeField]
         private EffectTrigger _climbWithToolEffectTrigger;
 
