@@ -1282,7 +1282,7 @@ PrefabInstance:
     - target: {fileID: 5928489026279979436, guid: 23e704e968737744eadc7c729e36e9d4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -136
+      value: -122.25
       objectReference: {fileID: 0}
     - target: {fileID: 5928489026279979436, guid: 23e704e968737744eadc7c729e36e9d4,
         type: 3}
@@ -1292,7 +1292,7 @@ PrefabInstance:
     - target: {fileID: 5928489026279979436, guid: 23e704e968737744eadc7c729e36e9d4,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -95
+      value: -96.72
       objectReference: {fileID: 0}
     - target: {fileID: 5928489026279979436, guid: 23e704e968737744eadc7c729e36e9d4,
         type: 3}
@@ -1317,7 +1317,7 @@ PrefabInstance:
     - target: {fileID: 5928489026279979436, guid: 23e704e968737744eadc7c729e36e9d4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5928489026279979436, guid: 23e704e968737744eadc7c729e36e9d4,
         type: 3}
@@ -1338,6 +1338,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BackgroundRobot
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189359714438259936, guid: 23e704e968737744eadc7c729e36e9d4,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23e704e968737744eadc7c729e36e9d4, type: 3}
@@ -4423,7 +4428,7 @@ PrefabInstance:
     - target: {fileID: 5928489026279979436, guid: 23e704e968737744eadc7c729e36e9d4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -119
+      value: -118.21
       objectReference: {fileID: 0}
     - target: {fileID: 5928489026279979436, guid: 23e704e968737744eadc7c729e36e9d4,
         type: 3}
@@ -4433,7 +4438,7 @@ PrefabInstance:
     - target: {fileID: 5928489026279979436, guid: 23e704e968737744eadc7c729e36e9d4,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -95
+      value: -96.72
       objectReference: {fileID: 0}
     - target: {fileID: 5928489026279979436, guid: 23e704e968737744eadc7c729e36e9d4,
         type: 3}
@@ -4458,7 +4463,7 @@ PrefabInstance:
     - target: {fileID: 5928489026279979436, guid: 23e704e968737744eadc7c729e36e9d4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5928489026279979436, guid: 23e704e968737744eadc7c729e36e9d4,
         type: 3}
@@ -4479,6 +4484,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BackgroundRobot (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189359714438259936, guid: 23e704e968737744eadc7c729e36e9d4,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23e704e968737744eadc7c729e36e9d4, type: 3}

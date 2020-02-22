@@ -546,6 +546,7 @@ MonoBehaviour:
   _toolAttachment: {fileID: 6346126699756507838}
   _heldTool: {fileID: 0}
   _usingChargingStation: {fileID: 0}
+  _failUsingChargingStation: 0
   _toolBubble: {fileID: 5218544717425484159}
   _pickupToolEffect: {fileID: 3976977114511096063}
   _dropToolEffect: {fileID: 2748718958486531674}
@@ -1516,6 +1517,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a576cc3502cd76f43bb386ae3357b196, type: 2}
+    - target: {fileID: 391845842844644327, guid: 3fbfd412bfa72c4459807b89fcf5a452,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 432608293396558456, guid: 3fbfd412bfa72c4459807b89fcf5a452,
         type: 3}
       propertyPath: initialSkinName

@@ -1,0 +1,83 @@
+
+hangar_robot.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+RobotLight
+  rotate: false
+  xy: 2, 1805
+  size: 47, 35
+  orig: 49, 37
+  offset: 1, 1
+  index: -1
+bicep
+  rotate: true
+  xy: 2, 755
+  size: 485, 896
+  orig: 487, 898
+  offset: 1, 1
+  index: -1
+eyes
+  rotate: false
+  xy: 104, 1750
+  size: 273, 90
+  orig: 275, 92
+  offset: 1, 1
+  index: -1
+forearm
+  rotate: true
+  xy: 1183, 1238
+  size: 335, 657
+  orig: 337, 659
+  offset: 1, 1
+  index: -1
+hand
+  rotate: true
+  xy: 557, 1580
+  size: 260, 396
+  orig: 262, 398
+  offset: 1, 1
+  index: -1
+head
+  rotate: false
+  xy: 2, 1318
+  size: 486, 380
+  orig: 486, 380
+  offset: 0, 0
+  index: -1
+head_light
+  rotate: true
+  xy: 51, 1798
+  size: 42, 51
+  orig: 44, 54
+  offset: 1, 1
+  index: -1
+power
+  rotate: false
+  xy: 379, 1700
+  size: 176, 140
+  orig: 178, 142
+  offset: 1, 1
+  index: -1
+shin
+  rotate: true
+  xy: 955, 1575
+  size: 265, 864
+  orig: 267, 866
+  offset: 1, 1
+  index: -1
+thigh
+  rotate: true
+  xy: 490, 1242
+  size: 331, 691
+  orig: 333, 693
+  offset: 1, 1
+  index: -1
+torso
+  rotate: true
+  xy: 900, 472
+  size: 764, 900
+  orig: 764, 900
+  offset: 0, 0
+  index: -1

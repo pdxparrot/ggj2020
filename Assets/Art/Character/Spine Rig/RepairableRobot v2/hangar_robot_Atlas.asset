@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
+  m_Name: hangar_robot_Atlas
+  m_EditorClassIdentifier: 
+  atlasFile: {fileID: 4900000, guid: dce449ee8ea0b4f4c9ca9a5d30cd4599, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 0d34fc48cdcc28d4bb6d0b6c208fbe59, type: 2}
