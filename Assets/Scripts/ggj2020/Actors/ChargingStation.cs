@@ -228,7 +228,7 @@ namespace pdxpartyparrot.ggj2020.Actors
             }
             _holdRoutine = null;
 
-            _useEffect.StopTrigger();
+            _useEffect.KillTrigger();
 
             _usingPlayer = null;
 
