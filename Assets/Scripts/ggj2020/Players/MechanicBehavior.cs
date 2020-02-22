@@ -89,8 +89,6 @@ namespace pdxpartyparrot.ggj2020.Players
         private bool _failUsingChargingStation;
 
         public bool IsUsingChargingStation => _usingChargingStation != null || _failUsingChargingStation;
-
-        public bool CanUseChargingStation => GameManager.Instance.MechanicsCanInteract && !IsOnLadder && !IsUsingChargingStation && !IsHoldingTool;
 #endregion
 
         [Space(10)]
@@ -188,20 +186,46 @@ namespace pdxpartyparrot.ggj2020.Players
             return null;
         }
 
+        private void UpdateToolBubble()
+        {
+            if(!GameManager.Instance.MechanicsCanInteract) {
+                ToolBubble.Hide();
+                return;
+            }
+
+            if(IsHoldingTool && !CanUseTool) {
+                ToolBubble.Hide();
+                return;
+            }
+
+            if(_interactables.HasInteractables<Tool>()) {
+                ToolBubble.Hide();
+                return;
+            }
+
+            ChargingStation chargingStation = _interactables.GetRandomInteractable<ChargingStation>();
+            if(null != chargingStation && CanUseChargingStation(chargingStation, true)) {
+                ToolBubble.ShowPressedButton();
+                return;
+            }
+
+            ToolBubble.Hide();
+        }
+
 #region Tool
-        private void PickupTool()
+        private bool PickupTool()
         {
             if(!CanPickupTool) {
-                return;
+                return false;
             }
 
             Tool tool = _interactables.GetRandomInteractable<Tool>();
             if(null == tool) {
-                return;
+                return false;
             }
 
             if(!tool.Hold(this)) {
-                return;
+                return false;
             }
 
             _heldTool = tool;
@@ -216,6 +240,8 @@ namespace pdxpartyparrot.ggj2020.Players
             }
 
             _pickupToolEffect.Trigger();
+
+            return true;
         }
 
         private bool UseTool()
@@ -265,7 +291,7 @@ namespace pdxpartyparrot.ggj2020.Players
 
             _heldTool = null;
 
-            ToolBubble.Hide();
+            UpdateToolBubble();
 
             _dropToolEffect.Trigger();
         }
@@ -281,29 +307,44 @@ namespace pdxpartyparrot.ggj2020.Players
                 return true;
             }
 
+            if(PickupTool()) {
+                return true;
+            }
+
             if(UseChargingStation()) {
                 return true;
             }
 
-            PickupTool();
             return false;
+        }
+
+        private bool CanUseChargingStation(ChargingStation chargingStation, bool checkStation)
+        {
+            if(!GameManager.Instance.MechanicsCanInteract || IsOnLadder || IsUsingChargingStation || IsHoldingTool) {
+                return false;
+            }
+
+            return !checkStation || chargingStation.CanUse(this);
         }
 
         private bool UseChargingStation()
         {
-            if(!CanUseChargingStation) {
-                return false;
-            }
-
             ChargingStation chargingStation = _interactables.GetRandomInteractable<ChargingStation>();
             if(null == chargingStation) {
                 return false;
             }
 
+            if(!CanUseChargingStation(chargingStation, false)) {
+                return false;
+            }
+
             if(!chargingStation.Use(this)) {
                 _failUsingChargingStation = true;
+                Owner.Movement.IsKinematic = true;
+
                 _useChargingStationFailEffect.Trigger(() => {
                     _failUsingChargingStation = false;
+                    Owner.Movement.IsKinematic = false;
                 });
                 return false;
             }
@@ -341,6 +382,8 @@ namespace pdxpartyparrot.ggj2020.Players
             _usingChargingStation.EndUse();
             _usingChargingStation = null;
 
+            UpdateToolBubble();
+
             GameManager.Instance.EndUseChargingStation();
         }
 
@@ -374,7 +417,7 @@ namespace pdxpartyparrot.ggj2020.Players
 #region Events
         public bool OnSpawn(SpawnPoint spawnpoint)
         {
-            ToolBubble.Hide();
+            UpdateToolBubble();
 
             return true;
         }
@@ -393,9 +436,7 @@ namespace pdxpartyparrot.ggj2020.Players
 
         private void MechanicsCanInteractEventHandler(object sender, EventArgs args)
         {
-            if(!GameManager.Instance.MechanicsCanInteract) {
-                ToolBubble.Hide();
-            }
+            UpdateToolBubble();
         }
 
         private void InteractableAddedEventHandler(object sender, InteractableEventArgs args)
@@ -412,6 +453,8 @@ namespace pdxpartyparrot.ggj2020.Players
                     _heldTool.SetRepairPoint(repairPoint);
                 }
             }
+
+            UpdateToolBubble();
         }
 
         private void InteractableRemovedEventHandler(object sender, InteractableEventArgs args)
@@ -429,6 +472,8 @@ namespace pdxpartyparrot.ggj2020.Players
                     _heldTool.SetRepairPoint(repairPoint);
                 }
             }
+
+            UpdateToolBubble();
         }
 #endregion
     }
