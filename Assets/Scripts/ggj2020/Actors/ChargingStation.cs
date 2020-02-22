@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 using JetBrains.Annotations;
 
@@ -168,7 +169,7 @@ namespace pdxpartyparrot.ggj2020.Actors
 
             _useEffect.Trigger();
 
-            _holdTimer.Start(GameManager.Instance.GameGameData.ChargeTime);
+            _holdTimer.Start(GameManager.Instance.GameGameData.ChargeTimePerPlayerCount.ElementAt(PlayerManager.Instance.PlayerCount - 1));
 
             _holdRoutine = StartCoroutine(HoldRoutine());
 

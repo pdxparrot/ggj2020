@@ -83,6 +83,8 @@ namespace pdxpartyparrot.ggj2020.Actors
         [ReadOnly]
         private int _currentDamagedParts;
 
+        private bool CanIncreaseDamagedParts => _currentDamagedParts < _repairPoints.Count;
+
         [SerializeField]
         [ReadOnly]
         private int _currentDamageIncreaseChance;
@@ -301,14 +303,20 @@ namespace pdxpartyparrot.ggj2020.Actors
             }
 
             // see if we get a damage increase
-            int chance = PartyParrotManager.Instance.Random.Next(100);
-            if(chance <= _currentDamageIncreaseChance) {
-                Debug.Log($"Damage increased {chance} of {_currentDamageIncreaseChance}");
-                _currentDamagedParts += GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreasePerPlayerCount.ElementAt(PlayerManager.Instance.PlayerCount - 1);
-                _currentDamageIncreaseChance = GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreaseBasePercent;
-            } else {
-                Debug.Log($"No damage increase {chance} of {_currentDamageIncreaseChance}");
-                _currentDamageIncreaseChance += GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreaseRate;
+            if(CanIncreaseDamagedParts) {
+                int chance = PartyParrotManager.Instance.Random.Next(100);
+                if(chance <= _currentDamageIncreaseChance) {
+                    Debug.Log($"Damage increased {chance} of {_currentDamageIncreaseChance}");
+                    _currentDamagedParts += GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreasePerPlayerCount.ElementAt(PlayerManager.Instance.PlayerCount - 1);
+                    if(_currentDamagedParts > _repairPoints.Count) {
+                        _currentDamagedParts = _repairPoints.Count;
+                    }
+
+                    _currentDamageIncreaseChance = GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreaseBasePercent;
+                } else {
+                    Debug.Log($"No damage increase {chance} of {_currentDamageIncreaseChance}");
+                    _currentDamageIncreaseChance += GameManager.Instance.GameGameData.RepairableRobotData.DamageAreaIncreaseRate;
+                }
             }
 
             InitDamage();

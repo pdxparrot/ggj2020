@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using pdxpartyparrot.ggj2020.Actors;
 using pdxpartyparrot.ggj2020.Camera;
@@ -56,6 +57,7 @@ namespace pdxpartyparrot.ggj2020.Data
 
         [SerializeField]
         [Range(1, 5)]
+        [Tooltip("The minimum number of players required for the charging station to be enabled")]
         private int _chargingStationMinPlayers = 3;
 
         public int ChargingStationMinPlayers => _chargingStationMinPlayers;
@@ -81,9 +83,9 @@ namespace pdxpartyparrot.ggj2020.Data
         public int WrenchSuccessfulTurns => _wrenchSuccesfulTurns;
 
         [SerializeField]
-        private int _chargeTime = 3;
+        private int[] _chargeTimePerPlayerCount;
 
-        public int ChargeTime => _chargeTime;
+        public IReadOnlyCollection<int> ChargeTimePerPlayerCount => _chargeTimePerPlayerCount;
 #endregion
 
         [Space(10)]
