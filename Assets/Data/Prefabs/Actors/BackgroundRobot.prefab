@@ -47,7 +47,8 @@ MonoBehaviour:
   _triggerOnComplete:
     _items: []
   _components:
-    _items: []
+    _items:
+    - {fileID: 106989904661075981}
   _isRunning: 0
   _complete: 0
 --- !u!114 &106989904661075981
@@ -115,7 +116,8 @@ MonoBehaviour:
   _triggerOnComplete:
     _items: []
   _components:
-    _items: []
+    _items:
+    - {fileID: 3369262626108033869}
   _isRunning: 0
   _complete: 0
 --- !u!114 &3369262626108033869
@@ -183,7 +185,8 @@ MonoBehaviour:
   _triggerOnComplete:
     _items: []
   _components:
-    _items: []
+    _items:
+    - {fileID: 5710995427161496002}
   _isRunning: 0
   _complete: 0
 --- !u!114 &5710995427161496002
@@ -420,6 +423,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7720640364622360492, guid: a47f21d69b98cdd408a4bbb539d664b3,
+        type: 3}
+      propertyPath: _animationName
+      value: Fight_No Power
       objectReference: {fileID: 0}
     - target: {fileID: 9111356805698974594, guid: a47f21d69b98cdd408a4bbb539d664b3,
         type: 3}

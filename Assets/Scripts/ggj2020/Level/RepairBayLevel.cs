@@ -9,7 +9,6 @@ using pdxpartyparrot.ggj2020.Players;
 using pdxpartyparrot.ggj2020.UI;
 
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.ggj2020.Level
 {
@@ -28,12 +27,7 @@ namespace pdxpartyparrot.ggj2020.Level
         [Space(10)]
 
         [SerializeField]
-        [FormerlySerializedAs("_npcRobot")]
-        private BackgroundRobot _npcBackgroundRobot;
-
-        [SerializeField]
-        [FormerlySerializedAs("_playerRobot")]
-        private BackgroundRobot _playerBackgroundRobot;
+        private BackgroundRobot _backgroundRobot;
 
         [Space(10)]
 
@@ -91,11 +85,9 @@ namespace pdxpartyparrot.ggj2020.Level
         private void StartBackgroundBattle(bool playerWins)
         {
             if(playerWins) {
-                _playerBackgroundRobot.Win();
-                _npcBackgroundRobot.Lose();
+                _backgroundRobot.Win();
             } else {
-                _playerBackgroundRobot.Lose();
-                _npcBackgroundRobot.Win();
+                _backgroundRobot.Lose();
             }
         }
 
@@ -164,8 +156,7 @@ namespace pdxpartyparrot.ggj2020.Level
 
         protected override void GameReadyEventHandler(object sender, EventArgs args)
         {
-            _playerBackgroundRobot.Idle();
-            _npcBackgroundRobot.Idle();
+            _backgroundRobot.Idle();
 
             SpawnPoint spawnpoint = SpawnManager.Instance.GetSpawnPoint(GameManager.Instance.GameGameData.RepairableRobotSpawnTag);
             _repairableRobot = spawnpoint.SpawnNPCPrefab(GameManager.Instance.GameGameData.RepairableRobotPrefab, null, transform).GetComponent<RepairableRobot>();
