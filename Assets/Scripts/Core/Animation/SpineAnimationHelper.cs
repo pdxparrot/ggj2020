@@ -3,8 +3,6 @@ using System;
 
 using JetBrains.Annotations;
 
-using pdxpartyparrot.Core.Math;
-
 using Spine;
 using Spine.Unity;
 
@@ -73,7 +71,7 @@ namespace pdxpartyparrot.Core.Animation
 
         public void SetFacing(Vector3 direction)
         {
-            if(Mathf.Abs(direction.x) < MathUtil.Epsilon) {
+            if(Mathf.Approximately(direction.x, 0.0f)) {
                 return;
             }
 

@@ -1,6 +1,4 @@
-﻿using pdxpartyparrot.Core.Math;
-
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace pdxpartyparrot.Game.Characters.Players
 {
@@ -10,7 +8,7 @@ namespace pdxpartyparrot.Game.Characters.Players
         {
             direction = new Vector3(direction.x, 0.0f, 0.0f);
 
-            if(direction.sqrMagnitude < MathUtil.Epsilon) {
+            if(Mathf.Approximately(direction.sqrMagnitude, 0.0f)) {
                 return;
             }
 

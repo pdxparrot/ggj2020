@@ -4,7 +4,6 @@ using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Actors;
 using pdxpartyparrot.Core.Camera;
-using pdxpartyparrot.Core.Math;
 using pdxpartyparrot.Core.Network;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Camera;
@@ -95,7 +94,7 @@ namespace pdxpartyparrot.Game.Characters.Players
         {
             direction = new Vector3(direction.x, 0.0f, 0.0f);
 
-            if(direction.sqrMagnitude < MathUtil.Epsilon) {
+            if(Mathf.Approximately(direction.sqrMagnitude, 0.0f)) {
                 return;
             }
 

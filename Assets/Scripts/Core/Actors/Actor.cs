@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Actors.Components;
-using pdxpartyparrot.Core.Math;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
 
@@ -197,7 +196,7 @@ namespace pdxpartyparrot.Core.Actors
 
         public virtual void SetFacing(Vector3 direction)
         {
-            if(direction.sqrMagnitude < MathUtil.Epsilon) {
+            if(Mathf.Approximately(direction.sqrMagnitude, 0.0f)) {
                 return;
             }
 

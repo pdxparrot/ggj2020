@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using pdxpartyparrot.Core.Math;
-
 using UnityEngine;
 
 namespace pdxpartyparrot.Core.Animation
@@ -23,7 +21,7 @@ namespace pdxpartyparrot.Core.Animation
 
         public void SetFacing(Vector3 direction)
         {
-            if(Mathf.Abs(direction.x) < MathUtil.Epsilon) {
+            if(Mathf.Approximately(direction.x, 0.0f)) {
                 return;
             }
 

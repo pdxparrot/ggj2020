@@ -1,7 +1,6 @@
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Data.Actors.Components;
-using pdxpartyparrot.Core.Math;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data.Characters;
 
@@ -39,7 +38,7 @@ namespace pdxpartyparrot.Game.Characters.Players
 
         protected virtual void LateUpdate()
         {
-            Owner.IsMoving = MoveDirection.sqrMagnitude > MathUtil.Epsilon;
+            Owner.IsMoving = !Mathf.Approximately(MoveDirection.sqrMagnitude, 0.0f);
         }
 #endregion
 

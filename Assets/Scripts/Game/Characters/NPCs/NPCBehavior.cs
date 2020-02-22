@@ -1,5 +1,4 @@
 ﻿using pdxpartyparrot.Core.Data.Actors.Components;
-using pdxpartyparrot.Core.Math;
 using pdxpartyparrot.Game.Data.Characters;
 
 using UnityEngine;
@@ -18,7 +17,7 @@ namespace pdxpartyparrot.Game.Characters.NPCs
 #region Unity Lifecycle
         protected virtual void LateUpdate()
         {
-            Owner.IsMoving = MoveDirection.sqrMagnitude > MathUtil.Epsilon;
+            Owner.IsMoving = !Mathf.Approximately(MoveDirection.sqrMagnitude, 0.0f);
         }
 #endregion
 
