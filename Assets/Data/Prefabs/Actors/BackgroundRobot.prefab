@@ -738,6 +738,7 @@ MonoBehaviour:
     _items: []
   _components:
     _items:
+    - {fileID: 5989939094161611387}
     - {fileID: 6796002411843146404}
   _isRunning: 0
   _complete: 0
@@ -849,6 +850,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518196308637865820, guid: a1091c5ede0ecca4dae8d4395cabd48a,
+        type: 3}
+      propertyPath: _animationName
+      value: Fight_Idle
       objectReference: {fileID: 0}
     - target: {fileID: 7796599297055810750, guid: a1091c5ede0ecca4dae8d4395cabd48a,
         type: 3}
