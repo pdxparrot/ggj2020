@@ -1,0 +1,125 @@
+
+battle_robots.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Head
+  rotate: true
+  xy: 1616, 1559
+  size: 486, 373
+  orig: 488, 375
+  offset: 1, 1
+  index: -1
+Power
+  rotate: true
+  xy: 149, 194
+  size: 73, 178
+  orig: 75, 180
+  offset: 1, 1
+  index: -1
+bicep
+  rotate: false
+  xy: 2, 269
+  size: 498, 899
+  orig: 500, 901
+  offset: 1, 1
+  index: -1
+bicep_back
+  rotate: true
+  xy: 715, 1547
+  size: 498, 899
+  orig: 500, 901
+  offset: 1, 1
+  index: -1
+bicep_light
+  rotate: true
+  xy: 1829, 462
+  size: 47, 35
+  orig: 49, 37
+  offset: 1, 1
+  index: -1
+eyes
+  rotate: false
+  xy: 2, 138
+  size: 145, 129
+  orig: 147, 131
+  offset: 1, 1
+  index: -1
+forearm
+  rotate: true
+  xy: 864, 135
+  size: 340, 672
+  orig: 342, 674
+  offset: 1, 1
+  index: -1
+forearm_back
+  rotate: false
+  xy: 1528, 511
+  size: 340, 672
+  orig: 342, 674
+  offset: 1, 1
+  index: -1
+hand
+  rotate: false
+  xy: 1538, 117
+  size: 289, 392
+  orig: 291, 394
+  offset: 1, 1
+  index: -1
+hand_back
+  rotate: true
+  xy: 1616, 1268
+  size: 289, 392
+  orig: 291, 394
+  offset: 1, 1
+  index: -1
+head_light
+  rotate: false
+  xy: 2, 78
+  size: 58, 58
+  orig: 60, 60
+  offset: 1, 1
+  index: -1
+shin
+  rotate: true
+  xy: 715, 1185
+  size: 360, 866
+  orig: 362, 868
+  offset: 1, 1
+  index: -1
+shin_back
+  rotate: false
+  xy: 502, 302
+  size: 360, 866
+  orig: 362, 868
+  offset: 1, 1
+  index: -1
+shin_light
+  rotate: false
+  xy: 1991, 1991
+  size: 54, 54
+  orig: 56, 56
+  offset: 1, 1
+  index: -1
+thigh
+  rotate: false
+  xy: 864, 477
+  size: 330, 706
+  orig: 332, 708
+  offset: 1, 1
+  index: -1
+thigh_back
+  rotate: false
+  xy: 1196, 477
+  size: 330, 706
+  orig: 332, 708
+  offset: 1, 1
+  index: -1
+torso
+  rotate: false
+  xy: 2, 1170
+  size: 711, 875
+  orig: 711, 893
+  offset: 0, 0
+  index: -1
