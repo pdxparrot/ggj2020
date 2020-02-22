@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 
 using pdxpartyparrot.Core.Util;
 
@@ -38,6 +38,10 @@ namespace pdxpartyparrot.ggj2020.UI
         [ReadOnly]
         private EnabledUI _enabledUI = EnabledUI.Robot;
 
+        [SerializeField]
+        [ReadOnly]
+        private float _displayCharge;
+
         private Coroutine _animateRoutine;
 
 #region Unity Lifecycle
@@ -51,17 +55,47 @@ namespace pdxpartyparrot.ggj2020.UI
             StopCoroutine(_animateRoutine);
             _animateRoutine = null;
         }
+
+        private void Update()
+        {
+            float dt = Time.deltaTime;
+
+            UpdatePlayerInteractUI(dt);
+        }
 #endregion
 
         public void UpdateCharge()
         {
-            _batteryChargeLevel.fillAmount = GameManager.Instance.GameLevelHelper.ChargingStation.ChargePercent;
+            _displayCharge = GameManager.Instance.GameLevelHelper.ChargingStation.ChargePercent;
+
+            UpdateChargeUI();
+        }
+
+        private void UpdatePlayerInteractUI(float dt)
+        {
+            if(EnabledUI.PlayerInteract != _enabledUI) {
+                return;
+            }
+
+            _displayCharge = Mathf.MoveTowards(_displayCharge, 1.0f, dt * _animateTime);
+            if(Mathf.Approximately(_displayCharge, 1.0f)) {
+                _displayCharge = GameManager.Instance.GameLevelHelper.ChargingStation.ChargePercent;
+            }
+
+            UpdateChargeUI();
+        }
+
+        private void UpdateChargeUI()
+        {
+            _batteryChargeLevel.fillAmount = _displayCharge;
         }
 
         public void SetUI(EnabledUI enabledUI)
         {
             bool charged = GameManager.Instance.GameLevelHelper.ChargingStation.IsCharged;
             bool charging = GameManager.Instance.GameLevelHelper.ChargingStation.IsCharging;
+
+            UpdateCharge();
 
             _enabledUI = enabledUI;
             switch(_enabledUI)
@@ -91,7 +125,7 @@ namespace pdxpartyparrot.ggj2020.UI
         }
 
         // TODO: instead of using a coroutine
-        // a timer that tirggers off SetUI would make more sense
+        // a timer that triggers off SetUI would make more sense
         // because we get weird animation timings with a constant routine
         private IEnumerator AnimateRoutine()
         {
