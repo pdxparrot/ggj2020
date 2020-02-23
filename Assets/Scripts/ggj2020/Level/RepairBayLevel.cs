@@ -1,6 +1,7 @@
 using System;
 
 using pdxpartyparrot.Core.Time;
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
 using pdxpartyparrot.Game.Level;
 using pdxpartyparrot.ggj2020.Actors;
@@ -38,6 +39,10 @@ namespace pdxpartyparrot.ggj2020.Level
         private Transform _repairableExit;
 
         public Transform RepairableExit => _repairableExit;
+
+        [SerializeField]
+        [ReadOnly]
+        private int _currentRound;
 
         private ITimer _timer;
 
@@ -99,8 +104,17 @@ namespace pdxpartyparrot.ggj2020.Level
 
         private void EnterRobot()
         {
+            float roundTime = GameManager.Instance.GameGameData.RepairTime;
+            if(_currentRound == 0) {
+                roundTime *= 2.0f;
+            } else if(_currentRound == 1) {
+                roundTime *= 1.5f;
+            }
+
+            _currentRound++;
+
             // this will init the timer UI correctly
-            _timer.SecondsRemaining = GameManager.Instance.GameGameData.RepairTime;
+            _timer.SecondsRemaining = roundTime;
 
             _chargingStation.ResetCharge();
 
@@ -109,7 +123,7 @@ namespace pdxpartyparrot.ggj2020.Level
 
                 GameManager.Instance.MechanicsCanInteract = true;
 
-                _timer.Start(GameManager.Instance.GameGameData.RepairTime);
+                _timer.Start(roundTime);
             });
         }
 

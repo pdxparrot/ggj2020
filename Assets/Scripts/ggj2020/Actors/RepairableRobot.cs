@@ -74,7 +74,7 @@ namespace pdxpartyparrot.ggj2020.Actors
         [SerializeField]
         private EffectTrigger _idleUnchargedEffectTrigger;
 
-        protected EffectTrigger IdleEffect => GameManager.Instance.GameLevelHelper.ChargingStation.IsCharged ? _idleChargedEffectTrigger : _idleUnchargedEffectTrigger;
+        private EffectTrigger IdleEffect => GameManager.Instance.GameLevelHelper.ChargingStation.IsCharged ? _idleChargedEffectTrigger : _idleUnchargedEffectTrigger;
 #endregion
 
         [Space(10)]
