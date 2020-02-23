@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
+using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Util;
 
@@ -35,6 +36,10 @@ namespace pdxpartyparrot.Core.Effects
         [SerializeField]
         [ReadOnly]
         private bool _complete;
+
+        [SerializeReference]
+        [ReadOnly]
+        private /*readonly*/ Dictionary<string, object> _context = new Dictionary<string, object>();
 
         private Coroutine _effectWaiter;
 
@@ -93,6 +98,38 @@ namespace pdxpartyparrot.Core.Effects
         }
 #endregion
 
+#region Context
+        public int GetInt(string name)
+        {
+            return Convert.ToInt32(_context.GetOrDefault(name));
+        }
+
+        public void SetInt(string name, int value)
+        {
+            _context[name] = value;
+        }
+
+        public float GetFloat(string name)
+        {
+            return Convert.ToSingle(_context.GetOrDefault(name));
+        }
+
+        public void SetFloat(string name, float value)
+        {
+            _context[name] = value;
+        }
+
+        public string GetString(string name)
+        {
+            return _context.GetOrDefault(name)?.ToString() ?? string.Empty;
+        }
+
+        public void SetString(string name, string value)
+        {
+            _context[name] = value;
+        }
+#endregion
+
         public void Trigger(Action callback=null)
         {
             KillTrigger();
@@ -110,6 +147,14 @@ namespace pdxpartyparrot.Core.Effects
             });
 
             _effectWaiter = StartCoroutine(EffectWaiter(callback));
+        }
+
+        private void TriggerWithContext(Dictionary<string, object> context, Action callback=null)
+        {
+            foreach(var kvp in context) {
+                _context[kvp.Key] = kvp.Value;
+            }
+            Trigger(callback);
         }
 
         // forcefully stops the trigger early
@@ -189,7 +234,7 @@ namespace pdxpartyparrot.Core.Effects
 
             // trigger further effects
             foreach(var onCompleteEffect in _triggerOnComplete.Items) {
-                onCompleteEffect.Trigger();
+                onCompleteEffect.TriggerWithContext(_context);
 
                 if(_complete) {
                     onCompleteEffect.StopTrigger();
