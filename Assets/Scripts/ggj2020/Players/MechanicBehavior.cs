@@ -295,6 +295,8 @@ namespace pdxpartyparrot.ggj2020.Players
             _heldTool.Drop();
 
             _heldTool.transform.position = Owner.Movement.Position;
+            // TODO: sometimes tools end up rotating weird angles when dropped
+            // is that something we can correct here?
 
             // TODO: when tools are actors this check can be done less stupid
             // (and ideally could be built into the interactables, but that would require them to work with Actors only)
