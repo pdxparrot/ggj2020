@@ -239,6 +239,12 @@ namespace pdxpartyparrot.ggj2020.Players
 
             _heldTool.transform.SetParent(_toolAttachment.transform);
 
+            // no clue why, but if we always flip the tool around here
+            // then it will always line up with the bone...
+            // if we don't do this then sometimes it's backwards? ok...
+            _heldTool.transform.localEulerAngles = new Vector3(0.0f, 0.0f, 180.0f);
+            _heldTool.transform.localScale = new Vector3(1.0f, -1.0f, 1.0f);
+
             // see if we have a repair already
             RepairPoint repairPoint = GetDamagedRepairPoint(_heldTool.DamageType);
             if(null != repairPoint) {
@@ -287,6 +293,7 @@ namespace pdxpartyparrot.ggj2020.Players
             }
 
             _heldTool.Drop();
+
             _heldTool.transform.position = Owner.Movement.Position;
 
             // TODO: when tools are actors this check can be done less stupid

@@ -32,8 +32,6 @@ MonoBehaviour:
   _wrenchSuccesfulTurns: 5
   _chargeTimePerPlayerCount: 06000000040000000300000003000000
   _repairableRobotSpawnTag: repairable_robot
-  _playerFighterSpawnTag: player_fighter
-  _npcFighterSpawnTag: npc_fighter
   _repairTime: 20
   _robotRespawnRate: 1
   _passingRepairPercent: 0.66
