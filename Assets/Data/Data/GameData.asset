@@ -27,10 +27,10 @@ MonoBehaviour:
     type: 2}
   _chargingStationMinPlayers: 1
   _fireExtinguisherHoldTime: 2
-  _hammerCooldown: 0.5
-  _hammerSuccesfulHits: 5
-  _wrenchSuccesfulTurns: 5
-  _chargeTimePerPlayerCount: 06000000040000000300000003000000
+  _hammerCooldown: 0.3
+  _hammerSuccesfulHits: 6
+  _wrenchSuccesfulTurns: 4
+  _chargeTimePerPlayerCount: 04000000040000000300000003000000
   _repairableRobotSpawnTag: repairable_robot
   _repairTime: 20
   _robotRespawnRate: 1
