@@ -16,7 +16,7 @@ namespace pdxpartyparrot.Game.NPCs
     {
         private readonly SpawnGroupData _spawnGroupData;
 
-        [SerializeField]
+        [SerializeReference]
         [ReadOnly]
         private ITimer _spawnDelayTimer;
 

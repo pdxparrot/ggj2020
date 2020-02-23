@@ -6,6 +6,7 @@ using pdxpartyparrot.Core;
 using pdxpartyparrot.Core.Effects;
 using pdxpartyparrot.Core.Effects.EffectTriggerComponents;
 using pdxpartyparrot.Core.Time;
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ggj2020.Players;
 
 using UnityEngine;
@@ -22,6 +23,8 @@ namespace pdxpartyparrot.ggj2020.Actors.Tools
         [SerializeField]
         private RumbleEffectTriggerComponent _loopingRumbleEffectTriggerComponent;
 
+        [SerializeReference]
+        [ReadOnly]
         private ITimer _holdTimer;
 
         private Coroutine _holdRoutine;

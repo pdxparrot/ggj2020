@@ -29,7 +29,7 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         public DashBehaviorComponentData DashBehaviorComponentData
         {
             get => _data;
-            set => _data = value;  
+            set => _data = value;
         }
 
 #region Effects
@@ -40,10 +40,14 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
         private EffectTrigger _dashEffect;
 #endregion
 
+        [SerializeReference]
+        [ReadOnly]
         private ITimer _dashTimer;
 
         public bool IsDashing => _dashTimer.IsRunning;
 
+        [SerializeReference]
+        [ReadOnly]
         private ITimer _cooldownTimer;
 
         public bool IsDashCooldown => _cooldownTimer.IsRunning;

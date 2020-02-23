@@ -35,6 +35,8 @@ namespace pdxpartyparrot.Game.Menu
         [SerializeField]
         private float _pollCooldown = 0.25f;
 
+        [SerializeReference]
+        [ReadOnly]
         private ITimer _pollCooldownTimer;
 
         [SerializeField]
@@ -176,7 +178,7 @@ namespace pdxpartyparrot.Game.Menu
 
             NextInitial();
         }
-    
+
         public override void OnCancel(InputAction.CallbackContext context)
         {
             if(!context.performed) {

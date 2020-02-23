@@ -43,6 +43,8 @@ namespace pdxpartyparrot.Game.Characters.NPCs
         [ReadOnly]
         private Vector3 _offset;
 
+        [SerializeReference]
+        [ReadOnly]
         private ITimer _cooldown;
 
 #region Unity Lifecycle

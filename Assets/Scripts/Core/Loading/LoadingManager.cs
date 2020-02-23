@@ -97,6 +97,8 @@ namespace pdxpartyparrot.Core.Loading
         [CanBeNull]
         private LoadingTipData _loadingTips;
 
+        [SerializeReference]
+        [ReadOnly]
         private ITimer _loadingTipTimer;
 
         protected GameObject ManagersContainer { get; private set; }

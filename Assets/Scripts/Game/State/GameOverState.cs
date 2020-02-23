@@ -3,6 +3,7 @@ using System;
 using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.Time;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
@@ -21,6 +22,8 @@ namespace pdxpartyparrot.Game.State
         [SerializeField]
         private float _completeWaitTimeSeconds = 5.0f;
 
+        [SerializeReference]
+        [ReadOnly]
         private ITimer _completeTimer;
 
         public override void OnEnter()

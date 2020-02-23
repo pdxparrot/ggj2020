@@ -31,8 +31,12 @@ namespace pdxpartyparrot.Core.UI
         [ReadOnly]
         private bool _blinkOut = true;
 
+        [SerializeReference]
+        [ReadOnly]
         private ITimer _blinkTimer;
 
+        [SerializeReference]
+        [ReadOnly]
         private ITimer _delayTimer;
 
         private TextMeshProUGUI _text;

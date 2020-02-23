@@ -37,6 +37,8 @@ namespace pdxpartyparrot.Game.NPCs
         [CanBeNull]
         private EffectTrigger _waveEndEffectTrigger;
 
+        [SerializeReference]
+        [ReadOnly]
         private ITimer _waveTimer;
 
         public SpawnWave(SpawnWaveData spawnWaveData, WaveSpawner owner)

@@ -15,6 +15,8 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
         [ReadOnly]
         private bool _waitForComplete = true;
 
+        [SerializeReference]
+        [ReadOnly]
         private ITimer _timer;
 
         public override bool WaitForComplete => _waitForComplete;

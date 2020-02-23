@@ -78,6 +78,8 @@ namespace pdxpartyparrot.ggj2020.Actors
 
         public float ChargePercent => PlayerManager.Instance.PlayerCount == 0 ? 0.0f : _succesfulPlayers.Count / (float)PlayerManager.Instance.PlayerCount;
 
+        [SerializeReference]
+        [ReadOnly]
         private ITimer _holdTimer;
 
         private Coroutine _holdRoutine;

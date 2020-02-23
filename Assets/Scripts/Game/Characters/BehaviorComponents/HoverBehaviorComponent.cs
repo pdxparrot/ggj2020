@@ -36,6 +36,8 @@ namespace pdxpartyparrot.Game.Characters.BehaviorComponents
 
         public float RemainingPercent => 1.0f - (_hoverTimeSeconds / _data.HoverTimeSeconds);
 
+        [SerializeReference]
+        [ReadOnly]
         private ITimer _cooldownTimer;
 
         private bool IsHoverCooldown => _cooldownTimer.SecondsRemaining > 0.0f;

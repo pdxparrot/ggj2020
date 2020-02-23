@@ -44,8 +44,12 @@ namespace pdxpartyparrot.ggj2020.Level
         [ReadOnly]
         private int _currentRound;
 
+        [SerializeReference]
+        [ReadOnly]
         private ITimer _timer;
 
+        [SerializeReference]
+        [ReadOnly]
         private ITimer _respawnTimer;
 
         public float TimeRemaining => (int)_timer.SecondsRemaining;

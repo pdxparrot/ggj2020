@@ -2,6 +2,7 @@
 
 using pdxpartyparrot.Core.Audio;
 using pdxpartyparrot.Core.Time;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -42,6 +43,8 @@ namespace pdxpartyparrot.Core.Effects.EffectTriggerComponents
 
         public override bool IsDone => (null == _audioSource || !_audioSource.isPlaying) && (null == _audioTimer || !_audioTimer.IsRunning);
 
+        [SerializeReference]
+        [ReadOnly]
         [CanBeNull]
         private ITimer _audioTimer;
 
