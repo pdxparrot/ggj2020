@@ -105,12 +105,18 @@ namespace pdxpartyparrot.ggj2020.Level
         private void EnterRobot()
         {
             float roundTime = GameManager.Instance.GameGameData.RepairTime;
-            if(_currentRound == 0) {
+            switch(_currentRound)
+            {
+            case 0:
+                roundTime *= 3.0f;
+                break;
+            case 1:
                 roundTime *= 2.0f;
-            } else if(_currentRound == 1) {
+                break;
+            case 2:
                 roundTime *= 1.5f;
+                break;
             }
-
             _currentRound++;
 
             // this will init the timer UI correctly
