@@ -11,7 +11,7 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
     {
         public override string Name => "End";
 
-        [Input]
+        [Input("Previous")]
         [SerializeField]
         [ReadOnly]
         private Guid _prev;
