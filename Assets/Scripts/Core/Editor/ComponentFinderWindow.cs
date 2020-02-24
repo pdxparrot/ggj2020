@@ -66,7 +66,7 @@ namespace pdxpartyparrot.Core.Editor
         }
 
         [MenuItem("PDX Party Parrot/Component Finder...")]
-        static void ShowWindow()
+        public static void ShowWindow()
         {
             ComponentFinderWindow window = GetWindow<ComponentFinderWindow>();
             window.Show();

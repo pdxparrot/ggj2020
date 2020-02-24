@@ -1,5 +1,7 @@
 ﻿using System;
 
+using pdxpartyparrot.Core.Util;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.Core.Data.Scripting.Nodes
@@ -7,24 +9,32 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
     [Serializable]
     public abstract class ScriptNodeData
     {
+        public abstract string Name { get; }
+
         [SerializeField]
+        [ReadOnly]
         private Guid _id;
 
         public Guid Id => _id;
 
         [SerializeField]
-        private Rect _rect;
+        [ReadOnly]
+        private Rect _position;
 
-        public Rect Rect => _rect;
+        public Rect Position
+        {
+            get => _position;
+            protected set => _position = value;
+        }
 
         protected ScriptNodeData()
         {
             _id = Guid.NewGuid();
         }
 
-        protected ScriptNodeData(Guid id)
+        public ScriptNodeData(Rect position) : this()
         {
-            _id = id;
+            Position = position;
         }
     }
 }

@@ -5,7 +5,7 @@ namespace pdxpartyparrot.Core.Editor.Window
 {
     public abstract class EditorWindow : UnityEditor.EditorWindow
     {
-        private const string CoreStyleSheet = "Engine_Core";
+        public const string CoreStyleSheet = "Engine_Core";
 
 /*
         Example setup:

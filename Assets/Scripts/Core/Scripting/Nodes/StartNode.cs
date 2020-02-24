@@ -2,15 +2,13 @@
 
 namespace pdxpartyparrot.Core.Scripting.Nodes
 {
-    public sealed class Start : ScriptNode
+    public sealed class StartNode : ScriptNode
     {
-        [Output]
         private ScriptNode _next;
 
         public override void Init(ScriptRunner runner, ScriptNodeData data)
         {
-            StartData startData = data as StartData;
-            if(null == startData) {
+            if(!(data is StartNodeData startData)) {
                 return;
             }
 

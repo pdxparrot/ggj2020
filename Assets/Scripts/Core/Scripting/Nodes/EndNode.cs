@@ -2,7 +2,7 @@
 
 namespace pdxpartyparrot.Core.Scripting.Nodes
 {
-    public sealed class End : ScriptNode
+    public sealed class EndNode : ScriptNode
     {
         public override void Init(ScriptRunner runner, ScriptNodeData data)
         {

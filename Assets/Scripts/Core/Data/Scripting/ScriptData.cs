@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
 namespace pdxpartyparrot.Core.Data.Scripting
 {
-    //[CreateAssetMenu(fileName="ScriptData", menuName="pdxpartyparrot/Core/Data/Script Data")]
+    [CreateAssetMenu(fileName="ScriptData", menuName="pdxpartyparrot/Core/Data/Script Data")]
     [Serializable]
     public sealed class ScriptData : ScriptableObject
     {
-        [SerializeField]
-        private /*readonly*/ ScriptNodeData[] _nodes;
+        [SerializeReference]
+        [ReadOnly]
+        private /*readonly*/ ScriptNodeData[] _nodes = { new StartNodeData(), new EndNodeData() };
 
         public IReadOnlyCollection<ScriptNodeData> Nodes => _nodes;
     }

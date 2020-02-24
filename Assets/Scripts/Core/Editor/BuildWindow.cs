@@ -10,7 +10,7 @@ namespace pdxpartyparrot.Core.Editor
         private const string WindowLayout = "BuildWindow/Window";
 
         [MenuItem("PDX Party Parrot/Build...")]
-        static void ShowWindow()
+        public static void ShowWindow()
         {
             BuildWindow window = GetWindow<BuildWindow>();
             window.Show();
