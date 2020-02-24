@@ -175,7 +175,8 @@ AudioSource:
   m_GameObject: {fileID: 3106343173454530571}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -243767715870279845, guid: 33f0ec8a222bc5a43b33bab0a7756600,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -408,6 +409,12 @@ MonoBehaviour:
   _audioSource: {fileID: 6752809502440225935}
   _loop: 0
   _waitForComplete: 0
+  _audioTimer:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: , ns: , asm: }
 --- !u!114 &4105123055863511682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -585,6 +592,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

@@ -78,7 +78,8 @@ AudioSource:
   m_GameObject: {fileID: 2543270610343901840}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -243767715870279845, guid: 33f0ec8a222bc5a43b33bab0a7756600,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -190,6 +191,12 @@ MonoBehaviour:
   _inUse: 0
   _loopingRumbleEffectTrigger: {fileID: 6423163703249436471}
   _loopingRumbleEffectTriggerComponent: {fileID: 680028288428049849}
+  _holdTimer:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: , ns: , asm: }
 --- !u!1 &3479842209757762376
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,6 +242,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -458,6 +466,12 @@ MonoBehaviour:
   _audioSource: {fileID: 924136989500165098}
   _loop: 0
   _waitForComplete: 1
+  _audioTimer:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: , ns: , asm: }
 --- !u!114 &5296475352699571293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,6 +558,12 @@ MonoBehaviour:
   _audioSource: {fileID: 924136989500165098}
   _loop: 1
   _waitForComplete: 0
+  _audioTimer:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: , ns: , asm: }
 --- !u!1 &4945031124256575834
 GameObject:
   m_ObjectHideFlags: 0
