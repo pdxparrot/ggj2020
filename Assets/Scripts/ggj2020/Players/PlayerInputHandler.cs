@@ -67,7 +67,11 @@ namespace pdxpartyparrot.ggj2020.Players
             }
 
             if(context.performed) {
-                GamePlayer.Mechanic.HandleToolInput();
+                if(GameManager.Instance.WaitingForIntro) {
+                    GameManager.Instance.IntroAdvance();
+                } else {
+                    GamePlayer.Mechanic.HandleToolInput();
+                }
             } else {
                 GamePlayer.Mechanic.UseEnded();
             }
@@ -84,7 +88,11 @@ namespace pdxpartyparrot.ggj2020.Players
             }
 
             if(context.performed) {
-                GamePlayer.Mechanic.DropTool();
+                if(GameManager.Instance.WaitingForIntro) {
+                    GameManager.Instance.IntroBack();
+                } else {
+                    GamePlayer.Mechanic.DropTool();
+                }
             }
         }
 #endregion

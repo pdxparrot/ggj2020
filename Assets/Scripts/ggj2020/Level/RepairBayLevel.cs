@@ -1,5 +1,7 @@
 using System;
 
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.Time;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Core.World;
@@ -54,6 +56,7 @@ namespace pdxpartyparrot.ggj2020.Level
 
         public float TimeRemaining => (int)_timer.SecondsRemaining;
 
+        [CanBeNull]
         private RepairableRobot _repairableRobot;
 
 #region Unity Lifecycle
@@ -74,8 +77,11 @@ namespace pdxpartyparrot.ggj2020.Level
         {
             _chargingStation.ChargeCompleteEvent -= ChargeCompleteEventHandler;
 
-            _repairableRobot.RepairedEvent -= RepairedEventHandler;
-            Destroy(_repairableRobot);
+            if(null != _repairableRobot) {
+                _repairableRobot.RepairedEvent -= RepairedEventHandler;
+                Destroy(_repairableRobot);
+            }
+            _repairableRobot = null;
 
             if(TimeManager.HasInstance) {
                 TimeManager.Instance.RemoveTimer(_timer);
@@ -166,11 +172,14 @@ namespace pdxpartyparrot.ggj2020.Level
             GameManager.Instance.Viewer.SetBounds(_cameraBounds);
 
             GameUIManager.Instance.GameGameUI.EnableChargingStationIntroUI(enableChargingStation);
-            GameUIManager.Instance.GameGameUI.ShowIntroUI();
+
+            GameManager.Instance.IntroCompleteEvent += IntroCompleteEventHandler;
         }
 
-        protected override void GameReadyEventHandler(object sender, EventArgs args)
+        private void IntroCompleteEventHandler(object sender, EventArgs args)
         {
+            GameManager.Instance.IntroCompleteEvent -= IntroCompleteEventHandler;
+
             SpawnPoint spawnpoint = SpawnManager.Instance.GetSpawnPoint(GameManager.Instance.GameGameData.RepairableRobotSpawnTag);
             _repairableRobot = spawnpoint.SpawnNPCPrefab(GameManager.Instance.GameGameData.RepairableRobotPrefab, null, transform).GetComponent<RepairableRobot>();
             _repairableRobot.RepairedEvent += RepairedEventHandler;

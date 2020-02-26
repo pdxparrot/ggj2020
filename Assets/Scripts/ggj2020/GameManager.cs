@@ -9,6 +9,7 @@ using pdxpartyparrot.Game;
 using pdxpartyparrot.ggj2020.Camera;
 using pdxpartyparrot.ggj2020.Data;
 using pdxpartyparrot.ggj2020.Level;
+using pdxpartyparrot.ggj2020.UI;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -19,6 +20,8 @@ namespace pdxpartyparrot.ggj2020
     {
 #region Events
         public event EventHandler<EventArgs> MechanicsCanInteractEvent;
+
+        public event EventHandler<EventArgs> IntroCompleteEvent;
 
         public event EventHandler<EventArgs> RepairSuccessEvent;
         public event EventHandler<EventArgs> RepairFailureEvent;
@@ -39,6 +42,12 @@ namespace pdxpartyparrot.ggj2020
         public GameViewer Viewer { get; private set; }
 
         [Space(10)]
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _waitingForIntro;
+
+        public bool WaitingForIntro => _waitingForIntro;
 
         [SerializeField]
         [ReadOnly]
@@ -98,12 +107,27 @@ namespace pdxpartyparrot.ggj2020
             });
         }
 
+        public override void StartGameClient()
+        {
+            base.StartGameClient();
+
+            GameUIManager.Instance.GameGameUI.ShowIntroUI();
+
+            _waitingForIntro = true;
+        }
+
         public override void GameReady()
         {
             base.GameReady();
 
             _repairSuccesses = 0;
             _repairFailures = 0;
+
+#if UNITY_EDITOR
+            if(!GameGameData.EnableTutorialInEditor) {
+                IntroComplete();
+            }
+#endif
         }
 
         //[Client]
@@ -115,6 +139,27 @@ namespace pdxpartyparrot.ggj2020
                 return;
             }
             Viewer.Initialize(GameGameData);
+        }
+
+        private void IntroComplete()
+        {
+            GameUIManager.Instance.GameGameUI.HideIntroUI();
+
+            _waitingForIntro = false;
+
+            IntroCompleteEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void IntroAdvance()
+        {
+            if(GameUIManager.Instance.GameGameUI.IntroAdvance()) {
+                IntroComplete();
+            }
+        }
+
+        public void IntroBack()
+        {
+            GameUIManager.Instance.GameGameUI.IntroBack();
         }
 
         public void RobotImpulse()

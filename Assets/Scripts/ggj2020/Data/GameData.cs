@@ -124,5 +124,14 @@ namespace pdxpartyparrot.ggj2020.Data
 
         public int MaxFailures => _maxFailures;
 #endregion
+
+        [Space(10)]
+
+#region Debug
+        [SerializeField]
+        private bool _enableTutorialInEditor;
+
+        public bool EnableTutorialInEditor => _enableTutorialInEditor;
+#endregion
     }
 }

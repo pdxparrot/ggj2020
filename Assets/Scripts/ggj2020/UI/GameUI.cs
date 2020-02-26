@@ -1,6 +1,9 @@
 ﻿using pdxpartyparrot.Core.Effects;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.ggj2020.UI
 {
@@ -22,25 +25,72 @@ namespace pdxpartyparrot.ggj2020.UI
         private GameObject _noUseChargingStationUI;
 
         [SerializeField]
-        private EffectTrigger _showIntroUIEffectTrigger;
+        private GameObject _introIntroUI;
+
+        [SerializeField]
+        [FormerlySerializedAs("_showIntroUIEffectTrigger")]
+        private EffectTrigger _showOldIntroUIEffectTrigger;
+
+        [SerializeField]
+        private GameObject[] _introPanels;
+
+        [SerializeField]
+        private GameObject _introBackButton;
+
+        [SerializeField]
+        [ReadOnly]
+        private int _currentIntroSlide;
 #endregion
 
 #region Unity Lifecycle
         private void Awake()
         {
-            _introUI.gameObject.SetActive(false);
+            Assert.IsTrue(_introPanels.Length > 0);
+
+            HideIntroUI();
         }
 #endregion
 
         public void EnableChargingStationIntroUI(bool enable)
         {
-            _useChargingStationUI.gameObject.SetActive(enable);
-            _noUseChargingStationUI.gameObject.SetActive(!enable);
+            /*_useChargingStationUI.gameObject.SetActive(enable);
+            _noUseChargingStationUI.gameObject.SetActive(!enable);*/
         }
 
         public void ShowIntroUI()
         {
-            _showIntroUIEffectTrigger.Trigger();
+            //_showOldIntroUIEffectTrigger.Trigger();
+
+            _introUI.gameObject.SetActive(true);
+            _introIntroUI.gameObject.SetActive(true);
+
+            _currentIntroSlide = 0;
+            _introPanels[_currentIntroSlide].gameObject.SetActive(true);
+        }
+
+        public void HideIntroUI()
+        {
+            _introUI.gameObject.SetActive(false);
+
+            // old-style intro
+            _useChargingStationUI.SetActive(false);
+            _noUseChargingStationUI.SetActive(false);
+
+            // new-style intro
+            _introIntroUI.gameObject.SetActive(false);
+            foreach(GameObject go in _introPanels) {
+                go.SetActive(false);
+            }
+            _introBackButton.gameObject.SetActive(false);
+        }
+
+        public bool IntroAdvance()
+        {
+            return true;
+        }
+
+        public void IntroBack()
+        {
         }
     }
 }
