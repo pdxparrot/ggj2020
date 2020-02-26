@@ -476,6 +476,11 @@ namespace pdxpartyparrot.ggj2020.Players
         {
             Ladder ladder = args.Interactable as Ladder;
             if(null != ladder && !_interactables.HasInteractables<Ladder>()) {
+                // hack until Unity fixes https://issuetracker.unity3d.com/issues/ontriggerexit2d-when-disabling-a-gameobject
+                if(IsOnLadder && Owner.Collider.bounds.Intersects(ladder.Collider.bounds)) {
+                    return;
+                }
+
                 CanUseLadder = false;
                 return;
             }
