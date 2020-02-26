@@ -36,3 +36,4 @@ MonoBehaviour:
   _robotRespawnRate: 1
   _passingRepairPercent: 0.66
   _maxFailures: 3
+  _enableTutorialInEditor: 0

@@ -26,6 +26,10 @@ namespace pdxpartyparrot.ggj2020.Players
 #region Actions
         protected override void DoMove(InputAction action)
         {
+            if(GameManager.Instance.WaitingForIntro) {
+                return;
+            }
+
             Vector2 axes = action.ReadValue<Vector2>();
 
             if(GamePlayer.Mechanic.IsUsingTool) {
@@ -43,7 +47,7 @@ namespace pdxpartyparrot.ggj2020.Players
 
         public void OnUseLadder(InputAction.CallbackContext context)
         {
-            if(!IsInputAllowed(context)) {
+            if(!IsInputAllowed(context) || GameManager.Instance.WaitingForIntro) {
                 return;
             }
 
@@ -72,7 +76,7 @@ namespace pdxpartyparrot.ggj2020.Players
                 } else {
                     GamePlayer.Mechanic.HandleToolInput();
                 }
-            } else {
+            } else if(!GameManager.Instance.WaitingForIntro) {
                 GamePlayer.Mechanic.UseEnded();
             }
         }

@@ -86,11 +86,31 @@ namespace pdxpartyparrot.ggj2020.UI
 
         public bool IntroAdvance()
         {
-            return true;
+            _introPanels[_currentIntroSlide].gameObject.SetActive(false);
+
+            _currentIntroSlide++;
+            if(_currentIntroSlide >= _introPanels.Length) {
+                return true;
+            }
+
+            _introPanels[_currentIntroSlide].gameObject.SetActive(true);
+            _introBackButton.gameObject.SetActive(true);
+
+            return false;
         }
 
         public void IntroBack()
         {
+            if(0 == _currentIntroSlide) {
+                return;
+            }
+
+            _introPanels[_currentIntroSlide].gameObject.SetActive(false);
+
+            _currentIntroSlide--;
+
+            _introPanels[_currentIntroSlide].gameObject.SetActive(true);
+            _introBackButton.gameObject.SetActive(_currentIntroSlide > 0);
         }
     }
 }
