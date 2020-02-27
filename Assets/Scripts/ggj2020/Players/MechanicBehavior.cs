@@ -486,6 +486,11 @@ namespace pdxpartyparrot.ggj2020.Players
             }
 
             if(IsHoldingTool && _heldTool.HasRepairPoint) {
+                // hack until Unity fixes https://issuetracker.unity3d.com/issues/ontriggerexit2d-when-disabling-a-gameobject
+                if(IsUsingTool) {
+                    return;
+                }
+
                 RepairPoint repairPoint = args.Interactable as RepairPoint;
                 if(null != repairPoint && _heldTool.RepairPoint == repairPoint) {
                     repairPoint = GetDamagedRepairPoint(_heldTool.DamageType);
