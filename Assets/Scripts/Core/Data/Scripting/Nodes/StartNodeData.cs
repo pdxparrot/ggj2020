@@ -1,5 +1,6 @@
 ﻿using System;
 
+using pdxpartyparrot.Core.Scripting.Nodes;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -14,9 +15,9 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
         [Output("Next")]
         [SerializeField]
         [ReadOnly]
-        private int _next;
+        private ScriptNodeId _next;
 
-        public int Next
+        public ScriptNodeId Next
         {
             get => _next;
             set => _next = value;

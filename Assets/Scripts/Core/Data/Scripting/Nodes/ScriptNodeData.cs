@@ -1,5 +1,6 @@
 ﻿using System;
 
+using pdxpartyparrot.Core.Scripting.Nodes;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -13,9 +14,9 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 
         [SerializeField]
         [ReadOnly]
-        private int _id;
+        private ScriptNodeId _id;
 
-        public int Id => _id;
+        public ScriptNodeId Id => _id;
 
         [SerializeField]
         [ReadOnly]
@@ -29,17 +30,12 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 
         protected ScriptNodeData()
         {
-            GenerateId();
+            _id = ScriptNodeId.Create();
         }
 
         public ScriptNodeData(Rect position) : this()
         {
             Position = position;
-        }
-
-        public void GenerateId()
-        {
-            _id = new System.Random().Next(0, int.MaxValue);
         }
     }
 }
