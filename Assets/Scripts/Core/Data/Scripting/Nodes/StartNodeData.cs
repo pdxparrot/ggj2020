@@ -14,9 +14,9 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
         [Output("Next")]
         [SerializeField]
         [ReadOnly]
-        private Guid _next;
+        private int _next;
 
-        public Guid Next
+        public int Next
         {
             get => _next;
             set => _next = value;

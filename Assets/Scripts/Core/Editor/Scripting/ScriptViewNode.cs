@@ -16,7 +16,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         private const string MainStyleSheet = "ScriptEditorWindow/Node";
         private const string NodeLayout = "ScriptEditorWindow/Node";
 
-        public Guid Id => _nodeData.Id;
+        public int Id => _nodeData.Id;
 
         private ScriptNodeData _nodeData;
 
@@ -41,7 +41,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         {
             Label label = new Label
             {
-                text = $"ID: {Id}"
+                text = $"ID: 0x{Id:X}"
             };
             Add(label);
 

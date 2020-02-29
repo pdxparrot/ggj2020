@@ -107,7 +107,7 @@ namespace pdxpartyparrot.Core.Scripting
 #endregion
 
         [CanBeNull]
-        public ScriptNode GetNode(Guid id)
+        public ScriptNode GetNode(int id)
         {
             // TODO
             return null;

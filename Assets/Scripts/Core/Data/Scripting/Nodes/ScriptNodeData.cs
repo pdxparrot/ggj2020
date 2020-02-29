@@ -13,9 +13,9 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 
         [SerializeField]
         [ReadOnly]
-        private Guid _id;
+        private int _id;
 
-        public Guid Id => _id;
+        public int Id => _id;
 
         [SerializeField]
         [ReadOnly]
@@ -29,12 +29,17 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 
         protected ScriptNodeData()
         {
-            _id = Guid.NewGuid();
+            GenerateId();
         }
 
         public ScriptNodeData(Rect position) : this()
         {
             Position = position;
+        }
+
+        public void GenerateId()
+        {
+            _id = new System.Random().Next(0, int.MaxValue);
         }
     }
 }
