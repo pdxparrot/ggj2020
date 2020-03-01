@@ -2,6 +2,7 @@ using pdxpartyparrot.Core.Data.Scripting;
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
 
 using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 
 namespace pdxpartyparrot.Core.Editor.Scripting
 {
@@ -12,6 +13,8 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             GridBackground gridBackground = new GridBackground();
             Add(gridBackground);
             gridBackground.SendToBack();
+
+            nodeCreationRequest = NodeCreationRequestEventHandler;
         }
 
         public void LoadScript(ScriptData scriptData)
@@ -32,5 +35,12 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             ScriptViewNode node = new ScriptViewNode(nodeData);
             AddElement(node);
         }
+
+#region Event Handlers
+        private void NodeCreationRequestEventHandler(NodeCreationContext context)
+        {
+            CreateNodeWindow.ShowWindow();
+        }
+#endregion
     }
 }
