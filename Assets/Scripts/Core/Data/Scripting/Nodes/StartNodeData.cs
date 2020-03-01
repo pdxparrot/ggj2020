@@ -26,5 +26,9 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
         public StartNodeData() : base(new Rect(0.0f, 0.0f, 0.0f, 0.0f))
         {
         }
+
+        public StartNodeData(Rect position) : base(position)
+        {
+        }
     }
 }
