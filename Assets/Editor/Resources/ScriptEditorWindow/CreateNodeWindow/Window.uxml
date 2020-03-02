@@ -1,4 +1,6 @@
 <UXML xmlns="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
     <VisualElement class="container-column">
+        <TextField label="Filter" name="node-filter" value="Filter" />
+        <ListView name="node-list" class="node-list" />
     </VisualElement>
 </UXML>

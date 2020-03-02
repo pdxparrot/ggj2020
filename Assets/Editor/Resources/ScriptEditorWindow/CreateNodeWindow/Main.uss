@@ -1,0 +1,4 @@
+.node-list {
+    --unity-item-height: 16;
+    height: 200px;
+}

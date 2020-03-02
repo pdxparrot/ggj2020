@@ -41,6 +41,10 @@ namespace pdxpartyparrot.Core.Editor.Window
             VisualRoot.styleSheets.Add(Resources.Load<StyleSheet>(CoreStyleSheet));
         }
 
+        protected virtual void OnDisable()
+        {
+        }
+
         protected virtual void OnGUI()
         {
         }
