@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using pdxpartyparrot.Core.Scripting.Nodes;
 using pdxpartyparrot.Core.Util;
@@ -12,7 +12,7 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
     {
         public override string Name => "Start";
 
-        [Output("Next")]
+        [Connection("Next")]
         [SerializeField]
         [ReadOnly]
         private ScriptNodeId _next;

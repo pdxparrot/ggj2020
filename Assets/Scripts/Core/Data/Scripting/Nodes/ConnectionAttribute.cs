@@ -1,18 +1,15 @@
-﻿using System;
+using System;
 
 namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 {
     [AttributeUsage(AttributeTargets.Field)]
-    public sealed class InputAttribute : Attribute
+    public sealed class ConnectionAttribute : Attribute
     {
         public string Name { get; private set; }
 
-        public Type Type { get; private set; }
-
-        public InputAttribute(string name, Type type)
+        public ConnectionAttribute(string name)
         {
             Name = name;
-            Type = type;
         }
     }
 }

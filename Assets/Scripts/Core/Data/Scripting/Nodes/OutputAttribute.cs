@@ -8,9 +8,12 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 
         public string Name { get; private set; }
 
-        public OutputAttribute(string name)
+        public Type Type { get; private set; }
+
+        public OutputAttribute(string name, Type type)
         {
             Name = name;
+            Type = type;
         }
     }
 }

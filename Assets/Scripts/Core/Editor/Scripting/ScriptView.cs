@@ -2,7 +2,6 @@ using pdxpartyparrot.Core.Data.Scripting;
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
 
 using UnityEditor.Experimental.GraphView;
-using UnityEngine;
 
 namespace pdxpartyparrot.Core.Editor.Scripting
 {

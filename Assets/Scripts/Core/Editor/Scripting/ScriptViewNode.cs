@@ -48,6 +48,17 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             Type nodeType = _nodeData.GetType();
             //Debug.Log($"Node 0x{Id:X} of type {nodeType}");
 
+            var connections = nodeType.GetFields(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
+                .Where(x => Attribute.IsDefined(x, typeof(ConnectionAttribute)));
+            foreach(FieldInfo connection in connections) {
+                ConnectionAttribute attr = (ConnectionAttribute)connection.GetCustomAttribute(typeof(ConnectionAttribute));
+                //Debug.Log($"Add connection {attr.Name} of type {input.FieldType} to node 0x{Id:X}");
+
+                Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, connection.FieldType);
+                port.portName = attr.Name;
+                Add(port);
+            }
+
             var inputs = nodeType.GetFields(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .Where(x => Attribute.IsDefined(x, typeof(InputAttribute)));
             foreach(FieldInfo input in inputs) {
