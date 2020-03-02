@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Linq;
 
 using pdxpartyparrot.Core.Scripting.Nodes;
 using pdxpartyparrot.Core.Util;
@@ -7,11 +8,10 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 {
+    [ScriptNode("Start", ScriptNodeAttribute.AllowedInstances.Single)]
     [Serializable]
-    public sealed class StartNodeData : ScriptNodeData
+    public sealed class StartNodeData : ScriptNodeData<StartNodeData>
     {
-        public override string Name => "Start";
-
         [Connection("Next")]
         [SerializeField]
         [ReadOnly]

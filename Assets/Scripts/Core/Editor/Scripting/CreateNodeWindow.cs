@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
+using pdxpartyparrot.Core.Data.Scripting;
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
 using pdxpartyparrot.Core.Util;
 
@@ -16,34 +18,41 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         private const string MainStyleSheet = "ScriptEditorWindow/CreateNodeWindow/Main";
         private const string WindowLayout = "ScriptEditorWindow/CreateNodeWindow/Window";
 
-        public static void ShowWindow()
+        public static void ShowWindow(ScriptData scriptData)
         {
             CreateNodeWindow window = GetWindow<CreateNodeWindow>();
+            window._scriptData = scriptData;
             window.Show();
         }
 
         public override string Title => "Add Scripting Node";
 
         private readonly List<Type> _nodeTypes = new List<Type>();
-        private readonly List<string> _nodeNames = new List<string>();
+        private readonly Dictionary<string, Type> _nodes = new Dictionary<string, Type>();
         private readonly List<string> _filteredNodeNames = new List<string>();
 
         private TextField _filter;
 
         private ListView _nodeList;
 
+        private ScriptData _scriptData;
+
 #region Unity Lifecycle
         protected override void Awake()
         {
             base.Awake();
 
-            ReflectionUtils.FindSubClassesOfInNamespace<ScriptNodeData>(_nodeTypes, EditorSettings.projectGenerationRootNamespace);
-            foreach(Type t in _nodeTypes) {
-                // TODO: this should be the name property of the node somehow
-                // might need to use a new attribute for that
-                _nodeNames.Add(t.Namespace?.StartsWith(EditorSettings.projectGenerationRootNamespace) ?? false ? t.FullName : t.Name);
+            ReflectionUtils.FindImplementorsOfInNamespace<IScriptNodeData>(_nodeTypes, EditorSettings.projectGenerationRootNamespace);
+            foreach(Type nodeType in _nodeTypes) {
+                ScriptNodeAttribute attr = (ScriptNodeAttribute)nodeType.GetCustomAttribute(typeof(ScriptNodeAttribute));
+                if(null == attr) {
+                    Debug.LogWarning($"Node type {nodeType} missing node attribute!");
+                    continue;
+                }
+
+                _nodes.Add(attr.Name, nodeType);
             }
-            //Debug.Log($"Found {_nodeNames.Count} nodes");
+            //Debug.Log($"Found {_nodes.Count} nodes");
         }
 
         protected override void OnEnable()
@@ -83,13 +92,27 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         }
 #endregion
 
+        // TODO: this could be done much better
         private void Filter()
         {
             _filteredNodeNames.Clear();
 
-            _filteredNodeNames.AddRange(_nodeNames.Where(x => x != null && x.Contains(_filter.text)));
+            _filteredNodeNames.AddRange(_nodes.Keys.Where(x => {
+                if(null == x) {
+                    return false;
+                }
 
-            _nodeList.MarkDirtyRepaint();
+                Type nodeType = _nodes[x];
+
+                ScriptNodeAttribute attr = (ScriptNodeAttribute)nodeType.GetCustomAttribute(typeof(ScriptNodeAttribute));
+                if(null == attr || (!attr.AllowMultiple && null != _scriptData && _scriptData.Nodes.Any(y => y.GetType() == nodeType))) {
+                    return false;
+                }
+
+                return -1 != x.IndexOf(_filter.text, StringComparison.InvariantCultureIgnoreCase);
+            }));
+
+            _nodeList.itemsSource = _filteredNodeNames;
         }
 
 #region Event Handlers
@@ -110,7 +133,9 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         private void ItemChosenEventHandler(object item)
         {
-            Debug.Log($"selected node {item}");
+            string nodeName = item as string;
+
+            Debug.Log($"selected node {nodeName} of type {_nodes[nodeName]}");
         }
 #endregion
     }

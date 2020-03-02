@@ -6,7 +6,7 @@ namespace pdxpartyparrot.Core.Scripting.Nodes
     {
         private ScriptNode _next;
 
-        public override void Init(ScriptRunner runner, ScriptNodeData data)
+        public override void Init(ScriptRunner runner, IScriptNodeData data)
         {
             if(!(data is StartNodeData startData)) {
                 return;

@@ -18,9 +18,9 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         public int Id => _nodeData.Id;
 
-        private ScriptNodeData _nodeData;
+        private IScriptNodeData _nodeData;
 
-        public ScriptViewNode(ScriptNodeData nodeData) : base()
+        public ScriptViewNode(IScriptNodeData nodeData) : base()
         {
             _nodeData = nodeData;
 

@@ -7,6 +7,8 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 {
     public sealed class ScriptView : GraphView
     {
+        private ScriptData _scriptData;
+
         public ScriptView() : base()
         {
             GridBackground gridBackground = new GridBackground();
@@ -18,16 +20,18 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         public void LoadScript(ScriptData scriptData)
         {
+            _scriptData = scriptData;
+
             DeleteElements(graphElements.ToList());
 
             //Debug.Log($"Loading script '{scriptData.name}' with {scriptData.Nodes.Count} nodes...");
 
-            foreach(ScriptNodeData nodeData in scriptData.Nodes) {
+            foreach(IScriptNodeData nodeData in scriptData.Nodes) {
                 AddNode(nodeData);
             }
         }
 
-        public void AddNode(ScriptNodeData nodeData)
+        public void AddNode(IScriptNodeData nodeData)
         {
             //Debug.Log($"Adding node {nodeData.Id} of type {nodeData.GetType()}");
 
@@ -38,7 +42,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 #region Event Handlers
         private void NodeCreationRequestEventHandler(NodeCreationContext context)
         {
-            CreateNodeWindow.ShowWindow();
+            CreateNodeWindow.ShowWindow(_scriptData);
         }
 #endregion
     }
