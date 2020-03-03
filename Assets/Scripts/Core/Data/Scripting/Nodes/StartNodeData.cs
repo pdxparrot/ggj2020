@@ -12,7 +12,7 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
     [Serializable]
     public sealed class StartNodeData : ScriptNodeData
     {
-        [Connection("Next")]
+        [Connection("Next", ConnectionAttribute.ConnectionType.Output)]
         [SerializeField]
         [ReadOnly]
         private ScriptNodeId _next;
@@ -23,7 +23,7 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
             set => _next = value;
         }
 
-        public StartNodeData() : base(new Rect(0.0f, 0.0f, 0.0f, 0.0f))
+        public StartNodeData() : base()
         {
         }
 

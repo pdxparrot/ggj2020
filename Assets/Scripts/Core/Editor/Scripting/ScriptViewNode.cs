@@ -54,7 +54,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 ConnectionAttribute attr = connection.GetCustomAttribute<ConnectionAttribute>();
                 //Debug.Log($"Add connection {attr.Name} of type {input.FieldType} to node 0x{Id:X}");
 
-                Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, connection.FieldType);
+                Port port = InstantiatePort(Orientation.Horizontal, attr.Type == ConnectionAttribute.ConnectionType.Input ? Direction.Input : Direction.Output, Port.Capacity.Single, connection.FieldType);
                 port.portName = attr.Name;
                 Add(port);
             }

@@ -2,12 +2,13 @@ using pdxpartyparrot.Core.Data.Scripting;
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
 
 using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 
 namespace pdxpartyparrot.Core.Editor.Scripting
 {
     public sealed class ScriptView : GraphView
     {
-        private ScriptData _scriptData;
+        public ScriptData ScriptData { get; private set; }
 
         public ScriptView() : base()
         {
@@ -20,7 +21,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         public void LoadScript(ScriptData scriptData)
         {
-            _scriptData = scriptData;
+            ScriptData = scriptData;
 
             DeleteElements(graphElements.ToList());
 
@@ -42,7 +43,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 #region Event Handlers
         private void NodeCreationRequestEventHandler(NodeCreationContext context)
         {
-            CreateNodeWindow.ShowWindow(_scriptData);
+            CreateNodeWindow.ShowWindow(this, context.screenMousePosition);
         }
 #endregion
     }

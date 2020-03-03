@@ -18,10 +18,11 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         private const string MainStyleSheet = "ScriptEditorWindow/CreateNodeWindow/Main";
         private const string WindowLayout = "ScriptEditorWindow/CreateNodeWindow/Window";
 
-        public static void ShowWindow(ScriptData scriptData)
+        public static void ShowWindow(ScriptView scriptView, Vector2 screenMousePosition)
         {
             CreateNodeWindow window = GetWindow<CreateNodeWindow>();
-            window.ScriptData = scriptData;
+            window._screenMousePosition = screenMousePosition;
+            window.ScriptView = scriptView;
             window.Show();
         }
 
@@ -35,15 +36,17 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         private ListView _nodeList;
 
-        private ScriptData _scriptData;
+        private Vector2 _screenMousePosition;
 
-        public ScriptData ScriptData
+        private ScriptView _scriptView;
+
+        public ScriptView ScriptView
         {
-            get => _scriptData;
+            get => _scriptView;
 
             private set
             {
-                _scriptData = value;
+                _scriptView = value;
 
                 Filter();
             }
@@ -101,7 +104,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 Type nodeType = _nodes[x];
 
                 ScriptNodeAttribute attr = nodeType.GetCustomAttribute<ScriptNodeAttribute>();
-                if(null == attr || (!attr.AllowMultiple && null != _scriptData && _scriptData.Nodes.Any(y => y.GetType() == nodeType))) {
+                if(null == attr || (!attr.AllowMultiple && null != _scriptView && _scriptView.ScriptData.Nodes.Any(y => y.GetType() == nodeType))) {
                     return false;
                 }
 
@@ -131,7 +134,9 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         {
             string nodeName = item as string;
 
-            Debug.Log($"selected node {nodeName} of type {_nodes[nodeName]}");
+            ScriptView.AddNode((ScriptNodeData)Activator.CreateInstance(_nodes[nodeName], new Rect(_screenMousePosition, Vector2.zero)));
+
+            Close();
         }
 #endregion
     }
