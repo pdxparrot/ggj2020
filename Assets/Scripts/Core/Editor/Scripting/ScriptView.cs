@@ -26,12 +26,12 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
             //Debug.Log($"Loading script '{scriptData.name}' with {scriptData.Nodes.Count} nodes...");
 
-            foreach(IScriptNodeData nodeData in scriptData.Nodes) {
+            foreach(ScriptNodeData nodeData in scriptData.Nodes) {
                 AddNode(nodeData);
             }
         }
 
-        public void AddNode(IScriptNodeData nodeData)
+        public void AddNode(ScriptNodeData nodeData)
         {
             //Debug.Log($"Adding node {nodeData.Id} of type {nodeData.GetType()}");
 

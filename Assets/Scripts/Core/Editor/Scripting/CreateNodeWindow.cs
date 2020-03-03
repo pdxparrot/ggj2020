@@ -21,7 +21,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         public static void ShowWindow(ScriptData scriptData)
         {
             CreateNodeWindow window = GetWindow<CreateNodeWindow>();
-            window._scriptData = scriptData;
+            window.ScriptData = scriptData;
             window.Show();
         }
 
@@ -37,14 +37,26 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         private ScriptData _scriptData;
 
+        public ScriptData ScriptData
+        {
+            get => _scriptData;
+
+            private set
+            {
+                _scriptData = value;
+
+                Filter();
+            }
+        }
+
 #region Unity Lifecycle
         protected override void Awake()
         {
             base.Awake();
 
-            ReflectionUtils.FindImplementorsOfInNamespace<IScriptNodeData>(_nodeTypes, EditorSettings.projectGenerationRootNamespace);
+            ReflectionUtils.FindSubClassesOfInNamespace<ScriptNodeData>(_nodeTypes, EditorSettings.projectGenerationRootNamespace);
             foreach(Type nodeType in _nodeTypes) {
-                ScriptNodeAttribute attr = (ScriptNodeAttribute)nodeType.GetCustomAttribute(typeof(ScriptNodeAttribute));
+                ScriptNodeAttribute attr = nodeType.GetCustomAttribute<ScriptNodeAttribute>();
                 if(null == attr) {
                     Debug.LogWarning($"Node type {nodeType} missing node attribute!");
                     continue;
@@ -73,8 +85,6 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             _nodeList.itemsSource = _filteredNodeNames;
             _nodeList.selectionType = SelectionType.Single;
             _nodeList.onItemChosen += ItemChosenEventHandler;
-
-            Filter();
         }
 
         protected override void OnDisable()
@@ -104,7 +114,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
                 Type nodeType = _nodes[x];
 
-                ScriptNodeAttribute attr = (ScriptNodeAttribute)nodeType.GetCustomAttribute(typeof(ScriptNodeAttribute));
+                ScriptNodeAttribute attr = nodeType.GetCustomAttribute<ScriptNodeAttribute>();
                 if(null == attr || (!attr.AllowMultiple && null != _scriptData && _scriptData.Nodes.Any(y => y.GetType() == nodeType))) {
                     return false;
                 }

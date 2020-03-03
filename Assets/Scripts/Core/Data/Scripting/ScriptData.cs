@@ -14,8 +14,8 @@ namespace pdxpartyparrot.Core.Data.Scripting
     {
         [SerializeReference]
         [ReadOnly]
-        private /*readonly*/ IScriptNodeData[] _nodes = { new StartNodeData() };
+        private /*readonly*/ ScriptNodeData[] _nodes = { new StartNodeData() };
 
-        public IReadOnlyCollection<IScriptNodeData> Nodes => _nodes;
+        public IReadOnlyCollection<ScriptNodeData> Nodes => _nodes;
     }
 }

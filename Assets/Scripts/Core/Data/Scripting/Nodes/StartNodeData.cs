@@ -10,7 +10,7 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 {
     [ScriptNode("Start", ScriptNodeAttribute.AllowedInstances.Single)]
     [Serializable]
-    public sealed class StartNodeData : ScriptNodeData<StartNodeData>
+    public sealed class StartNodeData : ScriptNodeData
     {
         [Connection("Next")]
         [SerializeField]

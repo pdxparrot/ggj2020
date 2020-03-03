@@ -18,9 +18,9 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         public int Id => _nodeData.Id;
 
-        private IScriptNodeData _nodeData;
+        private ScriptNodeData _nodeData;
 
-        public ScriptViewNode(IScriptNodeData nodeData) : base()
+        public ScriptViewNode(ScriptNodeData nodeData) : base()
         {
             _nodeData = nodeData;
 
@@ -51,7 +51,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             var connections = nodeType.GetFields(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .Where(x => Attribute.IsDefined(x, typeof(ConnectionAttribute)));
             foreach(FieldInfo connection in connections) {
-                ConnectionAttribute attr = (ConnectionAttribute)connection.GetCustomAttribute(typeof(ConnectionAttribute));
+                ConnectionAttribute attr = connection.GetCustomAttribute<ConnectionAttribute>();
                 //Debug.Log($"Add connection {attr.Name} of type {input.FieldType} to node 0x{Id:X}");
 
                 Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, connection.FieldType);
@@ -62,7 +62,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             var inputs = nodeType.GetFields(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .Where(x => Attribute.IsDefined(x, typeof(InputAttribute)));
             foreach(FieldInfo input in inputs) {
-                InputAttribute attr = (InputAttribute)input.GetCustomAttribute(typeof(InputAttribute));
+                InputAttribute attr = input.GetCustomAttribute<InputAttribute>();
                 //Debug.Log($"Add input {attr.Name} of type {input.FieldType} to node 0x{Id:X}");
 
                 Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, input.FieldType);
@@ -73,7 +73,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             var outputs = nodeType.GetFields(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .Where(x => Attribute.IsDefined(x, typeof(OutputAttribute)));
             foreach(FieldInfo output in outputs) {
-                OutputAttribute attr = (OutputAttribute)output.GetCustomAttribute(typeof(OutputAttribute));
+                OutputAttribute attr = output.GetCustomAttribute<OutputAttribute>();
                 //Debug.Log($"Add output {attr.Name} of type {output.FieldType} to node 0x{Id:X}");
 
                 Port port = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, output.FieldType);

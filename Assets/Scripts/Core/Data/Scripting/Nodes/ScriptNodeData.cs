@@ -8,21 +8,14 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 {
-    public interface IScriptNodeData
-    {
-        string Name { get; }
-
-        ScriptNodeId Id { get; }
-
-        Rect Position { get; }
-    }
-
     [Serializable]
-    public abstract class ScriptNodeData<T> : IScriptNodeData where T: ScriptNodeData<T>
+    public abstract class ScriptNodeData
     {
-        public static string NodeName => ((ScriptNodeAttribute)typeof(T).GetCustomAttribute(typeof(ScriptNodeAttribute))).Name;
+        [SerializeField]
+        [ReadOnly]
+        private string _name;
 
-        public string Name => NodeName;
+        public string Name => _name;
 
         [SerializeField]
         [ReadOnly]
@@ -42,6 +35,8 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 
         protected ScriptNodeData()
         {
+            _name = GetType().GetCustomAttribute<ScriptNodeAttribute>()?.Name ?? "Invalid Script Node";
+
             _id = ScriptNodeId.Create();
         }
 
