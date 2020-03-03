@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using JetBrains.Annotations;
 
@@ -76,13 +77,17 @@ namespace pdxpartyparrot.Core.Editor
 
         private readonly List<Type> _componentTypes = new List<Type>();
         private readonly List<string> _componentNames = new List<string>();
+        private readonly List<string> _filteredComponentNames = new List<string>();
 
         private readonly List<ComponentLookupResult> _selectedPrefabs = new List<ComponentLookupResult>();
 
         [CanBeNull]
         private Type SelectedComponentType => _componentTypes[_componentTypePopup.index];
 
+        private TextField _filter;
+
         private PopupField<string> _componentTypePopup;
+
         private VisualElement _selectedPrefabsContainer;
 
 #region Unity Lifecycle
@@ -101,6 +106,7 @@ namespace pdxpartyparrot.Core.Editor
                     _componentNames.Add("None");
                     continue;
                 }
+
                 _componentNames.Add(t.Namespace?.StartsWith(EditorSettings.projectGenerationRootNamespace) ?? false ? t.FullName : t.Name);
             }
         }
@@ -114,6 +120,13 @@ namespace pdxpartyparrot.Core.Editor
             VisualTreeAsset mainVisualTree = Resources.Load<VisualTreeAsset>(WindowLayout);
             mainVisualTree.CloneTree(VisualRoot);
 
+            _filter = VisualRoot.Q<TextField>("component-filter");
+            _filter.RegisterValueChangedCallback(FilterChangedEventHandler);
+
+            // TODO: remove the filter for now, we likely want to change
+            // from using a PopupField to a ListView so that filtering actually works
+            _filter.parent.Remove(_filter);
+
             VisualElement componentTypesContainer = VisualRoot.Q<VisualElement>("container-component-type");
             _componentTypePopup = new PopupField<string>("Component Type:", _componentNames, 0);
             _componentTypePopup.RegisterValueChangedCallback(OnComponentTypeChanged);
@@ -123,13 +136,34 @@ namespace pdxpartyparrot.Core.Editor
         }
 #endregion
 
+        // TODO: this could be done much better
+        private void Filter()
+        {
+            _filteredComponentNames.Clear();
+
+            _filteredComponentNames.AddRange(_componentNames.Where(x => {
+                if(string.IsNullOrWhiteSpace(x)) {
+                    return false;
+                }
+
+                // always include the None entry
+                if("None" == x) {
+                    return true;
+                }
+
+                return -1 != x.IndexOf(_filter.text, StringComparison.InvariantCultureIgnoreCase);
+            }));
+
+            // TODO: set the popup to the filtered types
+        }
+
         private void UpdateSelectedPrefabs(Type selectedType)
         {
             _selectedPrefabs.Clear();
 
             Debug.Log($"Finding prefabs of type {selectedType}...");
 
-            var assetGUIDs = AssetDatabase.FindAssets("t:prefab");
+            string[] assetGUIDs = AssetDatabase.FindAssets("t:prefab");
             foreach(string assetGUID in assetGUIDs) {
                 string assetPath = AssetDatabase.GUIDToAssetPath(assetGUID);
                 GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
@@ -179,7 +213,7 @@ namespace pdxpartyparrot.Core.Editor
             }
         }
 
-#region Events
+#region Event Handlers
         private void OnComponentTypeChanged(ChangeEvent<string> evt)
         {
             Type selectedType = SelectedComponentType;
@@ -190,6 +224,11 @@ namespace pdxpartyparrot.Core.Editor
             UpdateSelectedPrefabs(selectedType);
 
             UpdateSelectedPrefabsUI(selectedType);
+        }
+
+        private void FilterChangedEventHandler(ChangeEvent<string> evt)
+        {
+            Filter();
         }
 #endregion
     }

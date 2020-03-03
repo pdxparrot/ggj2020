@@ -86,20 +86,6 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             _nodeList.selectionType = SelectionType.Single;
             _nodeList.onItemChosen += ItemChosenEventHandler;
         }
-
-        protected override void OnDisable()
-        {
-            _filter.UnregisterCallback<ChangeEvent<string>>(FilterChangedEventHandler);
-            _filter = null;
-
-            _nodeList.onItemChosen -= ItemChosenEventHandler;
-            _nodeList.itemsSource = null;
-            _nodeList.bindItem = null;
-            _nodeList.makeItem = null;
-            _nodeList = null;
-
-            base.OnDisable();
-        }
 #endregion
 
         // TODO: this could be done much better
@@ -108,7 +94,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             _filteredNodeNames.Clear();
 
             _filteredNodeNames.AddRange(_nodes.Keys.Where(x => {
-                if(null == x) {
+                if(string.IsNullOrWhiteSpace(x)) {
                     return false;
                 }
 
