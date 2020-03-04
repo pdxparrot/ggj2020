@@ -35,6 +35,8 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             foreach(ScriptNodeData nodeData in scriptData.Nodes) {
                 AddNode(nodeData);
             }
+
+            // TODO: add edges
         }
 
         public void AddNode(ScriptNodeData nodeData)
@@ -43,6 +45,11 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
             ScriptViewNode node = new ScriptViewNode(nodeData);
             AddElement(node);
+        }
+
+        private void AddEdge()
+        {
+            // TODO
         }
 
         public void CreateNode(ScriptNodeData nodeData)
