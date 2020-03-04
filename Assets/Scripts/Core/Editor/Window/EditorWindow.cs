@@ -23,7 +23,7 @@ namespace pdxpartyparrot.Core.Editor.Window
 
         public virtual Vector2 MinSize { get; } = new Vector2(250, 50);
 
-        protected VisualElement VisualRoot => rootVisualElement;
+        public VisualElement VisualRoot => rootVisualElement;
 
 #region Unity Lifecycle
         protected virtual void Awake()

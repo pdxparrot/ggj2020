@@ -30,7 +30,7 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
         public Rect Position
         {
             get => _position;
-            protected set => _position = value;
+            set => _position = value;
         }
 
         protected ScriptNodeData()

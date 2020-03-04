@@ -3,15 +3,20 @@ using pdxpartyparrot.Core.Data.Scripting.Nodes;
 
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace pdxpartyparrot.Core.Editor.Scripting
 {
     public sealed class ScriptView : GraphView
     {
+        private ScriptEditorWindow _window;
+
         public ScriptData ScriptData { get; private set; }
 
-        public ScriptView() : base()
+        public ScriptView(ScriptEditorWindow window) : base()
         {
+            _window = window;
+
             GridBackground gridBackground = new GridBackground();
             Add(gridBackground);
             gridBackground.SendToBack();
@@ -35,6 +40,20 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         public void AddNode(ScriptNodeData nodeData)
         {
             //Debug.Log($"Adding node {nodeData.Id} of type {nodeData.GetType()} at {nodeData.Position}");
+
+            ScriptViewNode node = new ScriptViewNode(nodeData);
+            AddElement(node);
+        }
+
+        public void CreateNode(ScriptNodeData nodeData)
+        {
+            // convert the node screen position to the graph position
+            Rect nodePosition = nodeData.Position;
+            Vector2 windowMousePosition = _window.VisualRoot.ChangeCoordinatesTo(_window.VisualRoot.parent, nodePosition.position - _window.position.position);
+            Vector2 graphMousePosition = contentViewContainer.WorldToLocal(windowMousePosition);
+            nodeData.Position = new Rect(graphMousePosition, Vector2.zero);
+
+            //Debug.Log($"Creating node {nodeData.Id} of type {nodeData.GetType()} at {nodeData.Position}");
 
             ScriptViewNode node = new ScriptViewNode(nodeData);
             AddElement(node);

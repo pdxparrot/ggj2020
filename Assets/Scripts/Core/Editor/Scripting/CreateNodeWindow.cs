@@ -134,7 +134,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         {
             string nodeName = item as string;
 
-            ScriptView.AddNode((ScriptNodeData)Activator.CreateInstance(_nodes[nodeName], new Rect(_screenMousePosition, Vector2.zero)));
+            ScriptView.CreateNode((ScriptNodeData)Activator.CreateInstance(_nodes[nodeName], new Rect(_screenMousePosition, Vector2.zero)));
 
             Close();
         }

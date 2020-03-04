@@ -73,7 +73,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         private void CreateScriptView()
         {
             Assert.IsNull(_scriptView);
-            _scriptView = new ScriptView();
+            _scriptView = new ScriptView(this);
 
             VisualRoot.Clear();
             VisualRoot.Add(_scriptView);
