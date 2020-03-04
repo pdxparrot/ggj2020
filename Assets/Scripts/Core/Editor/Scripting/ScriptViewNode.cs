@@ -17,7 +17,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         private const string MainStyleSheet = "ScriptEditorWindow/Node";
         private const string NodeLayout = "ScriptEditorWindow/Node";
 
-        public int Id => _nodeData.Id;
+        private int Id => _nodeData.Id;
 
         private IEdgeConnectorListener _edgeConnectorListener;
 

@@ -65,7 +65,6 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
             _scriptData = CreateInstance<ScriptData>();
             _scriptData.name = "ScriptData";
-
             _scriptView.LoadScript(_scriptData);
         }
 
@@ -74,7 +73,6 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             Debug.Log($"Loading script {scriptData.name}...");
 
             _scriptData = scriptData;
-
             _scriptView.LoadScript(_scriptData);
         }
 
@@ -85,25 +83,14 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
             rootVisualElement.Clear();
             rootVisualElement.Add(_scriptView);
+            _scriptView.StretchToParentSize();
 
             _scriptView.AddManipulator(new ContentDragger());
             _scriptView.AddManipulator(new SelectionDragger());
             _scriptView.AddManipulator(new RectangleSelector());
             _scriptView.AddManipulator(new ClickSelector());
-            _scriptView.graphViewChanged = ScriptViewChanged;
-
-            _scriptView.StretchToParentSize();
 
             _edgeConnectorListener = new EdgeConnectorListener();
         }
-
-#region Event Handlers
-        private GraphViewChange ScriptViewChanged(GraphViewChange graphViewChange)
-        {
-            // TODO: save if we can?
-
-            return graphViewChange;
-        }
-#endregion
     }
 }
