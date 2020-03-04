@@ -23,8 +23,6 @@ namespace pdxpartyparrot.Core.Editor.Window
 
         public virtual Vector2 MinSize { get; } = new Vector2(250, 50);
 
-        public VisualElement VisualRoot => rootVisualElement;
-
 #region Unity Lifecycle
         protected virtual void Awake()
         {
@@ -38,7 +36,7 @@ namespace pdxpartyparrot.Core.Editor.Window
 
         protected virtual void OnEnable()
         {
-            VisualRoot.styleSheets.Add(Resources.Load<StyleSheet>(CoreStyleSheet));
+            rootVisualElement.styleSheets.Add(Resources.Load<StyleSheet>(CoreStyleSheet));
         }
 
         protected virtual void OnDisable()

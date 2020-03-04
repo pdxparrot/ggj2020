@@ -74,15 +74,15 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         {
             base.OnEnable();
 
-            VisualRoot.styleSheets.Add(Resources.Load<StyleSheet>(MainStyleSheet));
+            rootVisualElement.styleSheets.Add(Resources.Load<StyleSheet>(MainStyleSheet));
 
             VisualTreeAsset mainVisualTree = Resources.Load<VisualTreeAsset>(WindowLayout);
-            mainVisualTree.CloneTree(VisualRoot);
+            mainVisualTree.CloneTree(rootVisualElement);
 
-            _filter = VisualRoot.Q<TextField>("node-filter");
+            _filter = rootVisualElement.Q<TextField>("node-filter");
             _filter.RegisterValueChangedCallback(FilterChangedEventHandler);
 
-            _nodeList = VisualRoot.Q<ListView>("node-list");
+            _nodeList = rootVisualElement.Q<ListView>("node-list");
             _nodeList.makeItem = MakeItemEventHandler;
             _nodeList.bindItem = BindItemEventHandler;
             _nodeList.itemsSource = _filteredNodeNames;

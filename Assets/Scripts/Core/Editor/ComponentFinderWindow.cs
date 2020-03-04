@@ -115,24 +115,24 @@ namespace pdxpartyparrot.Core.Editor
         {
             base.OnEnable();
 
-            VisualRoot.styleSheets.Add(Resources.Load<StyleSheet>(MainStyleSheet));
+            rootVisualElement.styleSheets.Add(Resources.Load<StyleSheet>(MainStyleSheet));
 
             VisualTreeAsset mainVisualTree = Resources.Load<VisualTreeAsset>(WindowLayout);
-            mainVisualTree.CloneTree(VisualRoot);
+            mainVisualTree.CloneTree(rootVisualElement);
 
-            _filter = VisualRoot.Q<TextField>("component-filter");
+            _filter = rootVisualElement.Q<TextField>("component-filter");
             _filter.RegisterValueChangedCallback(FilterChangedEventHandler);
 
             // TODO: remove the filter for now, we likely want to change
             // from using a PopupField to a ListView so that filtering actually works
             _filter.parent.Remove(_filter);
 
-            VisualElement componentTypesContainer = VisualRoot.Q<VisualElement>("container-component-type");
+            VisualElement componentTypesContainer = rootVisualElement.Q<VisualElement>("container-component-type");
             _componentTypePopup = new PopupField<string>("Component Type:", _componentNames, 0);
             _componentTypePopup.RegisterValueChangedCallback(OnComponentTypeChanged);
             componentTypesContainer.Add(_componentTypePopup);
 
-            _selectedPrefabsContainer = VisualRoot.Q<VisualElement>("container-selected-prefabs");
+            _selectedPrefabsContainer = rootVisualElement.Q<VisualElement>("container-selected-prefabs");
         }
 #endregion
 

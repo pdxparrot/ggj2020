@@ -12,7 +12,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 {
     // https://forum.unity.com/threads/bare-bones-graphview-example.778706/
     // https://forum.unity.com/threads/how-to-use-the-new-graphview-uielements.536563/
-    // https://github.com/Unity-Technologies/ShaderGraph/blob/master/com.unity.shadergraph/Editor/Drawing/Views/GraphEditorView.cs
+    // https://github.com/Unity-Technologies/ShaderGraph/blob/master/com.unity.shadergraph/Editor/Drawing/Views/
     public sealed class ScriptEditorWindow : Window.EditorWindow
     {
         private const string MainStyleSheet = "ScriptEditorWindow/Main";
@@ -50,10 +50,10 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         {
             base.OnEnable();
 
-            VisualRoot.styleSheets.Add(Resources.Load<StyleSheet>(MainStyleSheet));
+            rootVisualElement.styleSheets.Add(Resources.Load<StyleSheet>(MainStyleSheet));
 
             VisualTreeAsset mainVisualTree = Resources.Load<VisualTreeAsset>(WindowLayout);
-            mainVisualTree.CloneTree(VisualRoot);
+            mainVisualTree.CloneTree(rootVisualElement);
 
             CreateScriptView();
         }
@@ -83,8 +83,8 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             Assert.IsNull(_scriptView);
             _scriptView = new ScriptView(this);
 
-            VisualRoot.Clear();
-            VisualRoot.Add(_scriptView);
+            rootVisualElement.Clear();
+            rootVisualElement.Add(_scriptView);
 
             _scriptView.AddManipulator(new ContentDragger());
             _scriptView.AddManipulator(new SelectionDragger());

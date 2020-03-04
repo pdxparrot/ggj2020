@@ -40,31 +40,31 @@ namespace pdxpartyparrot.Core.Editor.Project
         {
             base.OnEnable();
 
-            VisualRoot.styleSheets.Add(Resources.Load<StyleSheet>(MainStyleSheet));
+            rootVisualElement.styleSheets.Add(Resources.Load<StyleSheet>(MainStyleSheet));
 
             VisualTreeAsset mainVisualTree = Resources.Load<VisualTreeAsset>(WindowLayout);
-            mainVisualTree.CloneTree(VisualRoot);
+            mainVisualTree.CloneTree(rootVisualElement);
 
             ProjectManifest manifest = new ProjectManifest();
             manifest.Read();
 
-            _behaviorMode = VisualRoot.Q<EnumField>("enum-behavior-mode");
+            _behaviorMode = rootVisualElement.Q<EnumField>("enum-behavior-mode");
             _behaviorMode.Init(EditorBehaviorMode.Mode3D);
             _behaviorMode.value = EditorSettings.defaultBehaviorMode;
 
-            _productName = VisualRoot.Q<TextField>("text-product-name");
+            _productName = rootVisualElement.Q<TextField>("text-product-name");
             _productName.value = PlayerSettings.productName;
 
-            _productVersion = VisualRoot.Q<TextField>("text-product-version");
+            _productVersion = rootVisualElement.Q<TextField>("text-product-version");
             _productVersion.value = PlayerSettings.bundleVersion;
 
-            _useSpine = VisualRoot.Q<Toggle>("toggle-feature-spine");
+            _useSpine = rootVisualElement.Q<Toggle>("toggle-feature-spine");
             _useSpine.value = manifest.UseSpine;
 
-            _useDOTween = VisualRoot.Q<Toggle>("toggle-feature-dotween");
+            _useDOTween = rootVisualElement.Q<Toggle>("toggle-feature-dotween");
             _useDOTween.value = manifest.UseDOTween;
 
-            _useNetworking = VisualRoot.Q<Toggle>("toggle-feature-networking");
+            _useNetworking = rootVisualElement.Q<Toggle>("toggle-feature-networking");
             _useNetworking.value = manifest.UseNetworking;
         }
 #endregion
@@ -102,7 +102,7 @@ namespace pdxpartyparrot.Core.Editor.Project
 
             bool refreshAssetDatabase = false;
 
-            EditorSettings.defaultBehaviorMode = (EditorBehaviorMode)_behaviorMode.value;            
+            EditorSettings.defaultBehaviorMode = (EditorBehaviorMode)_behaviorMode.value;
 
             PlayerSettings.productName = _productName.value;
             PlayerSettings.bundleVersion = _productVersion.value;

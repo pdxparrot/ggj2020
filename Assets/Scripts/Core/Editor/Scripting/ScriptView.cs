@@ -59,7 +59,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         {
             // convert the node screen position to the graph position
             Rect nodePosition = nodeData.Position;
-            Vector2 windowMousePosition = _window.VisualRoot.ChangeCoordinatesTo(_window.VisualRoot.parent, nodePosition.position - _window.position.position);
+            Vector2 windowMousePosition = _window.rootVisualElement.ChangeCoordinatesTo(_window.rootVisualElement.parent, nodePosition.position - _window.position.position);
             Vector2 graphMousePosition = contentViewContainer.WorldToLocal(windowMousePosition);
             nodeData.Position = new Rect(graphMousePosition, Vector2.zero);
 

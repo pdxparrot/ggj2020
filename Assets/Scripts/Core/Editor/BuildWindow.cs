@@ -23,10 +23,10 @@ namespace pdxpartyparrot.Core.Editor
         {
             base.OnEnable();
 
-            VisualRoot.styleSheets.Add(Resources.Load<StyleSheet>(MainStyleSheet));
+            rootVisualElement.styleSheets.Add(Resources.Load<StyleSheet>(MainStyleSheet));
 
             VisualTreeAsset mainVisualTree = Resources.Load<VisualTreeAsset>(WindowLayout);
-            mainVisualTree.CloneTree(VisualRoot);
+            mainVisualTree.CloneTree(rootVisualElement);
         }
 #endregion
     }
