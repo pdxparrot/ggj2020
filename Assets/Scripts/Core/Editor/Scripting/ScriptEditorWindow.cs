@@ -1,5 +1,7 @@
 ﻿using pdxpartyparrot.Core.Data.Scripting;
 
+using JetBrains.Annotations;
+
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -34,6 +36,12 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         public override string Title => "Script Editor";
 
         private ScriptView _scriptView;
+
+        [CanBeNull]
+        private EdgeConnectorListener _edgeConnectorListener;
+
+        [CanBeNull]
+        public EdgeConnectorListener EdgeConnectorListener => _edgeConnectorListener;
 
         private ScriptData _scriptData;
 
@@ -85,6 +93,8 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             _scriptView.graphViewChanged = ScriptViewChanged;
 
             _scriptView.StretchToParentSize();
+
+            _edgeConnectorListener = new EdgeConnectorListener();
         }
 
 #region Event Handlers

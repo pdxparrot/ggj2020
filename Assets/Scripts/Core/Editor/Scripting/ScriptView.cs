@@ -43,7 +43,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         {
             //Debug.Log($"Adding node {nodeData.Id} of type {nodeData.GetType()} at {nodeData.Position}");
 
-            ScriptViewNode node = new ScriptViewNode(nodeData);
+            ScriptViewNode node = new ScriptViewNode(nodeData, _window.EdgeConnectorListener);
             AddElement(node);
         }
 
@@ -62,7 +62,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
             //Debug.Log($"Creating node {nodeData.Id} of type {nodeData.GetType()} at {nodeData.Position}");
 
-            ScriptViewNode node = new ScriptViewNode(nodeData);
+            ScriptViewNode node = new ScriptViewNode(nodeData, _window.EdgeConnectorListener);
             AddElement(node);
         }
 

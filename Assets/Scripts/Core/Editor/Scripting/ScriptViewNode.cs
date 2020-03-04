@@ -18,11 +18,14 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         public int Id => _nodeData.Id;
 
+        private IEdgeConnectorListener _edgeConnectorListener;
+
         private ScriptNodeData _nodeData;
 
-        public ScriptViewNode(ScriptNodeData nodeData) : base()
+        public ScriptViewNode(ScriptNodeData nodeData, IEdgeConnectorListener edgeConnectorListener) : base()
         {
             _nodeData = nodeData;
+            _edgeConnectorListener = edgeConnectorListener;
 
             styleSheets.Add(Resources.Load<StyleSheet>(EditorWindow.CoreStyleSheet));
             styleSheets.Add(Resources.Load<StyleSheet>(MainStyleSheet));
@@ -59,6 +62,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
                 Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, connection.FieldType);
                 port.portName = attr.Name;
+                port.AddManipulator(new EdgeConnector<Edge>(_edgeConnectorListener));
                 Add(port);
             }
 
@@ -70,6 +74,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
                 Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, input.FieldType);
                 port.portName = attr.Name;
+                port.AddManipulator(new EdgeConnector<Edge>(_edgeConnectorListener));
                 Add(port);
             }
 
@@ -82,6 +87,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
                 Port port = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, connection.FieldType);
                 port.portName = attr.Name;
+                port.AddManipulator(new EdgeConnector<Edge>(_edgeConnectorListener));
                 Add(port);
             }
 
@@ -93,6 +99,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
                 Port port = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, output.FieldType);
                 port.portName = attr.Name;
+                port.AddManipulator(new EdgeConnector<Edge>(_edgeConnectorListener));
                 Add(port);
             }
         }

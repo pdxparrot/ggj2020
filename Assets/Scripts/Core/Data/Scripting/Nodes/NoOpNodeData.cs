@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using pdxpartyparrot.Core.Scripting.Nodes;
 using pdxpartyparrot.Core.Util;
@@ -7,10 +7,21 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 {
-    [ScriptNode("Start", ScriptNodeAttribute.AllowedInstances.Single)]
+    [ScriptNode("NoOp")]
     [Serializable]
-    public sealed class StartNodeData : ScriptNodeData
+    public sealed class NoOpNodeData : ScriptNodeData
     {
+        [Connection("Prev", ConnectionAttribute.Direction.Input)]
+        [SerializeField]
+        [ReadOnly]
+        private ScriptNodeId _prev;
+
+        public ScriptNodeId Prev
+        {
+            get => _prev;
+            set => _prev = value;
+        }
+
         [Connection("Next", ConnectionAttribute.Direction.Output)]
         [SerializeField]
         [ReadOnly]
@@ -22,11 +33,7 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
             set => _next = value;
         }
 
-        public StartNodeData() : base()
-        {
-        }
-
-        public StartNodeData(Rect position) : base(position)
+        public NoOpNodeData(Rect position) : base(position)
         {
         }
     }
