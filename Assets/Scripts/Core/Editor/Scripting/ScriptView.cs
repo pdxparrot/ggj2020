@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 using pdxpartyparrot.Core.Data.Scripting;
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
@@ -70,9 +71,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         public override List<Port> GetCompatiblePorts(Port startAnchor, NodeAdapter nodeAdapter)
         {
-            Debug.LogWarning("TODO: GetCompatiblePorts()");
-
-            return new List<Port>();
+            return ports.ToList().Where(x => x.portType == startAnchor.portType && x.direction != startAnchor.direction).ToList();
         }
 
 #region Event Handlers

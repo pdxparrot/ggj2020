@@ -4,6 +4,7 @@ using System.Reflection;
 
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
 using pdxpartyparrot.Core.Editor.Window;
+using pdxpartyparrot.Core.Scripting.Nodes;
 
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -58,9 +59,9 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 if(attr.ConnectionDirection != ConnectionAttribute.Direction.Input) {
                     continue;
                 }
-                //Debug.Log($"Add input connection {attr.Name} of type {connection.FieldType} to node 0x{Id:X}");
+                //Debug.Log($"Add input connection {attr.Name} to node 0x{Id:X}");
 
-                Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, connection.FieldType);
+                Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(ScriptNodeId));
                 port.portName = attr.Name;
                 port.AddManipulator(new EdgeConnector<Edge>(_edgeConnectorListener));
                 Add(port);
@@ -70,9 +71,9 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 .Where(x => Attribute.IsDefined(x, typeof(InputAttribute)));
             foreach(FieldInfo input in inputs) {
                 InputAttribute attr = input.GetCustomAttribute<InputAttribute>();
-                //Debug.Log($"Add input {attr.Name} of type {input.FieldType} to node 0x{Id:X}");
+                //Debug.Log($"Add input {attr.Name} of type {attr.Type} to node 0x{Id:X}");
 
-                Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, input.FieldType);
+                Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, attr.Type);
                 port.portName = attr.Name;
                 port.AddManipulator(new EdgeConnector<Edge>(_edgeConnectorListener));
                 Add(port);
@@ -83,9 +84,9 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 if(attr.ConnectionDirection != ConnectionAttribute.Direction.Output) {
                     continue;
                 }
-                //Debug.Log($"Add output connection {attr.Name} of type {connection.FieldType} to node 0x{Id:X}");
+                //Debug.Log($"Add output connection {attr.Name} to node 0x{Id:X}");
 
-                Port port = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, connection.FieldType);
+                Port port = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(ScriptNodeId));
                 port.portName = attr.Name;
                 port.AddManipulator(new EdgeConnector<Edge>(_edgeConnectorListener));
                 Add(port);
@@ -95,9 +96,9 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 .Where(x => Attribute.IsDefined(x, typeof(OutputAttribute)));
             foreach(FieldInfo output in outputs) {
                 OutputAttribute attr = output.GetCustomAttribute<OutputAttribute>();
-                //Debug.Log($"Add output {attr.Name} of type {output.FieldType} to node 0x{Id:X}");
+                //Debug.Log($"Add output {attr.Name} of type {attr.Type} to node 0x{Id:X}");
 
-                Port port = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, output.FieldType);
+                Port port = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, attr.Type);
                 port.portName = attr.Name;
                 port.AddManipulator(new EdgeConnector<Edge>(_edgeConnectorListener));
                 Add(port);
