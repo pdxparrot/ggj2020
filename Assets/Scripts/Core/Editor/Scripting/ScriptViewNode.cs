@@ -52,9 +52,12 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 .Where(x => Attribute.IsDefined(x, typeof(ConnectionAttribute)));
             foreach(FieldInfo connection in connections) {
                 ConnectionAttribute attr = connection.GetCustomAttribute<ConnectionAttribute>();
-                //Debug.Log($"Add connection {attr.Name} of type {input.FieldType} to node 0x{Id:X}");
+                if(attr.ConnectionDirection != ConnectionAttribute.Direction.Input) {
+                    continue;
+                }
+                //Debug.Log($"Add input connection {attr.Name} of type {input.FieldType} to node 0x{Id:X}");
 
-                Port port = InstantiatePort(Orientation.Horizontal, attr.Type == ConnectionAttribute.ConnectionType.Input ? Direction.Input : Direction.Output, Port.Capacity.Single, connection.FieldType);
+                Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, connection.FieldType);
                 port.portName = attr.Name;
                 Add(port);
             }
@@ -66,6 +69,18 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 //Debug.Log($"Add input {attr.Name} of type {input.FieldType} to node 0x{Id:X}");
 
                 Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, input.FieldType);
+                port.portName = attr.Name;
+                Add(port);
+            }
+
+            foreach(FieldInfo connection in connections) {
+                ConnectionAttribute attr = connection.GetCustomAttribute<ConnectionAttribute>();
+                if(attr.ConnectionDirection != ConnectionAttribute.Direction.Output) {
+                    continue;
+                }
+                //Debug.Log($"Add output connection {attr.Name} of type {input.FieldType} to node 0x{Id:X}");
+
+                Port port = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, connection.FieldType);
                 port.portName = attr.Name;
                 Add(port);
             }

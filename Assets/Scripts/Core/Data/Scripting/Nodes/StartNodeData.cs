@@ -12,7 +12,7 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
     [Serializable]
     public sealed class StartNodeData : ScriptNodeData
     {
-        [Connection("Next", ConnectionAttribute.ConnectionType.Output)]
+        [Connection("Next", ConnectionAttribute.Direction.Output)]
         [SerializeField]
         [ReadOnly]
         private ScriptNodeId _next;

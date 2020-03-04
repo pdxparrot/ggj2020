@@ -34,7 +34,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         public void AddNode(ScriptNodeData nodeData)
         {
-            //Debug.Log($"Adding node {nodeData.Id} of type {nodeData.GetType()}");
+            //Debug.Log($"Adding node {nodeData.Id} of type {nodeData.GetType()} at {nodeData.Position}");
 
             ScriptViewNode node = new ScriptViewNode(nodeData);
             AddElement(node);

@@ -10,6 +10,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 {
     // https://forum.unity.com/threads/bare-bones-graphview-example.778706/
     // https://forum.unity.com/threads/how-to-use-the-new-graphview-uielements.536563/
+    // https://github.com/Unity-Technologies/ShaderGraph/blob/master/com.unity.shadergraph/Editor/Drawing/Views/GraphEditorView.cs
     public sealed class ScriptEditorWindow : Window.EditorWindow
     {
         private const string MainStyleSheet = "ScriptEditorWindow/Main";

@@ -6,7 +6,7 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
     public sealed class ConnectionAttribute : Attribute
     {
         // TODO: rename Direction to match Ports
-        public enum ConnectionType
+        public enum Direction
         {
             Input,
             Output
@@ -14,12 +14,12 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 
         public string Name { get; private set; }
 
-        public ConnectionType Type { get; private set; }
+        public Direction ConnectionDirection { get; private set; }
 
-        public ConnectionAttribute(string name, ConnectionType type)
+        public ConnectionAttribute(string name, Direction direction)
         {
             Name = name;
-            Type = type;
+            ConnectionDirection = direction;
         }
     }
 }
