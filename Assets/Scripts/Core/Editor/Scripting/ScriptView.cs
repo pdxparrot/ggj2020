@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using pdxpartyparrot.Core.Data.Scripting;
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
 
@@ -64,6 +66,13 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
             ScriptViewNode node = new ScriptViewNode(nodeData, _window.EdgeConnectorListener);
             AddElement(node);
+        }
+
+        public override List<Port> GetCompatiblePorts(Port startAnchor, NodeAdapter nodeAdapter)
+        {
+            Debug.LogWarning("TODO: GetCompatiblePorts()");
+
+            return new List<Port>();
         }
 
 #region Event Handlers

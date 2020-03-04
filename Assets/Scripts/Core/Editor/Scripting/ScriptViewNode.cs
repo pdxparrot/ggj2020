@@ -58,7 +58,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 if(attr.ConnectionDirection != ConnectionAttribute.Direction.Input) {
                     continue;
                 }
-                //Debug.Log($"Add input connection {attr.Name} of type {input.FieldType} to node 0x{Id:X}");
+                //Debug.Log($"Add input connection {attr.Name} of type {connection.FieldType} to node 0x{Id:X}");
 
                 Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, connection.FieldType);
                 port.portName = attr.Name;
@@ -83,7 +83,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 if(attr.ConnectionDirection != ConnectionAttribute.Direction.Output) {
                     continue;
                 }
-                //Debug.Log($"Add output connection {attr.Name} of type {input.FieldType} to node 0x{Id:X}");
+                //Debug.Log($"Add output connection {attr.Name} of type {connection.FieldType} to node 0x{Id:X}");
 
                 Port port = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, connection.FieldType);
                 port.portName = attr.Name;
