@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 {
-    [ScriptNode("Start", ScriptNodeAttribute.AllowedInstances.Single)]
+    [ScriptNode("Start", typeof(StartNode), ScriptNodeAttribute.AllowedInstances.Single)]
     [Serializable]
     public sealed class StartNodeData : ScriptNodeData
     {

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 {
-    [ScriptNode("NoOp")]
+    [ScriptNode("NoOp", typeof(NoOpNode))]
     [Serializable]
     public sealed class NoOpNodeData : ScriptNodeData
     {

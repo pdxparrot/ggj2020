@@ -1,11 +1,13 @@
 using System;
+using System.Reflection;
 
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Data.Scripting;
+using pdxpartyparrot.Core.Data.Scripting.Nodes;
 using pdxpartyparrot.Core.Scripting.Nodes;
+using pdxpartyparrot.Core.Util;
 
-using Unity.Collections;
 using UnityEngine;
 
 namespace pdxpartyparrot.Core.Scripting
@@ -18,8 +20,8 @@ namespace pdxpartyparrot.Core.Scripting
             Coroutine
         }
 
-        /*[SerializeField]
-        private ScriptData _data;*/
+        [SerializeField]
+        private ScriptData _data;
 
         [SerializeField]
         private RuntimeType _runtime = RuntimeType.Update;
@@ -60,9 +62,15 @@ namespace pdxpartyparrot.Core.Scripting
 
         private void InitializeNodes()
         {
-            // TODO: register all of the nodes
+            foreach(ScriptNodeData node in _data.Nodes) {
+                ScriptNodeAttribute attr = node.GetType().GetCustomAttribute<ScriptNodeAttribute>();
+                if(null == attr) {
+                    Debug.LogWarning($"Node type {node.GetType()} missing node attribute!");
+                    continue;
+                }
 
-            // TODO: init all of the nodes with their data
+                // TODO: instantiate, initialize and add the node
+            }
         }
 
 #region Script Lifecycle

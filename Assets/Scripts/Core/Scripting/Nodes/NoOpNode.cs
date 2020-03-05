@@ -1,14 +1,14 @@
-﻿using pdxpartyparrot.Core.Data.Scripting.Nodes;
+using pdxpartyparrot.Core.Data.Scripting.Nodes;
 
 namespace pdxpartyparrot.Core.Scripting.Nodes
 {
-    public sealed class StartNode : ScriptNode
+    public sealed class NoOpNode : ScriptNode
     {
         private ScriptNode _next;
 
         public override void Init(ScriptRunner runner, ScriptNodeData data)
         {
-            if(!(data is StartNodeData nodeData)) {
+            if(!(data is NoOpNodeData nodeData)) {
                 return;
             }
 
