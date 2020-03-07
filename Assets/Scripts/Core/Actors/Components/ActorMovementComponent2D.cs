@@ -15,14 +15,15 @@ namespace pdxpartyparrot.Core.Actors.Components
         [Serializable]
         protected struct InternalPauseState
         {
-            public bool IsKinematic;
+            public RigidbodyType2D BodyType;
             public Vector3 Velocity;
             public float AngularVelocity;
 
             public void Save(Rigidbody2D rigidbody)
             {
-                IsKinematic = rigidbody.isKinematic;
-                rigidbody.isKinematic = true;
+                // TODO: would it make more sense to use RigidbodyType2D.Static here?
+                BodyType = rigidbody.bodyType;
+                rigidbody.bodyType = RigidbodyType2D.Kinematic;
 
                 Velocity = rigidbody.velocity;
                 rigidbody.velocity = Vector3.zero;
@@ -33,7 +34,7 @@ namespace pdxpartyparrot.Core.Actors.Components
 
             public void Restore(Rigidbody2D rigidbody)
             {
-                rigidbody.isKinematic = IsKinematic;
+                rigidbody.bodyType = BodyType;
                 rigidbody.velocity = Velocity;
                 rigidbody.angularVelocity = AngularVelocity;
             }
@@ -109,11 +110,11 @@ namespace pdxpartyparrot.Core.Actors.Components
 
         public override bool IsKinematic
         {
-            get => _rigidbody.isKinematic;
+            get => RigidbodyType2D.Kinematic == _rigidbody.bodyType;
             set
             {
-                bool changed = _rigidbody.isKinematic != value;
-                _rigidbody.isKinematic = value;
+                bool changed = (RigidbodyType2D.Kinematic == _rigidbody.bodyType) != value;
+                _rigidbody.bodyType = value ? RigidbodyType2D.Kinematic : RigidbodyType2D.Dynamic;
                 if(changed && null != Owner) {
                     Owner.MoveStateChanged();
                 }
