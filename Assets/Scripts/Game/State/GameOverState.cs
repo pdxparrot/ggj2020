@@ -42,8 +42,6 @@ namespace pdxpartyparrot.Game.State
                 _completeTimer.TimesUpEvent += CompleteTimerTimesUpEventHandler;
                 _completeTimer.Start(_completeWaitTimeSeconds);
             } else {
-                InputManager.Instance.EventSystem.UIModule.EnableAllActions();
-
                 _menu = GameStateManager.Instance.GameUIManager.InstantiateUIPrefab(_menuPrefab);
                 _menu.Initialize();
             }
@@ -51,10 +49,6 @@ namespace pdxpartyparrot.Game.State
 
         protected override void DoExit()
         {
-            if(InputManager.HasInstance) {
-                InputManager.Instance.EventSystem.UIModule.DisableAllActions();
-            }
-
             if(null == _menu) {
                 TimeManager.Instance.RemoveTimer(_completeTimer);
                 _completeTimer = null;

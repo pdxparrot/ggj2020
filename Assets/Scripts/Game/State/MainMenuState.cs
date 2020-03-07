@@ -30,8 +30,6 @@ namespace pdxpartyparrot.Game.State
         {
             base.OnEnter();
 
-            InputManager.Instance.EventSystem.UIModule.EnableAllActions();
-
             Menu = GameStateManager.Instance.GameUIManager.InstantiateUIPrefab(_menuPrefab);
             Menu.Initialize();
 
@@ -47,10 +45,6 @@ namespace pdxpartyparrot.Game.State
         {
             if(AudioManager.HasInstance) {
                 AudioManager.Instance.StopAllMusic();
-            }
-
-            if(InputManager.HasInstance) {
-                InputManager.Instance.EventSystem.UIModule.DisableAllActions();
             }
 
             if(null != TitleScreen) {
