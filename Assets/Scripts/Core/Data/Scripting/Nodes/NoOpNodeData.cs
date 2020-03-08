@@ -14,7 +14,7 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
         [Connection("Prev", ConnectionAttribute.Direction.Input)]
         [SerializeField]
         [ReadOnly]
-        private ScriptNodePortData _prev;
+        private ScriptNodePortData _prev = ScriptNodePortData.Create();
 
         public ScriptNodePortData Prev
         {
@@ -25,7 +25,7 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
         [Connection("Next", ConnectionAttribute.Direction.Output)]
         [SerializeField]
         [ReadOnly]
-        private ScriptNodePortData _next;
+        private ScriptNodePortData _next = ScriptNodePortData.Create();
 
         public ScriptNodePortData Next
         {

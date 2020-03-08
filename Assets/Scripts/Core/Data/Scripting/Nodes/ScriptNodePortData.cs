@@ -10,6 +10,13 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
     [Serializable]
     public struct ScriptNodePortData
     {
+        public static ScriptNodePortData Create()
+        {
+            ScriptNodePortData data = new ScriptNodePortData();
+            data.GenerateId();
+            return data;
+        }
+
         [SerializeField]
         [ReadOnly]
         private Guid _id;
@@ -37,5 +44,10 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
         }
 
         public bool IsConnected => NodeId.IsValid && Guid.Empty != PortId;
+
+        public void GenerateId()
+        {
+            _id = Guid.NewGuid();
+        }
     }
 }

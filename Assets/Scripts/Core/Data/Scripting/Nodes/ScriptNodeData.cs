@@ -19,7 +19,7 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 
         [SerializeField]
         [ReadOnly]
-        private ScriptNodeId _id;
+        private ScriptNodeId _id = ScriptNodeId.Create();
 
         public ScriptNodeId Id => _id;
 
@@ -36,8 +36,6 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
         protected ScriptNodeData()
         {
             _name = GetType().GetCustomAttribute<ScriptNodeAttribute>()?.Name ?? "Invalid Script Node";
-
-            _id = ScriptNodeId.Create();
         }
 
         public ScriptNodeData(Rect position) : this()
