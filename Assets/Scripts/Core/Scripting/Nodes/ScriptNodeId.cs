@@ -25,6 +25,8 @@ namespace pdxpartyparrot.Core.Scripting.Nodes
         [ReadOnly]
         private int _id;
 
+        public bool IsValid => 0 != _id;
+
         public void GenerateId()
         {
             _id = new System.Random().Next(0, int.MaxValue);

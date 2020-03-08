@@ -1,23 +1,31 @@
+using System;
+
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
+
+using UnityEngine;
 
 namespace pdxpartyparrot.Core.Scripting.Nodes
 {
+    [Serializable]
     public sealed class NoOpNode : ScriptNode
     {
+        private NoOpNodeData NodeData => (NoOpNodeData)Data;
+
+        [SerializeField]
         private ScriptNode _next;
 
-        public override void Init(ScriptRunner runner, ScriptNodeData data)
+        public NoOpNode(ScriptNodeData nodeData) : base(nodeData)
         {
-            if(!(data is NoOpNodeData nodeData)) {
-                return;
-            }
+        }
 
-            _next = runner.GetNode(nodeData.Next);
+        public override void Initialize(ScriptRunner runner)
+        {
+            _next = runner.GetNode(NodeData.Next.NodeId);
         }
 
         public override void Run(ScriptContext context)
         {
-            context.Advance();
+            context.Advance(_next);
         }
     }
 }

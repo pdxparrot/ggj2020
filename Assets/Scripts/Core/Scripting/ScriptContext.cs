@@ -1,11 +1,14 @@
+using System;
 using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Collections;
+using pdxpartyparrot.Core.Scripting.Nodes;
 
 namespace pdxpartyparrot.Core.Scripting
 {
+    [Serializable]
     public sealed class ScriptContext
     {
         private readonly Dictionary<string, object> _contextData = new Dictionary<string, object>();
@@ -18,9 +21,9 @@ namespace pdxpartyparrot.Core.Scripting
         }
 
 #region Runner Interface
-        public void Advance()
+        public void Advance(ScriptNode node)
         {
-            _runner.Advance();
+            _runner.Advance(node);
         }
 
         public void Complete()

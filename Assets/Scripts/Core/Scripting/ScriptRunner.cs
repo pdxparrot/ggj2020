@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 using JetBrains.Annotations;
 
+using pdxpartyparrot.Core.Collections;
 using pdxpartyparrot.Core.Data.Scripting;
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
 using pdxpartyparrot.Core.Scripting.Nodes;
@@ -21,6 +23,7 @@ namespace pdxpartyparrot.Core.Scripting
         }
 
         [SerializeField]
+        [CanBeNull]
         private ScriptData _data;
 
         [SerializeField]
@@ -29,18 +32,31 @@ namespace pdxpartyparrot.Core.Scripting
         public RuntimeType Runtime => _runtime;
 
         [SerializeField]
+        private bool _playOnAwake;
+
+        public bool PlayOnAwake
+        {
+            get => _playOnAwake;
+            set => _playOnAwake = value;
+        }
+
+        [SerializeField]
         [ReadOnly]
         private bool _complete;
 
-        private readonly ScriptContext _context;
+        [SerializeReference]
+        [ReadOnly]
+        private ScriptContext _context;
 
-        private ScriptNode _start;
-        private ScriptNode _current;
+        private readonly Dictionary<ScriptNodeId, ScriptNode> _nodes = new Dictionary<ScriptNodeId, ScriptNode>();
 
-        public ScriptRunner()
-        {
-            _context = new ScriptContext(this);
-        }
+        [SerializeReference]
+        [CanBeNull]
+        private ScriptNode _startNode;
+
+        [SerializeReference]
+        [CanBeNull]
+        private ScriptNode _currentNode;
 
 // TODO: make initializing scripts more deterministic so it doesn't bog down load
 
@@ -49,27 +65,77 @@ namespace pdxpartyparrot.Core.Scripting
         {
             ScriptingManager.Instance.Register(this);
 
-            InitializeNodes();
+            _context = new ScriptContext(this);
 
-            Reset();
+            Initialize();
+
+            if(_playOnAwake) {
+                Run();
+            }
         }
 
         private void OnDestroy()
         {
             Complete();
+
+            if(ScriptingManager.HasInstance) {
+                ScriptingManager.Instance.Unregister(this);
+            }
         }
 #endregion
 
-        private void InitializeNodes()
+        public void SetData(ScriptData scriptData)
         {
-            foreach(ScriptNodeData node in _data.Nodes) {
-                ScriptNodeAttribute attr = node.GetType().GetCustomAttribute<ScriptNodeAttribute>();
-                if(null == attr) {
-                    Debug.LogWarning($"Node type {node.GetType()} missing node attribute!");
+            Complete();
+
+            _data = scriptData;
+
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            Reset();
+
+            _startNode = null;
+            _currentNode = null;
+
+            if(null == _data) {
+                return;
+            }
+
+            // first pass to create the nodes
+            foreach(ScriptNodeData nodeData in _data.Nodes) {
+                if(!nodeData.Id.IsValid) {
+                    Debug.LogWarning($"Invalid node of type {nodeData.GetType()}!");
                     continue;
                 }
 
-                // TODO: instantiate, initialize and add the node
+                bool isStartNode = nodeData.GetType() == typeof(StartNodeData);
+                if(isStartNode && null != _startNode) {
+                    Debug.LogWarning($"Duplicate start nodes found: {_startNode.Id} and {nodeData.Id}!");
+                    continue;
+                }
+
+                ScriptNodeAttribute attr = nodeData.GetType().GetCustomAttribute<ScriptNodeAttribute>();
+                if(null == attr) {
+                    Debug.LogWarning($"Node type {nodeData.GetType()} missing node attribute!");
+                    continue;
+                }
+
+                ScriptNode scriptNode = _nodes.GetOrDefault(nodeData.Id);
+                if(null != scriptNode) {
+                    Debug.LogWarning($"Duplicate node {nodeData.Id} (one of type {nodeData.GetType()} and the other of type {scriptNode.GetType()})!");
+                    continue;
+                }
+
+                scriptNode = (ScriptNode)Activator.CreateInstance(attr.ScriptNodeType, nodeData);
+                _nodes.Add(nodeData.Id, scriptNode);
+            }
+
+            // second pass to initialize them
+            foreach(ScriptNode node in _nodes.Values) {
+                node.Initialize(this);
             }
         }
 
@@ -81,21 +147,21 @@ namespace pdxpartyparrot.Core.Scripting
             _complete = false;
             _context.Clear();
 
-            // TODO: set _start and _current to the start node
+            _currentNode = _startNode;
         }
 
-        public void Advance()
+        public void Advance(ScriptNode node)
         {
             Debug.Log("Script advancing");
-            // TODO: advance the current node
+
+            _currentNode = node;
         }
 
         public void Run()
         {
             Debug.Log("Script running");
 
-            // this shouldn't happen, but just in case
-            if(null == _current) {
+            if(null == _currentNode) {
                 Complete();
             }
         }
@@ -107,9 +173,6 @@ namespace pdxpartyparrot.Core.Scripting
             }
 
             Debug.Log("Script complete");
-            if(ScriptingManager.HasInstance) {
-                ScriptingManager.Instance.Unregister(this);
-            }
             _complete = true;
         }
 #endregion
@@ -117,8 +180,7 @@ namespace pdxpartyparrot.Core.Scripting
         [CanBeNull]
         public ScriptNode GetNode(ScriptNodeId id)
         {
-            // TODO
-            return null;
+            return _nodes.GetOrDefault(id);
         }
     }
 }
