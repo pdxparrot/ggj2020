@@ -7,7 +7,7 @@ using UnityEngine;
 namespace pdxpartyparrot.Core.Scripting.Nodes
 {
     [Serializable]
-    public sealed class StartNode : ScriptNode
+    internal sealed class StartNode : ScriptNode
     {
         private StartNodeData NodeData => (StartNodeData)Data;
 

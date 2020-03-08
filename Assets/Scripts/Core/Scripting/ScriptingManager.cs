@@ -45,7 +45,7 @@ namespace pdxpartyparrot.Core.Scripting
         private void Update()
         {
             foreach(ScriptRunner script in _updateScripts) {
-                script.Run();
+                script.Step();
             }
         }
 #endregion

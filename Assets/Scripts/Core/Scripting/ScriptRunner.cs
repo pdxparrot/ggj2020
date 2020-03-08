@@ -42,7 +42,13 @@ namespace pdxpartyparrot.Core.Scripting
 
         [SerializeField]
         [ReadOnly]
-        private bool _complete;
+        private bool _playing;
+
+        public bool IsPlaying
+        {
+            get => _playing;
+            private set => _playing = value;
+        }
 
         [SerializeReference]
         [ReadOnly]
@@ -69,14 +75,14 @@ namespace pdxpartyparrot.Core.Scripting
 
             Initialize();
 
-            if(_playOnAwake) {
-                Run();
+            if(PlayOnAwake) {
+                Play();
             }
         }
 
         private void OnDestroy()
         {
-            Complete();
+            Stop();
 
             if(ScriptingManager.HasInstance) {
                 ScriptingManager.Instance.Unregister(this);
@@ -86,7 +92,7 @@ namespace pdxpartyparrot.Core.Scripting
 
         public void SetData(ScriptData scriptData)
         {
-            Complete();
+            Stop();
 
             _data = scriptData;
 
@@ -142,43 +148,60 @@ namespace pdxpartyparrot.Core.Scripting
 #region Script Lifecycle
         public void Reset()
         {
+            Stop();
+
             Debug.Log("Resetting script");
 
-            _complete = false;
+            IsPlaying = false;
             _context.Clear();
 
             _currentNode = _startNode;
         }
 
-        public void Advance(ScriptNode node)
+        internal void Advance(ScriptNode node)
         {
             Debug.Log("Script advancing");
 
             _currentNode = node;
         }
 
-        public void Run()
+        public void Play()
         {
-            Debug.Log("Script running");
-
-            if(null == _currentNode) {
-                Complete();
-            }
-        }
-
-        public void Complete()
-        {
-            if(_complete) {
+            if(IsPlaying) {
                 return;
             }
 
-            Debug.Log("Script complete");
-            _complete = true;
+            Debug.Log("Script playing");
+            IsPlaying = true;
+        }
+
+        internal void Step()
+        {
+            if(!IsPlaying) {
+                return;
+            }
+
+            if(null == _currentNode) {
+                Stop();
+                return;
+            }
+
+            _currentNode.Run(_context);
+        }
+
+        public void Stop()
+        {
+            if(!IsPlaying) {
+                return;
+            }
+
+            Debug.Log("Script stopping");
+            IsPlaying = false;
         }
 #endregion
 
         [CanBeNull]
-        public ScriptNode GetNode(ScriptNodeId id)
+        internal ScriptNode GetNode(ScriptNodeId id)
         {
             return _nodes.GetOrDefault(id);
         }

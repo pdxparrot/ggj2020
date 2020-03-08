@@ -28,7 +28,7 @@ namespace pdxpartyparrot.Core.Scripting
 
         public void Complete()
         {
-            _runner.Complete();
+            _runner.Stop();
         }
 
         public void Reset()
