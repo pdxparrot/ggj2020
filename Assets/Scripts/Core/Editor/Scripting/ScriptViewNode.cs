@@ -61,7 +61,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 }
                 //Debug.Log($"Add input connection {attr.Name} to node 0x{Id:X}");
 
-                Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(ScriptNodeId));
+                Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(ScriptNodePortData));
                 port.portName = attr.Name;
                 port.AddManipulator(new EdgeConnector<Edge>(_edgeConnectorListener));
                 Add(port);
@@ -86,7 +86,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 }
                 //Debug.Log($"Add output connection {attr.Name} to node 0x{Id:X}");
 
-                Port port = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(ScriptNodeId));
+                Port port = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(ScriptNodePortData));
                 port.portName = attr.Name;
                 port.AddManipulator(new EdgeConnector<Edge>(_edgeConnectorListener));
                 Add(port);

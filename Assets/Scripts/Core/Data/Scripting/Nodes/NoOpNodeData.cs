@@ -14,9 +14,9 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
         [Connection("Prev", ConnectionAttribute.Direction.Input)]
         [SerializeField]
         [ReadOnly]
-        private ScriptNodeId _prev;
+        private ScriptNodePortData _prev;
 
-        public ScriptNodeId Prev
+        public ScriptNodePortData Prev
         {
             get => _prev;
             set => _prev = value;
@@ -25,9 +25,9 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
         [Connection("Next", ConnectionAttribute.Direction.Output)]
         [SerializeField]
         [ReadOnly]
-        private ScriptNodeId _next;
+        private ScriptNodePortData _next;
 
-        public ScriptNodeId Next
+        public ScriptNodePortData Next
         {
             get => _next;
             set => _next = value;

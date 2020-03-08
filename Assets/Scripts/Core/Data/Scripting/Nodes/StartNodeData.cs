@@ -14,9 +14,9 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
         [Connection("Next", ConnectionAttribute.Direction.Output)]
         [SerializeField]
         [ReadOnly]
-        private ScriptNodeId _next;
+        private ScriptNodePortData _next;
 
-        public ScriptNodeId Next
+        public ScriptNodePortData Next
         {
             get => _next;
             set => _next = value;

@@ -48,8 +48,6 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             }
 
             // add edges
-            // TODO: this isn't right, "ports" connect to "ports"
-            // but we're only saving the node they connect to, not the "port"
             foreach(ScriptNodeData nodeData in _nodes.Values) {
                 Type nodeType = nodeData.GetType();
 
@@ -61,19 +59,19 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                         continue;
                     }
 
-                    ScriptNodeId outputId = (ScriptNodeId)connection.GetValue(nodeData);
-                    if(outputId == 0) {
-                        Debug.Log($"Node {nodeData.Id} connection {connection.Name} not connected");
+                    ScriptNodePortData outputPort = (ScriptNodePortData)connection.GetValue(nodeData);
+                    if(null == outputPort || !outputPort.IsConnected) {
+                        //Debug.Log($"Node {nodeData.Id} connection {connection.Name} not connected");
                         continue;
                     }
 
-                    ScriptNodeData outputNode = _nodes.GetOrDefault(outputId);
+                    ScriptNodeData outputNode = _nodes.GetOrDefault(outputPort.NodeId);
                     if(null == outputNode) {
-                        Debug.LogWarning($"Node {nodeData.Id} connection {connection.Name} is connected to non-existent node {outputId}!");
+                        Debug.LogWarning($"Node {nodeData.Id} connection {connection.Name} is connected to non-existent node {outputPort.NodeId}!");
                         continue;
                     }
 
-                    Debug.LogWarning($"TODO: add connection edge from {nodeData.Id}:{connection.Name} to {outputNode.Id}");
+                    Debug.LogWarning($"TODO: add connection edge from {nodeData.Id}:{connection.Name} to {outputNode.Id}:{outputPort.PortId}");
                 }
 
                 var outputs = nodeType.GetFields(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
@@ -81,19 +79,19 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 foreach(FieldInfo output in outputs) {
                     OutputAttribute attr = output.GetCustomAttribute<OutputAttribute>();
 
-                    ScriptNodeId outputId = (ScriptNodeId)output.GetValue(nodeData);
-                    if(outputId == 0) {
-                        Debug.Log($"Node {nodeData.Id} output {output.Name} not connected");
+                    ScriptNodePortData outputPort = (ScriptNodePortData)output.GetValue(nodeData);
+                    if(null == outputPort || !outputPort.IsConnected) {
+                        //Debug.Log($"Node {nodeData.Id} output {output.Name} not connected");
                         continue;
                     }
 
-                    ScriptNodeData outputNode = _nodes.GetOrDefault(outputId);
+                    ScriptNodeData outputNode = _nodes.GetOrDefault(outputPort.NodeId);
                     if(null == outputNode) {
-                        Debug.LogWarning($"Node {nodeData.Id} output {output.Name} is connected to non-existent node {outputId}!");
+                        Debug.LogWarning($"Node {nodeData.Id} output {output.Name} is connected to non-existent node {outputPort.NodeId}!");
                         continue;
                     }
 
-                    Debug.LogWarning($"TODO: add output edge from {nodeData.Id}:{output.Name} to {outputNode.Id}");
+                    Debug.LogWarning($"TODO: add output edge from {nodeData.Id}:{output.Name} to {outputNode.Id}:{outputPort.PortId}");
                 }
             }
         }
