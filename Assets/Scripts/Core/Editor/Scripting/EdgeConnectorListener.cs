@@ -14,14 +14,24 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         public void OnDropOutsidePort(Edge edge, Vector2 position)
         {
-            CreateNodeWindow.ShowForDrop(_scriptView, position, nodeData => {
-                Debug.LogWarning("TODO: Add edge to new node");
-            });
+            // TODO: is there a way to make this work when we don't know which port to connect to?
+            /*ScriptViewPort port = (ScriptViewPort)(edge.output ?? edge.input);
+            bool isOutput = null != edge.output;
+
+            CreateNodeWindow.ShowForDrop(_scriptView, position, node => {
+                if(isOutput) {
+                    _scriptView.CreateEdge(port.Node.Id, port.Id, node.Id, ???);
+                } else {
+                    _scriptView.CreateEdge(node.Id, ???, port.Node.Id, port.Id);
+                }
+            });*/
         }
 
         public void OnDrop(GraphView graphView, Edge edge)
         {
-            Debug.LogWarning("TODO: OnDrop");
+            ScriptViewPort output = (ScriptViewPort)edge.output;
+            ScriptViewPort input = (ScriptViewPort)edge.input;
+             _scriptView.CreateEdge(output.Node.Id, output.Id, input.Node.Id, input.Id);
         }
     }
 }

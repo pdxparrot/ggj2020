@@ -28,7 +28,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             window.Show();
         }
 
-        public static void ShowForDrop(ScriptView scriptView, Vector2 nodePosition, Action<ScriptNodeData> onSuccess)
+        public static void ShowForDrop(ScriptView scriptView, Vector2 nodePosition, Action<ScriptViewNode> onSuccess)
         {
             CreateNodeWindow window = GetWindow<CreateNodeWindow>();
             window._nodePosition = nodePosition;
@@ -50,7 +50,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         private Vector2 _nodePosition;
 
         [CanBeNull]
-        private Action<ScriptNodeData> _onSuccess;
+        private Action<ScriptViewNode> _onSuccess;
 
         private ScriptView _scriptView;
 
@@ -149,9 +149,9 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             string nodeName = item as string;
 
             ScriptNodeData nodeData = (ScriptNodeData)Activator.CreateInstance(_nodes[nodeName], new Rect(_nodePosition, Vector2.zero));
-            ScriptView.CreateNode(nodeData, null == _onSuccess);
+            ScriptViewNode node = ScriptView.CreateNode(nodeData, null == _onSuccess);
 
-            _onSuccess?.Invoke(nodeData);
+            _onSuccess?.Invoke(node);
 
             Close();
         }

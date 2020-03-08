@@ -8,7 +8,7 @@ using UnityEngine;
 namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 {
     [Serializable]
-    public abstract class ScriptNodePortData
+    public struct ScriptNodePortData
     {
         [SerializeField]
         [ReadOnly]
@@ -37,10 +37,5 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
         }
 
         public bool IsConnected => NodeId.IsValid && Guid.Empty != PortId;
-
-        public ScriptNodePortData()
-        {
-            _id = Guid.NewGuid();
-        }
     }
 }

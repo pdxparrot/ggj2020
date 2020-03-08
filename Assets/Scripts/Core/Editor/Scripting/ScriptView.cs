@@ -60,18 +60,12 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                     }
 
                     ScriptNodePortData outputPort = (ScriptNodePortData)connection.GetValue(nodeData);
-                    if(null == outputPort || !outputPort.IsConnected) {
-                        //Debug.Log($"Node {nodeData.Id} connection {connection.Name} not connected");
+                    if(!outputPort.IsConnected) {
+                        //Debug.Log($"Node {nodeData.Id} connection {outputPort.Id} not connected");
                         continue;
                     }
 
-                    ScriptNodeData outputNode = _nodes.GetOrDefault(outputPort.NodeId);
-                    if(null == outputNode) {
-                        Debug.LogWarning($"Node {nodeData.Id} connection {connection.Name} is connected to non-existent node {outputPort.NodeId}!");
-                        continue;
-                    }
-
-                    Debug.LogWarning($"TODO: add connection edge from {nodeData.Id}:{connection.Name} to {outputNode.Id}:{outputPort.PortId}");
+                    AddEdge(nodeData.Id, outputPort.Id, outputPort.NodeId, outputPort.PortId);
                 }
 
                 var outputs = nodeType.GetFields(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
@@ -80,18 +74,12 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                     OutputAttribute attr = output.GetCustomAttribute<OutputAttribute>();
 
                     ScriptNodePortData outputPort = (ScriptNodePortData)output.GetValue(nodeData);
-                    if(null == outputPort || !outputPort.IsConnected) {
-                        //Debug.Log($"Node {nodeData.Id} output {output.Name} not connected");
+                    if(!outputPort.IsConnected) {
+                        //Debug.Log($"Node {nodeData.Id} output {outputPort.Id} not connected");
                         continue;
                     }
 
-                    ScriptNodeData outputNode = _nodes.GetOrDefault(outputPort.NodeId);
-                    if(null == outputNode) {
-                        Debug.LogWarning($"Node {nodeData.Id} output {output.Name} is connected to non-existent node {outputPort.NodeId}!");
-                        continue;
-                    }
-
-                    Debug.LogWarning($"TODO: add output edge from {nodeData.Id}:{output.Name} to {outputNode.Id}:{outputPort.PortId}");
+                    AddEdge(nodeData.Id, outputPort.Id, outputPort.NodeId, outputPort.PortId);
                 }
             }
         }
@@ -107,7 +95,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             AddElement(node);
         }
 
-        public void CreateNode(ScriptNodeData nodeData, bool isAtScreenPosition)
+        public ScriptViewNode CreateNode(ScriptNodeData nodeData, bool isAtScreenPosition)
         {
             // prevent id conflicts
             while(_nodes.ContainsKey(nodeData.Id)) {
@@ -127,6 +115,42 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
             ScriptViewNode node = new ScriptViewNode(nodeData, Window.EdgeConnectorListener);
             AddElement(node);
+
+            return node;
+        }
+
+        public void AddEdge(ScriptNodeId outputNodeId, Guid outputPortId, ScriptNodeId inputNodeId, Guid inputPortId)
+        {
+            Debug.LogWarning($"TODO: add edge from 0x{(int)outputNodeId:X}:{outputPortId} to 0x{(int)inputNodeId:X}:{inputPortId}");
+
+            ScriptNodeData outputNode = _nodes.GetOrDefault(outputNodeId);
+            if(null == outputNode) {
+                Debug.LogWarning($"Invalid edge output node {outputNodeId:X}");
+                return;
+            }
+
+            ScriptNodeData inputNode = _nodes.GetOrDefault(inputNodeId);
+            if(null == inputNode) {
+                Debug.LogWarning($"Invalid edge input node {inputNodeId:X}");
+                return;
+            }
+        }
+
+        public void CreateEdge(ScriptNodeId outputNodeId, Guid outputPortId, ScriptNodeId inputNodeId, Guid inputPortId)
+        {
+            Debug.LogWarning($"TODO: create edge from 0x{(int)outputNodeId:X}:{outputPortId} to 0x{(int)inputNodeId:X}:{inputPortId}");
+
+            ScriptNodeData outputNode = _nodes.GetOrDefault(outputNodeId);
+            if(null == outputNode) {
+                Debug.LogWarning($"Invalid edge output node {outputNodeId:X}");
+                return;
+            }
+
+            ScriptNodeData inputNode = _nodes.GetOrDefault(inputNodeId);
+            if(null == inputNode) {
+                Debug.LogWarning($"Invalid edge input node {inputNodeId:X}");
+                return;
+            }
         }
 
         public override List<Port> GetCompatiblePorts(Port startAnchor, NodeAdapter nodeAdapter)
