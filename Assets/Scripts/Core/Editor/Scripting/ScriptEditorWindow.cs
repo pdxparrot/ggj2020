@@ -90,7 +90,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             _scriptView.AddManipulator(new RectangleSelector());
             _scriptView.AddManipulator(new ClickSelector());
 
-            _edgeConnectorListener = new EdgeConnectorListener();
+            _edgeConnectorListener = new EdgeConnectorListener(_scriptView);
         }
     }
 }

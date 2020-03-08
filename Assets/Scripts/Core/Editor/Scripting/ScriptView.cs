@@ -107,7 +107,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             AddElement(node);
         }
 
-        public void CreateNode(ScriptNodeData nodeData)
+        public void CreateNode(ScriptNodeData nodeData, bool isAtScreenPosition)
         {
             // prevent id conflicts
             while(_nodes.ContainsKey(nodeData.Id)) {
@@ -115,10 +115,12 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             }
 
             // convert the node screen position to the graph position
-            Rect nodePosition = nodeData.Position;
-            Vector2 windowMousePosition = Window.rootVisualElement.ChangeCoordinatesTo(Window.rootVisualElement.parent, nodePosition.position - Window.position.position);
-            Vector2 graphMousePosition = contentViewContainer.WorldToLocal(windowMousePosition);
-            nodeData.Position = new Rect(graphMousePosition, Vector2.zero);
+            if(isAtScreenPosition) {
+                Rect nodePosition = nodeData.Position;
+                Vector2 windowMousePosition = Window.rootVisualElement.ChangeCoordinatesTo(Window.rootVisualElement.parent, nodePosition.position - Window.position.position);
+                Vector2 graphMousePosition = contentViewContainer.WorldToLocal(windowMousePosition);
+                nodeData.Position = new Rect(graphMousePosition, Vector2.zero);
+            }
 
             //Debug.Log($"Creating node {nodeData.Id} of type {nodeData.GetType()} at {nodeData.Position}");
             _nodes[nodeData.Id] = nodeData;
@@ -135,7 +137,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 #region Event Handlers
         private void NodeCreationRequestEventHandler(NodeCreationContext context)
         {
-            CreateNodeWindow.ShowWindow(this, context.screenMousePosition);
+            CreateNodeWindow.ShowForCreate(this, context.screenMousePosition);
         }
 #endregion
     }

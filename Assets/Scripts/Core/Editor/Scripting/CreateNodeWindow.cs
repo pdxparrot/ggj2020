@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.Data.Scripting;
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
 using pdxpartyparrot.Core.Util;
@@ -18,10 +20,19 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         private const string MainStyleSheet = "ScriptEditorWindow/CreateNodeWindow/Main";
         private const string WindowLayout = "ScriptEditorWindow/CreateNodeWindow/Window";
 
-        public static void ShowWindow(ScriptView scriptView, Vector2 screenMousePosition)
+        public static void ShowForCreate(ScriptView scriptView, Vector2 nodePosition)
         {
             CreateNodeWindow window = GetWindow<CreateNodeWindow>();
-            window._screenMousePosition = screenMousePosition;
+            window._nodePosition = nodePosition;
+            window.ScriptView = scriptView;
+            window.Show();
+        }
+
+        public static void ShowForDrop(ScriptView scriptView, Vector2 nodePosition, Action<ScriptNodeData> onSuccess)
+        {
+            CreateNodeWindow window = GetWindow<CreateNodeWindow>();
+            window._nodePosition = nodePosition;
+            window._onSuccess = onSuccess;
             window.ScriptView = scriptView;
             window.Show();
         }
@@ -36,7 +47,10 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         private ListView _nodeList;
 
-        private Vector2 _screenMousePosition;
+        private Vector2 _nodePosition;
+
+        [CanBeNull]
+        private Action<ScriptNodeData> _onSuccess;
 
         private ScriptView _scriptView;
 
@@ -134,7 +148,10 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         {
             string nodeName = item as string;
 
-            ScriptView.CreateNode((ScriptNodeData)Activator.CreateInstance(_nodes[nodeName], new Rect(_screenMousePosition, Vector2.zero)));
+            ScriptNodeData nodeData = (ScriptNodeData)Activator.CreateInstance(_nodes[nodeName], new Rect(_nodePosition, Vector2.zero));
+            ScriptView.CreateNode(nodeData, null == _onSuccess);
+
+            _onSuccess?.Invoke(nodeData);
 
             Close();
         }
