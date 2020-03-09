@@ -158,7 +158,7 @@ namespace pdxpartyparrot.Core.Scripting
             _currentNode = _startNode;
         }
 
-        internal void Advance(ScriptNode node)
+        internal void Advance([CanBeNull] ScriptNode node)
         {
             Debug.Log("Script advancing");
 

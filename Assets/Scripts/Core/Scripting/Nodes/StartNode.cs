@@ -1,5 +1,7 @@
 ﻿using System;
 
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
 
 using UnityEngine;
@@ -12,6 +14,7 @@ namespace pdxpartyparrot.Core.Scripting.Nodes
         private StartNodeData NodeData => (StartNodeData)Data;
 
         [SerializeField]
+        [CanBeNull]
         private ScriptNode _next;
 
         public StartNode(ScriptNodeData nodeData) : base(nodeData)

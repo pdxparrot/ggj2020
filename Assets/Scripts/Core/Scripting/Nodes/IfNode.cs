@@ -1,5 +1,7 @@
 using System;
 
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
 
 using UnityEngine;
@@ -12,12 +14,15 @@ namespace pdxpartyparrot.Core.Scripting.Nodes
         private IfNodeData NodeData => (IfNodeData)Data;
 
         [SerializeField]
+        [CanBeNull]
         private ScriptNode _expression;
 
         [SerializeField]
+        [CanBeNull]
         private ScriptNode _true;
 
         [SerializeField]
+        [CanBeNull]
         private ScriptNode _false;
 
         public IfNode(ScriptNodeData nodeData) : base(nodeData)
@@ -33,7 +38,7 @@ namespace pdxpartyparrot.Core.Scripting.Nodes
 
         public override void Run(ScriptContext context)
         {
-            bool result = _expression.GetOutputValue<bool>(NodeData.Expression.PortId);
+            bool result = _expression?.GetOutputValue<bool>(NodeData.Expression.PortId) ?? false;
             if(result) {
                 context.Advance(_true);
             } else {

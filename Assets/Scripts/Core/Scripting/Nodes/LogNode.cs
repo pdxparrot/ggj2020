@@ -1,5 +1,7 @@
 using System;
 
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
 
 using UnityEngine;
@@ -12,6 +14,15 @@ namespace pdxpartyparrot.Core.Scripting.Nodes
         private LogNodeData NodeData => (LogNodeData)Data;
 
         [SerializeField]
+        [CanBeNull]
+        private ScriptNode _level;
+
+        [SerializeField]
+        [CanBeNull]
+        private ScriptNode _message;
+
+        [SerializeField]
+        [CanBeNull]
         private ScriptNode _next;
 
         public LogNode(ScriptNodeData nodeData) : base(nodeData)
@@ -20,12 +31,16 @@ namespace pdxpartyparrot.Core.Scripting.Nodes
 
         public override void Initialize(ScriptRunner runner)
         {
+            _level = runner.GetNode(NodeData.Level.NodeId);
+            _message = runner.GetNode(NodeData.Message.NodeId);
             _next = runner.GetNode(NodeData.Next.NodeId);
         }
 
         public override void Run(ScriptContext context)
         {
-            Debug.LogFormat(NodeData.Level, LogOption.None, null, NodeData.Message);
+            LogType level = _level?.GetOutputValue<LogType>(NodeData.Level.PortId) ?? LogType.Log;
+            string message = _message?.GetOutputValue<string>(NodeData.Message.PortId) ?? string.Empty;
+            Debug.LogFormat(level, LogOption.None, null, message);
 
             context.Advance(_next);
         }

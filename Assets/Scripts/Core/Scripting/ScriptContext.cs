@@ -21,7 +21,7 @@ namespace pdxpartyparrot.Core.Scripting
         }
 
 #region Runner Interface
-        public void Advance(ScriptNode node)
+        public void Advance([CanBeNull] ScriptNode node)
         {
             _runner.Advance(node);
         }

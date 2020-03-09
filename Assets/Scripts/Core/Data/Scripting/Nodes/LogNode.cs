@@ -18,24 +18,26 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 
         public ScriptNodePortData Prev => _prev;
 
+        [Input("Level", typeof(LogType))]
+        [SerializeField]
+        [ReadOnly]
+        private ScriptNodePortData _level = ScriptNodePortData.Create();
+
+        public ScriptNodePortData Level => _level;
+
+        [Input("Message", typeof(string))]
+        [SerializeField]
+        [ReadOnly]
+        private ScriptNodePortData _message = ScriptNodePortData.Create();
+
+        public ScriptNodePortData Message => _message;
+
         [Connection("Next", ConnectionAttribute.Direction.Output)]
         [SerializeField]
         [ReadOnly]
         private ScriptNodePortData _next = ScriptNodePortData.Create();
 
         public ScriptNodePortData Next => _next;
-
-        [SerializeField]
-        [ReadOnly]
-        private LogType _level;
-
-        public LogType Level => _level;
-
-        [SerializeField]
-        [ReadOnly]
-        private string _message;
-
-        public string Message => _message;
 
         public LogNodeData(Rect position) : base(position)
         {
