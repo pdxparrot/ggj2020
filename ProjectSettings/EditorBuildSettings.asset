@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/repair_bay.unity
     guid: 69aaa26f52c576043a9eace47d3f7a36
+  - enabled: 1
+    path: Assets/Scenes/scripting_test.unity
+    guid: ce1dee351c0325548853a3e807f7c0b5
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 0475a002cc3721f40aa0354f1ca0758f,
       type: 2}
