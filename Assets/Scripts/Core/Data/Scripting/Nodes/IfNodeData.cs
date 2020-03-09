@@ -16,11 +16,7 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
         [ReadOnly]
         private ScriptNodePortData _prev = ScriptNodePortData.Create();
 
-        public ScriptNodePortData Prev
-        {
-            get => _prev;
-            set => _prev = value;
-        }
+        public ScriptNodePortData Prev => _prev;
 
         [Input("Expression", typeof(bool))]
         [SerializeField]
@@ -34,22 +30,14 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
         [ReadOnly]
         private ScriptNodePortData _true = ScriptNodePortData.Create();
 
-        public ScriptNodePortData True
-        {
-            get => _true;
-            set => _true = value;
-        }
+        public ScriptNodePortData True => _true;
 
         [Connection("False", ConnectionAttribute.Direction.Output)]
         [SerializeField]
         [ReadOnly]
         private ScriptNodePortData _false = ScriptNodePortData.Create();
 
-        public ScriptNodePortData False
-        {
-            get => _false;
-            set => _false = value;
-        }
+        public ScriptNodePortData False => _false;
 
         public IfNodeData(Rect position) : base(position)
         {

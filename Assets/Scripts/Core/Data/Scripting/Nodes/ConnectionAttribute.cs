@@ -5,7 +5,6 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class ConnectionAttribute : Attribute
     {
-        // TODO: rename Direction to match Ports
         public enum Direction
         {
             Input,

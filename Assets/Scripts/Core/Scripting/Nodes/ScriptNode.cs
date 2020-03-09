@@ -29,7 +29,7 @@ namespace pdxpartyparrot.Core.Scripting.Nodes
 
         public virtual T GetOutputValue<T>(Guid portid)
         {
-            return default(T);
+            return default;
         }
     }
 }

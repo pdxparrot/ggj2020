@@ -16,11 +16,7 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
         [ReadOnly]
         private ScriptNodePortData _next = ScriptNodePortData.Create();
 
-        public ScriptNodePortData Next
-        {
-            get => _next;
-            set => _next = value;
-        }
+        public ScriptNodePortData Next => _next;
 
         public StartNodeData() : base()
         {

@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 {
-    [ScriptNode("NoOp", typeof(NoOpNode))]
+    [ScriptNode("Log", typeof(LogNode))]
     [Serializable]
-    public sealed class NoOpNodeData : ScriptNodeData
+    public sealed class LogNodeData : ScriptNodeData
     {
         [Connection("Prev", ConnectionAttribute.Direction.Input)]
         [SerializeField]
@@ -25,7 +25,19 @@ namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 
         public ScriptNodePortData Next => _next;
 
-        public NoOpNodeData(Rect position) : base(position)
+        [SerializeField]
+        [ReadOnly]
+        private LogType _level;
+
+        public LogType Level => _level;
+
+        [SerializeField]
+        [ReadOnly]
+        private string _message;
+
+        public string Message => _message;
+
+        public LogNodeData(Rect position) : base(position)
         {
         }
     }

@@ -20,21 +20,23 @@ namespace pdxpartyparrot.Core.Editor.Scripting
         private const string MainStyleSheet = "ScriptEditorWindow/CreateNodeWindow/Main";
         private const string WindowLayout = "ScriptEditorWindow/CreateNodeWindow/Window";
 
-        public static void ShowForCreate(ScriptView scriptView, Vector2 nodePosition)
-        {
-            CreateNodeWindow window = GetWindow<CreateNodeWindow>();
-            window._nodePosition = nodePosition;
-            window.ScriptView = scriptView;
-            window.Show();
-        }
-
-        public static void ShowForDrop(ScriptView scriptView, Vector2 nodePosition, Action<ScriptViewNode> onSuccess)
+        private static void Show(ScriptView scriptView, Vector2 nodePosition, Action<ScriptViewNode> onSuccess)
         {
             CreateNodeWindow window = GetWindow<CreateNodeWindow>();
             window._nodePosition = nodePosition;
             window._onSuccess = onSuccess;
             window.ScriptView = scriptView;
             window.Show();
+        }
+
+        public static void ShowForCreate(ScriptView scriptView, Vector2 nodePosition)
+        {
+            Show(scriptView, nodePosition, null);
+        }
+
+        public static void ShowForDrop(ScriptView scriptView, Vector2 nodePosition, Action<ScriptViewNode> onSuccess)
+        {
+            Show(scriptView, nodePosition, onSuccess);
         }
 
         public override string Title => "Add Scripting Node";
