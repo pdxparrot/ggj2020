@@ -26,5 +26,10 @@ namespace pdxpartyparrot.Core.Scripting.Nodes
         public abstract void Initialize(ScriptRunner runner);
 
         public abstract void Run(ScriptContext context);
+
+        public virtual T GetOutputValue<T>(Guid portid)
+        {
+            return default(T);
+        }
     }
 }
