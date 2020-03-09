@@ -84,7 +84,7 @@ namespace pdxpartyparrot.Core.Camera
                     Debug.Log($"Releasing viewer {viewer.name} (type: {typeof(T)}, assigned: {AssignedViewers.Count}, unassigned: {UnassignedViewers.Count})");
                 }
 
-                viewer.Reset();
+                viewer.ResetViewer();
 
                 viewer.gameObject.SetActive(false);
 

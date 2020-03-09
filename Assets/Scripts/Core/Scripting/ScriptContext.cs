@@ -31,9 +31,9 @@ namespace pdxpartyparrot.Core.Scripting
             _runner.Stop();
         }
 
-        public void Reset()
+        public void ResetScript()
         {
-            _runner.Reset();
+            _runner.ResetScript();
         }
 #endregion
 

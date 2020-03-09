@@ -158,7 +158,7 @@ namespace pdxpartyparrot.Core.Time
                 StopEvent?.Invoke(this, EventArgs.Empty);
             }
 
-            public void Reset()
+            public void ResetStopwatch()
             {
                 _stopwatchSeconds = 0.0f;
 

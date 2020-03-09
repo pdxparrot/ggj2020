@@ -101,7 +101,7 @@ namespace pdxpartyparrot.Core.Scripting
 
         private void Initialize()
         {
-            Reset();
+            ResetScript();
 
             _startNode = null;
             _currentNode = null;
@@ -146,7 +146,7 @@ namespace pdxpartyparrot.Core.Scripting
         }
 
 #region Script Lifecycle
-        public void Reset()
+        public void ResetScript()
         {
             Stop();
 

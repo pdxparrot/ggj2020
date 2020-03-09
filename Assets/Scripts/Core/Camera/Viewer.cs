@@ -88,7 +88,7 @@ namespace pdxpartyparrot.Core.Camera
 
         protected virtual void OnDestroy()
         {
-            Reset();
+            ResetViewer();
         }
 #endregion
 
@@ -154,7 +154,7 @@ namespace pdxpartyparrot.Core.Camera
             Camera.transform.localPosition = _defaultCameraPosition;
         }
 
-        public virtual void Reset()
+        public virtual void ResetViewer()
         {
             ResetCameraPosition();
 

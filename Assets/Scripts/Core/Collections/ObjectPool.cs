@@ -7,7 +7,7 @@ namespace pdxpartyparrot.Core.Collections
 {
     public interface IPooledItem
     {
-        void Reset();
+        void ResetPooledItem();
     }
 
     public interface IReadOnlyObjectPool<out T> : IEnumerable<T>, IEnumerable
@@ -49,7 +49,7 @@ namespace pdxpartyparrot.Core.Collections
             }
 
             T item = _unused.RemoveFront();
-            item.Reset();
+            item.ResetPooledItem();
             _used.Add(item);
             return item;
         }

@@ -18,6 +18,6 @@ namespace pdxpartyparrot.Core.Time
 
         void Stop();
 
-        void Reset();
+        void ResetStopwatch();
     }
 }
