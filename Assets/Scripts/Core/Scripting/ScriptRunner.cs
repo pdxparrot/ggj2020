@@ -112,30 +112,11 @@ namespace pdxpartyparrot.Core.Scripting
 
             // first pass to create the nodes
             foreach(ScriptNodeData nodeData in _data.Nodes) {
-                if(!nodeData.Id.IsValid) {
-                    Debug.LogWarning($"Invalid node of type {nodeData.GetType()}!");
+                if(!ValidateNode(nodeData, out ScriptNodeAttribute nodeAttribute, out ScriptNode scriptNode)) {
                     continue;
                 }
 
-                bool isStartNode = nodeData.GetType() == typeof(StartNodeData);
-                if(isStartNode && null != _startNode) {
-                    Debug.LogWarning($"Duplicate start nodes found: {_startNode.Id} and {nodeData.Id}!");
-                    continue;
-                }
-
-                ScriptNodeAttribute attr = nodeData.GetType().GetCustomAttribute<ScriptNodeAttribute>();
-                if(null == attr) {
-                    Debug.LogWarning($"Node type {nodeData.GetType()} missing node attribute!");
-                    continue;
-                }
-
-                ScriptNode scriptNode = _nodes.GetOrDefault(nodeData.Id);
-                if(null != scriptNode) {
-                    Debug.LogWarning($"Duplicate node {nodeData.Id} (one of type {nodeData.GetType()} and the other of type {scriptNode.GetType()})!");
-                    continue;
-                }
-
-                scriptNode = (ScriptNode)Activator.CreateInstance(attr.ScriptNodeType, nodeData);
+                scriptNode = (ScriptNode)Activator.CreateInstance(nodeAttribute.ScriptNodeType, nodeData);
                 _nodes.Add(nodeData.Id, scriptNode);
             }
 
@@ -143,6 +124,37 @@ namespace pdxpartyparrot.Core.Scripting
             foreach(ScriptNode node in _nodes.Values) {
                 node.Initialize(this);
             }
+        }
+
+        private bool ValidateNode(ScriptNodeData nodeData, out ScriptNodeAttribute nodeAttribute, out ScriptNode scriptNode)
+        {
+            nodeAttribute = null;
+            scriptNode = null;
+
+            if(!nodeData.Id.IsValid) {
+                Debug.LogWarning($"Invalid node of type {nodeData.GetType()}!");
+                return false;
+            }
+
+            bool isStartNode = nodeData.GetType() == typeof(StartNodeData);
+            if(isStartNode && null != _startNode) {
+                Debug.LogWarning($"Duplicate start nodes found: {_startNode.Id} and {nodeData.Id}!");
+                return false;
+            }
+
+            nodeAttribute = nodeData.GetType().GetCustomAttribute<ScriptNodeAttribute>();
+            if(null == nodeAttribute) {
+                Debug.LogWarning($"Node type {nodeData.GetType()} missing node attribute!");
+                return false;
+            }
+
+            scriptNode = _nodes.GetOrDefault(nodeData.Id);
+            if(null != scriptNode) {
+                Debug.LogWarning($"Duplicate node {nodeData.Id} (one of type {nodeData.GetType()} and the other of type {scriptNode.GetType()})!");
+                return false;
+            }
+
+            return true;
         }
 
 #region Script Lifecycle

@@ -2,6 +2,8 @@
 
 using pdxpartyparrot.Core.Util;
 
+using UnityEngine;
+
 namespace pdxpartyparrot.Core.Scripting
 {
 // TODO: this is a pipe dream, but it would be great to have a visual/node-based scripting engine in here for doing custom behaviors
@@ -22,6 +24,8 @@ namespace pdxpartyparrot.Core.Scripting
 
         public void Register(ScriptRunner script)
         {
+            Debug.Log($"Registering script {script.name}");
+
             switch(script.Runtime)
             {
             case ScriptRunner.RuntimeType.Coroutine:
@@ -35,6 +39,8 @@ namespace pdxpartyparrot.Core.Scripting
 
         public void Unregister(ScriptRunner script)
         {
+            Debug.Log($"Unregistering script {script.name}");
+
             _coroutineScripts.Remove(script);
             _updateScripts.Remove(script);
         }
