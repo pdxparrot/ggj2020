@@ -1,9 +1,9 @@
 using System;
 
-namespace pdxpartyparrot.Core.Data.Scripting.Nodes
+namespace pdxpartyparrot.Core.Data.NodeEditor
 {
     [AttributeUsage(AttributeTargets.Field)]
-    public sealed class ConnectionAttribute : Attribute
+    public class ConnectionAttribute : Attribute
     {
         public enum Direction
         {

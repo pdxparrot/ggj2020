@@ -1,21 +1,18 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
-using System.Reflection;
 
 using JetBrains.Annotations;
 
-using pdxpartyparrot.Core.Data.Scripting;
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
-using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.Editor.NodeEditor;
 
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace pdxpartyparrot.Core.Editor.Scripting
 {
-    public sealed class CreateNodeWindow : Window.EditorWindow
+    public sealed class CreateNodeWindow : CreateNodeWindow<ScriptNodeData, ScriptNodeAttribute, ScriptViewNode>
     {
         private const string MainStyleSheet = "ScriptEditorWindow/CreateNodeWindow/Main";
         private const string WindowLayout = "ScriptEditorWindow/CreateNodeWindow/Window";
@@ -25,7 +22,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             CreateNodeWindow window = GetWindow<CreateNodeWindow>();
             window._nodePosition = nodePosition;
             window._onSuccess = onSuccess;
-            window.ScriptView = scriptView;
+            window.View = scriptView;
             window.Show();
         }
 
@@ -41,51 +38,18 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         public override string Title => "Add Scripting Node";
 
-        private readonly List<Type> _nodeTypes = new List<Type>();
-        private readonly Dictionary<string, Type> _nodes = new Dictionary<string, Type>();
-        private readonly List<string> _filteredNodeNames = new List<string>();
-
-        private TextField _filter;
-
-        private ListView _nodeList;
-
         private Vector2 _nodePosition;
 
         [CanBeNull]
         private Action<ScriptViewNode> _onSuccess;
 
-        private ScriptView _scriptView;
+        private TextField _filter;
 
-        public ScriptView ScriptView
-        {
-            get => _scriptView;
+        private ListView _nodeList;
 
-            private set
-            {
-                _scriptView = value;
-
-                Filter();
-            }
-        }
+        private ScriptView ScriptView => (ScriptView)View;
 
 #region Unity Lifecycle
-        protected override void Awake()
-        {
-            base.Awake();
-
-            ReflectionUtils.FindSubClassesOfInNamespace<ScriptNodeData>(_nodeTypes, EditorSettings.projectGenerationRootNamespace);
-            foreach(Type nodeType in _nodeTypes) {
-                ScriptNodeAttribute attr = nodeType.GetCustomAttribute<ScriptNodeAttribute>();
-                if(null == attr) {
-                    Debug.LogWarning($"Node type {nodeType} missing node attribute!");
-                    continue;
-                }
-
-                _nodes.Add(attr.Name, nodeType);
-            }
-            //Debug.Log($"Found {_nodes.Count} nodes");
-        }
-
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -101,39 +65,34 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             _nodeList = rootVisualElement.Q<ListView>("node-list");
             _nodeList.makeItem = MakeItemEventHandler;
             _nodeList.bindItem = BindItemEventHandler;
-            _nodeList.itemsSource = _filteredNodeNames;
+            _nodeList.itemsSource = null;
             _nodeList.selectionType = SelectionType.Single;
             _nodeList.onItemChosen += ItemChosenEventHandler;
         }
 #endregion
 
-        // TODO: this could be done much better
-        private void Filter()
+        protected override bool FilterNode(Type nodeType, ScriptNodeAttribute attr)
         {
-            _filteredNodeNames.Clear();
+            if(!attr.AllowMultiple && null != ScriptView && ScriptView.ScriptData.Nodes.Any(y => y.GetType() == nodeType)) {
+                return false;
+            }
+            return true;
+        }
 
-            _filteredNodeNames.AddRange(_nodes.Keys.Where(x => {
-                if(string.IsNullOrWhiteSpace(x)) {
-                    return false;
-                }
+        protected override void SetNodeList(IList nodes)
+        {
+            _nodeList.itemsSource = nodes;
+        }
 
-                Type nodeType = _nodes[x];
-
-                ScriptNodeAttribute attr = nodeType.GetCustomAttribute<ScriptNodeAttribute>();
-                if(null == attr || (!attr.AllowMultiple && null != _scriptView && _scriptView.ScriptData.Nodes.Any(y => y.GetType() == nodeType))) {
-                    return false;
-                }
-
-                return -1 != x.IndexOf(_filter.text, StringComparison.InvariantCultureIgnoreCase);
-            }));
-
-            _nodeList.itemsSource = _filteredNodeNames;
+        protected override ScriptViewNode CreateViewNode(ScriptNodeData nodeData)
+        {
+            return (ScriptViewNode)ScriptView.CreateNode(nodeData, null == _onSuccess);
         }
 
 #region Event Handlers
         private void FilterChangedEventHandler(ChangeEvent<string> evt)
         {
-            Filter();
+            FilterNodes(_filter.text);
         }
 
         private VisualElement MakeItemEventHandler()
@@ -143,15 +102,14 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         private void BindItemEventHandler(VisualElement element, int index)
         {
-            (element as Label).text = _filteredNodeNames[index];
+            (element as Label).text = GetNodeName(index);
         }
 
         private void ItemChosenEventHandler(object item)
         {
             string nodeName = item as string;
 
-            ScriptNodeData nodeData = (ScriptNodeData)Activator.CreateInstance(_nodes[nodeName], new Rect(_nodePosition, Vector2.zero));
-            ScriptViewNode node = ScriptView.CreateNode(nodeData, null == _onSuccess);
+            ScriptViewNode node = CreateNode(nodeName, _nodePosition);
 
             _onSuccess?.Invoke(node);
 

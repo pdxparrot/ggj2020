@@ -2,54 +2,32 @@ using System;
 using System.Linq;
 using System.Reflection;
 
+using pdxpartyparrot.Core.Data.NodeEditor;
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
-using pdxpartyparrot.Core.Editor.Window;
-using pdxpartyparrot.Core.Scripting.Nodes;
+using pdxpartyparrot.Core.Editor.NodeEditor;
 
 using UnityEditor.Experimental.GraphView;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace pdxpartyparrot.Core.Editor.Scripting
 {
-    public sealed class ScriptViewNode : Node
+    public sealed class ScriptViewNode : NodeEditorNode
     {
-        private const string MainStyleSheet = "ScriptEditorWindow/Node";
-        private const string NodeLayout = "ScriptEditorWindow/Node";
+        protected override string MainStyleSheet => "ScriptEditorWindow/Node";
 
-        public ScriptNodeId Id => _nodeData.Id;
+        protected override string NodeLayout => "ScriptEditorWindow/Node";
 
-        private IEdgeConnectorListener _edgeConnectorListener;
+        private ScriptNodeData ScriptNodeData => (ScriptNodeData)NodeData;
 
-        private ScriptNodeData _nodeData;
-
-        public ScriptViewNode(ScriptNodeData nodeData, IEdgeConnectorListener edgeConnectorListener) : base()
+        public ScriptViewNode(ScriptNodeData nodeData, IEdgeConnectorListener edgeConnectorListener) : base(nodeData, edgeConnectorListener)
         {
-            _nodeData = nodeData;
-            _edgeConnectorListener = edgeConnectorListener;
-
-            styleSheets.Add(Resources.Load<StyleSheet>(EditorWindow.CoreStyleSheet));
-            styleSheets.Add(Resources.Load<StyleSheet>(MainStyleSheet));
-
-            VisualTreeAsset mainVisualTree = Resources.Load<VisualTreeAsset>(NodeLayout);
-            mainVisualTree.CloneTree(this);
-
-            title = _nodeData.Name;
-
-            InitializeView();
-
-            SetPosition(_nodeData.Position);
         }
 
-        private void InitializeView()
+        protected override void InitializeView()
         {
-            Label label = new Label
-            {
-                text = $"ID: 0x{(int)Id:X}"
-            };
-            Add(label);
+            base.InitializeView();
 
-            Type nodeType = _nodeData.GetType();
+            Type nodeType = ScriptNodeData.GetType();
             //Debug.Log($"Node 0x{Id:X} of type {nodeType}");
 
             var connections = nodeType.GetFields(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
@@ -61,12 +39,12 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 }
                 //Debug.Log($"Add input connection {attr.Name} to node 0x{Id:X}");
 
-                ScriptNodePortData inputPort = (ScriptNodePortData)connection.GetValue(_nodeData);
+                ScriptNodePortData inputPort = (ScriptNodePortData)connection.GetValue(ScriptNodeData);
                 ScriptViewPort port = new ScriptViewPort(this, inputPort, Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(ScriptNodePortData))
                 {
                     portName = attr.Name
                 };
-                port.AddManipulator(new EdgeConnector<Edge>(_edgeConnectorListener));
+                port.AddManipulator(new EdgeConnector<Edge>(EdgeConnectorListener));
                 Add(port);
             }
 
@@ -76,12 +54,12 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 InputAttribute attr = input.GetCustomAttribute<InputAttribute>();
                 //Debug.Log($"Add input {attr.Name} of type {attr.Type} to node 0x{Id:X}");
 
-                ScriptNodePortData inputPort = (ScriptNodePortData)input.GetValue(_nodeData);
+                ScriptNodePortData inputPort = (ScriptNodePortData)input.GetValue(ScriptNodeData);
                 ScriptViewPort port = new ScriptViewPort(this, inputPort, Orientation.Horizontal, Direction.Input, Port.Capacity.Single, attr.Type)
                 {
                     portName = attr.Name
                 };
-                port.AddManipulator(new EdgeConnector<Edge>(_edgeConnectorListener));
+                port.AddManipulator(new EdgeConnector<Edge>(EdgeConnectorListener));
                 Add(port);
             }
 
@@ -92,12 +70,12 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 }
                 //Debug.Log($"Add output connection {attr.Name} to node 0x{Id:X}");
 
-                ScriptNodePortData outputPort = (ScriptNodePortData)connection.GetValue(_nodeData);
+                ScriptNodePortData outputPort = (ScriptNodePortData)connection.GetValue(ScriptNodeData);
                 ScriptViewPort port = new ScriptViewPort(this, outputPort, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(ScriptNodePortData))
                 {
                     portName = attr.Name
                 };
-                port.AddManipulator(new EdgeConnector<Edge>(_edgeConnectorListener));
+                port.AddManipulator(new EdgeConnector<Edge>(EdgeConnectorListener));
                 Add(port);
             }
 
@@ -107,12 +85,12 @@ namespace pdxpartyparrot.Core.Editor.Scripting
                 OutputAttribute attr = output.GetCustomAttribute<OutputAttribute>();
                 //Debug.Log($"Add output {attr.Name} of type {attr.Type} to node 0x{Id:X}");
 
-                ScriptNodePortData outputPort = (ScriptNodePortData)output.GetValue(_nodeData);
+                ScriptNodePortData outputPort = (ScriptNodePortData)output.GetValue(ScriptNodeData);
                 ScriptViewPort port = new ScriptViewPort(this, outputPort, Orientation.Horizontal, Direction.Output, Port.Capacity.Single, attr.Type)
                 {
                     portName = attr.Name
                 };
-                port.AddManipulator(new EdgeConnector<Edge>(_edgeConnectorListener));
+                port.AddManipulator(new EdgeConnector<Edge>(EdgeConnectorListener));
                 Add(port);
             }
         }

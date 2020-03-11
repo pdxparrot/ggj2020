@@ -1,5 +1,6 @@
 ﻿using System;
 
+using pdxpartyparrot.Core.Data.NodeEditor;
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
 using pdxpartyparrot.Core.Util;
 
@@ -16,7 +17,7 @@ namespace pdxpartyparrot.Core.Scripting.Nodes
 
         public ScriptNodeData Data => _data;
 
-        public ScriptNodeId Id => Data.Id;
+        public NodeId Id => Data.Id;
 
         public ScriptNode(ScriptNodeData nodeData)
         {

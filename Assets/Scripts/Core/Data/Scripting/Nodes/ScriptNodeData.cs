@@ -1,46 +1,20 @@
 ﻿using System;
-using System.Reflection;
 
-using pdxpartyparrot.Core.Scripting.Nodes;
-using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.Data.NodeEditor;
 
 using UnityEngine;
 
 namespace pdxpartyparrot.Core.Data.Scripting.Nodes
 {
     [Serializable]
-    public abstract class ScriptNodeData
+    public abstract class ScriptNodeData : NodeData
     {
-        [SerializeField]
-        [ReadOnly]
-        private string _name;
-
-        public string Name => _name;
-
-        [SerializeField]
-        [ReadOnly]
-        private ScriptNodeId _id = ScriptNodeId.Create();
-
-        public ScriptNodeId Id => _id;
-
-        [SerializeField]
-        [ReadOnly]
-        private Rect _position;
-
-        public Rect Position
+        protected ScriptNodeData() : base()
         {
-            get => _position;
-            set => _position = value;
         }
 
-        protected ScriptNodeData()
+        public ScriptNodeData(Rect position) : base(position)
         {
-            _name = GetType().GetCustomAttribute<ScriptNodeAttribute>()?.Name ?? "Invalid Script Node";
-        }
-
-        public ScriptNodeData(Rect position) : this()
-        {
-            Position = position;
         }
     }
 }

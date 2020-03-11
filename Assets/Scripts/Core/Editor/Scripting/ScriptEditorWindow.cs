@@ -1,19 +1,14 @@
 ﻿using pdxpartyparrot.Core.Data.Scripting;
-
-using JetBrains.Annotations;
+using pdxpartyparrot.Core.Editor.NodeEditor;
 
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.UIElements;
 
 namespace pdxpartyparrot.Core.Editor.Scripting
 {
-    // https://forum.unity.com/threads/bare-bones-graphview-example.778706/
-    // https://forum.unity.com/threads/how-to-use-the-new-graphview-uielements.536563/
-    // https://github.com/Unity-Technologies/ShaderGraph/blob/master/com.unity.shadergraph/Editor/Drawing/Views/
-    public sealed class ScriptEditorWindow : Window.EditorWindow
+    public sealed class ScriptEditorWindow : NodeEditorWindow
     {
         private const string MainStyleSheet = "ScriptEditorWindow/Main";
         private const string WindowLayout = "ScriptEditorWindow/Window";
@@ -35,13 +30,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
         public override string Title => "Script Editor";
 
-        private ScriptView _scriptView;
-
-        [CanBeNull]
-        private EdgeConnectorListener _edgeConnectorListener;
-
-        [CanBeNull]
-        public EdgeConnectorListener EdgeConnectorListener => _edgeConnectorListener;
+        private ScriptView ScriptView => (ScriptView)View;
 
         private ScriptData _scriptData;
 
@@ -55,9 +44,19 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             VisualTreeAsset mainVisualTree = Resources.Load<VisualTreeAsset>(WindowLayout);
             mainVisualTree.CloneTree(rootVisualElement);
 
-            CreateScriptView();
+            CreateNodeView();
         }
 #endregion
+
+        protected override NodeEditorView CreateView()
+        {
+            return new ScriptView(this);
+        }
+
+        protected override IEdgeConnectorListener CreateEdgeConnectorListener()
+        {
+            return new EdgeConnectorListener(ScriptView);
+        }
 
         private void CreateNewScript()
         {
@@ -65,7 +64,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
 
             _scriptData = CreateInstance<ScriptData>();
             _scriptData.name = "ScriptData";
-            _scriptView.LoadScript(_scriptData);
+            ScriptView.LoadScript(_scriptData);
         }
 
         private void LoadScript(ScriptData scriptData)
@@ -73,24 +72,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             Debug.Log($"Loading script {scriptData.name}...");
 
             _scriptData = scriptData;
-            _scriptView.LoadScript(_scriptData);
-        }
-
-        private void CreateScriptView()
-        {
-            Assert.IsNull(_scriptView);
-            _scriptView = new ScriptView(this);
-
-            rootVisualElement.Clear();
-            rootVisualElement.Add(_scriptView);
-            _scriptView.StretchToParentSize();
-
-            _scriptView.AddManipulator(new ContentDragger());
-            _scriptView.AddManipulator(new SelectionDragger());
-            _scriptView.AddManipulator(new RectangleSelector());
-            _scriptView.AddManipulator(new ClickSelector());
-
-            _edgeConnectorListener = new EdgeConnectorListener(_scriptView);
+            ScriptView.LoadScript(_scriptData);
         }
     }
 }

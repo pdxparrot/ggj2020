@@ -1,5 +1,6 @@
 using System;
 
+using pdxpartyparrot.Core.Data.NodeEditor;
 using pdxpartyparrot.Core.Scripting.Nodes;
 using pdxpartyparrot.Core.Util;
 

@@ -5,6 +5,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.Collections;
+using pdxpartyparrot.Core.Data.NodeEditor;
 using pdxpartyparrot.Core.Data.Scripting;
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
 using pdxpartyparrot.Core.Scripting.Nodes;
@@ -54,7 +55,7 @@ namespace pdxpartyparrot.Core.Scripting
         [ReadOnly]
         private ScriptContext _context;
 
-        private readonly Dictionary<ScriptNodeId, ScriptNode> _nodes = new Dictionary<ScriptNodeId, ScriptNode>();
+        private readonly Dictionary<NodeId, ScriptNode> _nodes = new Dictionary<NodeId, ScriptNode>();
 
         [SerializeReference]
         [CanBeNull]
@@ -213,7 +214,7 @@ namespace pdxpartyparrot.Core.Scripting
 #endregion
 
         [CanBeNull]
-        internal ScriptNode GetNode(ScriptNodeId id)
+        internal ScriptNode GetNode(NodeId id)
         {
             return _nodes.GetOrDefault(id);
         }

@@ -1,37 +1,22 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
+using pdxpartyparrot.Core.Data.NodeEditor;
 using pdxpartyparrot.Core.Data.Scripting;
 using pdxpartyparrot.Core.Data.Scripting.Nodes;
-using pdxpartyparrot.Core.Scripting.Nodes;
-using pdxpartyparrot.Core.Collections;
+using pdxpartyparrot.Core.Editor.NodeEditor;
 
 using UnityEditor.Experimental.GraphView;
-using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.UIElements;
 
 namespace pdxpartyparrot.Core.Editor.Scripting
 {
-    public sealed class ScriptView : GraphView
+    public sealed class ScriptView : NodeEditorView
     {
-        public ScriptEditorWindow Window { get; private set; }
-
         public ScriptData ScriptData { get; private set; }
 
-        private readonly Dictionary<ScriptNodeId, ScriptNodeData> _nodes = new Dictionary<ScriptNodeId, ScriptNodeData>();
-
-        public ScriptView(ScriptEditorWindow window) : base()
+        public ScriptView(ScriptEditorWindow window) : base(window)
         {
-            Window = window;
-
-            GridBackground gridBackground = new GridBackground();
-            Add(gridBackground);
-            gridBackground.SendToBack();
-
-            nodeCreationRequest = NodeCreationRequestEventHandler;
         }
 
         public void LoadScript(ScriptData scriptData)
@@ -48,7 +33,7 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             }
 
             // add edges
-            foreach(ScriptNodeData nodeData in _nodes.Values) {
+            foreach(ScriptNodeData nodeData in Nodes.Values) {
                 Type nodeType = nodeData.GetType();
 
                 var connections = nodeType.GetFields(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
@@ -84,82 +69,13 @@ namespace pdxpartyparrot.Core.Editor.Scripting
             }
         }
 
-        private void AddNode(ScriptNodeData nodeData)
+        protected override NodeEditorNode CreateNode(NodeData nodeData)
         {
-            Assert.IsFalse(_nodes.ContainsKey(nodeData.Id));
-
-            //Debug.Log($"Adding node {nodeData.Id} of type {nodeData.GetType()} at {nodeData.Position}");
-            _nodes[nodeData.Id] = nodeData;
-
-            ScriptViewNode node = new ScriptViewNode(nodeData, Window.EdgeConnectorListener);
-            AddElement(node);
-        }
-
-        public ScriptViewNode CreateNode(ScriptNodeData nodeData, bool isAtScreenPosition)
-        {
-            // prevent id conflicts
-            while(_nodes.ContainsKey(nodeData.Id)) {
-                nodeData.Id.GenerateId();
-            }
-
-            // convert the node screen position to the graph position
-            if(isAtScreenPosition) {
-                Rect nodePosition = nodeData.Position;
-                Vector2 windowMousePosition = Window.rootVisualElement.ChangeCoordinatesTo(Window.rootVisualElement.parent, nodePosition.position - Window.position.position);
-                Vector2 graphMousePosition = contentViewContainer.WorldToLocal(windowMousePosition);
-                nodeData.Position = new Rect(graphMousePosition, Vector2.zero);
-            }
-
-            //Debug.Log($"Creating node {nodeData.Id} of type {nodeData.GetType()} at {nodeData.Position}");
-            _nodes[nodeData.Id] = nodeData;
-
-            ScriptViewNode node = new ScriptViewNode(nodeData, Window.EdgeConnectorListener);
-            AddElement(node);
-
-            return node;
-        }
-
-        public void AddEdge(ScriptNodeId outputNodeId, Guid outputPortId, ScriptNodeId inputNodeId, Guid inputPortId)
-        {
-            Debug.LogWarning($"TODO: add edge from 0x{(int)outputNodeId:X}:{outputPortId} to 0x{(int)inputNodeId:X}:{inputPortId}");
-
-            ScriptNodeData outputNode = _nodes.GetOrDefault(outputNodeId);
-            if(null == outputNode) {
-                Debug.LogWarning($"Invalid edge output node {outputNodeId:X}");
-                return;
-            }
-
-            ScriptNodeData inputNode = _nodes.GetOrDefault(inputNodeId);
-            if(null == inputNode) {
-                Debug.LogWarning($"Invalid edge input node {inputNodeId:X}");
-                return;
-            }
-        }
-
-        public void CreateEdge(ScriptNodeId outputNodeId, Guid outputPortId, ScriptNodeId inputNodeId, Guid inputPortId)
-        {
-            Debug.LogWarning($"TODO: create edge from 0x{(int)outputNodeId:X}:{outputPortId} to 0x{(int)inputNodeId:X}:{inputPortId}");
-
-            ScriptNodeData outputNode = _nodes.GetOrDefault(outputNodeId);
-            if(null == outputNode) {
-                Debug.LogWarning($"Invalid edge output node {outputNodeId:X}");
-                return;
-            }
-
-            ScriptNodeData inputNode = _nodes.GetOrDefault(inputNodeId);
-            if(null == inputNode) {
-                Debug.LogWarning($"Invalid edge input node {inputNodeId:X}");
-                return;
-            }
-        }
-
-        public override List<Port> GetCompatiblePorts(Port startAnchor, NodeAdapter nodeAdapter)
-        {
-            return ports.ToList().Where(x => x.portType == startAnchor.portType && x.direction != startAnchor.direction).ToList();
+            return new ScriptViewNode((ScriptNodeData)nodeData, Window.EdgeConnectorListener);
         }
 
 #region Event Handlers
-        private void NodeCreationRequestEventHandler(NodeCreationContext context)
+        protected override void NodeCreationRequestEventHandler(NodeCreationContext context)
         {
             CreateNodeWindow.ShowForCreate(this, context.screenMousePosition);
         }

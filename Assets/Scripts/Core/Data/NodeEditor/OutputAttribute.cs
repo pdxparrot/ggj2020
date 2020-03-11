@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace pdxpartyparrot.Core.Data.Scripting.Nodes
+namespace pdxpartyparrot.Core.Data.NodeEditor
 {
     [AttributeUsage(AttributeTargets.Field)]
-    public sealed class OutputAttribute : Attribute
+    public class OutputAttribute : Attribute
     {
 
         public string Name { get; private set; }

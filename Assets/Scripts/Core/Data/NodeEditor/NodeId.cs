@@ -4,19 +4,19 @@ using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
-namespace pdxpartyparrot.Core.Scripting.Nodes
+namespace pdxpartyparrot.Core.Data.NodeEditor
 {
     [Serializable]
-    public struct ScriptNodeId
+    public struct NodeId
     {
-        public static ScriptNodeId Create()
+        public static NodeId Create()
         {
-            ScriptNodeId id = new ScriptNodeId();
+            NodeId id = new NodeId();
             id.GenerateId();
             return id;
         }
 
-        public static implicit operator int(ScriptNodeId id)
+        public static implicit operator int(NodeId id)
         {
             return id._id;
         }
