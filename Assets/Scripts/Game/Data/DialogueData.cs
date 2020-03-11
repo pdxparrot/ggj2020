@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using pdxpartyparrot.Game.Cinematics;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
@@ -11,9 +11,12 @@ namespace pdxpartyparrot.Game.Data
     [Serializable]
     public sealed class DialogueData : ScriptableObject
     {
-        [SerializeField]
-        private Dialogue[] _dialoguePrefabs;
+#if false
+        [SerializeReference]
+        [ReadOnly]
+        private /*readonly*/ DialogueNodeData[] _nodes = { new StartNodeData() };
 
-        public IReadOnlyCollection<Dialogue> DialoguePrefabs => _dialoguePrefabs;
+        public IReadOnlyCollection<DialogueNodeData> Nodes => _nodes;
+#endif
     }
 }

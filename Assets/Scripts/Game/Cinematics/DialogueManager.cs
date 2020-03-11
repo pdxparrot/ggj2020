@@ -17,12 +17,12 @@ namespace pdxpartyparrot.Game.Cinematics
 #region Unity Lifecycle
         private void Awake()
         {
-            foreach(Dialogue dialoguePrefab in _data.DialoguePrefabs) {
+            /*foreach(Dialogue dialoguePrefab in _data.DialoguePrefabs) {
                 if(_dialoguePrefabs.ContainsKey(dialoguePrefab.Id)) {
                     Debug.LogWarning($"Overwriting dialogue {dialoguePrefab.Id}");
                 }
                 _dialoguePrefabs[dialoguePrefab.Id] = dialoguePrefab;
-            }
+            }*/
         }
 #endregion
     }
